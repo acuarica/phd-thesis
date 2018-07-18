@@ -2928,8 +2928,7 @@ but we check a global boolean flag (or a method in a configuration object) rathe
 <<sec:relatedwork>>
 
 Understanding how language features and \api{}s are being used is a broad topic.
-There is plenty of research in computer science literature about empirical studies of programs;
-which involves several directions directly or indirectly related.
+There is plenty of research in computer science literature about empirical studies of programs; which involves several directions directly or indirectly related.
 Along the last decades, researchers always has been interested in understanding what kind of programs programmers write.
 The motivation behind these studies is quite broad and --- together with the evolution of computer science itself --- has shifted to the needs of researchers.
  
@@ -3150,7 +3149,7 @@ CLOSED: [2018-01-19 Fri 13:58]
 :END:
 
 bibliographystyle:ACM-Reference-Format
-bibliography:biblio.bib
+bibliography:main.bib
 
 * DONE Local Variables                                               :ignore:
 CLOSED: [2018-01-19 Fri 13:58]
