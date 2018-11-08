@@ -1,13 +1,40 @@
 \documentclass[]{usiinfthesis}
 \usepackage{lipsum}
 \usepackage[draft]{fixme}
-\usepackage{tikz}
-\usetikzlibrary{automata}
 %\usepackage{setspace}
 %\setstretch{1.05}
 
 
+
+
+
+
+\usepackage[svgnames,table]{xcolor}
+\usepackage{tikz}
+\usepackage{cleveref}
+\usepackage{mdframed}
 \usepackage{listings}
+\usepackage{inconsolata}
+\usepackage{paralist}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{pifont}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{wrapfig}
+
+
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\usetikzlibrary{automata}
+\usetikzlibrary{shapes,arrows}
+
+\input{prelude}
+\input{stats.def}
+
+
 
 %change 'sl' to 'bf' for bold, or 'normalfont' for no special
 %formatting
@@ -49,11 +76,7 @@ morecomment=[l]{//s},
 
 \frontmatter %generates the frontmatter, this is FIXED
 
-\begin{abstract}
-This is a very abstract abstract. 
-
-\lipsum
-\end{abstract}
+\input{abstract}
 
 \begin{abstract}[Zusammenfassung]
 optional, use only if your external advisor requires it in his/er
@@ -158,9 +181,16 @@ end
 As you can easily see from the above listing \citet{bbggs:iet07}
 define something weird based on the BPEL specification
 \citep{bpelspec}.
-\nocite{*}
 
-\input{chapters/cha-othercontributions}
+% shows all citations. Nope.
+% \nocite{*}
+
+\input{cha-introduction}
+\input{cha-literature-review}
+\input{cha-unsafe}
+\input{cha-casts}
+\input{cha-conclusions}
+\input{cha-othercontributions}
 
 \appendix %optional, use only if you have an appendix
 
@@ -175,7 +205,7 @@ define something weird based on the BPEL specification
 %\bibliographystyle{alpha}
 %\bibliographystyle{dcu}
 \bibliographystyle{plainnat}
-\bibliography{main}
+\bibliography{pubs}
 
 \cleardoublepage
 \theindex %optional, use only if you have an index, must use

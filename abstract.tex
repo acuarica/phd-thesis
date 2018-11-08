@@ -1,0 +1,62 @@
+
+% DONE: Reverse the argument, we want to help, and this is how.
+\begin{abstract}
+The main goal of a static type system is to prevent certain kind of errors from happening at run-time.
+A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
+Yet
+% DONE: "they" means all type systems, need to be more precise
+% they
+mainstream programming languages are endowed with type systems that
+provide the means to circumvent their constraints through the \emph{unsafe intrinsics} and \emph{casting} mechanisms.
+
+We want to understand how and when developers circumvent these constraints.
+This knowledge can be:
+\begin{inparaenum}[a)]
+% DONE: Make a) a noun, "a ..."
+% \item useful to make informed decisions for current and
+% future language designers,
+\item a recommendation for current and future language designers
+to make informed decisions
+\item a reference for tool builders, \eg{},
+by providing more precise or new refactoring analyses,
+\item a guide for researchers to test new language features,
+or to carry out controlled programming experiments, and
+\item a guide for developers for better practices.
+\end{inparaenum}
+
+We plan to empirically study how these two mechanisms
+--- unsafe intrinsics and casting ---
+are used by \java{} developers to circumvent the static type system.
+% Our study focus on how these features are used in \lang{Java}.
+% given its wide usage and relevance for both research and industry.
+We have devised (%
+% for the \java{}'s Unsafe \api{}
+for a subset of unsafe intrinsics%
+) and
+% DONE: Make continuous
+we are devising (for casting)
+% DONE: Explain what "usage patterns" are
+usage patterns,
+recurrent programming idioms to solve a specific issue.
+We believe that having usage patterns can help us to better categorize use cases and
+thus understand how those features are used.
+
+% These patterns can provide an insight on how the language is being used by developers in real-world applications.
+\end{abstract}
+
+% item useful to make informed decisions for current \& future language designers, not only \java{},
+
+% Programming languages offer a wide range of features that aim to improve programmers productivity.
+% However, to better drive the future evolution of any programming language,
+% we believe it is AVOID:paramount to have a thorough understanding of how these features are actually being used in real codebases.
+
+% Understanding how developers make use of language features can be helpful to a AVOID:broad audience besides language designers.
+% It can aid tool builders to make more realistic assumptions;
+% researchers to improve the state-of-the-art;
+% and developers to implement more efficient and effective solutions by providing them best practices.
+
+% In this proposal, we target two specific features, namely, casting and the unsafe API.
+% \java{} features, namely, \emph{casting}, \emph{reflection}, \emph{exception handling} and the \emph{unsafe} \api{}.
+% We give the rationale behind our decision on why we chose these features.
+% We plan to devise language and API usage patterns at large-scale to properly assess this broad audience.
+% We hope that having a better understanding on how these features are used, we can make informed decisions for these driving forces.

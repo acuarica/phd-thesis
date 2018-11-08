@@ -1,0 +1,179 @@
+
+\chapter{Introduction}
+
+In programming language design, the main goal of a \emph{static} type system is to prevent certain kind of errors from happening at run-time.
+A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
+As~\cite{pierceTypesProgrammingLanguages2002} states: ``A type system can be regarded as calculating a kind of \emph{static} approximation to the run-time behaviors of the terms in a program.''
+These constraints are enforced by the \emph{type-checker} either when compiling or linking the program.
+Thus, any program not satisfying the constraints stated within a type system is simply rejected by the type-checker.
+
+Nevertheless, often the static approximation provided by a type system is not precise enough.
+Being static, the analysis done by the type-checker needs to be conservative:
+It is better to reject programs that are valid,
+but whose validity cannot be ensured by the type-checker,
+rather than accept some invalid programs.
+However, there are situations when the developer has more information
+about the program that is too complex to explain in terms of typing constraints.
+To that end, programming languages often provide \emph{mechanisms} that 
+make the typing constraints less strict
+% the constraints of a type system can be relaxed
+to permit more programs to be valid,
+at the expense of causing more errors at run-time.
+% Within a type system,
+These mechanisms are essentially two:
+\emph{Unsafe Intrinsics} and \emph{Casting}.
+% DONE: Reflection?
+% DONE: FFI comes later.
+
+\textbf{Unsafe Intrinsics.}
+Unsafe intrinsics is the ability to perform certain operations \emph{without} being checked by the compiler.
+They are \emph{unsafe} because any misuse made by the programmer can compromise the entire system, \eg{},
+corrupting data structures without notice, or
+crashing the run-time system.
+Unsafe intrinsics can be seen in safe languages, \eg{},
+\lang{Java},
+\lang{C\#},
+\lang{Rust}, or
+\lang{Haskell}.
+Foreign Function Interface (\emph{FFI}), \ie{}, calling native code from within a safe environment is unsafe.
+It is so because the run-time system cannot guarantee anything about the native code.
+In addition to FFI, some safe languages offer so-called \emph{unsafe} blocks, \ie{}, making unsafe operations within the language itself, \eg{},
+\lang{C\#}\footnote{\url{https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/unsafe-code}}
+and
+\lang{Rust}\footnote{\url{https://doc.rust-lang.org/book/second-edition/ch19-01-unsafe-rust.html}}
+.
+Other languages provide an API to perform unsafe operations, \eg{},
+\lang{Haskell}\footnote{\url{http://hackage.haskell.org/package/base-4.11.1.0/docs/System-IO-Unsafe.html}}
+and
+\lang{Java}.
+But in the case of \lang{Java}, the API to make unsafe operations,
+\code{sun.misc.Unsafe},
+is unsupported\footnote{\url{http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html}}
+and undocumented.
+It was originally intended for internal use within the JDK, but as we shall see later on, it is used outside the JDK as well.
+
+\textbf{Casting.}
+Programming languages with subtyping such as \java{} or \cpp{} provide a mechanism to \emph{view} an expression as a different type as it was defined.
+This mechanism is often called \emph{casting} and takes the form \code{(T)t}.
+Casting can be in two directions: \emph{upcast} and \emph{downcast}.
+An upcast conversion happens when converting from a reference type $S$ to a reference type $T$, provided that $T$ is a \emph{supertype} of $S$.
+An upcast does not require any explicit casting operation nor compiler check.
+However, as we shall see later on, there are situations where an upcast requires an explicit casting operation.
+On the other hand, a downcast happens when converting from a reference type $S$ to a reference type $T$, provided that $T$ is a \emph{subtype} of $S$.
+Unlike upcasts, downcasts require a run-time check to verify that the conversion is indeed valid.
+This implies that downcasts provide the means to bypass the static type system.
+By avoiding the type system, downcasts can pose potential threats, because it is like the developer saying to the compiler: \emph{``Trust me here, I know what I'm doing''}.
+Being a escape-hatch to the type system,
+a cast is often seen as a design flaw or code smell~\citep{tufanoWhenWhyYour2015} in an object-oriented system.
+
+
+\section{Research Question}
+
+If static type systems aim to prevent certain kind of errors from happening at run-time,
+yet they provide the means to circumvent their constraints,
+why exactly does one need to do so?
+Are these mechanisms actually used in real-world code?
+If yes, then how so?
+This triggers our \textbf{main research question}:
+
+\rquestion{For what purpose do developers circumvent static type systems?}
+
+We have confidence that this knowledge can be:
+\begin{inparaenum}[a)]
+\item a reference for current and future language designers
+to make informed decisions about programming languages,
+\eg{}, the adoption of \emph{Variable Handles} in \java{} 9~\citep{jep193},
+or the addition of \emph{Smart Casts} in \lang{Kotlin},\footnote{\url{https://kotlinlang.org/docs/reference/typecasts.html\#smart-casts}}
+\item a reference for tool builders, \eg{}, by providing more precise or new refactoring analyses,
+\item a guide for researchers to test new language features, \eg{}, \cite{wintherGuardedTypePromotion2011} or to carry out controlled experiments about programming, \eg{}, \cite{stuchlikStaticVsDynamic2011} and
+\item a guide for developers for best or better practices.
+\end{inparaenum}
+
+\section{Plan}
+
+To answer our question above,
+we plan to empirically study how the two aforementioned mechanisms
+--- unsafe intrinsics and casting ---
+are used by developers.
+Since any kind of language study must be language-specific,
+our plan is to focus on \java{} given its wide usage and relevance for both
+research and industry.\footnote{\url{https://www.tiobe.com/tiobe-index/}}
+Moreover, we focus on the \java{} Unsafe API to study unsafe intrinsics,
+given than the Java Native Interface already has been studied
+in~\cite{tanSafeJavaNative2006,tanEmpiricalSecurityStudy2008,kondohFindingBugsJava2008,sunNativeGuardProtectingAndroid2014,liFindingBugsExceptional2009}.
+% REVIEW: Reflection?
+%
+% Similarly, although casting uses run-time type information like
+% the \java's reflection \api{},
+% the reflection \api{} has been studied in
+% \cite{livshitsImprovingSoftwareSecurity2006,livshitsReflectionAnalysisJava2005,landmanChallengesStaticAnalysis2017}.
+%
+In Chapter~\ref{cha:literature-review} we give a review of the literature in empirical studies of programming languages features.
+Sections~\ref{sec:lr:unsafe} and~\ref{sec:lr:casting} review the \emph{state-of-the-art} of the different aspects related to the two proposed studies.
+
+To better drive our \emph{main research question},
+we propose to answer the following set of sub-questions.
+To answer these research sub-questions,
+we have already devised (for the Unsafe \api{}) and
+we are devising (for casting)
+% DONE: Explain =usage patterns=.
+\emph{usage patterns}.
+Usage patterns are \emph{recurrent programming idioms} used by developers to solve a specific issue.
+We believe that having usage patterns can help us to better categorize use cases and
+thus understand how these mechanisms are used.
+These patterns can provide an insight into how the language is being used by developers in real-world applications.
+Overall these sub-questions will help us to answer our MRQ:
+
+% DONE: Changed "why" question.
+\newcommand{\urqA}{To what extent does the Unsafe API impact common application code?}
+\newcommand{\urqB}{How and when are Unsafe features used?}
+
+% DONE: Make this subsection.
+\textbf{Unsafe API.}
+% \subsection*{Unsafe API}
+
+\begin{enumerate}[label=$URQ\arabic*:$,ref=$URQ\arabic*$,leftmargin=3.4\parindent]
+\item\label{unsafe:rq1} {\bf \urqA}
+We want to understand to what extent
+% DONE: third-party: what do you mean? Removed
+code actually uses Unsafe or depends on it.
+
+\item\label{unsafe:rq2} {\bf \urqB}
+We want to investigate what functionality third-party libraries require from Unsafe.
+This could point out ways in which the \java{} language and/or
+the JVM can be evolved to provide the same functionality,
+but in a safer way.
+\end{enumerate}
+
+These questions have been already answered in our previous published
+study on the Unsafe API in \java{}~\citep{mastrangeloUseYourOwn2015}.
+Chapter~\ref{cha:unsafe} presents a summary of this study.
+
+% DONE: Is casting used in common application code? Yes. Change question.
+% \todo{To what extent is}
+% CRQ2: How and \underline{why} casts are used?
+\newcommand{\crqA}{How frequently is casting used in common application code?}
+\newcommand{\crqB}{How and when casts are used?}
+\newcommand{\crqC}{How recurrent are the patterns for which casts are used?}
+
+% DONE: Make this subsection.
+\textbf{Casting.}
+% \subsection*{Casting}
+
+\begin{enumerate}[label=$CRQ\arabic*:$,ref=$CRQ\arabic*$,leftmargin=3.4\parindent]
+\item\label{casts:rq1} {\bf \crqA}
+We want to understand to what extent application code actually uses casting operations.
+
+\item\label{casts:rq2} {\bf \crqB}
+If casts are actually used in application code,
+we want to know how and when developers need to escape the type system.
+
+\item\label{casts:rq3} {\bf \crqC}
+In addition to understand how and when casts are used,
+we want to measure how often developers need to resort to certain idioms to solve a particular problem.
+\end{enumerate}
+
+Finally, in Chapter \ref{cha:casts} we present our plan for the \emph{casting} study,
+showing the results we have so far.
+
+% DONE: Why is this not asked for Unsafe? Can you ask the same 3 RQs for each?

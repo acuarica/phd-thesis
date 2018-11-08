@@ -1,0 +1,8 @@
+\newcommand{\nproject}{24}
+\newcommand{\nloc}{1,439,913}
+\newcommand{\nexpr}{4,324,652}
+\newcommand{\ncast}{8,627}
+\newcommand{\nmethod}{121,665}
+\newcommand{\nmethodwithcast}{6,091}
+\newcommand{\neqm}{669}
+\newcommand{\castratio}{3.92\%}

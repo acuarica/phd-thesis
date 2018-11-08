@@ -1,0 +1,39 @@
+
+% alloc probyte lockfree fence park finalfield monitor serialization marshalling throw size largearrays page class
+
+\newcommand{\tick}{\cmark}
+\newcommand{\exis}{$\bullet$}
+
+\newcommand{\langalt}{\textbf{Lang}}
+\newcommand{\opt}{\textbf{VM}}
+\newcommand{\lib}{\textbf{Lib}}
+\newcommand{\refl}{\textbf{Ref}}
+
+% \newcommand{\hdr}{\rowcolor{header-color}}
+% \newcommand{\alt}{\rowcolor{alt-row-color}}
+% \newcommand{\row}{}
+%\& \verb+\+textbf\{Unsafe members\}
+\begin{table}[t!]
+\centering
+\caption{Patterns and their alternatives. A bullet (\exis) indicates that an
+alternative exists in the \java{} language or API. A check mark (\tick) indicates that there is a proposed alternative for \java{}.}
+\label{table:alts}
+\begin{tabularx}{\linewidth}{rp{9.25cm}cccccccX}
+\hdr \# & \textbf{Pattern}		& \langalt & \opt 	& \lib	& \refl	\\
+\alt  1 & \namealloc    		& \tick	& 	& 	&	\\
+\row  2 & \nameprobyte 			& 	& \tick	& 	&	\\
+\alt  3 & \namelockfree			&	& 	& \exis	&	\\
+\row  4 & \namefence 			& 	& 	& \tick &	\\
+\alt  5 & \namepark			& 	& 	& \exis &	\\
+\row  6 & \namefinalfield		& 	& 	& 	& \exis	\\
+\alt  7 & \namemonitor			& \tick	& 	& 	&	\\
+\row  8 & \nameserialization		& \tick & 	& \exis & \exis	\\
+\alt  9 & \namemarshalling     		& \tick & 	& \exis	&	\\
+\row 10 & \namethrow 			& \tick	& 	&   	&	\\
+\alt 11 & \namesize 			& \tick	& 	& \tick &	\\
+\row 12 & \namelargearrays 		& \tick & 	& \tick &	\\
+\alt 13 & \namepage			& \tick	& 	& \tick	&	\\
+\row 14 & \nameclass 			& \tick & 	& \tick	&	\\
+\hline
+\end{tabularx}
+\end{table}

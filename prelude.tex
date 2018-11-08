@@ -1,0 +1,126 @@
+
+\newcommand{\hlbox}[3]{
+\begin{mdframed}[backgroundcolor=#2!00]
+\rightline{ \footnotesize \emph{MRQ} }
+% \ 
+
+\centering
+#1
+\end{mdframed}
+}
+
+\newcommand{\tbd}[1]{{\color{violet} #1\footnotesize ?}}
+
+% DONE: Removed visible TODOs
+% \newcommand{\todo}[1]{{\color{red} #1\ \footnotesize !}}
+
+\newcommand{\rquestion}[1]{\hlbox{#1}{yellow}{Research Question}}
+
+\newcommand{\eg}{\textit{e.g.}}
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\etc}{\textit{etc.}}
+\newcommand{\perse}{\textit{per se}}
+\newcommand{\circa}{\textit{circa}}
+
+\newcommand{\phd}{Ph.D.}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\lang}[1]{\textsc{#1}}
+\newcommand{\host}[1]{\textsl{#1}}
+
+\newcommand{\api}{API}
+
+\newcommand{\java}{\lang{Java}}
+\newcommand{\cs}{\lang{C\#}}
+\newcommand{\cc}{\lang{C}}
+\newcommand{\cpp}{\lang{C++}}
+\newcommand{\smalltalk}{\lang{Smalltalk}}
+\newcommand{\javascript}{\lang{JavaScript}}
+\newcommand{\haskell}{\lang{Haskell}}
+\newcommand{\ql}{\lang{QL}}
+\newcommand{\fortran}{\lang{Fortran}}
+\newcommand{\cobol}{\lang{Cobol}}
+\newcommand{\pascal}{\lang{Pascal}}
+\newcommand{\apl}{\lang{APL}}
+\newcommand{\basic}{\lang{Basic}}
+\newcommand{\swift}{\lang{Swift}}
+\newcommand{\php}{\lang{PHP}}
+
+\newcommand{\jvm}{JVM}
+\newcommand{\jvmti}{JVMTI}
+\newcommand{\jni}{JNI}
+\newcommand{\lilith}{Lilith}
+
+\newcommand{\instanceof}{\code{instanceof}}
+\newcommand{\throw}{\code{throw}}
+\newcommand{\smu}{\code{sun.misc.Unsafe}}
+\newcommand{\cce}{\code{ClassCastException}}
+\newcommand{\npe}{\code{NullPointerException}}
+\newcommand{\setjmp}{\code{setjmp}}
+\newcommand{\longjmp}{\code{longjmp}}
+
+\newcommand{\asm}{ASM}
+\newcommand{\jnif}{JNIF}
+
+\newcommand{\eval}{\code{eval}}
+
+\newcommand{\github}{\host{GitHub}}
+\newcommand{\gitlab}{\host{GitLab}}
+\newcommand{\bitbucket}{\host{Bitbucket}}
+\newcommand{\sourceforge}{\host{SourceForge}}
+\newcommand{\maven}{\host{Maven}}
+\newcommand{\mavencentral}{\host{Maven Central}}
+\newcommand{\npm}{\host{npm}}
+\newcommand{\boa}{\host{Boa}}
+\newcommand{\candoia}{\host{Candoia}}
+\newcommand{\lgtm}{\host{lgtm}}
+\newcommand{\rascal}{\host{Rascal}}
+\newcommand{\sourcegraph}{\host{sourcegraph}}
+
+\newcommand{\unsafe}{\emph{Unsafe}}
+
+\crefname{section}{\S}{faafd}
+
+\definecolor{lightblue}{rgb}{0,0.4,1}
+\definecolor{gray}{rgb}{0.2,0.2,0.2}
+
+\definecolor{diffstart}{named}{Grey}
+\definecolor{diffincl}{named}{Green}
+\definecolor{diffrem}{named}{OrangeRed}
+
+\lstdefinestyle{java}{
+	language=java,
+	tabsize=4,
+	basicstyle=\scriptsize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	numbersep=4pt,
+	xleftmargin=0.2cm,
+	mathescape=true,
+	keywordstyle=\color{blue}\textbf,
+	stringstyle=\textcolor{magenta},
+	captionpos=b,
+	emph={Object, String, Integer, System, ClassCastException, Foo},
+	emphstyle={\color{lightblue}},
+    morecomment=[f][\color{diffstart}]{@@},
+    morecomment=[f][\color{diffincl}]{+\ },
+    morecomment=[f][\color{diffrem}]{-\ },
+}
+
+\lstdefinestyle{ql}{
+	language=sql,
+	tabsize=2,
+	basicstyle=\scriptsize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	numbersep=4pt,
+	xleftmargin=0.2cm,
+	mathescape=true,
+	keywordstyle=\color{blue}\textbf,
+	stringstyle=\color{magenta},
+	captionpos=b,
+	showstringspaces=false,
+	keywords=[2]{import, predicate, java, instanceof},
+	emph={CastExpr, PrimitiveType},
+	emphstyle={\color{lightblue}}
+}

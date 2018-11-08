@@ -1,0 +1,259 @@
+
+
+\definecolor{header-color}{HTML}{D1D1D1}
+\definecolor{alt-row-color}{HTML}{ECECEC}
+
+\newcommand{\hdr}{\rowcolor{header-color}}
+\newcommand{\alt}{\rowcolor{alt-row-color}}
+\newcommand{\row}{}
+
+\newcommand{\javaclass}[1]{\emph{#1}}
+\newcommand{\member}[1]{\emph{#1}}
+\newcommand{\smugroup}[1]{\textsl{#1}}
+\newcommand{\stackoverflow}{Stack Overflow}
+
+\newcommand\namealloc{Allocate an Object without Invoking a Constructor}
+\newcommand\nameprobyte{Process Byte Arrays in Block}
+\newcommand\namelockfree{Atomic Operations}
+\newcommand\namefence{Strongly Consistent Shared Variables}
+\newcommand\namepark{Park/Unpark Threads}
+\newcommand\namefinalfield{Update Final Fields}
+\newcommand\namemonitor{Non-Lexically-Scoped Monitors}
+\newcommand\nameserialization{Serialization/Deserialization}
+\newcommand\namemarshalling{Foreign Data Access and Object Marshaling}
+\newcommand\namethrow{Throw Checked Exceptions without Being Declared}
+\newcommand\namesize{Get the Size of an Object or an Array}
+\newcommand\namelargearrays{Large Arrays and Off-Heap Data Structures}
+\newcommand\namepage{Get Memory Page Size}
+\newcommand\nameclass{Load Class without Security Checks}
+
+\chapter{The \java{} Unsafe \api{} in the Wild}
+\label{cha:unsafe}
+
+We have analyzed $74 GB$ of compiled \java{} code,
+spread over $86,479$ \java{} archives,
+to determine how \java{}'s unsafe capabilities are used in real-world libraries and applications.
+We found that $25\%$ of \java{} bytecode archives depend on unsafe third-party \java{} code,
+and thus \java{}'s safety guarantees cannot be trusted.
+We identify $14$ different usage patterns of \java{}'s unsafe capabilities,
+and we provide supporting evidence for why real-world code needs these capabilities.
+Our long-term goal is to provide a foundation for the design of new language features to regain safety in \java{}.
+
+We have already published our work on how developers use the \code{sun.misc.Unsafe} API.
+For a detailed description of the methodology used to find patterns and the patterns we found please refer to~\cite{mastrangeloUseYourOwn2015}.
+% In this proposal 
+Here we answer \ref{unsafe:rq1}
+in \S\ref{sec:unsafe:overview},
+followed by how the patterns we found could be implemented in a safer way \S\ref{sec:unsafe:discussion}
+in response to \ref{unsafe:rq2}.
+
+
+% \section{Overview of Our Study}
+\section{Is Unsafe Used?}
+\label{sec:unsafe:overview}
+
+To answer~\ref{unsafe:rq1} (\emph{\urqA})
+we need to determine whether and how Unsafe is actually used in real-world third-party \java{} libraries,
+and to what degree real-world applications directly and indirectly depend on such unsafe libraries.
+To achieve our goal, several elements are needed.
+
+\textbf{Code Repository.}
+As a code base representative of the ``real world'',
+we have chosen the Maven Central software repository.
+% The rationale behind this decision is that a large number of well-known \java{} projects deploy to Maven Central using Apache Maven.
+% Besides code written in \java{}, projects written in \lang{Scala} are also deployed to Maven Central using the Scala Build Tool (sbt).
+% Moreover, Maven Central is the largest \java{} repository\footnote{\url{http://www.modulecounts.com/}}
+% , and it contains projects from the most popular source code management repositories, like \github{} and \sourceforge{}.
+
+\textbf{Artifacts.}
+In Maven, an artifact is the output of the build procedure of a project.
+% An artifact can be any type of file, ranging from a \emph{.pdf} to a \emph{.zip} file.
+% However,
+Artifacts are usually \emph{.jar} files,
+which archive compiled \java{} bytecode stored in \emph{.class} files.
+
+\textbf{Bytecode Analysis.}
+% We examine these kinds of artifacts to analyze how they use \code{sun.misc.\-Unsafe}.
+We use a bytecode analysis library to search for method call sites and field accesses of the \code{sun.misc.Unsafe} class.
+
+\textbf{Dependency Analysis.}
+We define the impact of an artifact as how many artifacts depend on it,
+either directly or indirectly.
+This helps us to define the impact of artifacts that use \code{sun.misc.Unsafe},
+and thus the impact \code{sun.misc.Unsafe} has on real-world code overall.
+
+% \textbf{Usage Pattern Detection.}
+% After all call sites and field accesses are found,
+% we analyze this information to discover usage patterns.
+% It is common that an artifact exhibits more than one pattern.
+% Our list of patterns is not exhaustive.
+% We have manually investigated the source code of the 100 highest-impact artifacts using \code{sun.misc.Unsafe} to understand why and how they are using it.
+
+
+
+
+Our analysis found $48,490$ uses of \code{sun.misc.Unsafe} --- $48,139$ call sites and $351$ field accesses --- distributed over $817$ different artifacts.
+This initial result shows that Unsafe is indeed used in third-party code.
+
+We use the dependency information to determine the impact of the artifacts that use \code{sun.misc.Unsafe}.
+We rank all artifacts according to their impact (the number of artifacts that directly or indirectly depend on them).
+High-impact artifacts are important;
+a safety violation in them can affect any artifact that directly or indirectly depends on them.
+We find that while overall about $1\%$ of artifacts directly use Unsafe,
+for the top-ranked $1000$ artifacts, $3\%$ directly use Unsafe.
+Thus, Unsafe usage is particularly prevalent in high-impact artifacts, artifacts that can affect many other artifacts.
+
+Moreover, we found that $21,297$ artifacts ($47\%$ of the $47,127$ artifacts with dependency information, or $25\%$ of the $86,479$ artifacts we downloaded) directly or indirectly depend on \code{sun.misc.Unsafe}.
+Excluding language artifacts, numbers do not change much:
+Instead of $21,297$ artifacts, we found $19,173$ artifacts,
+$41\%$ of the artifacts with dependency information, or $22\%$ of artifacts downloaded.
+Thus, \code{sun.misc.Unsafe} usage in third-party code indeed impacts a large fraction of projects.
+
+
+\section{What is the Unsafe API Used for?}
+\label{sec:unsafe:discussion}
+
+In response to \ref{unsafe:rq2} (\emph{\urqB}),
+many of the patterns we found indicate that \unsafe{} is used to achieve 
+better performance or to implement functionality not otherwise available in the \java{} language or standard library.
+
+However, many of the patterns described can be implemented using APIs
+already provided in the \java{} standard library. 
+In addition, there are several existing proposals to improve the situation
+with \unsafe{} already under development within the \java{} community.
+Oracle software engineer Paul~\cite{psandoz14} performed a survey on
+the OpenJDK mailing list to
+study how Unsafe is
+used\footnote{\url{http://www.infoq.com/news/2014/02/Unsafe-Survey}} and
+describes several of these proposals.
+
+\input{table-alts}
+
+A summary of the patterns with existing and proposed alternatives to \unsafe{} is shown in Table~\ref{table:alts}.
+The table consists of the following columns:
+The \textbf{\em Pattern} column indicates the name of the pattern.
+The next three columns indicate whether the pattern could be implemented either as a
+language feature (\textbf{\em Lang}),
+virtual machine extension (\textbf{\em VM}),
+or
+library extension (\textbf{\em Lib}).
+The \textbf{\em Ref} column indicates that the pattern can be
+implemented using reflection.
+A bullet (\exis) indicates that an
+alternative exists in the \java{} language or API. A check mark (\tick)
+indicates that there is a proposed alternative for \java{}.
+
+Many \java{} APIs already exist that provide functionality similar to \unsafe{}.
+Indeed, these APIs are often implemented using \unsafe{} under the hood, but 
+they are designed to be used safely.
+They maintain invariants or perform runtime checks
+to ensure that their use of \unsafe{} is safe.
+Because of this overhead, using \unsafe{}
+directly should in principle provide better performance at the cost of safety.
+% We are unaware of any studies measuring this overhead, however.
+
+For example,
+the \javaclass{java.\-util.\-concurrent} package provides classes 
+for safely performing atomic operations on fields and array elements, as well
+as several synchronizer classes. These
+classes
+can be used instead of \unsafe{} to implement
+atomic operations or strongly consistent
+shared variables.
+The standard library class
+\javaclass{java.\-util.\-concurrent.\-locks.\-LockSupport} provides
+\member{park} and \member{unpark}
+methods to be used for implementing locks. 
+These methods are just thin wrappers
+around the \smu{} methods of the same name and 
+could be used to implement the park pattern.
+\java{} already supports serialization of objects using the
+\javaclass{java.lang.Serializable} and
+\javaclass{java.io.Object\-Output\-Stream} API.
+The now-deleted JEP 187 Serialization 2.0 proposal\footnote{\url{http://mail.openjdk.java.net/pipermail/core-libs-dev/2014-January/024589.html}}
+\footnote{\url{http://web.archive.org/web/20140702193924/http://openjdk.java.net/jeps/187}}
+addresses some of the issues with \java{} serialization.
+
+Because volatile variable accesses compile to code that issues memory fences, 
+strongly consistent variables can be implemented by accessing volatile variables.
+However, the fences generated for volatile variables may be stronger (and
+therefore less performant) than are needed for a given application.
+Indeed, the \unsafe{} \smugroup{Put Ordered}
+and \smugroup{Fence} methods were likely introduced
+to improve performance versus volatile variables.
+% There is currently a proposal for enhanced volatile support in the JVM (JEP 193 Enhanced Volatiles~\cite{jep193}).
+The accepted proposal JEP 193 (Enhanced Volatiles~\citep{jep193}) introduces \emph{variable handles}, which allow
+atomic operations on fields and array elements.
+
+Many of the patterns can be implemented using the reflection API,
+albeit with lower performance than with \unsafe{}~\citep{korlandNoninvasiveConcurrencyJava2010}.
+For example,
+reflection can be used for accessing object fields to implement serialization.
+Similarly, reflection can be used
+in combination with
+\javaclass{java.nio.Byte\-Buffer} and related classes for
+data marshaling.
+The reflection API can also be used to write to final fields.
+However, this feature of the reflection API 
+makes sense only during deserialization or during object construction and may have
+unpredictable behavior in other cases.
+
+% \footnote{\url{http://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Field.html\#set(java.lang.Object,\%20java.lang.Object)}}
+
+Writing a final field through reflection may not ensure
+the write becomes visible to other threads that might have cached the final
+field, and it may not work correctly at all if the VM performs compiler
+optimizations such as constant propagation on final fields.
+
+Many patterns use \unsafe{} to use memory more efficiently.
+Using \code{struct}s or packed objects can reduce memory overhead by eliminating object headers and other per-object overhead.
+\java{} has no native support for \code{struct}s,
+but they can be implemented with byte buffers or with \jni{}.\footnote{\url{http://www.oracle.com/technetwork/java/jvmls2013sciam-2013525.pdf}}
+
+The Arrays 2.0 proposal~\citep{arrays20} and
+the value types proposal~\citep{valuetypes} address the large arrays pattern.
+Project Sumatra~\citep{layouts} proposes features for accessing GPUs
+and other accelerators,
+one of the use cases for foreign data access.
+Related proposals include JEP 191~\citep{jep191},
+which proposes a new foreign function interface for \java{},
+and Project Panama~\citep{panama}, which supports native data access from the \jvm{}.
+
+A \member{sizeof} feature could be introduced into the language or into the standard library.
+A use case for this feature includes cache management implementations.
+A higher-level alternative might be to provide an \api{} for memory usage tracking in the \jvm{}.
+A page size method could be added to the standard library,
+perhaps in the \javaclass{java.nio} package,
+which already includes \javaclass{MappedByteBuffer} to access memory-mapped storage.
+
+Other patterns may require \java{} language changes.
+For instance, 
+the language could be changed to not require methods to declare the exceptions they throw,
+obviating the need for \unsafe{} in this case.
+Indeed, there is a long-running debate\footnote{\url{http://www.ibm.com/developerworks/library/j-jtp05254/}} about the software-engineering benefits of checked exceptions.
+C\#, for instance, does not require that exceptions be declared in method signatures at all.
+One alternative not requiring a language change
+% , proposed in a \stackoverflow{} discussion,
+is to use \java{} generics
+instead.
+% \footnote{\url{http://stackoverflow.com/questions/11410042}}
+Because of type erasure, a checked exception can be coerced unsafely into an unchecked exception and thrown.
+
+Changing the language to support allocation without constructors or non-lexically-scoped monitors is feasible.
+However, implementation of these
+features must be done carefully to ensure object invariants
+are properly maintained.
+In particular, supporting arbitrary unconstructed
+objects can require type system changes to prevent usage of the object 
+before initialization~\citep{qiMaskedTypesSound2009}.
+Limiting the scope of this feature to support deserialization only may be a good compromise and
+has been suggested in the JEP 187 Serialization 2.0 proposal.
+
+Since \unsafe{} is often used simply for performance reasons,
+virtual machine optimizations can reduce the need for \unsafe{}.
+For example, the \jvm{}'s runtime compiler can be extended with optimizations for vectorizing byte array accesses,
+eliminating the motivation to use \unsafe{} to process byte arrays.
+Many patterns use \unsafe{} to use memory more efficiently.
+This could be ameliorated with lower GC overhead.
+There are proposals for this, for instance JEP 189 Shenandoah:
+Low Pause GC~\citep{jep189}.
