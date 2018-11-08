@@ -260,9 +260,12 @@ date of the approved research program.\\[18mm]
       \bf \@advisor & \bf \@coadvisor\\\addlinespace
       & \\\addlinespace
       & \\\addlinespace
-      \multicolumn{2}{c}{\rule{0.45\textwidth}{0.2mm}}\\\addlinespace
-      \multicolumn{2}{c}{PhD Program Director}\\\addlinespace
-      \multicolumn{2}{c}{\bf \@progdir}\\\addlinespace
+     \rule{0.45\textwidth}{0.2mm} & \rule{0.45\textwidth}{0.2mm}\\
+      Ph.D. Program Director & Ph.D. Program Director\\\addlinespace
+      \bf Prof. Walter Binder & \bf Prof. Olaf Schenk\\\addlinespace
+      % \multicolumn{2}{c}{\rule{0.45\textwidth}{0.2mm}}\\\addlinespace
+      % \multicolumn{2}{c}{PhD Program Director}\\\addlinespace
+      % \multicolumn{2}{c}{\bf \@progdir}\\\addlinespace
       \end{tabular}
      \else
       Research Advisor & PhD Program Director\\\addlinespace

@@ -349,3 +349,65 @@ but not how recurrent it is.
 % \label{table:tags}
 % \input{table-tags.inc}
 % \end{table*}
+
+
+% * Look for selecting overloaded methods w/downcast.
+% * MethodHandle.
+
+\newcommand{\patternsection}[1]{\subsubsection*{\textbf{#1}}}
+% \newcommand{\patternsection}[1]{\noindent\textbf{#1.}}
+
+\newenvironment{pattern}[1]{
+	\newcommand{\desc}{\patternsection{Description}}
+	\newcommand{\instances}{\patternsection{Instances}}
+	\newcommand{\detection}{\patternsection{Detection}}
+	\newcommand{\discussion}{\patternsection{Discussion}}
+	\subsection{\cpattern{#1}}
+
+	\desc
+}{}
+
+\section{Casts Usage Patterns}
+
+\label{sec:patterns}
+
+In this section we present the cast usage patterns we found.
+Figure~\ref{fig:patterns} presents an overview of our patterns and their occurrences sort by most frequent.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{java-cast-queries/analysis/table-patterns.pdf}
+\caption{Cast Patterns Occurrences} \label{fig:patterns}
+\end{figure}
+
+\cpattern{Any} denotes all cast instances that were not categorized.
+Each pattern is described using the following template:
+
+\begin{itemize}
+\item \textbf{Description.}
+Tells what is this pattern about.
+\item \textbf{Instances.}
+Gives one or more concrete examples found in real
+code.\footnote{Please notice that the snippets presented here were slightly modified for formatting purposes.}
+For each instance presented here,
+we provide the link to the original source code.
+\item \textbf{Detection.}
+Describes briefly how this pattern was detected in terms of the tags
+introduced in the previous section.
+\item \textbf{Discussion.}
+Presents suggestions, flaws, or comments about the pattern.
+\end{itemize}
+
+% \includegraphics[width=\columnwidth,page=2]{upset-patterns.pdf}
+% \includegraphics[width=\columnwidth,page=2]{upset-tags.pdf}
+
+\input{java-cast-queries/ql/PatternMatching}
+\input{java-cast-queries/ql/Equals}
+\input{java-cast-queries/ql/AllNew}
+\input{java-cast-queries/ql/Deserialization}
+\input{java-cast-queries/ql/LookupById}
+\input{java-cast-queries/ql/ObjectAsArray}
+\input{java-cast-queries/ql/ReflectiveAccessibility}
+\input{java-cast-queries/ql/TypeTag}
+
+\section{Limitations}

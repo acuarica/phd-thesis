@@ -18,9 +18,10 @@
 \usepackage{multicol}
 \usepackage{wrapfig}
 
-
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
+
+\newcommand{\USI}{Universit\`a della Svizzera Italiana}
 
 \usetikzlibrary{automata}
 \usetikzlibrary{shapes,arrows}
@@ -40,21 +41,23 @@ sensitive=false,
 morecomment=[l]{//s},
 }
 
-\title{My Dissertation - A very long title\\ which runs over two lines} %compulsory
+\title{When and How \lang{Java} Developers Give Up Static Type Safety} %compulsory
 \subtitle{Subtitle: Reinventing the World} %optional 
-\author{Philo S. Doctor} %compulsory
-\advisor{The Student's Advisor} %compulsory
-%\coadvisor{Co-Advisor} %optional
-\Day{Yesterday} %compulsory
-\Month{September} %compulsory
-\Year{2009} %compulsory, put only the year
+\author{Luis Mastrangelo} %compulsory
+\advisor{Prof. Matthias Hauswirth} %compulsory
+\coadvisor{Prof. Nathaniel Nystrom} %optional
+\Day{First} %compulsory
+\Month{March} %compulsory
+\Year{2019} %compulsory, put only the year
 \place{Lugano} %compulsory
-\programDirector{The PhD program Director \emph{pro tempore}} %compulsory
-
+% Not used: Both Ph.D. Program Directors hard-coded in the class file.
+\programDirector{Prof. Walter Binder \& Prof. Olaf Schenk} %compulsory
 
 \committee{%
-  \committeeMember{Alonzo Church}{University of California, Los Angeles, USA}
-  \committeeMember{Alan M. Turing}{Princeton University, USA}
+  \committeeMember{Prof. Antonio Carzaniga}{\USI, Switzerland}
+  \committeeMember{Prof. Gabriele Bavota}{\USI, Switzerland}
+  \committeeMember{Prof. Jan Vitek}{Northeastern University \& Czech Technical University}
+  \committeeMember{Prof. Hridesh Rajan}{Iowa State University}
   %there can as many members as you like
 } %the committee is compulsory
 
