@@ -193,12 +193,17 @@ We plan to scale up our analysis to the whole \lgtm{} project database.
 \begin{tabular}{lr}
 	Description & Value\\
 	\hline
-	Number of Projects & \nproject{} \\
+	Number of Projects & \nproject \\
 	Number of LOC & \nloc{} \\
-	Number of Methods & \nmethod{} \\
-	Number of Methods \emph{w/}Cast & \nmethodwithcast{} \\
-	Number of Exprs & \nexpr{} \\
-	Number of Casts & \ncast{} \\
+	Number of Methods & \nmethod \\
+	Number of Methods \emph{w/}Cast & \nmethodwithcast \\
+    Number of Expressions & \nexpr \\
+	\hline
+    Number of Cast Expressions & \nCastExpr \\
+    Number of Cast Methods & \nCastMethod \\
+    Number of \code{equals} Methods & \nEqualsMethod \\
+    Number of \code{instanceof} Expressions & \nInstanceOf \\
+    Number of type switch & \nTypeSwitch \\
 \end{tabular}
 \end{center}
 \end{wrapfigure}
@@ -226,10 +231,10 @@ Thus, we have computed the ratio between methods containing
 at least a cast over total number of methods --- with implementation --- in a given project.
 The following chart shows this ratio for all analyzed projects:
 
-\includegraphics[width=\columnwidth,height=3.8cm]{stats-methodwcast.pdf}
+\includegraphics[width=\columnwidth,height=3.8cm]{java-cast-queries/analysis/stats-methodwcastXproject.pdf}
 
 All projects have less than $10\%$ of methods with at least a cast.
-Overall, around a~$\castratio{}$ of methods contain at least one cast operation. 
+Overall, around a~$\castpercentage{}\%$ of methods contain at least one cast operation. 
 This means there is a low density of casts.
 Given the fact that generics were introduced \java{} 5, this can explain this low density.
 
@@ -371,6 +376,13 @@ but not how recurrent it is.
 
 \label{sec:patterns}
 
+Using the methodology described in the above section,
+we have devised $\npattern{}$ casts usage patterns.
+Overall, these patterns cover around 
+$\patpercentage\%$
+with uncovered casts of
+$\anypercentage\%$.
+
 In this section we present the cast usage patterns we found.
 Figure~\ref{fig:patterns} presents an overview of our patterns and their occurrences sort by most frequent.
 
@@ -401,13 +413,18 @@ Presents suggestions, flaws, or comments about the pattern.
 % \includegraphics[width=\columnwidth,page=2]{upset-patterns.pdf}
 % \includegraphics[width=\columnwidth,page=2]{upset-tags.pdf}
 
-\input{java-cast-queries/ql/PatternMatching}
-\input{java-cast-queries/ql/Equals}
 \input{java-cast-queries/ql/AllNew}
 \input{java-cast-queries/ql/Deserialization}
+\input{java-cast-queries/ql/Equals}
+\input{java-cast-queries/ql/Factory}
 \input{java-cast-queries/ql/LookupById}
+\input{java-cast-queries/ql/NewDynamicInstance}
 \input{java-cast-queries/ql/ObjectAsArray}
+\input{java-cast-queries/ql/PatternMatching}
 \input{java-cast-queries/ql/ReflectiveAccessibility}
+\input{java-cast-queries/ql/SelectOverload}
+\input{java-cast-queries/ql/SelectReturnType}
+\input{java-cast-queries/ql/StaticResource}
 \input{java-cast-queries/ql/TypeTag}
 
 \section{Limitations}
