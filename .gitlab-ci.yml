@@ -1,6 +1,5 @@
 pages:
   image: tianon/latex
-  script:
   artifacts:
     paths:
       - public/phd-thesis.pdf
