@@ -1,5 +1,7 @@
 pages:
   image: tianon/latex
+  script:
+    - echo "Nothing"
   artifacts:
     paths:
       - public/phd-thesis.pdf
