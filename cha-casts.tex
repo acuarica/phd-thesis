@@ -467,25 +467,10 @@ Presents suggestions, flaws, or comments about the pattern.
 \input{java-cast-queries/ql/ReflectiveAccessibility}
 \input{java-cast-queries/ql/SelectOverload}
 \input{java-cast-queries/ql/StaticResource}
-
-\begin{pattern}{NotDeclaredInterface}
-Cast a reference $v$ of type --- class or interface --- $T$ to an
-interface type $I$ whether $T$ does not implement $I$.
-The cast succeeds at runtime because all possible runtime types of $v$
-actually implement the interface $I$.
-For instance, in \code{(Comparable)(Number)4}, \code{Number} does not
-implement the \code{Comparable} interface, but class \code{Integer} does.
-
-\instances
-
-\begin{lstlisting}[style=java,caption=From \url{http://bit.ly/2FQOt4v}]
-final Comparable max = (Comparable) properties.getMaxValue();
-\end{lstlisting}
-\end{pattern}
-
-\begin{pattern}{Literal}
-Cast an integer literal to a primitive type of
-\code{byte}, \code{char}, \code{short}
-\end{pattern}
+\input{java-cast-queries/ql/NotDeclaredInterface}
+\input{java-cast-queries/ql/Literal}
+\input{java-cast-queries/ql/RawType}
+\input{java-cast-queries/ql/ExceptionSoftening}
+\input{java-cast-queries/ql/Family}
 
 \section{Limitations}
