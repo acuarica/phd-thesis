@@ -105,3 +105,10 @@ the root cause of failures.
 * Consider using the explicit link existing in GitHub between commits and issues to only analyze bug-fixing commits related to ClassCastException (and automatically exclude commits unrelated to bug-fixing activities).
 
 * Look at the 2019 MSR challenge dataset. It reports discussions on Stack Overflow including their code snippets linked to projects in GitHub. You can see whether a given code snippet in SO has been reused in GitHub projects and this can give you some hints on why developers use the Unsafe API or some type cast patterns.
+
+# Sampling
+
+N = Total number of casts to analyze: 9,030,852
+K = Total number of casts of the least used pattern
+n = Sample size to select
+k = Times we saw the least used cast from the sample: 0 meaning we do not see it in our sample
