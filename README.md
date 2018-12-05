@@ -112,3 +112,5 @@ N = Total number of casts to analyze: 9,030,852
 K = Total number of casts of the least used pattern
 n = Sample size to select
 k = Times we saw the least used cast from the sample: 0 meaning we do not see it in our sample
+
+https://keisan.casio.com/exec/system/1180573201
