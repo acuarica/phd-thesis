@@ -1,4 +1,20 @@
 \begin{pattern}{Literal}
-Cast an integer literal to a primitive type of
+Cast a numeric literal or constant --- defined as \code{static final} ---
+to a primitive type of
 \code{byte}, \code{char}, \code{short}
+
+\instances
+
+The following listing shows an example of the \pname{Literal} pattern.%
+\footnote{https://lgtm.com/projects/g/kaitoy/pcap4j/snapshot/dist-29675155-1524814812150/files/pcap4j-core/src/main/java/org/pcap4j/packet/namednumber/TcpPort.java?sort=name\&dir=ASC\&mode=heatmap\#L2329}
+
+\begin{lstlisting}[style=java,caption=Literal example]
+public static final TcpPort POWERBURST =
+    new TcpPort((short)485, "Air Soft Power Burst");
+\end{lstlisting}
+
+\discussion
+
+This pattern is related with \ref{pat:Prim}
+
 \end{pattern}
