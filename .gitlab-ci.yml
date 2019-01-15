@@ -1,12 +1,13 @@
 
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
+# variables:
+  # GIT_SUBMODULE_STRATEGY: recursive
 
-# before_script:
-  # - git submodule sync --recursive
-  # - git submodule update --init --recursive
+before_script:
+  - git submodule sync --recursive
+  - git submodule update --init --recursive
+# 
 pages:
-  image: tianon/latex
+  image: aergus/latex
   script:
     - latexmk -pdf -bibtex phd-thesis.tex -output-directory=public/
   artifacts:
