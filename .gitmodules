@@ -3,7 +3,7 @@
 	url = https://gitlab.com/acuarica/java-cast-queries.git
 [submodule "java-unsafe-analysis-pubs"]
 	path = java-unsafe-analysis-pubs
-	url = git@gitlab.com:acuarica/java-unsafe-analysis-pubs.git
+	url = https://gitlab.com/acuarica/java-unsafe-analysis-pubs.git
 [submodule "jnif-pubs"]
 	path = jnif-pubs
-	url = git@gitlab.com:acuarica/jnif-pubs.git
+	url = https://gitlab.com/acuarica/jnif-pubs.git
