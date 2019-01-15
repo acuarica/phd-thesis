@@ -1,15 +1,7 @@
-
-# variables:
-  # GIT_SUBMODULE_STRATEGY: recursive
-
-before_script:
-  - git submodule sync --recursive
-  - git submodule update --init --recursive
-# 
 pages:
   image: aergus/latex
   script:
-    - latexmk -pdf -bibtex phd-thesis.tex -output-directory=public/
+    - echo "Nothing"
   artifacts:
     paths:
       - public/phd-thesis.pdf
