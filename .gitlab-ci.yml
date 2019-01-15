@@ -1,7 +1,10 @@
+# before_script:
+  # - git submodule sync --recursive
+  # - git submodule update --init --recursive
 pages:
   image: tianon/latex
   script:
-    - echo "Nothing"
+    - latexmk -pdf -bibtex phd-thesis.tex -output-directory=public/
   artifacts:
     paths:
       - public/phd-thesis.pdf
