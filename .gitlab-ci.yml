@@ -1,7 +1,4 @@
 
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
-
 pages:
   image: aergus/latex
   script:
