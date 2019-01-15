@@ -1,7 +1,11 @@
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
 pages:
   image: aergus/latex
   script:
-    - echo "Nothing"
+    - latexmk -pdf -bibtex phd-thesis.tex -output-directory=public/
   artifacts:
     paths:
       - public/phd-thesis.pdf
