@@ -1,0 +1,14 @@
+\begin{pattern}{ImplicitIntersectionType}
+Cast a reference $v$ of type --- class or interface --- $T$ to an
+interface type $I$ whether $T$ does not implement $I$.
+The cast succeeds at runtime because all possible runtime types of $v$
+actually implement the interface $I$.
+For instance, in \code{(Comparable)(Number)4}, \code{Number} does not
+implement the \code{Comparable} interface, but class \code{Integer} does.
+
+\instances
+
+\begin{lstlisting}[style=java,caption=From \url{http://bit.ly/2FQOt4v}]
+final Comparable max = (Comparable) properties.getMaxValue();
+\end{lstlisting}
+\end{pattern}

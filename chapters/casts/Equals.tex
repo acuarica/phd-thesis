@@ -1,0 +1,105 @@
+
+\begin{pattern}{Equals}
+This pattern is a common pattern to implement the \code{equals} method.
+
+A cast expression is guarded by either an \code{instanceof} test or
+a \code{getClass} comparison (to the same target type as the cast);
+in an \code{equals}\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\#equals-java.lang.Object-}}
+method implementation.
+This is done to check if the argument has same type as the receiver
+(\code{this} argument).
+
+Notice that a cast in an \code{equals} method is needed because it
+receives an \code{Object} as a parameter.
+
+\instances
+
+%https://lgtm.com/projects/g/neo4j/neo4j/snapshot/dist-15760049-1519892555006/files/community/kernel/src/main/java/org/neo4j/kernel/impl/api/CountsRecordState.java?sort=name&dir=ASC&mode=heatmap&excluded=false#L182
+%http://bit.ly/2vJw94J
+
+The following listing\footnote{\url{http://bit.ly/2vJw94J}}
+shows an example of the \pname{} pattern.
+In this case, \code{instanceof} is used to guard for
+the same type as the receiver.
+
+\begin{lstlisting}[style=java,caption={\pname{} pattern using \code{instanceof} as a guard.}]
+@Override
+public boolean equals(Object obj) {
+    if ( this == obj ) {
+        return true;
+    }
+    if ( (obj instanceof Difference) ) {
+        Difference that = (Difference) obj;
+        return actualFirst == that.actualFirst
+          && expectedFirst == that.expectedFirst
+          && actualSecond == that.actualSecond 
+          && expectedSecond == that.expectedSecond
+          && key.equals( that.key );
+    }
+    return false;
+}
+\end{lstlisting}
+
+%https://lgtm.com/projects/g/neo4j/neo4j/snapshot/dist-15760049-1519892555006/files/community/bolt/src/main/java/org/neo4j/bolt/v1/messaging/infrastructure/ValuePath.java?sort=name&dir=ASC&mode=heatmap&excluded=false#L278
+%http://bit.ly/2vKP0MW
+
+Alternatively,
+listing \ref{lst:equals}\footnote{\url{http://bit.ly/2vKP0MW}} shows
+another example of the \pname{} pattern.
+But in this case,
+a \code{getClass} comparison is used to guard for the same type
+as the receiver.
+
+\begin{lstlisting}[style=java,label=lst:equals,caption=\pname{} pattern guarded by a \code{getClass} comparison]
+@Override
+public boolean equals( Object o ) {
+    if ( this == o ) return true;
+    if ( o == null || getClass() != o.getClass() )
+        return false;
+
+    ValuePath that = (ValuePath) o;
+    return nodes.equals(that.nodes) &&
+        relationships.equals(that.relationships);
+}
+\end{lstlisting}
+
+\detection
+
+The detection query looks for a cast expression inside an
+\code{equals} method implementation.
+Moreover, the cast needs to be guarded by either an
+\code{instanceof} test or a \code{getClass} comparison.
+
+\discussion
+
+The pattern for an \code{equals} method implementation is well-known.
+% We have started looking at all \code{equals} methods with the following \ql{} query:
+
+% \begin{lstlisting}[style=ql,caption=Fetching all \code{equals} method implementations.]
+% import java
+% from EqualsMethod eqm select eqm
+% \end{lstlisting}
+
+We found out that, with respect to cast,
+most \code{equals} methods are implemented with the same structure.
+Maybe avoid boilerplate code by providing code generation,
+like in \haskell{} (with \code{deriving}).
+
+\cite{vaziriDeclarativeObjectIdentity2007} propose a declarative approach
+to avoid boilerplate code when implementing both
+the \code{equals} and \code{hashCode} methods.
+They manually analyzed several applications,
+and found many issues while implementing \code{equals()} and
+\code{hashCode()} methods.
+It would be interesting to check whether these issues happen in real
+application code.
+
+There is an exploratory document%
+\footnote{\url{http://cr.openjdk.java.net/\~briangoetz/amber/datum.html}}
+by Brian Goetz --- \java{} Language Architect ---
+addressing these issues from a more general perspective.
+It is definitely a starting point towards improving the \java{} language.
+
+%\footnote{\url{https://lgtm.com/projects/g/square/sqlbrite/snapshot/3a9916985485ba5922097fe59a18230500f02df4/files/sample/build/generated/source/apt/debug/com/example/sqlbrite/todo/ui/$AutoValue_ListsItem.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L47}}
+
+\end{pattern}

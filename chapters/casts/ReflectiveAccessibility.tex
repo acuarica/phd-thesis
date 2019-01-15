@@ -1,0 +1,22 @@
+
+\begin{pattern}{ReflectiveAccessibility}
+
+This pattern accesses a field of an object by means of reflection.
+It uses reflection because at compile time the field is unaccesible.
+Usually the method \code{setAccessible(true)} is invoked on the field
+before actually getting the value from an object.
+
+\instances
+
+%https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1529316783166/files/library/src/main/java/com/loopj/android/http/AsyncHttpClient.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L445
+
+The following cast
+% \footnote{\url{d}}
+uses this pattern:
+
+\begin{lstlisting}[style=java,caption=Using \code{Field::get} to gain access to a field.]
+f.setAccessible(true);
+HttpEntity wrapped = (HttpEntity) f.get(entity);
+\end{lstlisting}
+
+\end{pattern}
