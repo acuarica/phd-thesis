@@ -431,7 +431,7 @@ Figure~\ref{fig:patterns} presents an overview of our patterns and their occurre
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\columnwidth]{java-cast-queries/analysis/table-patterns.pdf}
+\includegraphics[width=\columnwidth]{java-cast-queries/query-results/table-patterns-5000.pdf}
 \caption{Cast Patterns Occurrences} \label{fig:patterns}
 \end{figure}
 
@@ -456,21 +456,25 @@ Presents suggestions, flaws, or comments about the pattern.
 % \includegraphics[width=\columnwidth,page=2]{upset-patterns.pdf}
 % \includegraphics[width=\columnwidth,page=2]{upset-tags.pdf}
 
-\input{java-cast-queries/ql/PatternMatching}
-\input{java-cast-queries/ql/TypeTag}
-\input{java-cast-queries/ql/ObjectAsArray}
-\input{java-cast-queries/ql/Deserialization}
-\input{java-cast-queries/ql/Equals}
-\input{java-cast-queries/ql/Factory}
-\input{java-cast-queries/ql/LookupById}
-\input{java-cast-queries/ql/NewDynamicInstance}
-\input{java-cast-queries/ql/ReflectiveAccessibility}
-\input{java-cast-queries/ql/SelectOverload}
-\input{java-cast-queries/ql/StaticResource}
-\input{java-cast-queries/ql/NotDeclaredInterface}
-\input{java-cast-queries/ql/Literal}
-\input{java-cast-queries/ql/RawType}
-\input{java-cast-queries/ql/ExceptionSoftening}
-\input{java-cast-queries/ql/Family}
+\input{java-cast-queries/ql/PatternMatching.tex}
+\input{java-cast-queries/ql/Literal.tex}
+\input{java-cast-queries/ql/Prim.tex}
+\input{java-cast-queries/ql/RawTypes.tex}
+\input{java-cast-queries/ql/Family.tex}
+\input{java-cast-queries/ql/LookupById.tex}
+\input{java-cast-queries/ql/Factory.tex}
+\input{java-cast-queries/ql/TypeTag.tex}
+\input{java-cast-queries/ql/Equals.tex}
+\input{java-cast-queries/ql/SelectOverload.tex}
+\input{java-cast-queries/ql/Redundant.tex}
+\input{java-cast-queries/ql/KnownLibraryMethod.tex}
+\input{java-cast-queries/ql/NewDynamicInstance.tex}
+\input{java-cast-queries/ql/Clone.tex}
+\input{java-cast-queries/ql/ImplicitIntersectionType.tex}
+\input{java-cast-queries/ql/Deserialization.tex}
+\input{java-cast-queries/ql/StaticResource.tex}
+\input{java-cast-queries/ql/ObjectAsArray.tex}
+\input{java-cast-queries/ql/ReflectiveAccessibility.tex}
+\input{java-cast-queries/ql/ExceptionSoftening.tex}
 
 \section{Limitations}
