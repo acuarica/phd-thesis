@@ -1,18 +1,13 @@
 
-\newcommand{\ctag}[1]{\textsl{#1}}
-% \newcommand{\cpattern}[1]{\textsc{#1}}
-
-% \newcommand{\patternsection}[1]{\subsubsection*{\textbf{#1}}}
 \newcommand{\patternsection}[1]{\noindent\textbf{#1.}}
-% \newcommand{\patternsection}[1]{\textbf{#1.}}
+\newcommand{\pname}[1]{\textsc{#1}}
 
 \newenvironment{pattern}[1]{
 	\newcommand{\desc}{\patternsection{Description}}
 	\newcommand{\instances}{\patternsection{Instances}}
 	\newcommand{\detection}{\patternsection{Detection}}
 	\newcommand{\discussion}{\patternsection{Discussion}}
-	\newcommand{\pname}[1]{\textsc{#1}}
-    \subsection{#1}
+    \subsection{\pname{#1}}
     \label{pat:#1}
 	\desc
 }{}
@@ -434,11 +429,20 @@ Each pattern is described using the following template:
 \begin{itemize}
 \item \textbf{Description.}
 Tells what is this pattern about.
+It gives a general overview of the structure of the pattern.
+
 \item \textbf{Instances.}
-Gives one or more concrete examples found in real
-code.\footnote{Please notice that the snippets presented here were slightly modified for formatting purposes.}
+Gives one or more concrete examples found in real code.%
+\footnote{Please notice that the snippets presented here were slightly modified for formatting purposes.}
 For each instance presented here,
-we provide the link to the original source code.
+we provide the link to the source code repository in \lgtm{}.
+We provide the link in case the reader wants to do further inspection
+of the snippet presented.%
+\footnote{Instead of presenting \lgtm{} long URLs,
+we have used the URL shortening service \url{https://bitly.com/}
+for an easier reading.
+}
+
 \item \textbf{Detection.}
 Describes briefly how this pattern was detected in terms of the tags
 introduced in the previous section.

@@ -1,20 +1,55 @@
 \begin{pattern}{Literal}
-Cast a numeric literal or constant --- defined as \code{static final} ---
-to a primitive type of
-\code{byte}, \code{char}, \code{short}
+Cast a numeric or character literal or constant --- defined as \code{static final} ---
+to a primitive type.
 
-\instances
+\instances{}
+Casting a literal to initialize an array is shown in the following listing.
+This kind of cast is seen often.
+Note that actually this kind is redundant.
+It is just there because it was a generated cast.
+\begin{minted}[highlightlines=5]{java}
+private static byte[] piTable =
+{
+    (byte)0xd9, (byte)0x78, (byte)0xf9, (byte)0xc4, (byte)0x19, (byte)0xdd,
+    (byte)0xb5, (byte)0xed, (byte)0x28, (byte)0xe9, (byte)0xfd, (byte)0x79,
+    (byte)0x4a, (byte)0xa0, (byte)0xd8, (byte)0x9d, 
+\end{minted}
 
 The following listing shows an example of the \pname{Literal} pattern.%
-\footnote{https://lgtm.com/projects/g/kaitoy/pcap4j/snapshot/dist-29675155-1524814812150/files/pcap4j-core/src/main/java/org/pcap4j/packet/namednumber/TcpPort.java?sort=name\&dir=ASC\&mode=heatmap\#L2329}
-
-\begin{lstlisting}[style=java,caption=Literal example]
+\footnote{\url{http://bit.ly/2FuEqkC}}
+% https://lgtm.com/projects/g/kaitoy/pcap4j/snapshot/dist-29675155-1524814812150/files/pcap4j-core/src/main/java/org/pcap4j/packet/namednumber/TcpPort.java?sort=name&dir=ASC&mode=heatmap#L2329
+% \begin{listing}
+\begin{minted}[highlightlines=2]{java}
 public static final TcpPort POWERBURST =
     new TcpPort((short)485, "Air Soft Power Burst");
-\end{lstlisting}
+\end{minted}
+% \caption{Literal example (\url{http://bit.ly/2FuEqkC} )}
+% \end{listing}
 
-\discussion
+Another example using a constant instead of a literal:%
+\footnote{\url{http://bit.ly/2FuBp3M}}
 
-This pattern is related with \ref{pat:Prim}
+% https://lgtm.com/projects/g/jline/jline2/snapshot/dist-4850314-1524814812150/files/src/test/java/jline/console/ConsoleReaderTest.java?sort=name&dir=ASC&mode=heatmap#L164
+\begin{minted}[highlightlines=6]{java}
+char[] characters = new char[]{
+    'S', 's',
+    (char) NUMPAD_KEY_INDICATOR.code,
+    (char) LEFT_ARROW_KEY.code,
+    (char) NUMPAD_KEY_INDICATOR.code,
+    (char) DELETE_KEY.code, '\r', 'n'
+};
+\end{minted}
 
+\detection{}
+This pattern looks for casting a literal or constant to a primitive type.
+
+\discussion{}
+\java{} already provides several types of numeric literals:
+\code{int}, \code{long}, \code{float}.
+
+This pattern is related with the \nameref{pat:Prim} pattern.
+Also it is related with the \nameref{pat:SelectOverload}
+because it does not permit for narrowing conversions.%
+\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html\#jls-5.3}}
+Related to \nameref{pat:Redundant} because of cast automatically generated.
 \end{pattern}

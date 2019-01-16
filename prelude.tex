@@ -84,9 +84,23 @@
 \definecolor{lightblue}{rgb}{0,0.4,1}
 \definecolor{gray}{rgb}{0.2,0.2,0.2}
 
+\definecolor{light-gray}{rgb}{0.97,0.97,0.97}
+\definecolor{light-orange}{rgb}{1,0.6,0}
+
 \definecolor{diffstart}{named}{Grey}
 \definecolor{diffincl}{named}{Green}
 \definecolor{diffrem}{named}{OrangeRed}
+\definecolor{hl}{named}{OrangeRed}
+
+\setminted[java]{
+	frame=lines,
+	% framesep=2mm,
+	baselinestretch=1.2,
+	bgcolor=light-gray,
+	fontsize=\footnotesize,
+	highlightcolor=light-orange,
+	linenos
+}
 
 \lstdefinestyle{java}{
 	language=java,
@@ -96,7 +110,7 @@
 	numberstyle=\tiny\color{gray},
 	numbersep=4pt,
 	xleftmargin=0.2cm,
-	mathescape=true,
+	% mathescape=true,
 	keywordstyle=\color{blue}\textbf,
 	stringstyle=\textcolor{magenta},
 	captionpos=b,
@@ -104,7 +118,7 @@
 	emphstyle={\color{lightblue}},
     morecomment=[f][\color{diffstart}]{@@},
     morecomment=[f][\color{diffincl}]{+\ },
-    morecomment=[f][\color{diffrem}]{-\ },
+	morecomment=[f][\color{diffrem}]{-\ },
 }
 
 \lstdefinestyle{ql}{

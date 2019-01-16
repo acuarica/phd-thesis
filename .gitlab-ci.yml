@@ -2,7 +2,7 @@
 pages:
   image: aergus/latex
   script:
-    - latexmk -pdf -bibtex phd-thesis.tex -output-directory=public/
+    - latexmk -pdf -shell-escape -bibtex phd-thesis.tex -output-directory=public/
   artifacts:
     paths:
       - public/phd-thesis.pdf
