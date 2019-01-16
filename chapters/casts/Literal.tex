@@ -3,10 +3,13 @@ Cast a numeric or character literal or constant --- defined as \code{static fina
 to a primitive type.
 
 \instances{}
-Casting a literal to initialize an array is shown in the following listing.
+Casting a literal to initialize an array is shown in the following listing.%
+\footnote{\url{http://bit.ly/2Fz3fuN}}
 This kind of cast is seen often.
 Note that actually this kind is redundant.
 It is just there because it was a generated cast.
+
+% https://lgtm.com/projects/g/robovm/robovm/snapshot/dist-39650108-1524814812150/files/rt/external/bouncycastle/bcprov/src/main/java/org/bouncycastle/crypto/engines/RC2Engine.java?sort=name&dir=ASC&mode=heatmap#L23
 \begin{minted}[highlightlines=5]{java}
 private static byte[] piTable =
 {
