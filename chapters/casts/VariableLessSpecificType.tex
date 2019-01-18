@@ -1,0 +1,66 @@
+\begin{pattern}{VariableLessSpecificType}
+This pattern occurs when a cast is applied to a variable (local variable,
+parameter, or field),
+that is usually being assigned once and
+is declared with a less specific type than the type of the value 
+that is being assigned to.
+The type of the value being assigned to can be determined locally
+either within the enclosing method or class.
+
+\instances{}
+The following example\footnote{\url{http://bit.ly/2FuDeO7}}
+shows an instance of the \thisp{} pattern.
+We can see that the field \code{uncompressedDirectBuf} is being cast to
+the \code{java.nio.ByteBuffer} class (line $13$) but it is declared as
+\code{java.nio.Buffer} (line $3$).
+Nevertheless, the field is assigned only once in the constructor (line $7$)
+with a value of type \code{java.nio.ByteBuffer}.
+The value assigned is returned by the method
+\code{ByteBuffer.allocateDirect}.%
+\footnote{\url{https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html\#allocateDirect(int)}}
+Inspecting the enclosing class, there is no other assignment to the
+field \code{uncompressedDirectBuf}.
+Therefore, the cast pattern in line $13$ will always succeed.
+Note that in this case the variable \code{uncompressedDirectBuf}
+could have been declared as \code{final}.
+
+% https://lgtm.com/projects/g/facebookarchive/hadoop-20/snapshot/dist-1802091768-1524814812150/files/src/core/org/apache/hadoop/io/compress/snappy/SnappyCompressor.java?sort=name&dir=ASC&mode=heatmap#L134
+\begin{minted}[highlightlines=13]{java}
+public class SnappyCompressor implements Compressor {
+    // [...]
+    private Buffer uncompressedDirectBuf = null;
+    // [...]
+    public SnappyCompressor(int directBufferSize) {
+        // [...]
+        uncompressedDirectBuf = ByteBuffer.allocateDirect(directBufferSize);
+        // [...]
+    }
+    // [...]
+    synchronized void setInputFromSavedData() {
+        // [...]
+        ((ByteBuffer) uncompressedDirectBuf).put(userBuf, userBufOff,
+            uncompressedDirectBufLen);
+        // [...]
+    }
+    // [...]
+}
+\end{minted}
+
+\detection{}
+To detect this pattern, a cast needs to be applied to a variable whose
+value can be determined simply by looking at
+the enclosing method or class.
+
+\discussion{}
+In most the cases this can be considered as a bad practice or
+code smell.
+This is because by only changing the declaration of the variable
+to a more specific type type, the cast can be simply eliminated.
+
+\related{}
+This pattern is related to the \nameref{pat:Redundant} pattern.
+Although \thisp{} is not redundant,
+by only changing the declaration of the variable to a more specific type,
+the cast becomes redundant.
+
+\end{pattern}

@@ -4,23 +4,26 @@ This pattern is composed of a guard (\code{instanceof}) followed by a
 cast on known subtypes of the static type.
 Often there is just one case and the default case, \ie,
 \code{instanceof} fails, does a no-op or reports an error.
+Another common approach is to have several cases,
+usually one \emph{per} subtype.
 
 \instances{}
-The following listing shows an example of the \pname{} pattern.
-\begin{lstlisting}[style=java,caption={Instance of \pname{} (from \url{http://bit.ly/2ns4EJq}) }]
-if (res instanceof Observable) {
-	return (Observable) res;
-} else if (res instanceof Single) {
-	return ((Single) res).toObservable();
-} else if (res instanceof Completable) {
-	return ((Completable) res).toObservable();
-} else {
-	return Observable.just(res);
-}
-\end{lstlisting}
+The following listing shows an example of the \thisp{} pattern.%
+\footnote{\url{http://bit.ly/2FzYYHq}}
+In this example, there is only one case
+
+% https://lgtm.com/projects/g/OpenMods/OpenBlocks/snapshot/dist-2040060754-1524814812150/files/build/sources/java/openblocks/common/tileentity/TileEntityImaginary.java?sort=name&dir=ASC&mode=heatmap#L268
+\begin{minted}[highlightlines=3]{java}
+Item item = helmet.getItem();
+if (item instanceof ItemImaginationGlasses)
+	return ((ItemImaginationGlasses)item).checkBlock(what, helmet, this);
+\end{minted}
+
+\detection{}
+To detect this pattern, we look
 
 \discussion{}
-The \pname{} pattern can be seen as an \adhoc{}
+The \thisp{} pattern can be seen as an \adhoc{}
 alternative to pattern matching.
 This construct can be seen in several other languages, \eg,
 \haskell{}, \scala{}, and \cs{}.
@@ -28,7 +31,8 @@ There is an ongoing proposal%
 \footnote{\url{http://openjdk.java.net/jeps/305}} to add pattern
 matching to the \java{} language.
 
-As a workaround, alternatives to the \pname{} pattern can be the visitor pattern or polymorphism.
+As a workaround, alternatives to the \thisp{} pattern can be the
+visitor pattern or polymorphism.
 But in some cases, the chain of \code{instanceof}s is of boxed types.
 Thus no polymorphism can be used.
 
@@ -39,7 +43,7 @@ Thus no polymorphism can be used.
 % that access to the variable, and there is no assignment after the
 % condition and before the access to that variable.
 
-The \pname{} pattern consists of testing the runtime type of a variable against several related types.
+The \thisp{} pattern consists of testing the runtime type of a variable against several related types.
 Based on rule taken from:
 It was taken from a \lgtm{} rule\footnote{\url{https://lgtm.com/rules/910065/}}.
 

@@ -7,6 +7,8 @@
 	\newcommand{\instances}{\patternsection{Instances}}
 	\newcommand{\detection}{\patternsection{Detection}}
 	\newcommand{\discussion}{\patternsection{Discussion}}
+	\newcommand{\related}{\patternsection{Related Patterns}}
+    \newcommand{\thisp}{\textsc{#1}}
     \subsection{\pname{#1}}
     \label{pat:#1}
 	\desc
@@ -31,14 +33,19 @@ $171K$\footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=
 and
 $73K$\footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Issues}}
 results respectively at the time of writing.
-We have included here a few source code results as an example%
+At first glance, these results indicate that indeed
+\code{ClassCastException} represents a source for
+problems to developers.
+We have included here a few commit results as an example.%
 \footnote{To easily spot what the developer has changed to fix
 the \code{ClassCastException}, we present each source code excerpt
 using the Git commit \emph{diff} as reported by \github{}.}
 
 \textbf{Forgotten Guard.}
-The following listing\footnote{\url{https://github.com/jenkinsci/extra-columns-plugin/commit/02d10bd1fcbb2e656da9b1b4ec54208b0cc1cbb2}}
-shows a cast that throws \code{ClassCastException} because the developer forgot to include a guard.
+The following listing%
+\footnote{\url{https://github.com/jenkinsci/extra-columns-plugin/commit/02d10bd1fcbb2e656da9b1b4ec54208b0cc1cbb2}}
+shows a cast applied to the variable \code{job} (in line $6$)
+that throws \code{ClassCastException} because the developer forgot to include a guard.
 In this case, the developer fixed the error by introducing a guard on the cast with \code{instanceof}.
 
 \begin{lstlisting}[style=java]
@@ -53,7 +60,8 @@ In this case, the developer fixed the error by introducing a guard on the cast w
 \end{lstlisting}
 
 \textbf{Wrong Cast Target.}
-In the next example\footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}}
+In the next example%
+\footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}}
 the \code{CustomFileFilter} is an inner static class inside \code{JCustomFileFilter}.
 Notice the cast happens inside an \code{equals} method, where this idiom is well known.
 But the developer has used the outer --- wrong --- class to cast to.
@@ -70,11 +78,13 @@ But the developer has used the outer --- wrong --- class to cast to.
   }
 \end{lstlisting}
 
-% DONE: Third example, explain better
 \textbf{Generic Type Inference Mismatch.}
-In the following listing,\footnote{\url{https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382}}
-the \emph{dynamic} property \code{"peer.p2p.pingInterval"} (lines $5$ and $6$) has type \code{int}.
-To fix the error, the developer only changed the type of the literal $5$: from \code{long} to \code{int}.
+In the following listing,%
+\footnote{\url{https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382}}
+the \emph{dynamic} property \code{"peer.p2p.pingInterval"}
+(lines $5$ and $6$) has type \code{int}.
+To fix the error, the developer only changed the type of the
+literal $5$: from \code{long} to \code{int}.
 
 \begin{lstlisting}[style=java]
 @@ -281,7 +281,7 @@ private void startTimers() {
@@ -91,11 +101,12 @@ Looking at the definition of the \code{getProperty} method below,%
 it obtains a dynamic property given a property name.
 If it finds a value, return it.
 Otherwise, returns the default value (second argument).
-But the return type of \code{getProperty}
-is a generic type inferred by the type of the default value, in this case, \code{long}.
-The \code{ClassCastException} is then thrown in line $5$, when casting \code{java.lang.Integer} to \code{java.lang.Long}.
-To then fix the bug, the developer changed the type of the literal: from \code{long} to \code{int}.
-
+But the return type of \code{getProperty} is a generic type inferred
+by the type of the default value, in this case, \code{long}.
+The \code{ClassCastException} is then thrown in line $5$,
+when casting \code{java.lang.Integer} to \code{java.lang.Long}.
+To then fix the bug, the developer changed the type of the literal:
+from \code{long} to \code{int}.
 
 \begin{lstlisting}[style=java]
 public <T> T getProperty(String propName, T defaultValue) {
@@ -349,17 +360,6 @@ the pattern is outside the source code,
 Thus, in those cases we can only acknowledge that a pattern exists,
 but not how recurrent it is.
 
-% \begin{table*}[t!]
-% \centering
-% \caption{Cast tags used to discover cast patterns.}
-% \label{table:tags}
-% \input{table-tags.inc}
-% \end{table*}
-
-
-% * Look for selecting overloaded methods w/downcast.
-% * MethodHandle.
-
 \section{Methodology}
 
 As for the project selection, I have used the lgtm.com project database.
@@ -371,7 +371,7 @@ that probably were pulled in by the Semmle people.
 We need to double check with them, but if that’s the case,
 we can make a good argument as for the project selection.
 
-There is a total of 7.559 projects, with a total 10,193,435 casts.
+There is a total of $7.559$ projects, with a total 10,193,435 casts.
 For each cast, I have the path within the project.
 But to manually analyze them, I need to get the lgtm.com link.
 This is necessary to actually see the code snippet in which the cast appear.
@@ -404,7 +404,6 @@ After meeting with Gabriele, he suggested using saturation sampling:
 
 
 \section{Casts Usage Patterns}
-
 \label{sec:patterns}
 
 Using the methodology described in the above section,
@@ -430,10 +429,13 @@ Each pattern is described using the following template:
 \item \textbf{Description.}
 Tells what is this pattern about.
 It gives a general overview of the structure of the pattern.
-
 \item \textbf{Instances.}
 Gives one or more concrete examples found in real code.%
-\footnote{Please notice that the snippets presented here were slightly modified for formatting purposes.}
+\footnote{Please notice that the snippets presented here were slightly
+modified for formatting purposes.
+Moreover, to facilitate some snippet presentations,
+we remove irrelevant code and replace it with the
+comment \code{// [...]}.}
 For each instance presented here,
 we provide the link to the source code repository in \lgtm{}.
 We provide the link in case the reader wants to do further inspection
@@ -442,36 +444,35 @@ of the snippet presented.%
 we have used the URL shortening service \url{https://bitly.com/}
 for an easier reading.
 }
-
 \item \textbf{Detection.}
 Describes briefly how this pattern was detected in terms of the tags
 introduced in the previous section.
 \item \textbf{Discussion.}
 Presents suggestions, flaws, or comments about the pattern.
+\item \textbf{Related Patterns.}
+How the pattern being described relates to other patterns?
 \end{itemize}
 
-% \includegraphics[width=\columnwidth,page=2]{upset-patterns.pdf}
-% \includegraphics[width=\columnwidth,page=2]{upset-tags.pdf}
-
-\input{chapters/casts/PatternMatching.tex}
+\input{chapters/casts/PatternMatching}
 \input{chapters/casts/Literal}
-\input{chapters/casts/Prim.tex}
-\input{chapters/casts/RawTypes.tex}
-\input{chapters/casts/Family.tex}
-\input{chapters/casts/LookupById.tex}
-\input{chapters/casts/Factory.tex}
-\input{chapters/casts/TypeTag.tex}
-\input{chapters/casts/Equals.tex}
-\input{chapters/casts/SelectOverload.tex}
-\input{chapters/casts/Redundant.tex}
-\input{chapters/casts/KnownLibraryMethod.tex}
-\input{chapters/casts/NewDynamicInstance.tex}
-\input{chapters/casts/Clone.tex}
-\input{chapters/casts/ImplicitIntersectionType.tex}
-\input{chapters/casts/Deserialization.tex}
-\input{chapters/casts/StaticResource.tex}
-\input{chapters/casts/ObjectAsArray.tex}
-\input{chapters/casts/ReflectiveAccessibility.tex}
-\input{chapters/casts/ExceptionSoftening.tex}
+\input{chapters/casts/Prim}
+\input{chapters/casts/RawTypes}
+\input{chapters/casts/Family}
+\input{chapters/casts/LookupById}
+\input{chapters/casts/Factory}
+\input{chapters/casts/TypeTag}
+\input{chapters/casts/Equals}
+\input{chapters/casts/SelectOverload}
+\input{chapters/casts/Redundant}
+\input{chapters/casts/KnownLibraryMethod}
+\input{chapters/casts/NewDynamicInstance}
+\input{chapters/casts/Clone}
+\input{chapters/casts/ImplicitIntersectionType}
+\input{chapters/casts/Deserialization}
+\input{chapters/casts/StaticResource}
+\input{chapters/casts/ObjectAsArray}
+\input{chapters/casts/VariableLessSpecificType}
+\input{chapters/casts/ReflectiveAccessibility}
+\input{chapters/casts/ExceptionSoftening}
 
 \section{Limitations}

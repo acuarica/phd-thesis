@@ -5,9 +5,11 @@ to a primitive type.
 \instances{}
 Casting a literal to initialize an array is shown in the following listing.%
 \footnote{\url{http://bit.ly/2Fz3fuN}}
-This kind of cast is seen often.
-Note that actually this kind is redundant.
-It is just there because it was a generated cast.
+Here a cast is used to initialize an array (line $5$).
+This kind of cast is seen often in generated code.
+Note that the cast may be actually redundant if the value being casted
+is within range of the type being casted to,
+\eg{}, $-128..127$ for \code{byte}.
 
 % https://lgtm.com/projects/g/robovm/robovm/snapshot/dist-39650108-1524814812150/files/rt/external/bouncycastle/bcprov/src/main/java/org/bouncycastle/crypto/engines/RC2Engine.java?sort=name&dir=ASC&mode=heatmap#L23
 \begin{minted}[highlightlines=5]{java}
@@ -16,31 +18,52 @@ private static byte[] piTable =
     (byte)0xd9, (byte)0x78, (byte)0xf9, (byte)0xc4, (byte)0x19, (byte)0xdd,
     (byte)0xb5, (byte)0xed, (byte)0x28, (byte)0xe9, (byte)0xfd, (byte)0x79,
     (byte)0x4a, (byte)0xa0, (byte)0xd8, (byte)0x9d, 
+    // [...]
+}
 \end{minted}
 
-The following listing shows an example of the \pname{Literal} pattern.%
+The following listing shows an example of the \thisp{} pattern
+being used in an invocation context.%
 \footnote{\url{http://bit.ly/2FuEqkC}}
+
 % https://lgtm.com/projects/g/kaitoy/pcap4j/snapshot/dist-29675155-1524814812150/files/pcap4j-core/src/main/java/org/pcap4j/packet/namednumber/TcpPort.java?sort=name&dir=ASC&mode=heatmap#L2329
-% \begin{listing}
 \begin{minted}[highlightlines=2]{java}
 public static final TcpPort POWERBURST =
     new TcpPort((short)485, "Air Soft Power Burst");
 \end{minted}
-% \caption{Literal example (\url{http://bit.ly/2FuEqkC} )}
-% \end{listing}
 
-Another example using a constant instead of a literal:%
+Another example%
 \footnote{\url{http://bit.ly/2FuBp3M}}
+using a constant instead of a literal to initialize
+an array (line $22$).
 
 % https://lgtm.com/projects/g/jline/jline2/snapshot/dist-4850314-1524814812150/files/src/test/java/jline/console/ConsoleReaderTest.java?sort=name&dir=ASC&mode=heatmap#L164
-\begin{minted}[highlightlines=6]{java}
-char[] characters = new char[]{
-    'S', 's',
-    (char) NUMPAD_KEY_INDICATOR.code,
-    (char) LEFT_ARROW_KEY.code,
-    (char) NUMPAD_KEY_INDICATOR.code,
-    (char) DELETE_KEY.code, '\r', 'n'
-};
+\begin{minted}[highlightlines=22]{java}
+public static enum WindowsKey {
+    // [...]
+    DELETE_KEY(83), 
+    // [...]
+    ;
+
+    public final int code;
+
+    WindowsKey(final int code) {
+        this.code = code;
+    }
+}
+
+@Test
+public void testNumpadDeleteOnWindowsTerminal() throws Exception {
+    // [...]
+    char[] characters = new char[]{
+        'S', 's',
+        (char) NUMPAD_KEY_INDICATOR.code,
+        (char) LEFT_ARROW_KEY.code,
+        (char) NUMPAD_KEY_INDICATOR.code,
+        (char) DELETE_KEY.code, '\r', 'n'
+    };
+    // [...]
+}
 \end{minted}
 
 \detection{}
@@ -48,8 +71,9 @@ This pattern looks for casting a literal or constant to a primitive type.
 
 \discussion{}
 \java{} already provides several types of numeric literals:
-\code{int}, \code{long}, \code{float}.
+\code{int}, \code{long}, \code{float} and \code{double}.
 
+\related{}
 This pattern is related with the \nameref{pat:Prim} pattern.
 Also it is related with the \nameref{pat:SelectOverload}
 because it does not permit for narrowing conversions.%
