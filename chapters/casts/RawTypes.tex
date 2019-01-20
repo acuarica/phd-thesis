@@ -3,6 +3,39 @@ When a generic method is not used as such.
 The expression of this cast is a method invocation,
 but the declaration differs from the usage.
 
-\instances
+\instances{}
+The following snippet\footnote{\url{http://bit.ly/2FAI5x5}}
+
+% https://lgtm.com/projects/g/robovm/robovm/snapshot/dist-39650108-1524814812150/files/rt/external/apache-xml/src/main/java/org/apache/xml/dtm/SecuritySupport12.java#L59
+\begin{minted}[highlightlines=3]{java}
+class SecuritySupport12 extends SecuritySupport {
+    ClassLoader getSystemClassLoader() {
+        return (ClassLoader)
+            AccessController.doPrivileged(new PrivilegedAction() {
+                public Object run() {
+                    ClassLoader cl = null;
+                    try {
+                        cl = ClassLoader.getSystemClassLoader();
+                    } catch (SecurityException ex) {}
+                    return cl;
+                }
+            });
+    }
+}
+
+public final class AccessController {
+    // [...]
+    public static <T> T doPrivileged(PrivilegedAction<T> action) {
+        return action.run();
+    }
+    // [...]
+}
+\end{minted}
+
+\detection{}
+
+\discussion{}
+
+\related{}
 
 \end{pattern}

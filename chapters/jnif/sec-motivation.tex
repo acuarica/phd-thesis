@@ -1,0 +1,23 @@
+\section{Motivation}
+\label{section:motivation}
+
+% This section should answer the question:
+% Why should we care about JNIF?
+
+Instrumentation at bytecode level can be done in two ways, using Java itself~\cite{javainstr} or either using JVMTI~\cite{jvmti}.
+The main problem that exposes using java.lang.instrument package is the poor isolation and coverage that it provides.
+It provides poor isolation because in order to instrument the VM, the instrumentation classes must be loaded in the same VM which can lead to perturbation in the VM itself.
+And it provides poor coverage because in order to start the instrumentation phase core classes must be loaded before.
+
+The alternative using JVMTI provides a way to instrument every and each class that the VM sees. The main issue when using JVMTI is that instrumentation must be done in a native language, usually C or C++. Using C or C++ as the instrumentation language can be problematic because there is no library to manipulate bytecode. Therefore developers have been used extra VM to instrument the target VM but this would create socket connection to comunicate the two VMs and again this is a potential source of perturbation.
+
+In order to overcome this issues, we develop to our knowledge, the first instrumentation API, JNIF, that allows a developer to manipulate, analyse and instrument java bytecode using C++. The main benefit using this approach is that the it can be plugged in a JVMTI agent for instrument all classes in a JVM transparently, i.e., without connecting to another JVM or either without loading any java class.
+
+Version 6 of the JVM introduces the stack map table was introduced but optional, and in version 7 it was made mandatory. Due to the complexity of the stack map table generation every instrumentation/rewrite tool had to be rewritten or otherwise it has to be run with the verifier disabled.
+
+\todo{Motivate due to the use of classpath, and how it behaves with downloaded network class files, dynamically created classes?}
+One of the main issues in writing the type verifier is that is no more local, i.e., it is needed to compute common super class. To do this, the classpath has to be available for use, but in an out-of-process server running with ASM, you need to replicate the class path, which leads to configuration issues.
+
+Also motivate through the fact that the JVM/bytecode is more than just Java, several languages compiles to java bytecode like scala, jruby, groovy, see aibek papers. \todo{Can we make an argument for this?}
+
+\todo{Metrics: Count how many join points they are? How many are reference types?}

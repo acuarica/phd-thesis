@@ -1,0 +1,129 @@
+\section{Related Work}
+\label{sec:jnif-relatedwork}
+
+We now discuss low-level Java bytecode rewriting libraries,
+JVM hooks for dynamic bytecode rewriting,
+high-level dynamic bytecode rewriting frameworks,
+and how they relate to JNIF.
+ 
+\textbf{Low-level rewriting libraries.}
+JNIF certainly is not the first Java bytecode analysis and instrumentation framework.
+The probably earliest is BCEL\footnote{\url{http://commons.apache.org/bcel/}},
+a well-designed Java library with a tree-based API.
+The probably most prevalent is ASM\footnote{\url{http://asm.ow2.org/}}~\citep{brunetonASMCodeManipulation2002,kuleshovUsingASMFramework2007},
+which aims to be more efficient, especially due to the addition of a visitor-based streaming API, 
+but which has a somewhat less encapsulated design.
+SOOT\footnote{\url{http://www.sable.mcgill.ca/soot/}}~\citep{vallee-raiSootJavaBytecode1999}
+is a Java bytecode optimization framework supporting whole-program analysis
+with four different intermediate representations:
+Baf, which is simple to manipulate,
+Jimple, which is easy to optimize, 
+Shimple, an SSA-based variant of Jimple, and
+Grimp, focused on decompilation. 
+%
+WALA\footnote{\url{http://wala.sourceforge.net/}} is a framework for static analysis, 
+which also includes SHRIKE\footnote{\url{http://wala.sourceforge.net/wiki/index.php/Shrike_technical_overview}}, 
+a library for instrumenting bytecode using a patch-based approach.
+%
+Unlike the above libraries, 
+Javassist\footnote{\url{http://www.javassist.org/}}~\cite{chibaEasytoUseToolkitEfficient2003}
+provides an API for editing class files like they were Java source code,
+thereby enabling developers who do not understand bytecode to instrument class files.
+
+\textbf{Dynamic instrumentation hooks.}
+The most limited way for dynamically rewriting \java{} classes at runtime
+is the use of a custom class loader.
+This requires modifications to the application,
+so that it uses that class loader.
+This can be problematic for applications---especially for large programs
+based on powerful frameworks---that already use their own class loaders.
+This limitation can be circumvented by using dynamic instrumentation
+hooks provided by the JVM~\cite{lindholmJavaVirtualMachine}.
+Java provides two such hooks: Java agents and JVMTI.
+Java agents%
+\footnote{\url{http://docs.oracle.com/javase/7/docs/api/java/lang/instrument/package-summary.html}} 
+are supported via the \texttt{-javaagent} JVM command line argument.
+They are implemented in \java{} and use the \code{java.lang.instrument} package to interact with the JVM.
+This allows them to get notified when classes are about to get loaded,
+and it allows them to modify the class bytecode.
+They can also modify and reload already loaded classes,
+however the kinds of transformations allowed with class reloading are severely limited.
+JVMTI (the \emph{Java Virtual Machine Tool Interface}) is a native API into the JVM that, 
+amongst many other things, provides hooks that allow the
+rewriting of bytecode.
+The advantage of JVMTI over Java agents is that JVMTI allows the instrumentation of \emph{all} Java classes, including the entire runtime library.
+Java also provides JDI%
+\footnote{\url{https://docs.oracle.com/javase/7/docs/jdk/api/jpda/jdi/}}
+(the \emph{Java Debug Interface}), 
+a high-level interface on top of JVMTI to control a running application in a remote JVM.
+
+\textbf{High-level dynamic analysis frameworks.}
+We now discuss dynamic analysis frameworks that are built on top of the previously mentioned rewriting libraries
+and use the above instrumentation hooks.
+These frameworks do not allow arbitrary code transformations 
+and they shield the developer from the necessary instrumentation effort.
+%
+Sofya\footnote{\url{http://sofya.unl.edu}}~\cite{kinneerSofyaSupportingRapid2007} 
+is a dynamic analysis framework that runs the analysis in a separate JVM from the observed application.
+It provides analysis developers with a set of observable events, to which the analyses can subscribe.
+Sofya combines bytecode instrumentation using BCEL with the use of JDI for capturing events.
+FERRARI~\cite{binderReengineeringStandardJava2007} is a dynamic bytecode instrumentation framework
+that combines static instrumentation of runtime library classes with
+dynamic instrumentation of application classes to achieve full coverage.
+FERRARI hooks into the JVM using a Java agent.
+DiSL~\cite{marekDiSLDomainspecificLanguage2012,marekDiSLExtensibleLanguage2012}
+is a domain-specific aspect language for dynamic analysis.
+It eliminates the need for static instrumentation from FERRARI
+by using a separate JVM for instrumentation.
+It uses JVMTI to hook into the JVM and 
+forwards loaded classes to an instrumentation server,
+where it performs instrumentation using the ASM rewriting library.
+Turbo DiSL~\cite{zhengTurboDiSLPartial2012} significantly improves the performance of DiSL 
+by partially evaluating analysis code at instrumentation time.
+RoadRunner\footnote{\url{http://dept.cs.williams.edu/~freund/rr/}}~\cite{flanaganRoadRunnerDynamicAnalysis2010}
+is a high-level framework for creating dynamic analyses focusing on concurrent programs.
+An analysis implemented on top of RoadRunner simply consists of analysis code
+in the form of a class that can handle the various event types 
+(such as method calls or field accesses) that RoadRunner can track.
+RoadRunner uses a custom classloader to be able to rewrite classes at load time,
+and it uses ASM for bytecode rewriting.
+Btrace\footnote{\url{https://kenai.com/projects/btrace}} is an instrumentation tool
+that allows developers to inject probes based on a predefined set of probe types
+(such as method entry, or bytecode for a specific source line number).
+Btrace uses the Java agent hooks and builds on top of ASM for instrumentation.
+Chord\footnote{\url{http://pag.gatech.edu/chord/}}~\cite{naik11} is a static analysis framework based on Datalog.
+It uses joeq\footnote{\url{http://joeq.sourceforge.net}} to decode classes and 
+convert bytecode into a three-address quadcode internal representation for static analysis.
+Chord also supports dynamic analysis, 
+for which it instruments programs using Javassist.
+
+\textbf{How JNIF differs.}
+Similar to BCEL, JNIF is a low-level library that uses a clean object model to represent java class files.
+However, unlike all the libraries described above,
+JNIF is not implemented in Java, but in C++.
+This allows JNIF to be used directly inside a JVMTI agent. 
+Java-based libraries do not allow dynamic instrumentation in this way:
+they either are limited to Java agents (which only provide limited coverage),
+or they require out-of-process instrumentation inside a second JVM (a so-called instrumentation server),
+and inter-process communication between the JVMTI agent and the instrumentation server.
+
+JNIF simplifies the development and deployment of full-coverage dynamic analysis tools,
+because one does not need to run an instrumentation server in a separate JVM process.
+The fact that this is essential is demonstrated by the HPROF\footnote{\url{http://docs.oracle.com/javase/7/docs/technotes/samples/hprof.html}} profiling agent coming with the JVM.
+HPROF does not use Java libraries for rewriting bytecode,
+but implements (a limited form of) class file instrumentation as native code inside a JVMTI agent.
+
+The high-level frameworks described above all abstract away from the underlying instrumentation approach.
+Thus, they could make use of JNIF to provide their users with full-coverage 
+while eliminating the need for a separate instrumentation server.
+
+%Low overhead agent. 
+%Modular parser, you pay what you need. 
+%Full power of templates for better performance.
+
+%\textbf{Supporting Class File Verification.}
+%Java byte code verification~\cite{Leroy:2003:JBV:872715.872719}, 
+%its abstract: "Bytecode verification is a crucial security component for Java applets, 
+%on the Web and on embedded devices such as smart cards. 
+%This paper reviews the various bytecode verification algorithms that have been proposed, 
+%recasts them in a common framework of dataflow analysis, and surveys the use of proof assistants to specify bytecode verification and prove its correctness."

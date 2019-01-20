@@ -33,17 +33,31 @@ df.long[grep("#", df.long$value),]$key <- 'pattern'
 df.long[grep("@", df.long$value),]$key <- 'kind'
 df.long[df.long$key == '',]$key <- 'args'
 
+categories <- list(
+  'Guarded' = c('#PatternMatching', '#TypeTag', "#Equals"),
+  'Creation' = c('#Family', '#Factory', '#KnownLibraryMethod', '#Tag', '#Deserialization'),
+  'Code Smell' = c('#Redundant', '#VariableLessSpecificType', '#RawTypes'),
+  'Tuples' = c('#LookupById', '#ObjectAsArray', '#StaticResource')
+  )
+
 df.patterns <- df.long[df.long$key == 'pattern',]
 df.patterns$value <- as.factor(df.patterns$value)
 tb <- table(df.patterns$value)
 df.patterns$value <- factor(df.patterns$value, levels=names(tb[order(tb, decreasing = FALSE)]))
+df.patterns$category <- ''
+for (category in names(categories)) {
+  df.patterns[df.patterns$value %in% categories[[category]],]$category <- category
+}
+df.patterns$category <- factor(df.patterns$category, levels=names(categories))
 
 pdf(sprintf('table-patterns-%s.pdf', size))
 p <- ggplot(df.patterns, aes(x=value))+
   geom_bar()+
   geom_text(stat='count', aes(label=..count..,y=..count..+3))+
+  facet_grid(category~., scales="free", space="free") +
   coord_flip()+
-  theme_minimal()+
+#  theme_minimal()+
+  theme(strip.text.y = element_text(angle = 0))+
   labs(x="Cast Patterns", y = "# Instances")
 print(p)
 dev.off()

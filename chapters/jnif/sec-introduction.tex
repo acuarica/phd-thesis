@@ -1,0 +1,86 @@
+\section{Introduction}
+\label{sec:jnif-introduction}
+
+Program analysis tools are important in software engineering tasks 
+such as comprehension, verification and validation, profiling, debugging, and optimization.
+They can be broadly categorized either as static or dynamic, based on the input that they take.
+Static analysis tools carry out their task using as input only a program in a given representation, 
+e.g., source code, abstract syntax tree, bytecode, or binary code.
+In contrast, dynamic analysis tools observe the program being analyzed 
+by collecting runtime information.
+Many dynamic analysis tools rely on instrumentation to achieve their goals.
+
+In the context of the JVM, 
+static analysis and instrumentation for dynamic analysis often happens on the level of Java bytecode.
+Analysis tools thus need to decode and analyze---and in the case of instrumentation also edit and encode---Java bytecode.
+Given the relative complexity of the Java class file format,
+a diverse set of libraries (see Section~\ref{sec:jnif-relatedwork}) has been created for this purpose.
+All those libraries are implemented in Java.
+
+Instrumentation at bytecode level can be done in two ways:
+using a \java{} instrumentation agent or using a native JVMTI agent.%
+\footnote{\url{http://docs.oracle.com/javase/7/docs/technotes/guides/jvmti/index.html}}
+A Java instrumentation agent is written in Java and runs in the same JVM as the application.
+This leads to two main problems: poor isolation and poor coverage.
+It provides \emph{poor isolation} because to instrument the VM, 
+the agent's classes must be loaded in the same VM,
+and this can lead to perturbation in the VM.
+It provides \emph{poor coverage} because 
+an instrumentation agent (implemented in Java) will require some runtime library classes to be loaded before it can start instrumenting,
+and those runtime classes thus cannot be instrumented at load time. 
+
+A native JVMTI agent can instrument every class that the VM loads, including runtime classes. 
+The main issue when using JVMTI is that instrumentation must be done in a native language, usually C or C++. 
+Using C/C++ as the instrumentation language can be problematic, 
+because of the lack of a C/C++ library for Java bytecode rewriting. 
+Therefore developers have been using an extra JVM as an ``instrumentation server''
+in which they could use Java-based bytecode rewriting libraries.
+The C/C++ JVMTI agent thus only has to send code to the server,
+and no native bytecode rewriting library is needed.
+However, this approach has a drawback: it requires an additional JVM, 
+and it causes IPC traffic between the observed JVM and the instrumentation server.
+
+We created JNIF to overcome this problem. 
+To the best of our knowledge, JNIF is the first native Java bytecode rewriting library.
+JNIF is a C++ library for decoding, analyzing, editing, and encoding Java bytecode.
+The main benefit of JNIF is that it can be plugged into a JVMTI agent 
+for instrumenting all classes in a JVM transparently, i.e., 
+without connecting to another JVM and without perturbing the observed JVM.
+
+Starting with Java 6, class files can include stack maps to simplify bytecode verification for the JVM.
+Java 7 made those stack maps mandatory.
+Thus, unless one wants to disable the JVM's verifier,
+code rewriting tools need to also generate stack maps.
+Stack maps contain, for each basic block,
+type information for each local variable and operand stack slot.
+To generate stack maps, a bytecode rewriting tool needs to perform a static analysis.
+Due to the fact that bytecode does not contain type declarations of variable slots and local variables,
+these types have to be inferred using an intra-procedural data flow analysis.
+For reference types, 
+computing the least upper bound of two types in a join point of a control flow graph 
+even requires access to the class hierarchy of the program.
+Thus, the seemingly innocuous requirement for stack maps
+significantly complicates the creation of a bytecode rewriting library.
+JNIF solves these issues, also thanks to the fact that it can be used in-process in a JVMTI agent,
+and thus can determine the necessary subtyping relationships 
+by requesting the bytes of arbitrary classes loaded or loadable at any given point in time.
+This works for classes loaded via user-defined class loaders as well as
+for classes generated dynamically on-the-fly.
+
+Overall, the main contributions of this paper are:
+
+\begin{itemize}
+	\item We present JNIF, a C++ library for decoding, analyzing, editing, and encoding Java class files.
+	\item JNIF includes a data-flow analysis for stack map generation, 
+	      a complication necessary for any library that provides editing and encoding support for modern JVMs with split-time verification.
+	\item We evaluate JNIF by comparing its performance against the most prevalent Java bytecode rewriting library, ASM.
+\end{itemize}
+
+The rest of this chapter is organized as follows:
+Section~\ref{sec:jnif-relatedwork} presents related work.
+In Section~\ref{sec:jnif-usage} we show how to use the JNIF API.
+Section~\ref{sec:jnif-implementation} describes the design of JNIF.
+Section~\ref{sec:jnif-test} explains how we validated JNIF.
+Section~\ref{sec:jnif-evaluation} evaluates JNIF's performance against the mainstream bytecode manipulator, ASM.
+Section~\ref{sec:jnif-limitations} discusses limitations, and 
+Section~\ref{sec:jnif-conclusions} concludes.
