@@ -1,4 +1,4 @@
-\section{Using JNIF}
+\section{Using \jnif{}}
 \label{sec:jnif-usage}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -30,9 +30,9 @@
 \lstset{style=mystyle}
 \lstset{escapechar=§}
 
-
-We now briefly show how to use JNIF.
-JNIF can be used both in stand-alone tools or embedded inside a JVMTI agent.
+We now briefly show how to use \jnif{}.
+\jnif{} can be used both in stand-alone tools or
+embedded inside a \jvmti{} agent.
 The complete API documentation and more extensive examples are available online\footnote{\url{http://acuarica.bitbucket.org/jnif/}}.
 Listing~\ref{usage-decode-encode} shows how to read and write a class file.
 
@@ -57,8 +57,7 @@ cf.write(newdata, newlen);
 delete [] newdata;
 \end{lstlisting}
 
-
-JNIF's \texttt{ClassFile} class provides fields and methods for analyzing and editing a Java class.
+\jnif{}'s \code{ClassFile} class provides fields and methods for analyzing and editing a Java class.
 Listing~\ref{usage-print1} shows how to traverse all methods in a class
 to dump their names and descriptors.
 
@@ -73,7 +72,7 @@ for (jnif::Method* m : cf.methods) {
 
 Listing~\ref{usage-edit} shows how to find all constructors in a class
 and how to inject instrumentation, in the form of a call to a static method
-\texttt{static void alloc(Object o)} of an analysis class,
+\code{static void alloc( Object o)} of an analysis class,
 at the beginning of each constructor.
 
 \begin{lstlisting}[caption=Instrumenting constructor entries,label=usage-edit]

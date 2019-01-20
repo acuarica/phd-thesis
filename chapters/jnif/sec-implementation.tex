@@ -1,14 +1,14 @@
-\section{JNIF Design and Implementation}
+\section{\jnif{} Design and Implementation}
 \label{sec:jnif-implementation}
 
-JNIF is written in C++11~\citep{ISO:2012:III}, 
+\jnif{} is written in C++11~\citep{ISO:2012:III}, 
 in an object-oriented style similar to \java{}-based class rewriting \api{}s.
 
 \subsection{Design}
 
-JNIF consists of five main modules: model, parser, writer, printer, and analysis.
+\jnif{} consists of five main modules: model, parser, writer, printer, and analysis.
 %
-\emph{Model} implements JNIF's intermediate representation.
+\emph{Model} implements \jnif{}'s intermediate representation.
 It is centered around its \code{ClassFile} class. 
 It is possible to create and manipulate class files from scratch.
 %
@@ -28,18 +28,18 @@ Finally, \emph{analysis} implements the static analyses necessary for computing 
 
 \subsubsection*{JVM-Independence}
 
-JNIF is a stand-alone C++ library that can be used outside a JVM.
-It does not depend on JVMTI or JNI.
+\jnif{} is a stand-alone C++ library that can be used outside a JVM.
+It does not depend on \jvmti{} or JNI.
 However, for the purpose of stack map generation,
 it may need to determine the common super class of two classes.
 For this it will need to retrieve a class file given the name of an arbitrary class. 
-This functionality is provided by a plugin that implements JNIF's \texttt{IClassPath}.
-JNIF comes with such a plugin that uses JNI in case it is running inside a JVM.
+This functionality is provided by a plugin that implements \jnif{}'s \texttt{IClassPath}.
+\jnif{} comes with such a plugin that uses JNI in case it is running inside a JVM.
 
 
 \subsubsection*{Explicit Constant Pool Management}
 
-Unlike some other class rewriting libraries, JNIF exposes the constant pool instead of hiding it.
+Unlike some other class rewriting libraries, \jnif{} exposes the constant pool instead of hiding it.
 Our reasons for this design decision were two-fold:
 (1) We wanted to fully control the structure of the class file, 
 and for that it is necessary to expose the constant pool. 
@@ -52,7 +52,7 @@ This decreases the perturbation done by the instrumentation and allows for bette
 
 \subsubsection*{Memory Management}
 
-Given that JNIF is implemented in an unmanaged language,
+Given that \jnif{} is implemented in an unmanaged language,
 we have to worry about memory deallocation.
 Our API follows a simple ownership model
 where all IR objects are owned by their enclosing objects.
@@ -66,7 +66,7 @@ instead of directly allocating a new \texttt{Method} object.
 
 \subsection{Stack Map Generation}
 
-When encoding a \texttt{ClassFile} into a byte array, JNIF needs to generate stack maps.
+When encoding a \texttt{ClassFile} into a byte array, \jnif{} needs to generate stack maps.
 The necessary static analyses are implemented in the analyzer module.
 This module uses data flow analysis and abstract interpretation to determine the types of operand stack slots and local variables.
 The analysis module first builds a control flow graph of the method.
@@ -83,7 +83,7 @@ While this is trivial for primitive types,
 it can require access to the class hierarchy for reference types.
 This requirement represents a severe complication for binary rewriting tools:
 when rewriting a single class, they may require access to many other classes in the program.
-JNIF solves this problem by providing the \texttt{IClassPath} interface.
+\jnif{} solves this problem by providing the \texttt{IClassPath} interface.
 Different \texttt{IClassPath} implementations can provide different ways for getting access to classes.
 For example, a static instrumentation tool may use a user-defined class path to find classes,
 while a dynamic instrumentation tool may use JNI to request the bytes of a class given that class' name.
@@ -92,14 +92,11 @@ while a dynamic instrumentation tool may use JNI to request the bytes of a class
 %How this issue is broken in ASM, 
 %because it will cause a lot of class loading and hence static initializer to be run in an order that was not the one assumed by the programmer.}
 
-
-
-\subsection{Running JNIF Inside a JVMTI Agent}
-When using JNIF inside a JVMTI agent, 
-JNIF uses an \texttt{IClassPath} implementation
-that uses JNI to load the bytes of classes
+\subsection{Running \jnif{} Inside a \jvmti{} Agent}
+When using \jnif{} inside a \jvmti{} agent, 
+\jnif{} uses an \texttt{IClassPath} implementation
+that uses \jni{} to load the bytes of classes
 required for least upper bound computations during stack map generation.
-
 
 \subsubsection*{Avoiding Premature Static Initialization}
 Using JNI to load a class (with \texttt{ClassLoader.loadClass()}), however, will call that class' static initializer.
@@ -107,17 +104,16 @@ This is a side effect that may change the observable behavior of the program und
 To avoid this, one can request the bytes of the class (with \texttt{ClassLoader.getResourceAsStream())} instead of loading the class.
 It can then parse the bytes of the class into its IR to determine that class' supertypes.
 
-
 \subsubsection*{Avoiding the Loading of the Class Being Instrumented}
-If during the instrumentation of a class \texttt{X} 
-JNIF needs to perform a least upper bound computation involving type \texttt{X},
-then using \texttt{ClassLoader.loadClass()} to load class \texttt{X} would cause an infinite recursion.
-The above solution with \texttt{getResourceAsStream()} also prevents this problem.
-
+If during the instrumentation of a class \code{X} \jnif{} needs to
+perform a least upper bound computation involving type \code{X},
+then using \code{ClassLoader.loadClass()} to load class \code{X} would
+cause an infinite recursion.
+The above solution with \code{get\-ResourceAsStream()} also prevents this problem.
 
 \subsubsection*{Avoiding Premature ClassNotFoundException}
 If during the instrumentation of a class \texttt{X}
-JNIF needs to perform a least upper bound computation involving a type \texttt{Y},
+\jnif{} needs to perform a least upper bound computation involving a type \texttt{Y},
 and if class \texttt{Y} cannot be found,
 then throwing a \texttt{ClassNotFoundException} at that time would be premature
 (because without instrumentation, such an exception would only be thrown later).
@@ -127,15 +123,14 @@ We solve that problem by assuming a least upper bound of \verb=java.lang.Object=
 
 %\subsection{Features}
 %
-%The JNIF also provides a convenient way to output dot files from generated control flow graph in order to better understand and analyze complex methods.
+%The \jnif{} also provides a convenient way to output dot files from generated control flow graph in order to better understand and analyze complex methods.
 %
 %Architecture and design picture.?
 %
 %\subsection{Portability?}
 %
-%The library uses only C++11 and STL constructions, thus there are no dependencies with any third-party library. Currently the JNIF compiles and runs on Linux and MacOS.
+%The library uses only C++11 and STL constructions, thus there are no dependencies with any third-party library. Currently the \jnif{} compiles and runs on Linux and MacOS.
 %
-%Dependency on graphviz
 %
 %\begin{lstlisting}[caption=Dots,label=usage-parse2]
 %> make dots
