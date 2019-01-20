@@ -1,13 +1,13 @@
 
-\newcommand{\patternsection}[1]{\noindent\textbf{#1.}}
+\newcommand{\castpatternsection}[1]{\noindent\textbf{#1.}}
 \newcommand{\pname}[1]{\textsc{#1}}
 
 \newenvironment{pattern}[1]{
-	\newcommand{\desc}{\patternsection{Description}}
-	\newcommand{\instances}{\patternsection{Instances}}
-	\newcommand{\detection}{\patternsection{Detection}}
-	\newcommand{\discussion}{\patternsection{Discussion}}
-	\newcommand{\related}{\patternsection{Related Patterns}}
+	\newcommand{\desc}{\castpatternsection{Description}}
+	\newcommand{\instances}{\castpatternsection{Instances}}
+	\newcommand{\detection}{\castpatternsection{Detection}}
+	\newcommand{\discussion}{\castpatternsection{Discussion}}
+	\newcommand{\related}{\castpatternsection{Related Patterns}}
     \newcommand{\thisp}{\textsc{#1}}
     \subsection{\pname{#1}}
     \label{pat:#1}

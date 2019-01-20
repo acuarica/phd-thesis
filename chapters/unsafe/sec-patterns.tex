@@ -1,0 +1,503 @@
+\input{chapters/unsafe/patterns-most}
+
+\newcommand{\javaclass}[1]{\emph{#1}}
+
+\newcommand{\patternrow}[1]{
+  \expandafter\newcommand\csname row#1\endcsname{\csname foundin#1\endcsname & \csname usedby#1\endcsname & \csname mostused#1\endcsname}
+}
+
+\newcommand{\patterntext}[6]{
+    \expandafter\newcommand\csname desc#1\endcsname{#2}
+    \expandafter\newcommand\csname alt#1\endcsname{#3}
+    \expandafter\newcommand\csname impl#1\endcsname{#4}
+    \expandafter\newcommand\csname rationale#1\endcsname{#5}
+    \expandafter\newcommand\csname issues#1\endcsname{#6}
+    \patternrow{#1}
+}
+
+\newcommand{\patternsection}[1]{
+
+\expandafter\subsection{\csname name#1\endcsname}
+\expandafter\label{sec:#1}
+
+\noindent \textbf{\em Description.} \expandafter\csname desc#1\endcsname
+%\smallskip
+
+\noindent \textbf{\em Rationale.} \expandafter\csname rationale#1\endcsname
+%\smallskip
+
+\noindent \textbf{\em Implementation.} \expandafter\csname impl#1\endcsname
+%\smallskip
+
+\noindent \textbf{\em Issues.} \expandafter\csname issues#1\endcsname
+%\smallskip
+
+}
+
+\newcommand\foundinalloc{88}
+\newcommand\usedbyalloc{14794}
+\newcommand\mostusedalloc{\allocmost}
+\newcommand\membersalloc{\member{allocate\-Instance}}
+\newcommand\namealloc{Allocate an Object without Invoking a Constructor}
+
+\patterntext{alloc}%
+{With this pattern an object can be allocated on the heap
+without executing its constructor.}
+{}
+{The \member{allocate\-Instance} method takes as parameter a \javaclass{java.lang.Class} object, and returns a new instance of that class. Unlike allocating an
+object directly, or through the reflection API, the object's constructor is not invoked.}
+{This pattern is useful for creating mock objects for testing and in deserializing
+serialized objects.}
+{If the constructor is not invoked, the object might be left uninitialized
+  and its invariants might not hold.
+  Users of \member{allocate\-Instance} must take care to properly
+  initialize the object before it is used by other code. This is often done in conjunction with other methods
+  of \unsafe{}, for instance those in the \smugroup{Heap Put} group, or by using
+the Java reflection API.
+}
+
+\newcommand\foundinprobyte{44}
+\newcommand\usedbyprobyte{12274}
+\newcommand\mostusedprobyte{\probytemost}
+\newcommand\membersprobyte{\member{array\-Base\-Offset}, \member{getLong}, and optionally \member{array\-Index\-Scale} (to assert that the size of byte is equal to 1)}
+\newcommand\nameprobyte{Process Byte Arrays in Block}
+
+\patterntext{probyte}%
+{When processing the elements of a byte array, better performance
+can be achieved by processing the elements 8 bytes at a time, treating it as a
+long array, rather than one byte at a time.}
+{The JVM's runtime compiler can be extended with optimizations for vectorizing
+byte array accesses.}
+{The \member{array\-Base\-Offset} method is invoked to get the base offset of the byte array.
+Then \member{getLong} is used to fetch and process 8 bytes of the array at a time.}
+{The pattern is used for fast byte array processing, for instance,
+when comparing two byte arrays lexicographically.}
+{The pattern assumes that bytes in an array are stored contiguously. This may
+  not be true for some VMs, \eg{} those implementing large arrays using
+  discontinuous arrays or
+  arraylets~\cite{siebertEliminatingExternalFragmentation2000,baconRealtimeGarbageCollector2003}. Users of
+the pattern should be aware of the endianness of the underlying hardware.
+In one \stackoverflow discussion, this pattern is
+discouraged since it is non-portable and, on many JVMs, results in slower
+code\footnote{\url{http://stackoverflow.com/questions/12226123}}. }
+
+\newcommand\foundinlockfree{84}
+\newcommand\usedbylockfree{10259}
+\newcommand\mostusedlockfree{\lockfreemost}
+\newcommand\memberslockfree{Either \member{object\-Field\-Offset} or \member{array\-Base\-Offset} in conjunction
+  with \member{array\-Index\-Scale}, plus methods of the \smugroup{CAS} group
+or the \smugroup{Fetch \& Add} group.
+}
+\newcommand\namelockfree{Atomic Operations}
+
+
+\patterntext{lockfree}%
+{
+  To implement
+  non-blocking concurrent data structures and synchronization primitives, hardware-specific atomic operations
+  provided by \smu{} are used.
+%Some of them include following classes developed by Cliff Click, author of
+  %the HotSpot Server Compiler: \javaclass{ConcurrentAutoTable}, \javaclass{NonBlockingHashMap}.
+%\javaclass{org.vmmagic}~\cite{Frampton:2009:DMH:1508293.1508305}.
+}
+{The Java standard library provides classes for some concurrent data structures.
+The library also provides classes
+(\javaclass{Atomic\-Field\-Reference\-Updater}, \javaclass{AtomicIntegerArray}, etc.)
+for safely performing atomic operations on fields and array elements, as well
+as several synchronizer classes. These
+can be used instead of the \unsafe{} atomic operations.}
+{To get the offset of a \java{} variable either \member{object\-Field\-Offset} or
+  \member{array\-Base\-Offset}/\member{array\-Index\-Scale} can be used.
+With this offset, the methods from the \smugroup{CAS} or \smugroup{Fetch \&
+Add} groups are used to perform atomic operations on the variable.
+Other methods of \unsafe{} are often used in the implementation of concurrent
+data structures, including \smugroup{Volatile Get/Put}, \smugroup{Ordered Put}, and \smugroup{Fence} methods.
+}
+{Non-blocking algorithms often scale better than algorithms that use locking.}
+{Non-blocking algorithms can be difficult to implement correctly. Programmers
+must understand the Java memory model and how the \unsafe{} methods interact
+with the memory model.}
+
+\newcommand\foundinfence{198}
+\newcommand\usedbyfence{9795}
+\newcommand\mostusedfence{\fencemost}
+\newcommand\membersfence{Methods of the \smugroup{Fence} group, or methods of
+the \smugroup{Get/Put Volatile} groups or \smugroup{Put Ordered} group}
+\newcommand\namefence{Strongly Consistent Shared Variables}
+
+
+\patterntext{fence}%
+{Because of Java's weak memory
+  model, when implementing concurrent code,
+  it is often necessary to ensure that
+  writes to a shared variable by one thread become visible to other threads,
+  or to prevent
+  reordering of loads and stores.
+  Volatile variables can be used for this purpose, but
+  \smu{} can be used instead with better performance.
+  Additionally, because Java does not allow array elements to be declared volatile,
+  there is no possibility other than to use \unsafe{} to ensure visibility of
+  array stores. The methods of the \smugroup{Ordered Put} groups
+  and the \smugroup{Volatile Get/Put} groups can be used for these purposes.
+  In addition, the \smugroup{Fence} methods were introduced in Java 8 expressly
+to provide greater flexibility for this use case.}
+{Memory fence operations can be added to the standard library. The language
+can be changed to make volatile variables more flexible.}
+{To ensure a write is visible to another thread, \smugroup{Volatile Put}
+  methods or \smugroup{Ordered Put} methods can be used, even on non-volatile variables.
+  Alternatively, a \member{storeFence} or \member{fullFence} can be used.
+  \smugroup{Volatile Get} methods ensure other loads and stores are not reordered
+  across the load. A \member{loadFence} could also be used before a read of a
+  shared variable.
+}{This pattern is useful for implementing concurrent algorithms or shared
+  variables in concurrent settings. For instance, JRuby uses a \member{fullFence}
+  to ensure visibility of writes to object fields.
+}{Fences can replace volatile variables in some situations, offering better
+  performance. Most of the uses of the pattern use the \smugroup{Ordered Put}
+  and \smugroup{Volatile Put} methods. Since they were added to Java only recently, there are currently few instances
+of the pattern that use the \smugroup{Fence} methods.}
+
+\newcommand\foundinpark{62}
+\newcommand\usedbypark{7330}
+\newcommand\mostusedpark{\parkmost}
+\newcommand\memberspark{\member{park}, \member{unpark}}
+\newcommand\namepark{Park/Unpark Threads}
+
+
+\patterntext{park}%
+{The \member{park} and \member{unpark} methods are used to block and unblock threads and are useful for implementing locks and other
+blocking synchronization constructs.}
+{The standard library class \javaclass{java.\-util.\-concurrent.\-locks.\-LockSupport} provides \member{park} and \member{unpark}
+methods to be used for implementing locks.}
+{The \member{park} method blocks the current thread while \member{unpark}
+unblocks a thread given as an argument.}
+{The alternative to parking a thread is to busy-wait, which uses CPU
+resources and does not allow other threads to proceed.}{Users of
+  \member{park} must be careful to avoid deadlock.}
+
+\newcommand\foundinfinalfield{11}
+\newcommand\usedbyfinalfield{7281}
+\newcommand\mostusedfinalfield{\finalfieldmost}
+\newcommand\membersfinalfield{\member{object\-Field\-Offset}; and, at least one method of the \smugroup{Heap Put} or \smugroup{Put Volatile} groups.}
+\newcommand\namefinalfield{Update Final Fields}
+
+\patterntext{finalfield}%
+{This pattern is used to update a final field.  }
+{The reflection API can be used to implement the same functionality.}
+{The \member{object\-Field\-Offset} methods and one of the \smugroup{Put} methods work in conjunction to directly modify the memory where a final field resides.}
+{Although it is possible to use reflection to implement the same behavior,
+  updating a final field is easier and more efficient using \smu{}.
+  Some applications update final fields when cloning objects
+  or when deserializing objects.
+}{
+  There are numerous security and safety issues with modifying final
+  fields. The update should be done only on newly created objects
+  (perhaps also using \member{allocate\-Instance} to avoid
+  invoking the constructor) before the object becomes visible to
+  other threads. The Java Language
+  Specification (Section 17.5.3)~\cite{Gosling:2013:JLS:2462622}
+  recommends that final fields not be read until all updates are
+  complete. In addition, the language permits compiler optimizations
+  with final fields that can prevent updates to the field from being
+  observed.
+  Since final fields can be cached by other threads, one instance of
+  the pattern uses \member{putObject\-Volatile} to update the field rather than
+  simply \member{putObject}.
+  Using this method ensures that any cached copy in other threads
+  is invalidated.}
+
+\newcommand\foundinmonitor{14}
+\newcommand\usedbymonitor{7015}
+\newcommand\mostusedmonitor{\monitormost}
+\newcommand\membersmonitor{\member{monitor\-Enter}, \member{monitor\-Exit}}
+\newcommand\namemonitor{Non-Lexically-Scoped Monitors}
+
+\patterntext{monitor}%
+{In this pattern, monitors are explicitly acquired and released without using
+\texttt{synchronized} blocks.}
+{One can extend the language to support non-lexically-scoped
+monitors.}
+{One usage of the pattern is to temporarily release monitor locks acquired
+  in client code (e.g., through a synchronized block or method) and
+  then to reenter the monitor before returning
+  to the client. The \member{monitor\-Exit} method is used to exit the
+  synchronized block. Because monitors are reentrant, the pattern
+  uses the method \javaclass{Thread.\-holds\-Lock} to implement a loop
+  that repeatedly exits the monitor
+  until the lock is no longer held. When reentering the monitor,
+  \member{monitor\-Enter} is called the same number of times
+  as \member{monitor\-Exit} was called to release the lock.
+}{The pattern is used in some situations to avoid deadlock, releasing a monitor
+temporarily, then reacquiring it.}{Care must be taken to balance calls to
+\member{monitor\-Enter} and \member{monitor\-Exit}, or else the lock might
+not be released or an \texttt{Illegal\-Monitor\-State\-Exception} might be
+thrown.}
+
+\newcommand\foundinserialization{32}
+\newcommand\usedbyserialization{5689}
+\newcommand\mostusedserialization{\serializationmost}
+\newcommand\membersserialization{\member{object\-Field\-Offset} and methods of the \smugroup{Heap Get} and \smugroup{Heap Put} groups}
+\newcommand\nameserialization{Serialization/Deserialization}
+
+\patterntext{serialization}%
+{In this pattern, \smu{} is used to persist and subsequently load objects to and from secondary memory dynamically.
+Serialization in \java{} is so important that it has a \javaclass{Serializable} interface to automatically serialize objects that implement it.
+Although this kind of serialization is easy to use, it does not offer good
+performance and is inflexible.
+It is possible to implement serialization using the reflection API. This is
+also expensive in terms of performance. Therefore, fast serialization frameworks
+often use \unsafe{} to get and set fields of objects.
+% Project \project{jon} however invoke the \member{allocate\-Instance} method.
+% These projects use one of the following classes:
+% \javaclass{com.lts.xmlser.SerializationUtils},
+% \javaclass{Sun14ReflectionProvider}, or
+% \javaclass{JSX.magic.MagicClass14}, which are third-party classes that implement fast serialization.
+Some of these projects use reflection to check if \smu{} is available, falling
+back on a slower implementation if not.}
+{Reflection can be used for accessing fields, more safely although less
+  efficiently. Java's supports serialization of objects using
+  \javaclass{java.io.Object\-Output\-Stream} and related classes. These serialization features could be extended with support for
+user-defined serialization formats.}
+{Methods of \smugroup{Heap Get} and \smugroup{Heap Put} are used to read and
+  write fields and array elements. Deserialization may use
+\member{allocate\-Instance} to create objects without invoking the constructor.}
+{De/serialization requires reading and writing fields to save and restore
+objects. Some of these fields may be final or private.}{
+Using \unsafe{} for serialization and deserialization has many of the same issues
+as using \unsafe{} for updating final fields (Section~\ref{sec:finalfield}) and for creating objects without
+invoking a constructor (Section~\ref{sec:alloc}). Objects must not escape before being completely
+deserialized. Type safety can be violated by using methods of the
+\smugroup{Heap Put} group. In addition, care must be taken when deserializing
+some data structures. For instance, data structures that use
+\javaclass{System.identity\-Hash\-Code} or \javaclass{Object.hash\-Code} may need to rehash objects on
+deserialization because the deserialized object might have a different
+hash code than the original serialized object.}
+
+\newcommand\foundinmarshalling{8}
+\newcommand\usedbymarshalling{3690}
+\newcommand\mostusedmarshalling{\marshallingmost}
+\newcommand\membersmarshalling{Methods of the \smugroup{Off-Heap} and \smugroup{Off-Heap Get/Put} groups}
+\newcommand\namemarshalling{Foreign Data Access and Object Marshaling}
+
+\patterntext{marshalling}%
+{In this pattern \smu{} is used to share data between Java code and code
+  written in another language, usually C or C++.
+% The \project{osfree} and \project{snarej} projects are peculiar because they use only \smugroup{Get} and \smugroup{Put} methods without calling \smugroup{Offset}.
+% This is explained by the fact that these kinds of projects are implementing
+% operating systems on top of the JVM.
+% They obtain the memory address for the \smugroup{Get} and \smugroup{Put} methods using JNI.
+% The \project{janux} project implements a native loader that needs to load class files from native memory.
+% The \project{javapayload} project is about running exploits in pure \java{}, it has the ability to load a native library and execute an exploit.
+% Stdlib: bytebuffer, datainputstream
+}
+{\javaclass{java.nio.Byte\-Buffer} and related classes can be used for marshaling data instead of \unsafe{}.}
+{The methods of the \smugroup{Off-Heap} group are used to access memory off
+the Java heap. Often a buffer is allocated using \member{allocate\-Memory},
+which is then passed to the other language using JNI. Alternatively, the
+native code can allocate a buffer in a JNI method. The \smugroup{Off-Heap Get}
+and \smugroup{Off-Heap Put} methods are used to access the buffer.}{This
+pattern is needed to efficiently pass data, especially structures and arrays, back and forth between Java and
+native code. Using this pattern can be more efficient than using native
+methods and JNI.}{Use of \unsafe{} here is inherently not type-safe. Care must be
+  taken especially with native pointers, which are represented as
+\texttt{long} values in Java code.}
+
+\newcommand\foundinthrow{59}
+\newcommand\usedbythrow{3566}
+\newcommand\mostusedthrow{\throwmost}
+\newcommand\membersthrow{\member{throw\-Exception}}
+\newcommand\namethrow{Throw Checked Exceptions without Being Declared}
+
+\patterntext{throw}%
+{This pattern allows the programmer to throw checked exceptions without being
+declared in the method's \texttt{throws} clause.}
+{The issue can be avoided by not requiring \texttt{throws} declarations at
+  all. Indeed, there is a long-running
+  debate\footnote{\url{http://www.ibm.com/developerworks/library/j-jtp05254/}} about the
+  software-engineering benefits of checked exceptions.
+C\#, for instance, does not require that exceptions be declared in method signatures at all.
+One alternative proposed in a \stackoverflow
+discussion is to use Java generics
+instead.\footnote{\url{http://stackoverflow.com/questions/11410042}} Because
+of type erasure, a checked exception can be coerced unsafely into an unchecked exception and thrown.
+}
+{The pattern is implemented using the \member{throw\-Exception} method.}
+{In testing and mocking frameworks, the pattern is used to circumvent declaring
+  the exception to be thrown, which is often unknown.
+It is used in the Java Fork/Join framework to save the generic exception of a thread to be rethrown later.}
+{This method can violate Java's subtyping
+  relation, because it is not expected
+  for a method that does not declare an exception to actually throw it. At
+  run time, this can manifest as an uncaught exception.}
+
+\newcommand\foundinsize{4}
+\newcommand\usedbysize{3003}
+\newcommand\mostusedsize{\sizemost}
+\newcommand\memberssize{\member{array\-Base\-Offset}, \member{array\-Index\-Scale},
+\member{object\-Field\-Offset}}
+\newcommand\namesize{Get the Size of an Object or an Array}
+
+\patterntext{size}%
+{This pattern uses \smu{} to estimate the size of an object or an array in
+memory.}
+{A sizeof feature could be introduced into the language or
+into the standard library to make the implementation portable.}
+{To compute the size of an array, add \member{array\-Base\-Offset} and
+\member{array\-Index\-Scale} (for the given array base type) times the array
+length. For objects, use \member{object\-Field\-Offset} to compute the offset
+of the last instance field. In both cases, a VM-dependent fudge factor is
+added to account for the object header and for object alignment and padding.}{The object
+size can be useful for making manual memory management decisions. For
+instance, when implementing a cache, object sizes can be used to implement
+code to limit the cache size.}{Object
+size is very implementation dependent. Accounting for the object header and
+alignment requires adding VM-dependent constants for these parameters.}
+
+\newcommand\foundinlargearrays{12}
+\newcommand\usedbylargearrays{487}
+\newcommand\mostusedlargearrays{\largearraysmost}
+\newcommand\memberslargearrays{\member{allocate\-Memory}, \member{free\-Memory}, \member{setMemory}, \member{getInt}, \member{getLong}, \member{putInt}, \member{putLong}}
+\newcommand\namelargearrays{Large Arrays and Off-Heap Data Structures}
+
+\patterntext{largearrays}%
+{This pattern uses off-heap memory to create large arrays or data structures with manual memory management.}
+{This functionality could be provided with a language feature or library.}
+{A block of memory is allocated with \member{allocate\-Memory} and then
+accessed using \smugroup{Off-Heap Get} and \smugroup{Off-Heap Put} methods.
+The block is freed with \member{free\-Memory}.}
+{Java's arrays are indexed by \texttt{int} and are thus limited to $2^{31}$
+elements. Using \unsafe{}, larger buffers can be allocated outside the heap.}{This pattern has all the issues of manual memory
+management: memory leaks, dangling pointers, double free, etc.
+One issue, mentioned on
+\stackoverflow, is that the memory returned by \member{allocate\-Memory} is
+uninitialized and may contain
+garbage.\footnote{\url{http://stackoverflow.com/questions/16723244}}
+Therefore, care must be taken to initialize allocated memory before use.
+The \unsafe{} method \member{set\-Memory} can be used for this purpose.
+}
+
+\newcommand\foundinpage{11}
+\newcommand\usedbypage{359}
+\newcommand\mostusedpage{\pagemost}
+\newcommand\memberspage{\member{pageSize}}
+\newcommand\namepage{Get Memory Page Size}
+
+
+\patterntext{page}%
+{\smu{} is used to determine the size of a page in memory.}
+{This functionality could be added to the standard library, perhaps in
+the \javaclass{java.nio} package.}
+{Call \member{pageSize}.}{The page size is needed to allocate buffers or
+  access memory by page.
+  A common use case is to round up a buffer size,
+  typically a \javaclass{java.nio.ByteBuffer}, to the
+  nearest page size. Hadoop uses the page size to track memory usage of
+  cache files mapped directly into memory
+using \javaclass{java.nio.MappedByteBuffer}. Another use is to process a
+buffer page-by-page.
+Some native libraries require or recommend allocating buffers on page-size
+boundaries.\footnote{\url{http://stackoverflow.com/questions/19047584}}
+}{Some platforms on which the JVM runs do not have
+  virtual memory, so requesting the page size is non-portable.
+}
+
+\newcommand\foundinclass{21}
+\newcommand\usedbyclass{294}
+\newcommand\mostusedclass{\classmost}
+\newcommand\membersclass{\member{define\-Class}}
+\newcommand\nameclass{Load Class without Security Checks}
+
+\patterntext{class}%
+{\smu{} is used to load a class from an array containing its bytecode. Unlike
+with the \javaclass{ClassLoader} API, security checks are not performed.}
+{This feature could be added to the standard library, with a
+  \javaclass{SecurityManager} used to explicitly relax the Java security model.}
+{The pattern is implemented using the \member{define\-Class} method, which
+takes a byte array containing the bytecode of the class to load.}{This pattern is useful for implementing lambdas, dynamic
+class generation, and dynamic class rewriting. It is also useful in application
+frameworks that do not interact well with user-defined class loaders.}{The
+pattern violates the Java security model. Untrusted code could be introduced
+into the same protection domain as trusted code.}
+
+
+
+
+
+
+
+\section{Usage Patterns of \smu{}}
+\label{sec:unsafe:patterns}
+
+This section presents the patterns we have found during our study.
+We present them sorted by how many artifacts depend on them, as computed from
+the Maven dependency graph described in Section~\ref{sec:maven}.
+
+\input{chapters/unsafe/table-pats}
+
+We present each pattern using the following template.
+\medskip
+
+{
+
+\noindent \textbf{\em Description.}
+{What is the purpose of the pattern? What does it do?}
+%\smallskip
+
+\noindent \textbf{\em Rationale.}
+{What problem is the pattern trying to solve? In what contexts is it used?}
+%\smallskip
+
+% \noindent \textbf{\em Unsafe members.}
+% {Methods and fields of \smu{} used in the pattern.
+% In some cases, there are multiple alternatives to implementing the pattern.
+% These are explained when necessary in turn for each pattern. }
+% %\smallskip
+
+\noindent \textbf{\em Implementation.}
+{How is the pattern implemented using \smu{}?}
+%\smallskip
+
+% \noindent \textbf{\em Found in.}
+% {Number of artifacts in \mavencentral{} that contain the pattern.}
+% %\smallskip
+
+% \noindent \textbf{\em Used by.}
+% {Number of artifacts that transitively depend on the artifacts with the
+% pattern.}
+% %\smallskip
+
+% \noindent \textbf{\em Most used artifacts.}
+% {The three most used artifacts containing the pattern, that is, the
+% artifact with the most other artifacts that transitively depend upon it.
+% Artifacts are shown using their Maven identifier, \ie{}
+% \artexp{$\langle$groupId$\rangle$}{$\langle$artifactId$\rangle$}.
+% %\smallskip
+
+\noindent \textbf{\em Issues.}
+{Issues to consider when using the pattern and problems discussed in the
+\stackoverflow{} database.}
+%\smallskip
+
+% \noindent \textbf{\em Alternatives.}
+% {Potential alternatives to using the \unsafe{} for solving the same
+% problem.}
+
+
+}
+
+
+
+\patternsection{alloc}
+\patternsection{probyte}
+\patternsection{lockfree}
+\patternsection{fence}
+\patternsection{park}
+\patternsection{finalfield}
+\patternsection{monitor}
+\patternsection{serialization}
+\patternsection{marshalling}
+\patternsection{throw}
+\patternsection{size}
+\patternsection{largearrays}
+\patternsection{page}
+\patternsection{class}

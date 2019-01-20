@@ -3,29 +3,35 @@
 \definecolor{header-color}{HTML}{D1D1D1}
 \definecolor{alt-row-color}{HTML}{ECECEC}
 
-\newcommand{\hdr}{\rowcolor{header-color}}
-\newcommand{\alt}{\rowcolor{alt-row-color}}
-\newcommand{\row}{}
+% \newcommand{\hdr}{\rowcolor{header-color}}
+% \newcommand{\alt}{\rowcolor{alt-row-color}}
+% \newcommand{\row}{}
 
-\newcommand{\javaclass}[1]{\emph{#1}}
+
+\newcommand{\artstyle}[1]{\textsl{#1}}
+\newcommand{\artexp}[2]{\artstyle{#1}:\artstyle{#2}}
+\newcommand{\art}[3]{\artstyle{#1}:\artstyle{#2}\footnote{\url{#3}}}
+
 \newcommand{\member}[1]{\emph{#1}}
 \newcommand{\smugroup}[1]{\textsl{#1}}
 \newcommand{\stackoverflow}{Stack Overflow}
 
-\newcommand\namealloc{Allocate an Object without Invoking a Constructor}
-\newcommand\nameprobyte{Process Byte Arrays in Block}
-\newcommand\namelockfree{Atomic Operations}
-\newcommand\namefence{Strongly Consistent Shared Variables}
-\newcommand\namepark{Park/Unpark Threads}
-\newcommand\namefinalfield{Update Final Fields}
-\newcommand\namemonitor{Non-Lexically-Scoped Monitors}
-\newcommand\nameserialization{Serialization/Deserialization}
-\newcommand\namemarshalling{Foreign Data Access and Object Marshaling}
-\newcommand\namethrow{Throw Checked Exceptions without Being Declared}
-\newcommand\namesize{Get the Size of an Object or an Array}
-\newcommand\namelargearrays{Large Arrays and Off-Heap Data Structures}
-\newcommand\namepage{Get Memory Page Size}
-\newcommand\nameclass{Load Class without Security Checks}
+% \newcommand{\javaclass}[1]{\emph{#1}}
+
+% \newcommand\namealloc{Allocate an Object without Invoking a Constructor}
+% \newcommand\nameprobyte{Process Byte Arrays in Block}
+% \newcommand\namelockfree{Atomic Operations}
+% \newcommand\namefence{Strongly Consistent Shared Variables}
+% \newcommand\namepark{Park/Unpark Threads}
+% \newcommand\namefinalfield{Update Final Fields}
+% \newcommand\namemonitor{Non-Lexically-Scoped Monitors}
+% \newcommand\nameserialization{Serialization/Deserialization}
+% \newcommand\namemarshalling{Foreign Data Access and Object Marshaling}
+% \newcommand\namethrow{Throw Checked Exceptions without Being Declared}
+% \newcommand\namesize{Get the Size of an Object or an Array}
+% \newcommand\namelargearrays{Large Arrays and Off-Heap Data Structures}
+% \newcommand\namepage{Get Memory Page Size}
+% \newcommand\nameclass{Load Class without Security Checks}
 
 \chapter{The \java{} Unsafe \api{} in the Wild}
 \label{cha:unsafe}
@@ -39,7 +45,7 @@ We identify $14$ different usage patterns of \java{}'s unsafe capabilities,
 and we provide supporting evidence for why real-world code needs these capabilities.
 Our long-term goal is to provide a foundation for the design of new language features to regain safety in \java{}.
 
-We have already published our work on how developers use the \code{sun.misc.Unsafe} API.
+We have already published our work on how developers use the \code{sun.misc.\-Unsafe} API.
 For a detailed description of the methodology used to find patterns and the patterns we found please refer to~\cite{mastrangeloUseYourOwn2015}.
 % In this proposal 
 Here we answer \ref{unsafe:rq1}
@@ -47,8 +53,8 @@ in \S\ref{sec:unsafe:overview},
 followed by how the patterns we found could be implemented in a safer way \S\ref{sec:unsafe:discussion}
 in response to \ref{unsafe:rq2}.
 
+\input{chapters/unsafe/sec-background}
 
-% \section{Overview of Our Study}
 \section{Is Unsafe Used?}
 \label{sec:unsafe:overview}
 
@@ -109,6 +115,8 @@ Instead of $21,297$ artifacts, we found $19,173$ artifacts,
 $41\%$ of the artifacts with dependency information, or $22\%$ of artifacts downloaded.
 Thus, \code{sun.misc.Unsafe} usage in third-party code indeed impacts a large fraction of projects.
 
+\input{chapters/unsafe/sec-methodology}
+\input{chapters/unsafe/sec-patterns}
 
 \section{What is the Unsafe API Used for?}
 \label{sec:unsafe:discussion}
@@ -170,7 +178,8 @@ could be used to implement the park pattern.
 \java{} already supports serialization of objects using the
 \javaclass{java.lang.Serializable} and
 \javaclass{java.io.Object\-Output\-Stream} API.
-The now-deleted JEP 187 Serialization 2.0 proposal\footnote{\url{http://mail.openjdk.java.net/pipermail/core-libs-dev/2014-January/024589.html}}
+The now-deleted JEP 187 Serialization 2.0 proposal%
+\footnote{\url{http://mail.openjdk.java.net/pipermail/core-libs-dev/2014-January/024589.html}}
 \footnote{\url{http://web.archive.org/web/20140702193924/http://openjdk.java.net/jeps/187}}
 addresses some of the issues with \java{} serialization.
 
@@ -257,3 +266,5 @@ Many patterns use \unsafe{} to use memory more efficiently.
 This could be ameliorated with lower GC overhead.
 There are proposals for this, for instance JEP 189 Shenandoah:
 Low Pause GC~\citep{jep189}.
+
+\input{chapters/unsafe/sec-conclusions}

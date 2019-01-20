@@ -1,0 +1,119 @@
+\section{The Risks of Compromising Safety}
+\label{sec:unsafe:background}
+
+We outline the risks of \unsafe{} by illustrating how the improper use of
+\unsafe{} violates \java{}'s safety guarantees.
+
+In \java{}, the unsafe capabilities are provided as instance methods of
+class \smu{}.
+Access to the class has been made less than straightforward.
+Class \smu{} is final, and its constructor is not public.
+Thus, creating an instance requires some tricks.
+For example, one can invoke the private constructor via reflection.
+This is not the only way to get hold of an unsafe object,
+but it is the most portable.
+
+\begin{lstlisting}[style=java,caption=Instantiating an Unsafe object]
+Constructor<Unsafe> c = Unsafe.class.getDeclaredConstructor();
+c.setAccessible(true);
+Unsafe unsafe = c.newInstance();
+\end{lstlisting}
+ 
+Given the unsafe object, one can now simply invoke any of its methods to
+directly perform unsafe operations.
+
+\subsection{Violating Type Safety}
+
+In \java{}, variables are strongly typed.
+For example, it is impossible to store an int value inside a variable of
+a reference type.
+\unsafe{} can violate that guarantee:
+it can be used to store a value of any type in a field or array element.
+
+\begin{lstlisting}[style=java,caption=\smu{} can violate type safety]
+class C {
+  private Object f = new Object();
+}
+long fieldOffset = unsafe.objectFieldOffset(
+        C.class.getDeclaredField("f") );
+C o = new C();
+unsafe.putInt(o, fieldOffset, 1234567890);      // f now points to nirvana
+\end{lstlisting}
+
+\subsection{Crashing the Virtual Machine}
+
+A quick way to crash the VM is to free memory that is in a protected
+address range, for example by calling \code{freeMemory} as follows.
+
+\begin{lstlisting}[style=java,caption=\smu{} can crash the VM]
+unsafe.freeMemory(1);
+\end{lstlisting}
+
+In \java{}, the normal behavior of a method to deal with such situations
+is to throw an exception.
+Being unsafe, instead of throwing an exception,
+this invocation of \code{freeMemory} crashes the VM.
+
+\subsection{Violating Method Contracts}
+
+In \java{}, a method that does not declare an exception cannot throw any
+checked exceptions.
+\unsafe{} can violate that contract:
+it can be used to throw a checked exception that the surrounding method
+does not declare or catch.
+
+\begin{lstlisting}[style=java,caption=\smu{} can violate a method contract]
+void m() {
+  unsafe.throwException(new Exception());
+}
+\end{lstlisting}
+
+\subsection{Uninitialized Objects}
+
+\java{} guarantees that an object allocation also initializes the object
+by running its constructor.
+\unsafe{} can violate that guarantee:
+it can be used to allocate an object without ever running its
+constructor.
+This can lead to objects in states that the objects' classes would
+not seem to admit.
+
+\begin{lstlisting}[style=java,caption=\smu{} can lead to uninitialized objects]
+class C {
+  private int f;
+  public C() { f = 5; }
+  public int getF() { return f; }
+}
+
+C c = (C)unsafe.allocateInstance(C.class);
+assert c.getF()==5; // violated
+\end{lstlisting}
+
+\subsection{Monitor Deadlock}
+
+\java{} provides synchronized methods and synchronized blocks.
+These constructs guarantee that monitors entered at the beginning
+of a section of code are exited at the end.
+\unsafe{} can violate that contract:
+it can be used to asymmetrically enter or exit a monitor,
+and that asymmetry might be not immediately obvious.
+
+\begin{lstlisting}[style=java,caption=\smu{} can lead to monitor deadlocks]
+void m() {
+  unsafe.monitorEnter(o);
+  if (c) return;
+  unsafe.monitorExit(o);
+}
+\end{lstlisting}
+
+The above examples are just the most straightforward violations of
+\java{}'s safety guarantees.
+The \smu{} class provides a multitude of methods that can be used
+to violate most guarantees \java{} provides.
+
+To sum it up: \unsafe{} is dangerous.
+But should anybody care?
+In the next sections we present a study to determine whether and how
+\unsafe{} is used in real-world third-party \java{} libraries,
+and to what degree real-world applications directly and indirectly
+depend on it.

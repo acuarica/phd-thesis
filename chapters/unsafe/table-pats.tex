@@ -1,0 +1,47 @@
+
+% alloc probyte lockfree fence park finalfield monitor serialization marshalling throw size largearrays page class
+
+A summary of the patterns is shown in Table~\ref{table:pats}.
+The \textbf{\em Pattern} column indicates the name of the pattern.
+\textbf{\em Found in}
+indicates the number of artifacts in \mavencentral{} that contain the pattern.
+\textbf{\em Used by}
+indicates the number of artifacts that transitively depend on the artifacts with the
+pattern.
+\textbf{\em Most used artifacts}
+presents the three most used artifacts containing the pattern, that is, the 
+artifact with the most other artifacts that transitively depend upon it.
+Artifacts are shown using their Maven identifier, \ie{}
+\artexp{$\langle$groupId$\rangle$}{$\langle$artifactId$\rangle$}.
+% \textbf{\em Members used}
+% shows the members of \unsafe{} used in the pattern.
+
+
+
+\newcommand{\hdr}{\rowcolor{header-color}}
+\newcommand{\alt}{\rowcolor{alt-row-color}}
+\newcommand{\row}{}
+%\& \verb+\+textbf\{Unsafe members\}
+\begin{table*}[t!]
+\centering
+\caption{Patterns and their occurrences in the Maven Central repository.}
+\label{table:pats}
+\begin{tabularx}{\linewidth}{rp{5.3cm}ccX}
+\hdr    & \textbf{Pattern}              & \textbf{Found In} & \textbf{Used by} & \textbf{Most used artifacts} \\
+\alt  1 & \namealloc                    & \rowalloc             \\
+\row  2 & \nameprobyte                  & \rowprobyte           \\
+\alt  3 & \namelockfree                 & \rowlockfree          \\
+\row  4 & \namefence                    & \rowfence             \\
+\alt  5 & \namepark                     & \rowpark              \\
+\row  6 & \namefinalfield               & \rowfinalfield        \\
+\alt  7 & \namemonitor                  & \rowmonitor           \\
+\row  8 & \nameserialization            & \rowserialization     \\
+\alt  9 & \namemarshalling              & \rowmarshalling       \\
+\row 10 & \namethrow                    & \rowthrow             \\
+\alt 11 & \namesize                     & \rowsize              \\
+\row 12 & \namelargearrays              & \rowlargearrays       \\
+\alt 13 & \namepage                     & \rowpage              \\
+\row 14 & \nameclass                    & \rowclass             \\
+\hline
+\end{tabularx}
+\end{table*}
