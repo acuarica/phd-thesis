@@ -35,9 +35,9 @@ df.long[df.long$key == '',]$key <- 'args'
 
 categories <- list(
   'Guarded' = c('#PatternMatching', '#TypeTag', "#Equals"),
-  'Creation' = c('#Family', '#Factory', '#KnownLibraryMethod', '#Tag', '#Deserialization'),
-  'Code Smell' = c('#Redundant', '#VariableLessSpecificType', '#RawTypes'),
-  'Tuples' = c('#LookupById', '#ObjectAsArray', '#StaticResource')
+  'Creational' = c('#Family', '#Factory', '#KnownLibraryMethod', '#Tag', '#Deserialization'),
+  'Tuples' = c('#LookupById', '#ObjectAsArray', '#StaticResource'),
+  'Code Smell' = c('#Redundant', '#VariableLessSpecificType', '#RawTypes')
   )
 
 df.patterns <- df.long[df.long$key == 'pattern',]

@@ -1,28 +1,46 @@
-
 \begin{pattern}{PatternMatching}
-This pattern is composed of a guard (\code{instanceof}) followed by a
-cast on known subtypes of the static type.
-Often there is just one case and the default case, \ie,
-\code{instanceof} fails, does a no-op or reports an error.
+This pattern is composed of a guard (\code{instanceof}) followed by a cast on known subtypes of the static type.
+Often there is just one case and the default case, \ie, \code{instanceof} fails, does a no-op or reports an error.
 Another common approach is to have several cases,
 usually one \emph{per} subtype.
 
 \instances{}
-The following listing shows an example of the \thisp{} pattern.%
-\footnote{\url{http://bit.ly/2FzYYHq}}
-In this example, there is only one case
+The following listing shows an example of the \thisp{} pattern.\footnote{\url{http://bit.ly/2FzYYHq}}
+In this example, there is only a single case.
+After the cast is done, a specific operation is performed on the casted type, \ie, invoking the \code{checkBlock} method.
 
-% https://lgtm.com/projects/g/OpenMods/OpenBlocks/snapshot/dist-2040060754-1524814812150/files/build/sources/java/openblocks/common/tileentity/TileEntityImaginary.java?sort=name&dir=ASC&mode=heatmap#L268
+%https://lgtm.com/projects/g/OpenMods/OpenBlocks/snapshot/dist-2040060754-1524814812150/files/build/sources/java/openblocks/common/tileentity/TileEntityImaginary.java?sort=name&dir=ASC&mode=heatmap#L268
 \begin{minted}[highlightlines=3]{java}
 Item item = helmet.getItem();
 if (item instanceof ItemImaginationGlasses)
 	return ((ItemImaginationGlasses)item).checkBlock(what, helmet, this);
 \end{minted}
 
-Double typecase example
-\footnote{\url{http://bit.ly/2FDN9Rd}}
+In the next case,\footnote{\url{http://bit.ly/2HnNwB7}} more than one type test are performed.
+Each cast is corresponded with a type test.
 
-% https://lgtm.com/projects/g/bbossgroups/bboss/snapshot/dist-2025970729-1524814812150/files/bboss-util/src/org/frameworkset/util/ObjectUtils.java?sort=name&dir=ASC&mode=heatmap#L228
+%https://lgtm.com/projects/g/PenguinSquad/Enchiridion/snapshot/dist-19218583-1524814812150/files/build/sources/main/java/joshie/enchiridion/helpers/StackHelper.java?sort=name&dir=ASC&mode=heatmap#L27
+\begin{minted}[highlightlines=7]{java}
+public static String getStringFromObject(Object object) {
+	if (object instanceof Item) {
+		return getStringFromStack(new ItemStack((Item) object));
+	} else if (object instanceof Block) {
+		return getStringFromStack(new ItemStack((Block) object));
+	} else if (object instanceof ItemStack) {
+		return getStringFromStack((ItemStack) object);
+	} else if (object instanceof String) {
+		return (String) object;
+	} else if (object instanceof List) {
+		return getStringFromStack((ItemStack) ((List) object).get(0));
+	} else return "";
+}
+\end{minted}
+
+There are situations when the type test is applied to more than one variable.
+In the following example\footnote{\url{http://bit.ly/2FDN9Rd}} a double
+type test is performed on the parameters \code{o1} and \code{o2}.
+
+%https://lgtm.com/projects/g/bbossgroups/bboss/snapshot/dist-2025970729-1524814812150/files/bboss-util/src/org/frameworkset/util/ObjectUtils.java?sort=name&dir=ASC&mode=heatmap#L228
 \begin{minted}[highlightlines=25]{java}
 public static boolean nullSafeEquals(Object o1, Object o2) {
 	if (o1 == o2) {
@@ -67,36 +85,58 @@ public static boolean nullSafeEquals(Object o1, Object o2) {
 }
 \end{minted}
 
-
 \detection{}
-To detect this pattern, we look
+To detect this pattern, we look for a cast guarded by an \code{instanceof} expression.
+The operand expression to both the cast and the \code{instanceof} needs to be the same.
+In the case the operand expression is a variable, we also check that there is no assignment between the \code{instanceof} guard and the cast to that variable.
+
+In some situations the operand expression is a method invocation.
+We make sure that the value returned is the same for both the \code{instanceof} and the cast.
 
 \discussion{}
-The \thisp{} pattern can be seen as an \adhoc{}
-alternative to pattern matching.
-This construct can be seen in several other languages, \eg,
-\haskell{}, \scala{}, and \csharp{}.
-There is an ongoing proposal%
-\footnote{\url{http://openjdk.java.net/jeps/305}} to add pattern
-matching to the \java{} language.
-
-As a workaround, alternatives to the \thisp{} pattern can be the
-visitor pattern or polymorphism.
-But in some cases, the chain of \code{instanceof}s is of boxed types.
-Thus no polymorphism can be used.
-
-% Maybe this should be called properly instanceof-guarded cast, to be more specific.
-% This pattern checks whether a parameter in an overridden method has a more specific type.
-% A cast to a variable guarded by an \code{instanceof}.
-% A variable is \emph{guarded} by a condition when the condition controls
-% that access to the variable, and there is no assignment after the
-% condition and before the access to that variable.
-
 The \thisp{} pattern consists of testing the runtime type of a variable against several related types.
-Based on rule taken from:
-It was taken from a \lgtm{} rule\footnote{\url{https://lgtm.com/rules/910065/}}.
-
 It is a technique that allows a developer to take different actions according to the runtime type of an object.
 Depending on the --- runtime --- type of an object, different cases, usually one for each type will follow.
 
+The \thisp{} pattern can be seen as an \adhoc{} alternative to pattern matching.
+This construct can be seen in several other languages, \eg, \scala{}, \csharp{}, and \haskell{}.
+For instance, in \scala{} the pattern matching construct is achieved using the \code{match} keyword.
+In this example\footnote{Adapted from \url{https://docs.scala-lang.org/tour/pattern-matching.html}}, a different action is taken according to the runtime type of the parameter \code{notification} (line 9).
+
+\begin{minted}[highlightlines=10]{scala}
+abstract class Notification
+case class Email(sender: String, title: String, body: String)
+	extends Notification
+case class SMS(caller: String, message: String)
+	extends Notification
+case class VoiceRecording(contactName: String, link: String)
+	extends Notification
+
+def showNotification(notification: Notification): String = {
+	notification match {
+		case Email(email, title, _) =>
+		s"You got an email from $email with title: $title"
+		case SMS(number, message) =>
+		s"You got an SMS from $number! Message: $message"
+		case VoiceRecording(name, link) =>
+		s"Voice Recording from $name! Click the link: $link"
+	}
+	}
+	val someSms = SMS("12345", "Are you there?")
+	val someVoiceRecording = VoiceRecording("Tom", "voicerecording.org/id/123")
+	
+	// prints You got an SMS from 12345! Message: Are you there?
+	println(showNotification(someSms))
+	
+	// Voice Recording from Tom! Click the link: voicerecording.org/id/123	
+	println(showNotification(someVoiceRecording))
+\end{minted}
+
+As a workaround, alternatives to the \thisp{} pattern can be the visitor pattern or polymorphism.
+But in some cases, the chain of \code{instanceof}s is of boxed types.
+There is an ongoing proposal\footnote{\url{http://openjdk.java.net/jeps/305}} to add pattern matching to the \java{} language.
+Thus no polymorphism can be used.
+
+\related{}
+The \nameref{pat:Equals} pattern can be seen as a special case for the \thisp{} pattern, because often the parameter to the \code{equals} method is guarded by an \code{instanceof} expression.
 \end{pattern}

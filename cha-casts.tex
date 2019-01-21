@@ -1,6 +1,7 @@
 
 \newcommand{\castpatternsection}[1]{\noindent\textbf{#1.}}
 \newcommand{\pname}[1]{\textsc{#1}}
+\newcommand{\group}[1]{\subsection*{#1 Patterns}}
 
 \newenvironment{pattern}[1]{
 	\newcommand{\desc}{\castpatternsection{Description}}
@@ -453,29 +454,30 @@ Presents suggestions, flaws, or comments about the pattern.
 How the pattern being described relates to other patterns?
 \end{itemize}
 
-% Guarded
+\group{Guarded}
 \input{chapters/casts/PatternMatching}
 \input{chapters/casts/TypeTag}
 \input{chapters/casts/Equals}
 
-% Creation
+\group{Creational}
 \input{chapters/casts/Family}
 \input{chapters/casts/Factory}
 \input{chapters/casts/KnownLibraryMethod}
 \input{chapters/casts/Deserialization}
+\input{chapters/casts/Tag}
 
-% Code Smell
-\input{chapters/casts/RawTypes}
-\input{chapters/casts/Redundant}
-\input{chapters/casts/VariableLessSpecificType}
-
-% Tuples
+\group{Tuples}
 \input{chapters/casts/LookupById}
 \input{chapters/casts/StaticResource}
 \input{chapters/casts/ObjectAsArray}
 
-\input{chapters/casts/SelectOverload}
+\group{Code Smell}
+\input{chapters/casts/RawTypes}
+\input{chapters/casts/Redundant}
+\input{chapters/casts/VariableLessSpecificType}
 
+
+\input{chapters/casts/SelectOverload}
 \input{chapters/casts/Literal}
 \input{chapters/casts/Prim}
 \input{chapters/casts/NewDynamicInstance}
