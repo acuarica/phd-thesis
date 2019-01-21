@@ -4,7 +4,7 @@
 \jnif{} is written in C++11~\citep{ISO:2012:III}, 
 in an object-oriented style similar to \java{}-based class rewriting \api{}s.
 
-\subsection{Design}
+\subsection*{Design}
 
 \jnif{} consists of five main modules: model, parser, writer, printer, and analysis.
 %
@@ -64,7 +64,7 @@ one has to use the \texttt{ClassFile::addMethod()} factory method
 instead of directly allocating a new \texttt{Method} object.
 
 
-\subsection{Stack Map Generation}
+\subsection*{Stack Map Generation}
 
 When encoding a \texttt{ClassFile} into a byte array, \jnif{} needs to generate stack maps.
 The necessary static analyses are implemented in the analyzer module.
@@ -92,7 +92,7 @@ while a dynamic instrumentation tool may use JNI to request the bytes of a class
 %How this issue is broken in ASM, 
 %because it will cause a lot of class loading and hence static initializer to be run in an order that was not the one assumed by the programmer.}
 
-\subsection{Running \jnif{} Inside a \jvmti{} Agent}
+\subsection*{Running \jnif{} Inside a \jvmti{} Agent}
 When using \jnif{} inside a \jvmti{} agent, 
 \jnif{} uses an \texttt{IClassPath} implementation
 that uses \jni{} to load the bytes of classes

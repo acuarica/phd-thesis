@@ -1,12 +1,7 @@
-
+\input{chapters/unsafe/stats}
 
 \definecolor{header-color}{HTML}{D1D1D1}
 \definecolor{alt-row-color}{HTML}{ECECEC}
-
-% \newcommand{\hdr}{\rowcolor{header-color}}
-% \newcommand{\alt}{\rowcolor{alt-row-color}}
-% \newcommand{\row}{}
-
 
 \newcommand{\artstyle}[1]{\textsl{#1}}
 \newcommand{\artexp}[2]{\artstyle{#1}:\artstyle{#2}}
@@ -16,37 +11,78 @@
 \newcommand{\smugroup}[1]{\textsl{#1}}
 \newcommand{\stackoverflow}{Stack Overflow}
 
-% \newcommand{\javaclass}[1]{\emph{#1}}
-
-% \newcommand\namealloc{Allocate an Object without Invoking a Constructor}
-% \newcommand\nameprobyte{Process Byte Arrays in Block}
-% \newcommand\namelockfree{Atomic Operations}
-% \newcommand\namefence{Strongly Consistent Shared Variables}
-% \newcommand\namepark{Park/Unpark Threads}
-% \newcommand\namefinalfield{Update Final Fields}
-% \newcommand\namemonitor{Non-Lexically-Scoped Monitors}
-% \newcommand\nameserialization{Serialization/Deserialization}
-% \newcommand\namemarshalling{Foreign Data Access and Object Marshaling}
-% \newcommand\namethrow{Throw Checked Exceptions without Being Declared}
-% \newcommand\namesize{Get the Size of an Object or an Array}
-% \newcommand\namelargearrays{Large Arrays and Off-Heap Data Structures}
-% \newcommand\namepage{Get Memory Page Size}
-% \newcommand\nameclass{Load Class without Security Checks}
-
 \chapter{The \java{} Unsafe \api{} in the Wild}
 \label{cha:unsafe}
 
-We have analyzed $74 GB$ of compiled \java{} code,
-spread over $86,479$ \java{} archives,
-to determine how \java{}'s unsafe capabilities are used in real-world libraries and applications.
-We found that $25\%$ of \java{} bytecode archives depend on unsafe third-party \java{} code,
-and thus \java{}'s safety guarantees cannot be trusted.
+The \java{} Virtual Machine (\jvm{}) executes \java{} bytecode and
+provides other services for programs written in
+many programming languages, including \java{}, \scala{}, and \clojure{}.
+The \jvm{} was designed to provide strong safety guarantees.
+However, many widely used \jvm{} implementations expose an \api{} that
+allows the developer to access low-level,
+unsafe features of the \jvm{} and underlying hardware,
+features that are unavailable in safe \java{} bytecode.
+This \api{} is provided through an undocumented%
+\footnote{\url{http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html}}
+class, \smu{}, in the \java{} reference implementation produced by Oracle.
+
+Other virtual machines provide similar functionality.
+For example, the \csharp{} language provides an \code{unsafe} construct
+on the .NET platform,%
+\footnote{\url{https://msdn.microsoft.com/en-us/en-en/library/chfa2zb8(v=vs.90).aspx}}
+and \racket{} provides unsafe operations.%
+\footnote{\url{http://docs.racket-lang.org/reference/unsafe.html}}
+
+The operations \smu{} provides can be dangerous,
+as they allow developers to circumvent the safety guarantees provided by
+the \java{} language and the \jvm{}.
+If misused, the consequences can be resource leaks, deadlocks,
+data corruption, and even \jvm{} crashes.%
+\footnote{\url{https://groups.google.com/d/msg/elasticsearch/Nh-kXI5J6Ek/WXIZKhhGVHkJ}}
+\footnote{\url{https://github.com/EsotericSoftware/kryo/issues/219}}
+\footnote{\url{https://github.com/dain/snappy/issues/24}}
+\footnote{\url{https://netbeans.org/bugzilla/show_bug.cgi?id=229655}}
+\footnote{\url{https://netbeans.org/bugzilla/show_bug.cgi?id=244914}}
+
+We believe that \smu{} was introduced to provide better performance and
+more capabilities to the writers of the \java{} runtime library.
+However, \smu{} is increasingly being used in third-party
+frameworks and libraries.
+Application developers who rely on \java{}'s safety guarantees have to
+trust the implementers of the language runtime environment
+(including the core runtime libraries).
+Thus the use of \smu{} in the runtime libraries is no more risky than
+the use of an unsafe language to implement the \jvm{}.
+However, the fact that more and more ``normal'' libraries are using
+\smu{} means that application developers have to trust a growing
+community of third-party \java{} library developers to not
+inadvertently tamper with the fragile internal state of the \jvm{}.
+
+Given that the benefits of safe languages are well known,
+and the risks of unsafe languages are obvious,
+why exactly does one need unsafe features in third-party libraries?
+Are those features used in real-world code?
+If yes, how are they used, and what are they used for?
+
+We studied a large repository of \java{} code, \mavencentral{},
+to answer these questions.
+We have analyzed \statreposize{} of compiled \java{} code,
+spread over \statrepouniquearts{} \java{} archives,
+to determine how \java{}'s unsafe capabilities are used in real-world
+libraries and applications.
+We found that $25\%$ of \java{} bytecode archives depend on unsafe
+third-party \java{} code, and thus \java{}'s safety
+guarantees cannot be trusted.
 We identify $14$ different usage patterns of \java{}'s unsafe capabilities,
 and we provide supporting evidence for why real-world code needs these capabilities.
-Our long-term goal is to provide a foundation for the design of new language features to regain safety in \java{}.
+Our long-term goal is to provide a strong foundation
+to make informed decisions in the future evolution of the \java{} language and virtual machine,
+and for the design of new language features to regain safety in \java{}.
 
-We have already published our work on how developers use the \code{sun.misc.\-Unsafe} API.
-For a detailed description of the methodology used to find patterns and the patterns we found please refer to~\cite{mastrangeloUseYourOwn2015}.
+We have already published our work on how developers use
+the Unsafe \api{}.
+For a detailed description of the methodology used to find usage patterns
+please refer to~\cite{mastrangeloUseYourOwn2015}.
 % In this proposal 
 Here we answer \ref{unsafe:rq1}
 in \S\ref{sec:unsafe:overview},

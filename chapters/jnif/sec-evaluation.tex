@@ -4,7 +4,7 @@
 We evaluated the performance of a JNIF-based dynamic instrumentation approach 
 versus an approach using an ASM-based instrumentation server.
 
-\subsection{Measurement Contexts}
+\subsection*{Measurement Contexts}
 
 %\todo{Stecklov?}
 %\todo{Yudi's machine?}
@@ -35,7 +35,7 @@ running Mac OS X 10.8.2.
 
 
 
-\subsection{Benchmarks}
+\subsection*{Benchmarks}
 
 We used the Dacapo benchmarks, 
 except for tradebeans and tradesoap,
@@ -49,14 +49,14 @@ We also include the Scala benchmarks (except for the subset identical to Dacapo)
 
 
 
-\subsection{Subjects}
+\subsection*{Subjects}
 We compare JNIF to ASM for the purpose of performing dynamic instrumentation.
 For JNIF we built a JVMTI agent that directly includes JNIF to instrument loaded classes.
 For ASM, we use a JVMTI agent that forwards loaded classes to an instrumentation server
 that uses ASM's streaming API (which is faster than ASM's tree API).
 
 
-\subsection{Results}
+\subsection*{Results}
 
 Figure~\ref{fig:instr-time} shows the results of our performance evaluation
 in terms of time spent instrumenting classes.
@@ -111,7 +111,7 @@ JNIF is faster even than just the ASM Server time.
 %\chart{eval-dacapo-chart-instr}{Instrumentation time on DaCapo}{fig:instr-time-dacapo}
 %\chart{eval-scala-chart-instr}{Instrumentation time on Scala and JRuby}{fig:instr-time-scala}
 
-\subsection{Reproducibility}
+\subsection*{Reproducibility}
 
 To run these evaluations, a Makefile script is provided in the git repository.
 These tasks take care of the compilation of the JNIF library and also all java files needed. 

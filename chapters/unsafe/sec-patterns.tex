@@ -77,9 +77,9 @@ when comparing two byte arrays lexicographically.}
   discontinuous arrays or
   arraylets~\cite{siebertEliminatingExternalFragmentation2000,baconRealtimeGarbageCollector2003}. Users of
 the pattern should be aware of the endianness of the underlying hardware.
-In one \stackoverflow discussion, this pattern is
+In one \stackoverflow{} discussion, this pattern is
 discouraged since it is non-portable and, on many JVMs, results in slower
-code\footnote{\url{http://stackoverflow.com/questions/12226123}}. }
+code.\footnote{\url{http://stackoverflow.com/questions/12226123}} }
 
 \newcommand\foundinlockfree{84}
 \newcommand\usedbylockfree{10259}
@@ -324,7 +324,7 @@ of type erasure, a checked exception can be coerced unsafely into an unchecked e
 {The pattern is implemented using the \member{throw\-Exception} method.}
 {In testing and mocking frameworks, the pattern is used to circumvent declaring
   the exception to be thrown, which is often unknown.
-It is used in the Java Fork/Join framework to save the generic exception of a thread to be rethrown later.}
+It is used in the Java Fork/Join framework to save the generic exception of a thread to be re-thrown later.}
 {This method can violate Java's subtyping
   relation, because it is not expected
   for a method that does not declare an exception to actually throw it. At
@@ -418,12 +418,6 @@ class generation, and dynamic class rewriting. It is also useful in application
 frameworks that do not interact well with user-defined class loaders.}{The
 pattern violates the Java security model. Untrusted code could be introduced
 into the same protection domain as trusted code.}
-
-
-
-
-
-
 
 \section{Usage Patterns of \smu{}}
 \label{sec:unsafe:patterns}

@@ -22,7 +22,7 @@ Unsafe unsafe = c.newInstance();
 Given the unsafe object, one can now simply invoke any of its methods to
 directly perform unsafe operations.
 
-\subsection{Violating Type Safety}
+\subsection*{Violating Type Safety}
 
 In \java{}, variables are strongly typed.
 For example, it is impossible to store an int value inside a variable of
@@ -40,7 +40,7 @@ C o = new C();
 unsafe.putInt(o, fieldOffset, 1234567890);      // f now points to nirvana
 \end{lstlisting}
 
-\subsection{Crashing the Virtual Machine}
+\subsection*{Crashing the Virtual Machine}
 
 A quick way to crash the VM is to free memory that is in a protected
 address range, for example by calling \code{freeMemory} as follows.
@@ -54,7 +54,7 @@ is to throw an exception.
 Being unsafe, instead of throwing an exception,
 this invocation of \code{freeMemory} crashes the VM.
 
-\subsection{Violating Method Contracts}
+\subsection*{Violating Method Contracts}
 
 In \java{}, a method that does not declare an exception cannot throw any
 checked exceptions.
@@ -68,7 +68,7 @@ void m() {
 }
 \end{lstlisting}
 
-\subsection{Uninitialized Objects}
+\subsection*{Uninitialized Objects}
 
 \java{} guarantees that an object allocation also initializes the object
 by running its constructor.
@@ -89,7 +89,7 @@ C c = (C)unsafe.allocateInstance(C.class);
 assert c.getF()==5; // violated
 \end{lstlisting}
 
-\subsection{Monitor Deadlock}
+\subsection*{Monitor Deadlock}
 
 \java{} provides synchronized methods and synchronized blocks.
 These constructs guarantee that monitors entered at the beginning
