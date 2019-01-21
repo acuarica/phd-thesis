@@ -11,7 +11,7 @@ classes creates an object or array by means of reflection.
 
 This pattern consists of casting the result of these methods to the appropriate target type.
 
-\instances
+\instances{}
 
 %https://lgtm.com/projects/g/apache/hadoop/snapshot/6bedbef6c5f2d937a6cbc268300ce2a39609d06c/files/hadoop-hdfs-project/hadoop-hdfs/src/main/java/org/apache/hadoop/hdfs/server/namenode/FSNamesystem.java?sort=name\&dir=ASC\&mode=heatmap\&showExcluded=false#L1039
 
@@ -46,32 +46,16 @@ return (Exception) Class
                        .newInstance(message);
 \end{lstlisting}
 
-\detection
-
+\detection{}
 This detection query looks for casts,
 where the expression being cast is a call site to methods mentioned above.
 
-\lstset{language=sql,label=orgc5e83de,caption={Fetching all casts to \texttt{newInstance()}.},captionpos=b,numbers=none,style=ql}
-\begin{lstlisting}
-import java
-
-predicate isByReflection(string qname) {
-  qname = "java.lang.reflect.Array" or 
-  qname = "java.lang.Class<?>" or 
-  qname = "java.lang.reflect.Constructor<?>"
-}
-
-from CastExpr ce, MethodAccess ma, Method m
-where ma = ce.getExpr()
-  and m = ma.getMethod()
-  and m.getName() = "newInstance"
-  and isByReflection(m.getDeclaringType().getQualifiedName())
-select ce, m.getDeclaringType().getQualifiedName()
-\end{lstlisting}
-
-\discussion
-
+\discussion{}
 The cast here is needed because of the dynamic essence of reflection.
 This pattern is unguarded, that is,
 the application programmer knows what is the target type being created.
+
+\related{}
+Reflection.
+
 \end{pattern}

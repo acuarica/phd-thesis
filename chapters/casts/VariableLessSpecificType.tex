@@ -8,11 +8,8 @@ The type of the value being assigned to can be determined locally
 either within the enclosing method or class.
 
 \instances{}
-The following example\footnote{\url{http://bit.ly/2FuDeO7}}
-shows an instance of the \thisp{} pattern.
-We can see that the field \code{uncompressedDirectBuf} is being cast to
-the \code{java.nio.ByteBuffer} class (line $13$) but it is declared as
-\code{java.nio.Buffer} (line $3$).
+The following example\footnote{\url{http://bit.ly/2FuDeO7}} shows the \thisp{} pattern.
+We can see that the field \code{uncompressedDirectBuf} is being casted to the \code{java.nio.ByteBuffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
 Nevertheless, the field is assigned only once in the constructor (line $7$)
 with a value of type \code{java.nio.ByteBuffer}.
 The value assigned is returned by the method
