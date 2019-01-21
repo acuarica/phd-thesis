@@ -1,9 +1,37 @@
-
 \begin{pattern}{TypeTag}
 Lookup in a collection using a application-specific type tag or a
 \code{java.lang.Class}.
 
 A cast guarded by a test on a field from the same object instead of
 using \code{instanceof}.
+
+\instances{}
+
+\begin{minted}[highlightlines=8]{java}
+private int getReferenceIndex(int referenceType, Reference reference) {
+    switch (referenceType) {
+        case ReferenceType.FIELD:
+            return fieldSection.getItemIndex((FieldRefKey) reference);
+        case ReferenceType.METHOD:
+            return methodSection.getItemIndex((MethodRefKey) reference);
+        case ReferenceType.STRING:
+            return stringSection.getItemIndex((StringRef) reference);
+        case ReferenceType.TYPE:
+            return typeSection.getItemIndex((TypeRef) reference);
+        case ReferenceType.METHOD_PROTO:
+            return protoSection.getItemIndex((ProtoRefKey) reference);
+        default:
+            throw new ExceptionWithContext(
+                "Unknown reference type: %d",  referenceType);
+    }
+}
+\end{minted}
+
+\detection{}
+The detection of this pattern is similar to the \nameref{pat:PatternMatching} detection, but instead of looking for an \code{instanceof} guard, we look for an application-specific guard.
+
+\discussion{}
+
+\related{}
 
 \end{pattern}
