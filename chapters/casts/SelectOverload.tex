@@ -1,35 +1,36 @@
-
 \begin{pattern}{SelectOverload}
-
-This pattern is used to select the appropiate version of an overloaded
-method\footnote{Using ad-hoc polymorphism~\cite{stracheyFundamentalConceptsProgramming2000}}
+This pattern is used to select
+the appropriate version of an overloaded method%
+\footnote{Using ad-hoc polymorphism~\cite{stracheyFundamentalConceptsProgramming2000}}
 where two or more of its implementations differ \emph{only} in some argument type.
 
-A cast to \code{null} is often used to select against different versions of a method,
-\ie{}, to resolve method overloading ambiguity.
-Whenever a \code{null} value needs to be an argument of an a cast is needed to select
-the appropriate implementation.
-This is because the type of \code{null} has the special type
-\emph{null}\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html\#jls-4.1}}
+A cast to \code{null} is often used to select against different versions
+of a method, \ie{}, to resolve method overloading ambiguity.
+Whenever a \code{null} value needs to be an argument of an a cast is
+needed to select the appropriate implementation.
+This is because the type of \code{null} has the special type \emph{null}%
+\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html\#jls-4.1}}
 which can be treated as any reference type.
-In this case, the compiler cannot determine which method implementation to select.
+In this case,
+the compiler cannot determine which method implementation to select.
 
-\instances
-%https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1518514025554/files/library/src/main/java/com/loopj/android/http/JsonHttpResponseHandler.java?sort=name\&dir=ASC\&mode=heatmap\&excluded=false#L150
-
-Listing \ref{lst:selection} \footnote{\url{asdf}}
+\instances{}
+The following listing%\footnote{\url{http://bit.ly/2FENovD}}
 shows an example of \pname{} pattern.
-Another use case is to select the appropriate the right argument when calling a method with variable arguments.
+In this example, there are three versions of the \code{onSuccess} method,
+The cast \code{(String) null} is used to select the appropriate version
+(line 7), based on the third parameter.
+Overloaded methods that differ only in their argument type (the third one).
 
-\begin{lstlisting}[style=ql,label=lst:selection,caption=Example of \pname{} pattern.]
+Another use case is to select the appropriate the right argument when
+calling a method with variable arguments.
+
+% https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1518514025554/files/library/src/main/java/com/loopj/android/http/JsonHttpResponseHandler.java?sort=name\&dir=ASC\&mode=heatmap\&excluded=false#L150
+\begin{minted}[highlightlines=1]{java}
 onSuccess(statusCode, headers, (String) null);
-\end{lstlisting}
+\end{minted}
 
-In this example, there are three versions of the \texttt{onSuccess} method, as shown in listing \ref{orgaa1b3bd}.
-The cast \texttt{(String) null} is used to select the appropriate version (line 7), based on the third parameter.
-
-	\lstset{language=java,label=orgaa1b3bd,caption={Overloaded methods that differ only in their argument type (the third one).},captionpos=b,numbers=none,style=java}
-	\begin{lstlisting}
+\begin{minted}{java}
 public void onSuccess(
       int statusCode, Header[] headers, JSONObject response) {...}
 
@@ -38,10 +39,22 @@ public void onSuccess(
 
 public void onSuccess(
       int statusCode, Header[] headers, String responseString) {...}
-\end{lstlisting}
+\end{minted}
 
-\detection
+In the following example\footnote{\url{http://bit.ly/2FC9Llb}}
+\code{actual.data()} returns \code{Long}.
 
+% https://lgtm.com/projects/g/spullara/redis-protocol/snapshot/dist-41940059-1524814812150/files/client/src/test/java/redis/client/AllCommandsTest.java?sort=name&dir=ASC&mode=heatmap#L366
+\begin{minted}[highlightlines=2]{java}
+private void eq(long expected, IntegerReply actual) {
+      assertEquals(expected, (long) actual.data());
+}
+
+public static void assertEquals(Object expected, Object actual) { }
+public static void assertEquals(long expected, long actual) { }
+\end{minted}
+
+\detection{}
 Listing \ref{org9e0faf3} shows how to detect this pattern.
 This pattern shows up when a cast is directly applied to the \texttt{null} constant.
 
@@ -54,8 +67,7 @@ where ce.getExpr() = nl
 select ce
 \end{lstlisting}
 
-\discussion
-
+\discussion{}
 Casting the \code{null} constant seems rather artificial.
 This pattern shows either a lack of expressiveness in \java{} or
 a bad \api{} design.
@@ -63,5 +75,4 @@ Several other languages support default parameters, \eg{},
 \scala{}, \cs{} and \cpp{}.
 Adding default parameters might be a partial solution.
 % \todo{Relate null as theorical point of view in the TAPL book.}
-
 \end{pattern}
