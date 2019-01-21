@@ -1,8 +1,4 @@
 \documentclass[]{usiinfthesis}
-\usepackage{lipsum}
-\usepackage[draft]{fixme}
-%\usepackage{setspace}
-%\setstretch{1.05}
 
 \usepackage[svgnames,table]{xcolor}
 \usepackage{tikz}
@@ -31,16 +27,8 @@
 \input{analysis/categories.def}
 \input{analysis/casts.def}
 
-%change 'sl' to 'bf' for bold, or 'normalfont' for no special
-%formatting
+% Change 'sl' to 'bf' for bold, or 'normalfont' for no special formatting
 \captionsetup{labelfont={sl,sf}}
-
-\lstdefinelanguage{algebra}
-{morekeywords={import,sort,constructors,observers,transformers,axioms,if,
-else,end},
-sensitive=false,
-morecomment=[l]{//s},
-}
 
 \title{When and How \lang{Java} Developers Give Up Static Type Safety} %compulsory
 \subtitle{Subtitle: Reinventing the World} %optional 
@@ -65,7 +53,7 @@ morecomment=[l]{//s},
 \dedication{To my beloved} %optional
 \openepigraph{Someone said \dots}{Someone} %optional
 
-\makeindex %optional, also comment out \theindex at the end
+% \makeindex %optional, also comment out \theindex at the end
 
 \begin{document}
 
@@ -101,16 +89,15 @@ acknowledgements
 
 \backmatter
 
-\chapter{Glossary} %optional
+% \chapter{Glossary} %optional
 
 %\bibliographystyle{alpha}
 %\bibliographystyle{dcu}
 \bibliographystyle{plainnat}
 \bibliography{pubs}
 
-\cleardoublepage
-\theindex %optional, use only if you have an index, must use
+% \cleardoublepage
+% \theindex %optional, use only if you have an index, must use
 	  %\makeindex in the preamble
-\lipsum
 
 \end{document}
