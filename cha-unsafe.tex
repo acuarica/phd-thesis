@@ -79,12 +79,10 @@ Our long-term goal is to provide a strong foundation
 to make informed decisions in the future evolution of the \java{} language and virtual machine,
 and for the design of new language features to regain safety in \java{}.
 
-We have already published our work on how developers use
-the Unsafe \api{}.
-For a detailed description of the methodology used to find usage patterns
-please refer to~\cite{mastrangeloUseYourOwn2015}.
-Here we give an outline of the risks of using the \unsafe{} \api{} in \S\ref{sec:unsafe:background}.
-Then we answer \ref{unsafe:rq1} in \S\ref{sec:unsafe:overview}, followed by how the patterns we found could be implemented in a safer way \S\ref{sec:unsafe:discussion} in response to \ref{unsafe:rq2}.
+We have already published our work on how developers use the Unsafe \api{} \citep{mastrangeloUseYourOwn2015}.
+Here we outline the risks of using the \unsafe{} \api{} in \S\ref{sec:unsafe:background}.
+Then we answer \ref{unsafe:rq1} in \S\ref{sec:unsafe:overview}.
+To answer \ref{unsafe:rq2}, first we introduce our methodology and the patterns we found in \S\ref{sec:unsafe:methodology} and \S\ref{sec:unsafe:patterns} respectively, to then present how the patterns we found could be implemented in a safer way in \S\ref{sec:unsafe:discussion}.
 
 \input{chapters/unsafe/sec-background}
 
@@ -147,6 +145,8 @@ Excluding language artifacts, numbers do not change much:
 Instead of $21,297$ artifacts, we found $19,173$ artifacts,
 $41\%$ of the artifacts with dependency information, or $22\%$ of artifacts downloaded.
 Thus, \code{sun.misc.Unsafe} usage in third-party code indeed impacts a large fraction of projects.
+
+\input{chapters/unsafe/sec-features}
 
 \input{chapters/unsafe/sec-methodology}
 \input{chapters/unsafe/sec-patterns}

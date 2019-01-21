@@ -1,16 +1,17 @@
-\section{Finding \smu{} Usage Patterns} \label{sec:methodology}
+\section{Finding \smu{} Usage Patterns}
+\label{sec:unsafe:methodology}
 
 We examined the artifacts in the Maven Central software repository to identify usage patterns for \unsafe{}.
 This section describes our methodology for identifying these patterns. 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \includegraphics[page=6,width=\columnwidth]{chapters/unsafe/artifacts}
 \caption{\artexp{com.lmax}{disruptor} call sites}
 \label{fig:appartfingerprint}
 \end{figure}
 
-\begin{figure}[h!]
-\includegraphics[page=5,width=\columnwidth]{chapters/unsafe/artifacts}
+\begin{figure}[!ht]
+\includegraphics[page=5,width=0.9\columnwidth]{chapters/unsafe/artifacts}
 \caption{\artexp{org.scala-lang}{scala-library} call sites}
 \label{fig:langartfingerprint}
 \end{figure}
@@ -25,19 +26,17 @@ The first issue is to determine which method calls work together to achieve a go
 These calls might all be located within a single class, be spread across different classes within a package, or be spread across different packages within the whole artifact.
 After trying different combinations, we decided to group together calls occurring within a single class and its inner classes.
 
+\begin{figure}[!ht]
+\includegraphics[width=0.55\columnwidth]{chapters/unsafe/classunit}
+\caption{Classes using off-heap large arrays}
+\label{fig:classunitfingerprint}
+\end{figure}
+
 We cluster classes and their inner classes by \unsafe{} method usage using a dendrogram.
 Because a dendrogram can result in different clusters depending on at which height the dendrogram is cut,
 we experimented with various clusterings until settling on 31 clusters.
 An example of a cluster and its dendrogram is shown in Figure~\ref{fig:classunitfingerprint}.
 In the figure we can see classes using methods of the \smugroup{Off-Heap}, \smugroup{Off-Heap Get}, and \smugroup{Off-Heap Put} groups to implement large arrays.
-
-%page=15,
-
-\begin{figure}
-\includegraphics[width=\columnwidth]{chapters/unsafe/classunit}
-\caption{Classes using off-heap large arrays}
-\label{fig:classunitfingerprint}
-\end{figure}
 
 Once we had a clustering of the artifacts by method usage, we manually
 inspected a sample of artifacts in each cluster to identify patterns.
@@ -48,5 +47,3 @@ contains
 calls to methods of the \smugroup{Put Volatile} group used to implement
 strongly shared consistent variables.
 We tagged each artifact manually inspected with the set of patterns that it exhibits.
-%We have inspected each cluster by 
-%--- of the most used artifacts ---
