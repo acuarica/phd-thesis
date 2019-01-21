@@ -83,11 +83,8 @@ We have already published our work on how developers use
 the Unsafe \api{}.
 For a detailed description of the methodology used to find usage patterns
 please refer to~\cite{mastrangeloUseYourOwn2015}.
-% In this proposal 
-Here we answer \ref{unsafe:rq1}
-in \S\ref{sec:unsafe:overview},
-followed by how the patterns we found could be implemented in a safer way \S\ref{sec:unsafe:discussion}
-in response to \ref{unsafe:rq2}.
+Here we give an outline of the risks of using the \unsafe{} \api{} in \S\ref{sec:unsafe:background}.
+Then we answer \ref{unsafe:rq1} in \S\ref{sec:unsafe:overview}, followed by how the patterns we found could be implemented in a safer way \S\ref{sec:unsafe:discussion} in response to \ref{unsafe:rq2}.
 
 \input{chapters/unsafe/sec-background}
 
@@ -303,4 +300,18 @@ This could be ameliorated with lower GC overhead.
 There are proposals for this, for instance JEP 189 Shenandoah:
 Low Pause GC~\citep{jep189}.
 
-\input{chapters/unsafe/sec-conclusions}
+\section{Conclusions}
+\label{sec:unsafe:conclusions}
+
+\smu{} is an API that was designed for limited use in system-level runtime library code.
+The \unsafe{} API is powerful, but dangerous.
+The improper use of \unsafe{} undermines \java{}'s safety guarantees.
+We studied to what degree \unsafe{} usage has spread into third-party libraries,
+to what degree such third-party usage of \unsafe{} can impact existing Java code,
+and which \unsafe{} API features such third-party libraries actually use.
+We studied the questions and discussions developers have about \unsafe{},
+and we identified common usage patterns.
+We thereby provided a basis for evolving the \unsafe{} API, the \java{} language, and the \jvm{}
+by eliminating unused or abused unsafe features,
+and by providing safer alternatives for features that are used in meaningful ways.
+We hope this will help to make \unsafe{} safer.

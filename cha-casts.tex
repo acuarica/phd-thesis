@@ -118,18 +118,14 @@ public <T> T getProperty(String propName, T defaultValue) {
 }
 \end{lstlisting}
 
-% \textbf{Compiler Bug}
-% One issue\footnote{\url{https://github.com/mockito/mockito/issues/357}} 
-% shows bad things happen when abusing the type system.
-% A bug in the \emph{javac} compiler\footnote{\url{https://bugs.openjdk.java.net/browse/JDK-8058199}}
-% was causing \code{checkcast}\footnote{\url{https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html\#jvms-6.5.checkcast}}
-% instructions to be skipped.
-% This bug was fixed in JDK 9, breaking Mockito answer strategies.
+\textbf{Compiler Bug.}
+One issue\footnote{\url{https://github.com/mockito/mockito/issues/357}} shows bad things happen when abusing the type system.
+A bug in the \textsf{javac} compiler\footnote{\url{https://bugs.openjdk.java.net/browse/JDK-8058199}} was causing \jvm{}'s \code{checkcast} instructions to be skipped.
+This bug was fixed in JDK 9, breaking Mockito answer strategies.
 
 This indicates that casts represents a source of errors for developers.
 We present here our partial results for the cast study.
-First we give an overview of the study in \S\ref{sec:casts:overview},
-while \S\ref{sec:casts:stats} gives an estimation of how often a cast operator is used.
+First we give an overview of the study in \S\ref{sec:casts:overview}, while \S\ref{sec:casts:stats} gives an estimation of how often a cast operator is used.
 Finally, \S\ref{sec:casts:methodology} introduces the methodology we plan to use to discover cast usage patterns.
 
 \section{Overview of our Study}
@@ -139,8 +135,7 @@ We propose to answer the following question:
 \emph{How and when do developers need to escape the type system?}
 The cast operator in \java{} provides the means to view a reference at a different type as it was declared.
 Upcasts conversions are done automatically by the compiler.
-% DONE: Removed
-% Nevertheless, in some situations a developer is forced to insert upcasts.
+Nevertheless, as we shall see later, in some situations a developer is forced to insert upcasts.
 In the case of downcasts, a check is inserted at run-time to verify that the conversion is sound, thus escaping the type system.
 \emph{Why is so?}
 Therefore, we believe we should care about how the casting operations are used in the wild.
@@ -155,9 +150,7 @@ If casts are actually used in application code, we want to know how and why deve
 In addition to understand how and why casts are used, we want to measure how often developers need to resort to certain idioms to solve a particular problem.
 \end{enumerate}
 
-To answer the above questions,
-we need to determine whether and how casting operations are actually used in
-real-world \java{} applications.
+To answer the above questions, we need to determine whether and how casting operations are actually used in real-world \java{} applications.
 To achieve our goal, several elements are needed.
 
 \textbf{Source Code Analysis.}
@@ -244,16 +237,15 @@ Thus, we have computed the ratio between methods containing
 at least a cast over total number of methods --- with implementation --- in a given project.
 The following chart shows this ratio for all analyzed projects:
 
-\includegraphics[width=\columnwidth,height=3.8cm]{analysis/stats-methodwcastXproject.pdf}
+\includegraphics[width=0.9\columnwidth]{analysis/stats-methodwcastXproject.pdf}
 
-All projects have less than $10\%$ of methods with at least a cast.
-Overall, around a~$\castpercentage{}\%$ of methods contain at least one cast operation. 
+All projects have less than 10\% of methods with at least a cast.
+Overall, around a \castpercentage{}\% of methods contain at least one cast operation. 
 This means there is a low density of casts.
 Given the fact that generics were introduced \java{} 5, this can explain this low density.
 
 Nevertheless, casts are still used.
-We want to understand why there are casts instances (\ref{casts:rq2}) and
-how often the use cases that leads to casts are used (\ref{casts:rq3}).
+We want to understand why there are casts instances (\ref{casts:rq2}) and how often the use cases that leads to casts are used (\ref{casts:rq3}).
 The following sections give an answer to these questions.
 
 % DONE: cut

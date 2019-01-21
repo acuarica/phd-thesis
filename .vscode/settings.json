@@ -1,13 +1,24 @@
 {
     "cSpell.words": [
+        "asts",
         "bytecode",
+        "deserialization",
         "goetz",
+        "gpus",
         "instanceof",
+        "javac",
+        "lgtm",
+        "mockito",
         "parcelable",
+        "performant",
         "println",
         "proto",
+        "rawtypes",
+        "semmle",
         "subtyping",
         "supertypes",
+        "unconstructed",
+        "upcasts",
         "voicerecording"
     ]
 }
