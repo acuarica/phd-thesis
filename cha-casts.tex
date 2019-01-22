@@ -31,9 +31,7 @@
 
 Casting operations provide the means to escape the static type system.
 \emph{But do they pose a problem for developers?}
-Several studies
-\citep{kechagiaUndocumentedUncheckedExceptions2014,coelhoUnveilingExceptionHandling2015,zhitnitskyTop10Exception2016}
-show that \code{ClassCastException} is in top 10 of exceptions being
+Several studies~\citep{kechagiaUndocumentedUncheckedExceptions2014,coelhoUnveilingExceptionHandling2015,zhitnitskyTop10Exception2016} show that \code{ClassCastException} is in top 10 of exceptions being
 thrown when analysing stack traces.
 
 To illustrate the sort of problem developers have when applying casting
@@ -72,9 +70,7 @@ In this case, the developer fixed the error by introducing a guard on the cast w
 \end{lstlisting}
 
 \textbf{Wrong Cast Target.}
-In the next example%
-\footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}}
-the \code{CustomFileFilter} is an inner static class inside \code{JCustomFileFilter}.
+In the next example\footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}} the \code{CustomFileFilter} is an inner static class inside \code{JCustomFileFilter}.
 Notice the cast happens inside an \code{equals} method, where this idiom is well known.
 But the developer has used the outer --- wrong --- class to cast to.
 
@@ -91,8 +87,7 @@ But the developer has used the outer --- wrong --- class to cast to.
 \end{lstlisting}
 
 \textbf{Generic Type Inference Mismatch.}
-In the following listing,%
-\footnote{\url{https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382}}
+In the following listing,\footnote{\url{https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382}}
 the \emph{dynamic} property \code{"peer.p2p.pingInterval"}
 (lines $5$ and $6$) has type \code{int}.
 To fix the error, the developer only changed the type of the
@@ -406,16 +401,11 @@ After meeting with Gabriele, he suggested using saturation sampling:
 2. For each new pattern seen, add it to the list of patterns.
 3. If a new pattern is detected, go to step 1.
 
-
 \section{Casts Usage Patterns}
 \label{sec:patterns}
 
-Using the methodology described in the above section,
-we have devised $\npattern{}$ casts usage patterns.
-Overall, these patterns cover around 
-$\patpercentage\%$
-with uncovered casts of
-$\anypercentage\%$.
+% Using the methodology described in the above section, we have devised $\npattern{}$ casts usage patterns.
+% Overall, these patterns cover around $\patpercentage\%$ with uncovered casts of $\anypercentage\%$.
 
 In this section we present the cast usage patterns we found.
 To ease the patterns presentation, we have clustered them in groups according to their purpose.
@@ -441,17 +431,14 @@ modified for formatting purposes.
 Moreover, to facilitate some snippet presentations,
 we remove irrelevant code and replace it with the
 comment \code{// [...]}.}
-For each instance presented here,
-we provide the link to the source code repository in \lgtm{}.
+For each instance presented here, we provide the link to the source code repository in \lgtm{}.
 We provide the link in case the reader wants to do further inspection
 of the snippet presented.%
 \footnote{Instead of presenting \lgtm{} long URLs,
 we have used the URL shortening service \url{https://bitly.com/}
-for an easier reading.
-}
+for an easier reading.}
 \item \textbf{Detection.}
-Describes briefly how this pattern was detected in terms of the tags
-introduced in the previous section.
+Describes briefly how this pattern was detected in terms of the tags introduced in the previous section.
 \item \textbf{Discussion.}
 Presents suggestions, flaws, or comments about the pattern.
 \item \textbf{Related Patterns.}
