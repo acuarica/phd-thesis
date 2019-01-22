@@ -112,12 +112,11 @@ int len = ...;
 jnif::ClassFile cf(data, len);
 \end{lstlisting}
 
-The class ClassFile represents a java class file and contains the definition for each method and fields. 
-The full documentation can be found in~\footnote{http://acuarica.bitbucket.org/jnif/docs/}
+The class \code{ClassFile} represents a \java{} class file and contains the definition for each method and fields. 
+The full documentation can be found online.\footnote{\url{https://acuarica.gitlab.io/jnif/}}
 
-Once a class file is correctly parsed and loaded it can be manipulated using the methods and fields in ClassFile. 
-For instance, in order to write back the parsed class file in a new buffer, 
-the write method is used in conjunction with the computeSize method as shown in listing~\ref{usage-write}.
+Once a class file is correctly parsed and loaded it can be manipulated using the methods and fields in \code{ClassFile}.
+For instance, in order to write back the parsed class file in a new buffer, the write method is used in conjunction with the computeSize method as shown in listing~\ref{usage-write}.
 
 \begin{lstlisting}[caption=Encoding a class,label=usage-write]
 const char* data = ...;
@@ -132,9 +131,7 @@ cf.write(newdata, newlen);
 delete [] newdata;
 \end{lstlisting}
 
-
-
-The ClassFile class has a collection of fields and methods which can be used to discover the members of the class file. 
+The \code{ClassFile} class has a collection of fields and methods which can be used to discover the members of the class file. 
 The listing~\ref{usage-print} prints in the standard output every method's name and descriptor in a class file. 
 Note that every jnif class overloads the \verb|operator<<| in order send it to an std::ostream.
 
