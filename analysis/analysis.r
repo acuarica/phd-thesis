@@ -43,12 +43,15 @@ df.patterns <- df.patterns[df.patterns$value != 'Prim', ]
 
 groups <- list(
   'Guarded' = c('PatternMatching', 'TypeTag', "Equals", 'GetByClassLiteral', 'ClassForName'),
-  'Creational' = c('Family', 'Factory', 'KnownLibraryMethod', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'NewDynamicInstance', 'StackSymbol'),
+  'Creational' = c('Family', 'Factory', 'KnownLibraryMethod', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol'),
   'Tuples' = c('LookupById', 'ObjectAsArray', 'StaticResource'),
-  'Unnamed.group.1' = c('SelectOverload', 'MemberResolution'),
-  'Unnamed.group.2' = c('Clone', 'CovariantReturn'),
-  'Unnamed.group.3' = c('ImplicitIntersectionType', 'UnionType'),
-  'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'RawTypes')
+  'Member Resolution' = c('SelectOverload', 'AccessPrivateField'),
+  'Variance' = c('Clone', 'CovariantReturn', 'RemoveTypeParameter', 'CovariantArrays'),
+  'Complex Types' = c('ImplicitIntersectionType', 'UnionType'),
+  'Structural' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
+  'Reflection' = c('ReflectiveAccesibility', 'NewDynamicInstance', 'ReflectiveMethodInvoke', 'ReflectiveFieldGet'),
+  'Unchecked' = c('UncheckedCast', 'FromWildcard', 'WildcardClassLiteral'),
+  'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'RawTypes', 'Literal')
 )
 df.patterns$group <- ''
 for (group in names(groups)) {
@@ -69,7 +72,8 @@ lgroups <- levels(as.factor(df.patterns$group))
 values <- c(
   sprintf("\\newcommand{\\npattern}{%s}", format(length(lpatterns), big.mark=',')),
   sprintf("\\newcommand{\\ngroup}{%s}", format(length(lgroups), big.mark=',')),
-  sprintf("\\newcommand{\\nprim}{%s}", format(nrow(df.patterns.prim), big.mark=','))
+  sprintf("\\newcommand{\\nprim}{%s}", format(nrow(df.patterns.prim), big.mark=',')),
+  sprintf("\\newcommand{\\nbrokenlinks}{%s}", format(nrow(df.brokenlinks), big.mark=','))
 )
 write(values, 'casts.def')
 
