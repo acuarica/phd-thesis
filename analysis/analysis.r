@@ -1,18 +1,9 @@
 
-# library(tools)
-
-# install.packages("UpSetR")
-# install.packages("dplyr")
 # install.packages("tidyr")
-# install.packages("readr")
 
 library(tidyr)
-library(reshape2)
-library(UpSetR)
 library(ggplot2)
-
-library(readr) # write_lines
-library(jsonlite) # toJSON
+library(plyr)
 
 groups <- list(
   'Guarded' = c('PatternMatching', 'TypeTag', "Equals", 'GetByClassLiteral', 'ClassForName'),
@@ -57,7 +48,8 @@ df.patterns <- spread(df.long, key=key, value=value)
 df.patterns$pattern <- substring(df.patterns$pattern, 2)
 df.patterns$pattern <- as.factor(df.patterns$pattern)
 df.patterns$scope <- substring(df.patterns$scope, 2)
-df.patterns$scope <- factor(df.patterns$scope, levels=c('gen', 'test', 'src'))
+df.patterns$scope <- factor(df.patterns$scope, levels=c('src', 'test', 'gen'))
+df.patterns$scope <- revalue(df.patterns$scope, c('src'='Sources', 'test'='Test', 'gen'='Generated'))
 tb <- table(df.patterns$pattern)
 df.patterns$pattern <- factor(df.patterns$pattern, levels=names(tb[order(tb, decreasing = FALSE)]))
 df.patterns.prim <- df.patterns[df.patterns$pattern == 'Prim', ]
@@ -70,12 +62,13 @@ df.patterns$group <- factor(df.patterns$group, levels=names(groups))
 
 pdf(sprintf('table-patterns-%s.pdf', size))
 p <- ggplot(df.patterns, aes(x=pattern))+
-  geom_bar(aes(fill=scope))+geom_text(stat='count', aes(label=..count..,y=..count..+3))+
+  geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
+  geom_text(stat='count', aes(label=..count..,y=..count..+3))+
   facet_grid(group~., scales="free", space="free")+
   coord_flip()+
   theme(strip.text.y=element_text(angle = 0), legend.position="top")+
-  labs(x="Cast Patterns", y = "# Instances")+
-  scale_fill_discrete(name="Scope", breaks=c("src","test","gen"))
+  labs(x="Cast Usage Patterns", y = "# Instances")+
+  scale_fill_discrete(name="Scope")
 print(p)
 dev.off()
 
@@ -90,67 +83,17 @@ values <- c(
 write(values, 'casts.def')
 
 
-
-
-
-
-
-
-
-#csv.wide <- dcast(csv.long.args, castid ~ key, value.var="value")
-#csv.wide <- dcast(csv.long, castid~patterns, length, value.var="patterns")
-
-#pdf(sprintf('upset-patterns-%s.pdf', size))
-#upset(csv.wide,nsets=ncol(csv.wide),nintersects=NA,mb.ratio = c(0.3, 0.7))
-#dev.off()
-
-#casts.patterns.total <- dcast(casts.patterns.long, patterns~"total", length, value.var="patterns")
-
-#casts.tags.long <- separate_rows(casts.raw, tags, sep='\\|')
-#casts.tags.wide <- dcast(casts.tags.long, id+obs~tags, length, value.var="tags")
-
-#pdf('analysis/upset-tags.pdf')
-#upset(casts.tags.wide,nsets=ncol(casts.tags.wide),mb.ratio = c(0.2, 0.8))
-#dev.off()
-
-# casts.tags.table <- dcast(casts.tags.long, tags~"count", length, value.var="obs")
-# casts.tags.table %>% toJSON() %>% write_lines('analysis/tags.json')
-# 
-# casts.long <- separate_rows(casts.raw, patterns, sep='\\|')
-# casts.long <- separate_rows(casts.long, tags, sep='\\|')
-# 
-# for (pattern in levels(as.factor(casts.patterns.long$patterns))) {
-#   upsetTagsXPattern <- sprintf('analysis/upset-tags-%s.pdf', pattern)
-#   print(upsetTagsXPattern)
-#   casts.tagsXPattern <- dcast(casts.long[casts.long$patterns==pattern,], id+obs~tags, length, value.var="tags")
-#   
-#   pdf(upsetTagsXPattern)
-#   upset(casts.tagsXPattern,nsets=ncol(casts.tagsXPattern),mb.ratio = c(0.2, 0.8))
-#   dev.off()
-# }
-
-
-# casts.delim <- (function(casts.noicon) {
-#   casts.noicon$tags <- paste('|', casts.noicon$tags, '|', sep='')
-#   casts.noicon
-# })(casts.noicon)
-# 
-# casts.expand <- (function(casts.delim) {
-#   tags.expanded <- read.csv(file='tagsExpanded.csv', header=TRUE, strip.white = TRUE)
-#   tags.expanded$tag <- paste('|', tags.expanded$tag, '|', sep='')
-#   tags.expanded$supertags <- paste('|', tags.expanded$supertags, '|', sep='')
-# 
-#   expand <- function(tags) {
-#     for (t in rownames(tags.expanded)) {
-#       tags = gsub(tags.expanded[t, 'tag'], tags.expanded[t, 'supertags'], tags, fixed=TRUE)
-#     }
-#     tags
-#   }
-# 
-#   casts.delim$tags <- expand(casts.delim$tags)
-#   # Strip first&last delim '|' to avoid empty rows when in long format
-#   casts.delim$tags <- substring(casts.delim$tags, 2)
-#   casts.delim$tags <- substring(casts.delim$tags, 1, nchar(casts.delim$tags) - 1)
-#   
-#   casts.delim
-# })(casts.delim)
+# pname <- 'TypeTag'
+for (pname in levels(df.patterns$pattern)) {
+  pdf(sprintf('patterns/table-pattern-%s-%s.pdf', size, pname))
+  x <- df.patterns[df.patterns$pattern==pname,]
+  pp <- ggplot(x, aes(x=args))+
+    geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
+    geom_text(stat='count', aes(label=..count..,y=..count..+3))+
+    coord_flip()+
+    theme(legend.position="top")+
+    labs(x=sprintf('%s Pattern Arguments', pname), y = "# Instances")+
+    scale_fill_discrete(name="Scope")
+  print(pp)
+  dev.off()
+}
