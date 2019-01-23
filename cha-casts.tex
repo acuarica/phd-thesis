@@ -1,7 +1,6 @@
 
 \newcommand{\castpatternsection}[1]{\noindent\textbf{#1.}}
 \newcommand{\pname}[1]{\textsc{#1}}
-% \newcommand{\group}[1]{\subsection*{#1 Patterns}}
 \newcommand{\group}[1]{
 
 \
@@ -395,11 +394,13 @@ After meeting with Gabriele, he suggested using saturation sampling:
 2. For each new pattern seen, add it to the list of patterns.
 3. If a new pattern is detected, go to step 1.
 
-\section{Casts Usage Patterns}
+\section{Cast Usage Patterns}
 \label{sec:patterns}
 
 Using the methodology described in the above section, we have devised \npattern{} casts usage patterns.%
-\footnote{We have excluded casts that represents primitive numeric type conversions, as they do not represent any pattern. However, during our manual analysis we found \nprim{} primitive conversions.}
+\footnote{We have excluded casts that represents primitive numeric type conversions, as they do not represent any pattern.
+However, during our manual analysis we found \nprim{} primitive conversions.
+Moreover, we found \nbrokenlinks{} links that were not accessible during our analysis.}
 In this section we present the cast usage patterns we found.
 To ease the patterns presentation, we have clustered them in \ngroup{} groups according to their purpose.
 Figure~\ref{fig:patterns} shows our patterns and their occurrences sort by frequency.
@@ -473,15 +474,18 @@ Tuples patterns.
 
 These are code smells.
 
+\input{chapters/casts/Literal}
 \input{chapters/casts/RawTypes}
 \input{chapters/casts/Redundant}
 \input{chapters/casts/VariableLessSpecificType}
 
-\input{chapters/casts/Literal}
 \input{chapters/casts/SelectOverload}
 \input{chapters/casts/Clone}
 \input{chapters/casts/ReflectiveAccessibility}
 \input{chapters/casts/ImplicitIntersectionType}
 \input{chapters/casts/ExceptionSoftening}
+\input{chapters/casts/SoleSubclassImplementation}
+
+* keep reference \cite{altidorTamingWildcardsCombining2011}
 
 \section{Limitations}

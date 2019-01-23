@@ -1,0 +1,21 @@
+\begin{pattern}{SoleSubclassImplementation}
+
+\instances{}
+The following example%
+\footnote{\url{http://bit.ly/2S4BoJs}}
+
+%https://lgtm.com/projects/g/immutables/immutables/snapshot/dist-43930039-1524814812150/files/value-processor/target/generated-sources/annotations/org/immutables/value/processor/encode/ImmutableEncodedElement.java?sort=name&dir=ASC&mode=heatmap#L1734
+\begin{minted}{java}
+    public final EncodedElement.Builder addAllThrown(Iterable<? extends Type> elements) {
+      this.thrown.addAll(elements);
+      return (EncodedElement.Builder) this;
+    }
+\end{minted}
+
+\detection{}
+
+\discussion{}
+
+\related{}
+
+\end{pattern}

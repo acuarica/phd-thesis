@@ -5,7 +5,8 @@ Another common approach is to have several cases,
 usually one \emph{per} subtype.
 
 \instances{}
-The following listing shows an example of the \thisp{} pattern.\footnote{\url{http://bit.ly/2FzYYHq}}
+The following listing shows an example of the \thisp{} pattern.%
+\footnote{\url{http://bit.ly/2FzYYHq}}
 In this example, there is only a single case.
 After the cast is done, a specific operation is performed on the casted type, \ie, invoking the \code{checkBlock} method.
 
@@ -16,8 +17,10 @@ if (item instanceof ItemImaginationGlasses)
 	return ((ItemImaginationGlasses)item).checkBlock(what, helmet, this);
 \end{minted}
 
-In the next case,\footnote{\url{http://bit.ly/2HnNwB7}} more than one type test are performed.
-Each cast is corresponded with a type test.
+In the next case,%
+\footnote{\url{http://bit.ly/2HnNwB7}}
+more than one type test are performed.
+Each cast corresponds to a type test.
 
 %https://lgtm.com/projects/g/PenguinSquad/Enchiridion/snapshot/dist-19218583-1524814812150/files/build/sources/main/java/joshie/enchiridion/helpers/StackHelper.java?sort=name&dir=ASC&mode=heatmap#L27
 \begin{minted}[highlightlines=7]{java}
@@ -37,8 +40,9 @@ public static String getStringFromObject(Object object) {
 \end{minted}
 
 There are situations when the type test is applied to more than one variable.
-In the following example\footnote{\url{http://bit.ly/2FDN9Rd}} a double
-type test is performed on the parameters \code{o1} and \code{o2}.
+In the following example%
+\footnote{\url{http://bit.ly/2FDN9Rd}}
+a double type test is performed on the parameters \code{o1} and \code{o2}.
 
 %https://lgtm.com/projects/g/bbossgroups/bboss/snapshot/dist-2025970729-1524814812150/files/bboss-util/src/org/frameworkset/util/ObjectUtils.java?sort=name&dir=ASC&mode=heatmap#L228
 \begin{minted}[highlightlines=25]{java}
@@ -101,7 +105,9 @@ Depending on the --- runtime --- type of an object, different cases, usually one
 The \thisp{} pattern can be seen as an \adhoc{} alternative to pattern matching.
 This construct can be seen in several other languages, \eg, \scala{}, \csharp{}, and \haskell{}.
 For instance, in \scala{} the pattern matching construct is achieved using the \code{match} keyword.
-In this example\footnote{Adapted from \url{https://docs.scala-lang.org/tour/pattern-matching.html}}, a different action is taken according to the runtime type of the parameter \code{notification} (line 9).
+In this example,%
+\footnote{Adapted from \url{https://docs.scala-lang.org/tour/pattern-matching.html}}
+a different action is taken according to the runtime type of the parameter \code{notification} (line 9).
 
 \begin{minted}[highlightlines=10]{scala}
 abstract class Notification
@@ -134,8 +140,10 @@ def showNotification(notification: Notification): String = {
 
 As a workaround, alternatives to the \thisp{} pattern can be the visitor pattern or polymorphism.
 But in some cases, the chain of \code{instanceof}s is of boxed types.
-There is an ongoing proposal\footnote{\url{http://openjdk.java.net/jeps/305}} to add pattern matching to the \java{} language.
 Thus no polymorphism can be used.
+There is an ongoing proposal%
+\footnote{\url{http://openjdk.java.net/jeps/305}}
+to add pattern matching to the \java{} language.
 
 \related{}
 The \nameref{pat:Equals} pattern can be seen as a special case for the \thisp{} pattern, because often the parameter to the \code{equals} method is guarded by an \code{instanceof} expression.
