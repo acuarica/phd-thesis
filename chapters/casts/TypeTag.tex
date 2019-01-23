@@ -32,6 +32,24 @@ private int getReferenceIndex(int referenceType, Reference reference) {
 }
 \end{minted}
 
+In the next case%
+\footnote{\url{http://bit.ly/2FW5SXU}}
+a type test is performed --- through a method call --- before actually applying the cast to the variable \code{props}.
+Note that the type test is using the \code{instanceof} operator (line 8).
+
+%https://lgtm.com/projects/g/apache/poi/snapshot/dist-1790760597-1524814812150/files/src/ooxml/java/org/apache/poi/xslf/usermodel/XSLFPropertiesDelegate.java?sort=name&dir=ASC&mode=heatmap#L1367
+\begin{minted}[highlightlines=3]{java}
+@Override
+public CTSolidColorFillProperties getSolidFill() {
+    return isSetSolidFill() ? (CTSolidColorFillProperties)props : null;
+}
+
+@Override
+public boolean isSetSolidFill() {
+    return (props instanceof CTSolidColorFillProperties);
+}
+\end{minted}
+
 \detection{}
 The detection of this pattern is similar to the \nameref{pat:PatternMatching} detection, but instead of looking for an \code{instanceof} guarded cast, we look for an application-specific guard.
 
