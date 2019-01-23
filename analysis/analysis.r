@@ -33,48 +33,45 @@ df.long[grep("#", df.long$value),]$key <- 'pattern'
 df.long[grep("@", df.long$value),]$key <- 'kind'
 df.long[df.long$key == '',]$key <- 'args'
 
-categories <- list(
-  'Guarded' = c('#PatternMatching', '#TypeTag', "#Equals"),
-  'Creational' = c('#Family', '#Factory', '#KnownLibraryMethod', '#Tag', '#Deserialization'),
-  'Tuples' = c('#LookupById', '#ObjectAsArray', '#StaticResource'),
-  'Code Smell' = c('#Redundant', '#VariableLessSpecificType', '#RawTypes')
-  )
-
 df.patterns <- df.long[df.long$key == 'pattern',]
+df.patterns$value <- substring(df.patterns$value, 2)
 df.patterns$value <- as.factor(df.patterns$value)
 tb <- table(df.patterns$value)
 df.patterns$value <- factor(df.patterns$value, levels=names(tb[order(tb, decreasing = FALSE)]))
-df.patterns$category <- ''
-for (category in names(categories)) {
-  df.patterns[df.patterns$value %in% categories[[category]],]$category <- category
+df.patterns.prim <- df.patterns[df.patterns$value == 'Prim', ]
+df.patterns <- df.patterns[df.patterns$value != 'Prim', ]
+
+groups <- list(
+  'Guarded' = c('PatternMatching', 'TypeTag', "Equals", 'GetByClassLiteral', 'ClassForName'),
+  'Creational' = c('Family', 'Factory', 'KnownLibraryMethod', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'NewDynamicInstance', 'StackSymbol'),
+  'Tuples' = c('LookupById', 'ObjectAsArray', 'StaticResource'),
+  'Unnamed.group.1' = c('SelectOverload', 'MemberResolution'),
+  'Unnamed.group.2' = c('Clone', 'CovariantReturn'),
+  'Unnamed.group.3' = c('ImplicitIntersectionType', 'UnionType'),
+  'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'RawTypes')
+)
+df.patterns$group <- ''
+for (group in names(groups)) {
+  df.patterns[df.patterns$value %in% groups[[group]],]$group <- group
 }
-df.patterns$category <- factor(df.patterns$category, levels=names(categories))
+df.patterns$group <- factor(df.patterns$group, levels=names(groups))
 
 pdf(sprintf('table-patterns-%s.pdf', size))
 p <- ggplot(df.patterns, aes(x=value))+
-  geom_bar()+
-  geom_text(stat='count', aes(label=..count..,y=..count..+3))+
-  facet_grid(category~., scales="free", space="free") +
-  coord_flip()+
-#  theme_minimal()+
-  theme(strip.text.y = element_text(angle = 0))+
-  labs(x="Cast Patterns", y = "# Instances")
+  geom_bar()+geom_text(stat='count', aes(label=..count..,y=..count..+3))+
+  facet_grid(group~., scales="free", space="free")+
+  coord_flip()+theme(strip.text.y = element_text(angle = 0))+labs(x="Cast Patterns", y = "# Instances")
 print(p)
 dev.off()
 
-ps <- levels(as.factor(df.patterns$value))
-npattern <- length(ps)
-#casts.patterns.wide.any <- casts.patterns.wide[casts.patterns.wide$Any != 0, ]
-#casts.patterns.wide.pat <- casts.patterns.wide[casts.patterns.wide$Any == 0, ]
-#any.percentage <- nrow(casts.patterns.wide.any)*100/nrow(casts.patterns.wide)
-#pat.percentage <- nrow(casts.patterns.wide.pat)*100/nrow(casts.patterns.wide)
-#values <- c(
-#  sprintf("\\newcommand{\\npattern}{%s}", format(npattern, big.mark=',')),
-#  sprintf("\\newcommand{\\anypercentage}{%#.2f}", any.percentage),
-#  sprintf("\\newcommand{\\patpercentage}{%#.2f}", pat.percentage)
-#)
-#writeDef('casts.def', values)
-
+lpatterns <- levels(as.factor(df.patterns$value))
+lgroups <- levels(as.factor(df.patterns$group))
+values <- c(
+  sprintf("\\newcommand{\\npattern}{%s}", format(length(lpatterns), big.mark=',')),
+  sprintf("\\newcommand{\\ngroup}{%s}", format(length(lgroups), big.mark=',')),
+  sprintf("\\newcommand{\\nprim}{%s}", format(nrow(df.patterns.prim), big.mark=','))
+)
+write(values, 'casts.def')
 
 
 
@@ -91,32 +88,30 @@ npattern <- length(ps)
 #upset(csv.wide,nsets=ncol(csv.wide),nintersects=NA,mb.ratio = c(0.3, 0.7))
 #dev.off()
 
-
 #casts.patterns.total <- dcast(casts.patterns.long, patterns~"total", length, value.var="patterns")
 
+#casts.tags.long <- separate_rows(casts.raw, tags, sep='\\|')
+#casts.tags.wide <- dcast(casts.tags.long, id+obs~tags, length, value.var="tags")
 
-casts.tags.long <- separate_rows(casts.raw, tags, sep='\\|')
-casts.tags.wide <- dcast(casts.tags.long, id+obs~tags, length, value.var="tags")
+#pdf('analysis/upset-tags.pdf')
+#upset(casts.tags.wide,nsets=ncol(casts.tags.wide),mb.ratio = c(0.2, 0.8))
+#dev.off()
 
-pdf('analysis/upset-tags.pdf')
-upset(casts.tags.wide,nsets=ncol(casts.tags.wide),mb.ratio = c(0.2, 0.8))
-dev.off()
-
-casts.tags.table <- dcast(casts.tags.long, tags~"count", length, value.var="obs")
-casts.tags.table %>% toJSON() %>% write_lines('analysis/tags.json')
-
-casts.long <- separate_rows(casts.raw, patterns, sep='\\|')
-casts.long <- separate_rows(casts.long, tags, sep='\\|')
-
-for (pattern in levels(as.factor(casts.patterns.long$patterns))) {
-  upsetTagsXPattern <- sprintf('analysis/upset-tags-%s.pdf', pattern)
-  print(upsetTagsXPattern)
-  casts.tagsXPattern <- dcast(casts.long[casts.long$patterns==pattern,], id+obs~tags, length, value.var="tags")
-  
-  pdf(upsetTagsXPattern)
-  upset(casts.tagsXPattern,nsets=ncol(casts.tagsXPattern),mb.ratio = c(0.2, 0.8))
-  dev.off()
-}
+# casts.tags.table <- dcast(casts.tags.long, tags~"count", length, value.var="obs")
+# casts.tags.table %>% toJSON() %>% write_lines('analysis/tags.json')
+# 
+# casts.long <- separate_rows(casts.raw, patterns, sep='\\|')
+# casts.long <- separate_rows(casts.long, tags, sep='\\|')
+# 
+# for (pattern in levels(as.factor(casts.patterns.long$patterns))) {
+#   upsetTagsXPattern <- sprintf('analysis/upset-tags-%s.pdf', pattern)
+#   print(upsetTagsXPattern)
+#   casts.tagsXPattern <- dcast(casts.long[casts.long$patterns==pattern,], id+obs~tags, length, value.var="tags")
+#   
+#   pdf(upsetTagsXPattern)
+#   upset(casts.tagsXPattern,nsets=ncol(casts.tagsXPattern),mb.ratio = c(0.2, 0.8))
+#   dev.off()
+# }
 
 
 # casts.delim <- (function(casts.noicon) {
