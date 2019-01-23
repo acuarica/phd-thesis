@@ -34,28 +34,20 @@ Casting operations provide the means to escape the static type system.
 Several studies~\citep{kechagiaUndocumentedUncheckedExceptions2014,coelhoUnveilingExceptionHandling2015,zhitnitskyTop10Exception2016} show that \code{ClassCastException} is in top 10 of exceptions being
 thrown when analysing stack traces.
 
-To illustrate the sort of problem developers have when applying casting
-conversions, we performed a simple search for commits and issues
-including the term \code{ClassCastException} on \github{}
-within projects marked as using the \java{} language.
-The search returns about
-$171K$\footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Commits}}
-and
-$73K$\footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Issues}}
+To illustrate the sort of problem developers have when applying casting conversions, we performed a simple search for commits and issues including the term \code{ClassCastException} on \github{} within projects marked as using the \java{} language.
+The search returns about 171K%
+\footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Commits}}
+and 73K%
+\footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Issues}}
 results respectively at the time of writing.
-At first glance, these results indicate that indeed
-\code{ClassCastException} represents a source for
-problems to developers.
+At first glance, these results indicate that indeed \code{ClassCastException} represents a source for problems to developers.
 We have included here a few commit results as an example.%
-\footnote{To easily spot what the developer has changed to fix
-the \code{ClassCastException}, we present each source code excerpt
-using the Git commit \emph{diff} as reported by \github{}.}
+\footnote{To easily spot what the developer has changed to fix the \code{ClassCastException}, we present each source code excerpt using the Git commit \emph{diff} as reported by \github{}.}
 
 \textbf{Forgotten Guard.}
 The following listing%
 \footnote{\url{https://github.com/jenkinsci/extra-columns-plugin/commit/02d10bd1fcbb2e656da9b1b4ec54208b0cc1cbb2}}
-shows a cast applied to the variable \code{job} (in line $6$)
-that throws \code{ClassCastException} because the developer forgot to include a guard.
+shows a cast applied to the variable \code{job} (in line 6) that throws \code{ClassCastException} because the developer forgot to include a guard.
 In this case, the developer fixed the error by introducing a guard on the cast with \code{instanceof}.
 
 \begin{lstlisting}[style=java]
@@ -70,8 +62,10 @@ In this case, the developer fixed the error by introducing a guard on the cast w
 \end{lstlisting}
 
 \textbf{Wrong Cast Target.}
-In the next example\footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}} the \code{CustomFileFilter} is an inner static class inside \code{JCustomFileFilter}.
-Notice the cast happens inside an \code{equals} method, where this idiom is well known.
+In the next example%
+\footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}}
+the \code{CustomFileFilter} is an inner static class inside \code{JCustomFileFilter}.
+Notice that the cast happens inside an \code{equals} method, where this idiom is well known.
 But the developer has used the outer --- wrong --- class to cast to.
 
 \begin{lstlisting}[style=java]
@@ -87,11 +81,11 @@ But the developer has used the outer --- wrong --- class to cast to.
 \end{lstlisting}
 
 \textbf{Generic Type Inference Mismatch.}
-In the following listing,\footnote{\url{https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382}}
-the \emph{dynamic} property \code{"peer.p2p.pingInterval"}
-(lines $5$ and $6$) has type \code{int}.
+In the following listing,%
+\footnote{\url{https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382}}
+the \emph{dynamic} property \code{"peer.p2p.pingInterval"} (lines 5 and 6) has type \code{int}.
 To fix the error, the developer only changed the type of the
-literal $5$: from \code{long} to \code{int}.
+literal 5: from \code{long} to \code{int}.
 
 \begin{lstlisting}[style=java]
 @@ -281,7 +281,7 @@ private void startTimers() {
@@ -404,17 +398,16 @@ After meeting with Gabriele, he suggested using saturation sampling:
 \section{Casts Usage Patterns}
 \label{sec:patterns}
 
-% Using the methodology described in the above section, we have devised $\npattern{}$ casts usage patterns.
-% Overall, these patterns cover around $\patpercentage\%$ with uncovered casts of $\anypercentage\%$.
-
+Using the methodology described in the above section, we have devised \npattern{} casts usage patterns.%
+\footnote{We have excluded casts that represents primitive numeric type conversions, as they do not represent any pattern. However, during our manual analysis we found \nprim{} primitive conversions.}
 In this section we present the cast usage patterns we found.
-To ease the patterns presentation, we have clustered them in groups according to their purpose.
+To ease the patterns presentation, we have clustered them in \ngroup{} groups according to their purpose.
 Figure~\ref{fig:patterns} shows our patterns and their occurrences sort by frequency.
 The column on the right correspond to the group the pattern belongs to.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\columnwidth]{analysis/table-patterns-5000.pdf}
+\includegraphics[width=\textwidth]{analysis/table-patterns-5000.pdf}
 \caption{Cast Patterns Occurrences} \label{fig:patterns}
 \end{figure}
 
@@ -445,7 +438,6 @@ Presents suggestions, flaws, or comments about the pattern.
 How the pattern being described relates to other patterns?
 \end{itemize}
 
-
 \group{Guarded}
 
 The patterns in this group are guarded casts.
@@ -453,6 +445,8 @@ The patterns in this group are guarded casts.
 \input{chapters/casts/PatternMatching}
 \input{chapters/casts/TypeTag}
 \input{chapters/casts/Equals}
+\input{chapters/casts/GetByClassLiteral}
+\input{chapters/casts/ClassForName}
 
 \group{Creational}
 
@@ -461,8 +455,11 @@ These patterns creates to how they are created.
 \input{chapters/casts/Family}
 \input{chapters/casts/Factory}
 \input{chapters/casts/KnownLibraryMethod}
-\input{chapters/casts/Deserialization}
+\input{chapters/casts/NewDynamicInstance}
 \input{chapters/casts/Tag}
+\input{chapters/casts/Deserialization}
+% \input{chapters/casts/StackSymbol}
+\input{chapters/casts/CreateByClassLiteral}
 
 \group{Tuples}
 
@@ -480,12 +477,10 @@ These are code smells.
 \input{chapters/casts/Redundant}
 \input{chapters/casts/VariableLessSpecificType}
 
-\input{chapters/casts/SelectOverload}
 \input{chapters/casts/Literal}
-\input{chapters/casts/Prim}
-\input{chapters/casts/NewDynamicInstance}
-\input{chapters/casts/ReflectiveAccessibility}
+\input{chapters/casts/SelectOverload}
 \input{chapters/casts/Clone}
+\input{chapters/casts/ReflectiveAccessibility}
 \input{chapters/casts/ImplicitIntersectionType}
 \input{chapters/casts/ExceptionSoftening}
 

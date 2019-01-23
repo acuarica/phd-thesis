@@ -32,6 +32,29 @@ public final class AccessController {
 }
 \end{minted}
 
+The following example%
+\footnote{\url{http://bit.ly/2FSZKzm}}
+uses the raw type of the \code{Comparable} --- generic --- interface.%
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html}}
+
+%https://lgtm.com/projects/g/fangjie008/tiexue-mcp-parent/snapshot/dist-1505957596672-1524814812150/files/mcp-core/src/main/java/com/tiexue/mcp/core/dto/McpSettlementDetailDto.java?sort=name&dir=ASC&mode=heatmap#L100
+\begin{minted}[highlightlines=6]{java}
+public class McpSettlementDetailDto implements Comparable {
+    // [...]
+
+    @Override
+    public int compareTo(Object o){
+        McpSettlementDetailDto mcpSettlementDetailDto=(McpSettlementDetailDto)o;
+        Integer newConsume=(int)mcpSettlementDetailDto.getConsume();
+        Integer temp=((int)this.consume);
+        return temp.compareTo(newConsume);
+    }
+}
+\end{minted}
+
+
+
+
 \detection{}
 
 \discussion{}
