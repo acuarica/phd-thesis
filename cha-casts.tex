@@ -488,4 +488,12 @@ These are code smells.
 
 * keep reference \cite{altidorTamingWildcardsCombining2011}
 
+- CovariantReturn
+%https://lgtm.com/projects/g/apache/cayenne/snapshot/dist-1890050-1524814812150/files/modeler/cayenne-modeler/src/main/java/org/apache/cayenne/modeler/undo/TextCompoundEdit.java?sort=name&dir=ASC&mode=heatmap#L74
+\begin{minted}{java}
+EditorView editorView = ((CayenneModelerFrame) Application.
+        getInstance().getFrameController().getView())
+        .getView();
+\end{minted}
+
 \section{Limitations}

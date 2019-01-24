@@ -1,7 +1,23 @@
 \begin{pattern}{Redundant}
-    
 A cast that is not necessary for compilation.
 
-\instances
+\instances{}
+The following example%
+\footnote{\url{http://bit.ly/2FWXw2e}}
+
+%https://lgtm.com/projects/g/vladmihalcea/high-performance-java-persistence/snapshot/dist-1813180502-1524814812150/files/core/src/test/java/com/vladmihalcea/book/hpjp/hibernate/schema/flyway/FlywayTest.java#L40
+\begin{minted}[highlightlines=1]{java}
+transactionTemplate.execute((TransactionCallback<Void>) transactionStatus -> {
+    Post post = new Post();
+    entityManager.persist(post);
+    return null;
+});
+\end{minted}
+
+\detection{}
+
+\discussion{}
+
+\related{}
     
 \end{pattern}
