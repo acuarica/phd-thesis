@@ -21,12 +21,14 @@ groups <- list(
 size <- 5000
 
 df.raw <- read.csv(sprintf('casts-%s.csv', size))
+stopifnot(ncol(df.raw) == 7)
 df.raw$s <- NULL
 df.raw$t <- NULL
 df.raw$tag <- NULL
 
 df.brokenlinks <- df.raw[df.raw$value == '?BrokenLink', ]
 df.empty <- df.raw[df.raw$value == '', ]
+stopifnot(nrow(df.empty)==0)
 
 df <- df.raw
 df <- df[df$value != '', ]
@@ -34,6 +36,7 @@ df <- df[df$value != '?BrokenLink', ]
 df$key <- ''
 
 df.malformed1 <- df[grep("#",df$value,invert=TRUE),]
+stopifnot(nrow(df.malformed1)==0)
 df.malformed2 <- df[grep(",",df$value,invert=TRUE),]
 df.malformed3 <- df[grep("@",df$value,invert=TRUE),]
 
