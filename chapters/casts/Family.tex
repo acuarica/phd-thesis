@@ -2,8 +2,29 @@
 Family polymorphism.
 
 \instances{}
+The following example%
+\footnote{\url{http://bit.ly/2FN59J8}}
+shows an instance of the \thisp{} pattern.
 
-\begin{minted}[highlightlines=1]{java}
+%https://lgtm.com/projects/g/pentaho/pentaho-kettle/snapshot/dist-1815472020-1524814812150/files/engine/src/main/java/org/pentaho/di/trans/steps/dynamicsqlrow/DynamicSQLRow.java?sort=name&dir=ASC&mode=heatmap#L281
+\begin{minted}[highlightlines=13]{java}
+public interface StepInterface extends VariableSpace, HasLogChannelInterface {
+  // [...]
+  public void stopRunning( StepMetaInterface stepMetaInterface,
+          StepDataInterface stepDataInterface ) throws KettleException;
+}
+
+public class DynamicSQLRow extends BaseStep implements StepInterface {
+  private DynamicSQLRowMeta meta;
+  private DynamicSQLRowData data;
+  // [...]
+  public void stopRunning( StepMetaInterface smi,
+        StepDataInterface sdi ) throws KettleException {
+    meta = (DynamicSQLRowMeta) smi;
+    data = (DynamicSQLRowData) sdi;
+    // [...]
+  }
+}
 \end{minted}
 
 \detection{}
