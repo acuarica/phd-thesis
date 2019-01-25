@@ -1,0 +1,101 @@
+\section{Cast Usage Patterns}
+\label{sec:casts:patterns}
+
+Using the methodology described in the above section, we have devised \npattern{} casts usage patterns.%
+\footnote{We have excluded casts that represents primitive numeric type conversions, as they do not represent any pattern.
+However, during our manual analysis we found \nprim{} primitive conversions.
+Moreover, we found \nbrokenlinks{} links that were not accessible during our analysis.}
+In this section we present the cast usage patterns we found.
+To ease the patterns presentation, we have clustered them in \ngroup{} groups according to their purpose.
+Figure~\ref{fig:patterns} shows our patterns and their occurrences sort by frequency.
+The column on the right correspond to the group the pattern belongs to.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{analysis/table-patterns-5000.pdf}
+\caption{Cast Patterns Occurrences} \label{fig:patterns}
+\end{figure}
+
+Each pattern is described using the following template:
+
+\begin{itemize}
+\item \textbf{Description.}
+Tells what is this pattern about.
+It gives a general overview of the structure of the pattern.
+\item \textbf{Instances.}
+Gives one or more concrete examples found in real code.%
+\footnote{Please notice that the snippets presented here were slightly
+modified for formatting purposes.
+Moreover, to facilitate some snippet presentations,
+we remove irrelevant code and replace it with the
+comment \code{// [...]}.}
+For each instance presented here, we provide the link to the source code repository in \lgtm{}.
+We provide the link in case the reader wants to do further inspection
+of the snippet presented.%
+\footnote{Instead of presenting \lgtm{} long URLs,
+we have used the URL shortening service \url{https://bitly.com/}
+for an easier reading.}
+\item \textbf{Detection.}
+Describes briefly how this pattern was detected in terms of the tags introduced in the previous section.
+\item \textbf{Discussion.}
+Presents suggestions, flaws, or comments about the pattern.
+\item \textbf{Related Patterns.}
+How the pattern being described relates to other patterns?
+\end{itemize}
+
+\group{Guarded}
+
+The patterns in this group are guarded casts.
+
+\input{chapters/casts/PatternMatching}
+\input{chapters/casts/TypeTag}
+\input{chapters/casts/Equals}
+\input{chapters/casts/GetByClassLiteral}
+\input{chapters/casts/ClassForName}
+
+\group{Creational}
+
+These patterns creates to how they are created.
+
+\input{chapters/casts/Family}
+\input{chapters/casts/Factory}
+\input{chapters/casts/KnownLibraryMethod}
+\input{chapters/casts/NewDynamicInstance}
+\input{chapters/casts/Tag}
+\input{chapters/casts/Deserialization}
+% \input{chapters/casts/StackSymbol}
+\input{chapters/casts/CreateByClassLiteral}
+
+\group{Tuples}
+
+Tuples patterns.
+
+\input{chapters/casts/LookupById}
+\input{chapters/casts/StaticResource}
+\input{chapters/casts/ObjectAsArray}
+
+\group{Code Smell}
+
+These are code smells.
+
+\input{chapters/casts/Literal}
+\input{chapters/casts/RawTypes}
+\input{chapters/casts/Redundant}
+\input{chapters/casts/VariableLessSpecificType}
+
+\input{chapters/casts/SelectOverload}
+\input{chapters/casts/Clone}
+\input{chapters/casts/ReflectiveAccessibility}
+\input{chapters/casts/ImplicitIntersectionType}
+\input{chapters/casts/ExceptionSoftening}
+\input{chapters/casts/SoleSubclassImplementation}
+
+* keep reference \cite{altidorTamingWildcardsCombining2011}
+
+- CovariantReturn
+%https://lgtm.com/projects/g/apache/cayenne/snapshot/dist-1890050-1524814812150/files/modeler/cayenne-modeler/src/main/java/org/apache/cayenne/modeler/undo/TextCompoundEdit.java?sort=name&dir=ASC&mode=heatmap#L74
+\begin{minted}{java}
+EditorView editorView = ((CayenneModelerFrame) Application.
+        getInstance().getFrameController().getView())
+        .getView();
+\end{minted}
