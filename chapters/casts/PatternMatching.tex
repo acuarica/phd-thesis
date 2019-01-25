@@ -95,7 +95,7 @@ The operand expression to both the cast and the \code{instanceof} needs to be th
 In the case the operand expression is a variable, we also check that there is no assignment between the \code{instanceof} guard and the cast to that variable.
 
 In some situations the operand expression is a method invocation.
-We make sure that the value returned is the same for both the \code{instanceof} and the cast.
+We make sure that the value returned is the same for both the \code{instanceof} and the cast, \ie, it is a pure method.
 
 \discussion{}
 The \thisp{} pattern consists of testing the runtime type of a variable against several related types.
