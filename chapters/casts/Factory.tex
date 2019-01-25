@@ -11,6 +11,26 @@ We should generalize this pattern.
 
 \instances{}
 
+\footnote{\url{http://bit.ly/2HvRlUX}}
+
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html\#getPrivate()}}
+
+%https://lgtm.com/projects/b/connect2id/oauth-2.0-sdk-with-openid-connect-extensions/snapshot/dist-1311020143-1524814812150/files/src/test/java/com/nimbusds/oauth2/sdk/jose/jwk/RemoteJWKSetTest.java?sort=name&dir=ASC&mode=heatmap#L242
+\begin{minted}[highlightlines=10]{java}
+KeyPairGenerator pairGen = KeyPairGenerator.getInstance("RSA");
+pairGen.initialize(1024);
+KeyPair keyPair = pairGen.generateKeyPair();
+RSAKey rsaJWK1 = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
+        .privateKey((RSAPrivateKey) keyPair.getPrivate())
+        .keyID("1")
+        .build();
+keyPair = pairGen.generateKeyPair();
+RSAKey rsaJWK2 = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
+        .privateKey((RSAPrivateKey) keyPair.getPrivate())
+        .keyID("2")
+        .build();
+\end{minted}
+
 \detection{}
 
 \discussion{}
