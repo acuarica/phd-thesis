@@ -10,11 +10,11 @@ groups <- list(
   'Creational' = c('Family', 'Factory', 'KnownLibraryMethod', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol'),
   'Tuples' = c('LookupById', 'ObjectAsArray', 'StaticResource'),
   'Member Resolution' = c('SelectOverload', 'AccessPrivateField'),
-  'Variance' = c('Clone', 'CovariantReturn', 'RemoveTypeParameter', 'CovariantArrays'),
+  'Variance' = c('Clone', 'CovariantReturn', 'RemoveTypeParameter'),
   'Complex Types' = c('ImplicitIntersectionType', 'UnionType'),
   'Structural' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
   'Reflection' = c('ReflectiveAccesibility', 'NewDynamicInstance', 'ReflectiveMethodInvoke', 'ReflectiveFieldGet'),
-  'Unchecked' = c('UncheckedCast', 'FromWildcard', 'WildcardClassLiteral'),
+  'Unchecked' = c('UncheckedCast', 'FromWildcard', 'WildcardClassLiteral', 'GenericArray'),
   'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'RawTypes', 'Literal')
 )
 
@@ -31,7 +31,7 @@ df.empty <- df.raw[df.raw$value == '', ]
 stopifnot(nrow(df.empty)==0)
 
 df <- df.raw
-df <- df[df$value != '', ]
+df <- df[df$value != '#', ]
 df <- df[df$value != '?BrokenLink', ]
 df$key <- ''
 
@@ -75,7 +75,7 @@ p <- ggplot(df.patterns, aes(x=pattern))+
 print(p)
 dev.off()
 
-lpatterns <- levels(as.factor(df.patterns$value))
+lpatterns <- levels(as.factor(df.patterns$pattern))
 lgroups <- levels(as.factor(df.patterns$group))
 values <- c(
   sprintf("\\newcommand{\\npattern}{%s}", format(length(lpatterns), big.mark=',')),
@@ -86,7 +86,7 @@ values <- c(
 write(values, 'casts.def')
 
 
-# pname <- 'TypeTag'
+pname <- 'PatternMatching'
 for (pname in levels(df.patterns$pattern)) {
   pdf(sprintf('patterns/table-pattern-%s-%s.pdf', size, pname))
   x <- df.patterns[df.patterns$pattern==pname,]
