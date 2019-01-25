@@ -79,8 +79,8 @@ Our long-term goal is to provide a strong foundation
 to make informed decisions in the future evolution of the \java{} language and virtual machine,
 and for the design of new language features to regain safety in \java{}.
 
-We have already published our work on how developers use the Unsafe \api{} \citep{mastrangeloUseYourOwn2015}.
-Here we outline the risks of using the \unsafe{} \api{} in \S\ref{sec:unsafe:background}.
+We have already published our work on how developers use the Unsafe \api{} in \java{}~\citep{mastrangeloUseYourOwn2015}.
+In this thesis we outline the risks of using the \unsafe{} \api{} in \S\ref{sec:unsafe:background}.
 Then we answer \ref{unsafe:rq1} in \S\ref{sec:unsafe:overview}.
 To answer \ref{unsafe:rq2}, first we introduce our methodology and the patterns we found in \S\ref{sec:unsafe:methodology} and \S\ref{sec:unsafe:patterns} respectively, to then present how the patterns we found could be implemented in a safer way in \S\ref{sec:unsafe:discussion}.
 
@@ -184,7 +184,7 @@ A bullet (\exis) indicates that an
 alternative exists in the \java{} language or API. A check mark (\tick)
 indicates that there is a proposed alternative for \java{}.
 
-Many \java{} APIs already exist that provide functionality similar to \unsafe{}.
+Many APIs already exist that provide functionality similar to \unsafe{}.
 Indeed, these APIs are often implemented using \unsafe{} under the hood, but 
 they are designed to be used safely.
 They maintain invariants or perform runtime checks
