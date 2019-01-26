@@ -30,6 +30,8 @@ df.brokenlinks <- df.raw[df.raw$value == '?BrokenLink', ]
 df.empty <- df.raw[df.raw$value == '', ]
 stopifnot(nrow(df.empty)==0)
 
+df.numeral <- df.raw[df.raw$value == '#', ]
+
 df <- df.raw
 df <- df[df$value != '#', ]
 df <- df[df$value != '?BrokenLink', ]
@@ -102,4 +104,4 @@ for (pname in levels(df.patterns$pattern)) {
   dev.off()
 }
 
-# setdiff( unlist(groups, use.names=FALSE) , levels(df.patterns$pattern) )
+setdiff( unlist(groups, use.names=FALSE) , levels(df.patterns$pattern) )
