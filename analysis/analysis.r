@@ -6,15 +6,15 @@ library(ggplot2)
 library(plyr)
 
 groups <- list(
-  'Guarded' = c('PatternMatching', 'TypeTag', "Equals", 'GetByClassLiteral', 'ClassForName'),
+  'Guarded' = c('PatternMatching', 'TypeTag', "Equals", 'GetByClassLiteral'),
   'Creational' = c('Family', 'Factory', 'KnownLibraryMethod', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol'),
   'Tuples' = c('LookupById', 'ObjectAsArray', 'StaticResource'),
-  'Member Resolution' = c('SelectOverload', 'AccessPrivateField'),
+  'Member\nResolution' = c('SelectOverload', 'AccessPrivateField'),
   'Variance' = c('Clone', 'CovariantReturn', 'RemoveTypeParameter'),
-  'Complex Types' = c('ImplicitIntersectionType', 'UnionType'),
+  'Complex\nTypes' = c('ImplicitIntersectionType', 'UnionType'),
   'Structural' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
-  'Reflection' = c('ReflectiveAccesibility', 'NewDynamicInstance', 'ReflectiveMethodInvoke', 'ReflectiveFieldGet'),
-  'Unchecked' = c('UncheckedCast', 'FromWildcard', 'WildcardClassLiteral', 'GenericArray'),
+  'Reflection' = c('ReflectiveAccesibility', 'NewDynamicInstance'),
+  'Unchecked' = c('UncheckedCast', 'RemoveWildcard', 'GenericArray'),
   'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'RawTypes', 'Literal')
 )
 
@@ -49,14 +49,15 @@ df.long[df.long$key == '',]$key <- 'args'
 
 df.patterns <- spread(df.long, key=key, value=value)
 df.patterns$pattern <- substring(df.patterns$pattern, 2)
+df.patterns.prim <- df.patterns[df.patterns$pattern == 'Prim', ]
+df.patterns <- df.patterns[df.patterns$pattern != 'Prim', ]
 df.patterns$pattern <- as.factor(df.patterns$pattern)
 df.patterns$scope <- substring(df.patterns$scope, 2)
 df.patterns$scope <- factor(df.patterns$scope, levels=c('src', 'test', 'gen'))
 df.patterns$scope <- revalue(df.patterns$scope, c('src'='Sources', 'test'='Test', 'gen'='Generated'))
+
 tb <- table(df.patterns$pattern)
 df.patterns$pattern <- factor(df.patterns$pattern, levels=names(tb[order(tb, decreasing = FALSE)]))
-df.patterns.prim <- df.patterns[df.patterns$pattern == 'Prim', ]
-df.patterns <- df.patterns[df.patterns$pattern != 'Prim', ]
 df.patterns$group <- ''
 for (group in names(groups)) {
   df.patterns[df.patterns$pattern %in% groups[[group]],]$group <- group
@@ -100,3 +101,5 @@ for (pname in levels(df.patterns$pattern)) {
   print(pp)
   dev.off()
 }
+
+# setdiff( unlist(groups, use.names=FALSE) , levels(df.patterns$pattern) )

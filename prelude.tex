@@ -10,7 +10,7 @@
 }
 
 \newcommand{\tbd}[1]{{\color{violet} #1\footnotesize ?}}
-\newcommand{\todo}[1]{{\color{red} #1\ \footnotesize !}}
+\newcommand{\todo}[1]{{\color{red} \textbf{TODO:} #1\ \footnotesize !}}
 
 \newcommand{\rquestion}[1]{\hlbox{#1}{yellow}{Research Question}}
 
@@ -151,4 +151,23 @@
 	keywords=[2]{import, predicate, java, instanceof},
 	emph={CastExpr, PrimitiveType},
 	emphstyle={\color{lightblue}}
+}
+
+\lstdefinestyle{bytecode}{
+	language=java,
+	tabsize=4,
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	numbersep=4pt,
+	xleftmargin=0.2cm,
+	% mathescape=true,
+	keywordstyle=\color{blue}\textbf,
+	stringstyle=\textcolor{magenta},
+	captionpos=b,
+	emph={ldc,invokestatic,astore_1,aload_1,invokevirtual,checkcast},
+	emphstyle={\color{lightblue}},
+    morecomment=[f][\color{diffstart}]{@@},
+    morecomment=[f][\color{diffincl}]{+\ },
+	morecomment=[f][\color{diffrem}]{-\ },
 }

@@ -1,7 +1,10 @@
 {
     "cSpell.words": [
+        "aload",
+        "astore",
         "asts",
         "bytecode",
+        "checkcast",
         "clazz",
         "datalog",
         "dendrogram",
@@ -9,6 +12,8 @@
         "goetz",
         "gpus",
         "instanceof",
+        "invokestatic",
+        "invokevirtual",
         "javac",
         "lgtm",
         "mockito",
