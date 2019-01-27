@@ -1,6 +1,53 @@
 \section{Is the Cast Operator used?}
 \label{sec:casts:stats}
 
+
+
+
+
+
+
+To achieve our goal, several elements are needed.
+
+\textbf{Source Code Analysis.}
+We have implemented our study using the \ql{} query language:
+``a declarative, object-oriented logic programming language for querying complex, potentially recursive data structures encoded in a relational data model''~\citep{avgustinovQLObjectorientedQueries2016}.
+\ql{} allows us to analyze programs at the source code level by abstracting the code sources into a Datalog model.
+Besides providing structural data for programs, \ie{}, ASTs,
+\ql{} has the ability to query static types and perform data-flow analysis.
+To run our \ql{} queries, we have used the service provided by Semmle.\footnote{\url{https://lgtm.com/}} 
+
+\textbf{Projects.} 
+As a code base representative of the ``real world'',
+we have chosen open-source projects hosted in 
+\github{},
+the world-most popular source code management repository.
+% , \ie{},
+% \github{},
+%\footnote{\url{https://github.com/}},
+% \gitlab{},
+%\footnote{\url{https://gitlab.com/}},
+% \bitbucket{},
+%\footnote{\url{https://bitbucket.org/}}.
+So far, we have analyzed \nproject{} \java{} projects in \lgtm{}.
+We plan to scale up our analysis to the whole \lgtm{} project database.
+
+\textbf{Usage Pattern Detection.}
+After all cast instances are found, we analyze this information to discover usage patterns.
+\ql{} allows us to automatically categorize cast use cases into patterns.
+This methodology is described in section~\ref{sec:casts:methodology}.
+
+Our list of patterns is not exhaustive.
+Due to the nature of the cast operator, some casts were uncategorized as they would need a whole program analysis, \eg{}, including libraries in the analysis.
+
+
+
+
+
+
+
+
+
 To answer \ref{casts:rq1} (\emph{\crqA}) we want to know how many cast instances are used in a given project.
 To this end, we gather the following statistics using \ql{}.
 We show them here to give an estimation of the size of the code base being analized.

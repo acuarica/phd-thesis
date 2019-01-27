@@ -28,9 +28,126 @@
 \chapter{Casting Operations in the Wild}
 \label{cha:casts}
 
-\input{chapters/casts/sec-casts-introduction}
-\input{chapters/casts/sec-casts-overview}
+Casting operations provide the means to escape the static type system.
+\emph{But do they pose a problem for developers?}
+Several studies~\citep{kechagiaUndocumentedUncheckedExceptions2014,coelhoUnveilingExceptionHandling2015,zhitnitskyTop10Exception2016} show that \code{ClassCastException} is in top 10 of exceptions being
+thrown when analysing stack traces.
+
+To illustrate the sort of problem developers have when applying casting conversions, we performed a simple search for commits and issues including the term \code{ClassCastException} on \github{} within projects marked as using the \java{} language.
+The search returns about 171K%
+\footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Commits}}
+and 73K%
+\footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Issues}}
+results respectively at the time of writing.
+At first glance, these results indicate that indeed \code{ClassCastException} represents a source for problems to developers.
+We have included here a few commit results as an example.%
+\footnote{To easily spot what the developer has changed to fix the \code{ClassCastException}, we present each source code excerpt using the Git commit \emph{diff} as reported by \github{}.}
+
+\textbf{Forgotten Guard.}
+The following listing%
+\footnote{\url{https://github.com/jenkinsci/extra-columns-plugin/commit/02d10bd1fcbb2e656da9b1b4ec54208b0cc1cbb2}}
+shows a cast applied to the variable \code{job} (in line 6) that throws \code{ClassCastException} because the developer forgot to include a guard.
+In this case, the developer fixed the error by introducing a guard on the cast with \code{instanceof}.
+
+\begin{lstlisting}[style=java]
+@@ -41,6 +41,8 @@ public SCMTypeColumn() {
+   }
+       public String getScmType(@SuppressWarnings("rawtypes") Job job) {
++        if(!(job instanceof AbstractProject<?, ?>))
++            return "";
+       AbstractProject<?, ?> project = (AbstractProject<?, ?>) job;
+       return project.getScm().getDescriptor().getDisplayName();
+   }
+\end{lstlisting}
+
+\textbf{Wrong Cast Target.}
+In the next example%
+\footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}}
+the \code{CustomFileFilter} is an inner static class inside \code{JCustomFileFilter}.
+Notice that the cast happens inside an \code{equals} method, where this idiom is well known.
+But the developer has used the outer --- wrong --- class to cast to.
+
+\begin{lstlisting}[style=java]
+@@ -156,7 +156,7 @@ public boolean equals(Object obj) {
+  if (getClass() != obj.getClass()) {
+      return false;
+  }
+- final JCustomFileChooser other = (JCustomFileChooser) obj;
++ final CustomFileFilter other = (CustomFileFilter) obj;
+  if (!Objects.equals(this.extensions, other.extensions)) {
+      return false;
+  }
+\end{lstlisting}
+
+\textbf{Generic Type Inference Mismatch.}
+In the following listing,%
+\footnote{\url{https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382}}
+the \emph{dynamic} property \code{"peer.p2p.pingInterval"} (lines 5 and 6) has type \code{int}.
+To fix the error, the developer only changed the type of the
+literal 5: from \code{long} to \code{int}.
+
+\begin{lstlisting}[style=java]
+@@ -281,7 +281,7 @@ private void startTimers() {
+        } catch (Throwable t) {
+            logger.error("Unhandled exception", t);
+        }
+-   }, 2, config.getProperty("peer.p2p.pingInterval", 5L), TimeUnit.SECONDS);
++   }, 2, config.getProperty("peer.p2p.pingInterval", 5), TimeUnit.SECONDS);
+}
+\end{lstlisting}
+
+Looking at the definition of the \code{getProperty} method below,%
+\footnote{\url{https://github.com/ethereum/ethereumj/blob/224e65b9b4ddcb46198a6f8faf69edc65d34d382/ethereumj-core/src/main/java/org/ethereum/config/SystemProperties.java\#L312}}
+it obtains a dynamic property given a property name.
+If it finds a value, return it.
+Otherwise, returns the default value (second argument).
+But the return type of \code{getProperty} is a generic type inferred
+by the type of the default value, in this case, \code{long}.
+The \code{ClassCastException} is then thrown in line $5$,
+when casting \code{java.lang.Integer} to \code{java.lang.Long}.
+To then fix the bug, the developer changed the type of the literal:
+from \code{long} to \code{int}.
+
+\begin{lstlisting}[style=java]
+public <T> T getProperty(String propName, T defaultValue) {
+    if (!config.hasPath(propName)) return defaultValue;
+    String string = config.getString(propName);
+    if (string.trim().isEmpty()) return defaultValue;
+    return (T) config.getAnyRef(propName);
+}
+\end{lstlisting}
+
+\textbf{Compiler Bug.}
+One issue\footnote{\url{https://github.com/mockito/mockito/issues/357}} shows bad things happen when abusing the type system.
+A bug in the \textsf{javac} compiler\footnote{\url{https://bugs.openjdk.java.net/browse/JDK-8058199}} was causing \jvm{}'s \code{checkcast} instructions to be skipped.
+This bug was fixed in JDK 9, breaking Mockito answer strategies.
+
+This indicates that type casts represent a source of errors for developers.
+Therefore we want to understand why developers need to use type casts.
+To this end, we propose to answer the following question:
+\emph{How and when do developers need to escape the type system?}
+The cast operator in \java{} provides the means to view a reference at a different type as it was declared.
+Upcasts conversions are done automatically by the compiler.
+Nevertheless, as we shall see later, in some situations a developer is forced to insert upcasts.
+In the case of downcasts, a check is inserted at run-time to verify that the conversion is sound, thus escaping the type system.
+\emph{Why is so?}
+Therefore, we believe we should care about how the casting operations are used in the wild.
+Specifically, we want to answer the following research questions:
+
+\begin{enumerate}[label=$CRQ\arabic*:$,ref=$CRQ\arabic*$,leftmargin=3.4\parindent]
+\item\label{enum:rq1}{\bf \crqA}
+We want to understand to what extent application code actually uses casting operations.
+\item\label{enum:rq2}{\bf \crqB}
+If casts are actually used in application code, we want to know how and why developers need to escape the type system.
+\item\label{enum:rq3}{\bf \crqC}
+In addition to understand how and why casts are used, we want to measure how often developers need to resort to certain idioms to solve a particular problem.
+\end{enumerate}
+
+To answer the above questions, we need to determine whether and how casting operations are actually used in real-world \java{} applications.
+In \S\ref{sec:casts:stats} we first give an estimation of how often the cast operator is used in real-world applications to answer~\ref{casts:rq1}.
+In \S\ref{sec:casts:methodology} we introduce the methodology we have used to devise cast usage patterns.
+Then, \S\ref{sec:casts:patterns} presents the cast usage patterns we have devised to answer both~\ref{casts:rq2} and \ref{casts:rq3}.
+
 \input{chapters/casts/sec-casts-stats}
 \input{chapters/casts/sec-casts-methodology}
 \input{chapters/casts/sec-casts-patterns}
-\input{chapters/casts/sec-casts-limitations}
