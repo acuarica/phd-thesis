@@ -1,5 +1,0 @@
-\newcommand{\nCastExpr}{21,491}
-\newcommand{\nCastMethod}{    65}
-\newcommand{\nEqualsMethod}{   502}
-\newcommand{\nInstanceOf}{ 4,182}
-\newcommand{\nTypeSwitch}{   240}

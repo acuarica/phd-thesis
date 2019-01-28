@@ -1,7 +1,0 @@
-\newcommand{\nproject}{195}
-\newcommand{\nloc}{19,264,590}
-\newcommand{\nexpr}{57,292,018}
-\newcommand{\nstmt}{13,270,506}
-\newcommand{\nmethod}{1,492,490}
-\newcommand{\nmethodwithcast}{99,018}
-\newcommand{\castpercentage}{5.47}
