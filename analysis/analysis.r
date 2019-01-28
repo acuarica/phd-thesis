@@ -57,7 +57,6 @@ df.patterns$pattern <- as.factor(df.patterns$pattern)
 df.patterns$scope <- substring(df.patterns$scope, 2)
 df.patterns$scope <- factor(df.patterns$scope, levels=c('src', 'test', 'gen'))
 df.patterns$scope <- revalue(df.patterns$scope, c('src'='Sources', 'test'='Test', 'gen'='Generated'))
-
 tb <- table(df.patterns$pattern)
 df.patterns$pattern <- factor(df.patterns$pattern, levels=names(tb[order(tb, decreasing = FALSE)]))
 df.patterns$group <- ''
@@ -65,6 +64,12 @@ for (group in names(groups)) {
   df.patterns[df.patterns$pattern %in% groups[[group]],]$group <- group
 }
 df.patterns$group <- factor(df.patterns$group, levels=names(groups))
+
+x <- setdiff( unlist(groups, use.names=FALSE) , levels(df.patterns$pattern) )
+stopifnot( length(x) == 0 )
+
+x <- setdiff( levels(df.patterns$pattern), unlist(groups, use.names=FALSE) )
+stopifnot( length(x) == 0 )
 
 pdf(sprintf('table-patterns-%s.pdf', size))
 p <- ggplot(df.patterns, aes(x=pattern))+
@@ -103,5 +108,3 @@ for (pname in levels(df.patterns$pattern)) {
   print(pp)
   dev.off()
 }
-
-setdiff( unlist(groups, use.names=FALSE) , levels(df.patterns$pattern) )
