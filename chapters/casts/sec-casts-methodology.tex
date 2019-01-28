@@ -1,90 +1,24 @@
 \section{Finding Casts Usage Patterns}
 \label{sec:casts:methodology}
 
+Similarly to \S\ref{sec:casts:stats}, to answer both research questions
+\ref{casts:rq2} (\emph{\crqB}) and \ref{casts:rq3} (\emph{\crqC}) several elements are needed.
 
+\textbf{Source Code Analysis.}
+Given the complexity of finding cast usage patterns, we have opted to use manual sampling to devise cast usage patterns.
+We have used the \ql{} query language within the \lgtm{} service to fetch all cast operator instances.
 
-
-
-\textbf{Usage Pattern Detection.}
-After all cast instances are found, we analyze this information to discover usage patterns.
-\ql{} allows us to automatically categorize cast use cases into patterns.
-This methodology is described in section~\ref{sec:casts:methodology}.
-
-Our list of patterns is not exhaustive.
-Due to the nature of the cast operator, some casts were uncategorized as they would need a whole program analysis, \eg{}, including libraries in the analysis.
-
-
-
-
-
-
-To answer both research questions
-\ref{casts:rq2} (\emph{\crqB}) and \ref{casts:rq3} (\emph{\crqC})
-we have used the \ql{} query language within the \lgtm{} service to look for cast instances.
-%
-As mentioned in section \ref{sec:casts:stats}, \ql{} treats primitive conversions as casts.
-Thus, a preliminary step is to exclude them as cast instances.
-The following \ql{} query shows how to retrieve all relevant cast expressions:
-
-\begin{lstlisting}[style=ql,caption=\ql{} query to retrieve all relevant cast expressions.]
-import java
-from CastExpr ce where not (
-ce.getExpr().getType() instanceof PrimitiveType and
-ce.getTypeExpr().getType() instanceof PrimitiveType
-) select ce
-\end{lstlisting}
-
-We have used this initial result as a starting point for our analysis.
-Afterwards, we select a random sample for manual inspection.
-We manually inspected the mentioned casts trying to understand
-why and how they were used.
-
-By manually inspecting several casts instances,
-we observe that certain characteristics appear often, \eg,
-a cast in a overridden method, or a cast guarded by an \code{instanceof}.
-We then \emph{tag} cast instances based on these observations.
-We implement a \ql{} predicate that detects them and proceed
-to refine our query with this new tag predicate.
-% The table of tags is presented in table~\ref{table:tags}.
-After a new tag is added, the query is run again to iterate over the new results.
-
-% DONE: Remove randomly.
-% Whenever we observe that those tags do not appear randomly,
-Whenever we detect that those tags appear often,
-we further inspect the source code to check that is indeed a pattern.
-We have formalized the structure of each pattern as a \ql{} predicate based on those tags.
-Similarly with tags, after a new pattern is added,
-the query is run again to inspect the casts without pattern.
-To sum up, our methodology iterates over the results until
-no \emph{more} patterns can be detected.
-% These patterns are presented in the following section.
-The final \ql{} query is available online.%
-\footnote{\url{https://gitlab.com/acuarica/java-cast-queries/blob/master/obs.ql}}
-
-
-% DONE: What about patterns we can't write queries for?
-\subsection*{Manual Categorization of Patterns}
-
-Some code patterns might be too difficult to
-express in terms of \ql{} queries.
-This situation arises when the knowledge to determine
-the pattern is outside the source code,
-\eg, in configuration files or library call sites.
-Thus, in those cases we can only acknowledge that a pattern exists,
-but not how recurrent it is.
-
-\subsection{Methodology}
-
-As for the project selection, I have used the lgtm.com project database.
+\textbf{Projects.}
+As for the project selection, we have used the Semmle project database.
 We can argue that this provide a good filter of projects,
-since teams that want their code to be analyzed push their projects onto lgtm.com.
+since teams that want their code to be analyzed push their projects onto \href{https://lgtm.com}{lgtm.com}.
 This will filter out for instance student projects from github.
 There are also popular projects, e.g., gradle, neo4j, google guava,
-that probably were pulled in by the Semmle people.
+that probably were pulled in by Semmle.
 We need to double check with them, but if that’s the case,
 we can make a good argument as for the project selection.
 
-There is a total of $7.559$ projects, with a total 10,193,435 casts.
+At the time of writing, there is a total of 7.559 projects, with a total 10,193,435 casts.
 For each cast, I have the path within the project.
 But to manually analyze them, I need to get the lgtm.com link.
 This is necessary to actually see the code snippet in which the cast appear.
@@ -97,20 +31,28 @@ Therefore the cast population from where make the sampling consists of
 Now comes the question: What is an appropriate sample size?
 Using this online calculator:
 
-https://www.surveysystem.com/sscalc.htm
+Hypergeometric distribution
+We have used an online calculator to compute our sample size.%
+\footnote{\url{https://keisan.casio.com/exec/system/1180573201}}
 
-With standard parameters, Confidence Level=95\% and Confidence Interval=5,
-I got a sample size of 384.
-This seems sketchy.
-My first approach was to increase the sample size arbitrarily,
-e.g., 10,000 casts to manually analyze.
-This can be too much effort.
-But more importantly, how to come up with the patterns taxonomy?
-The current list of patterns I have (using QL) does not cover all
-existing patterns, i.e.,
-when doing manual sample I have discovered new patterns.
-After meeting with Gabriele, he suggested using saturation sampling:
-0. Start with an empty list of patterns.
-1. Perform a manual sample of, let’s say 384 casts.
-2. For each new pattern seen, add it to the list of patterns.
-3. If a new pattern is detected, go to step 1.
+
+% \subsection*{Why do we not use \ql{} to find cast patterns?}
+
+% After all cast instances are found, we analyze this information to discover usage patterns.
+% \ql{} allows us to automatically categorize cast use cases into patterns.
+
+% Our list of patterns is not exhaustive.
+% Due to the nature of the cast operator, some casts were uncategorized as they would need a whole program analysis, \eg{}, including libraries in the analysis.
+
+% As mentioned in section \ref{sec:casts:stats}, \ql{} treats primitive conversions as casts.
+% Thus, a preliminary step is to exclude them as cast instances.
+% The following \ql{} query shows how to retrieve all relevant cast expressions:
+
+% We have used this initial result as a starting point for our analysis.
+% Afterwards, we select a random sample for manual inspection.
+% We manually inspected the mentioned casts trying to understand why and how they were used.
+
+% Our first approach was to use to find cast usage patterns was to use \ql{}.
+% Some code patterns might be too difficult to express in terms of \ql{} queries.
+% This situation arises when the knowledge to determine the pattern is outside the source code, \eg, in configuration files or library call sites.
+% Thus, in those cases we can only acknowledge that a pattern exists, but not how recurrent it is.
