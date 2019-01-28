@@ -34,49 +34,6 @@ ce.getTypeExpr().getType() instanceof PrimitiveType
 ) select ce
 \end{lstlisting}
 
-\tikzstyle{decision} = [diamond, aspect=2, draw, fill=blue!20, 
-    text width=6em, text badly centered, node distance=3cm, inner sep=0pt]
-\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
-    text width=7em, text centered, rounded corners, minimum height=2em]
-\tikzstyle{block2} = [rectangle, draw, fill=blue!20, 
-    text width=4.0em, text centered, rounded corners, minimum height=2em]
-\tikzstyle{line} = [draw, -latex']
-\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3.1cm,
-    minimum height=2.9em]
-
-\begin{figure}
-% \begin{wrapfigure}{r}{7.6cm}
-\centering
-\begin{tikzpicture}[node distance = 1.5cm, auto]
-    % Place nodes
-    \node [block] (run) {Run Query};
-    % \node [cloud, left of=run] (tags) {Tags};
-    \node [cloud, right of=run] (patterns) {Patterns};
-    \node [block, below of=run] (inspect) {Inspect Casts without Pattern};
-    % \node [decision, below of=inspect, node distance=1.6cm] (tag) {New Tag?};
-    \node [decision, below of=inspect, node distance=2.0cm] (pattern) {New Pattern?};
-    % \node [block2, left of=tag, node distance=3.1cm] (update-tags) {Update Tags};
-    \node [block2, right of=pattern, node distance=3.1cm] (update-pattern) {Update Patterns};
-    % \node [decision, below of=evaluate] (decide) {is best candidate better?};
-    \node [block, below of=pattern, node distance=1.6cm] (stop) {Stop};
-    % Draw edges
-    \path [line] (run) -- (inspect);
-    % \path [line] (inspect) -- (evaluate);
-    % \path [line] (inspect) -- (tag);
-    \path [line] (inspect) -- (pattern);
-    % \path [line] (tag) -- node [near start] {yes} (update-tags);
-    \path [line] (pattern) -- node [near start] {yes} (update-pattern);
-    % \path [line] (update-tags) -- (tags);
-    \path [line] (update-pattern) -- (patterns);
-    % \path [line] (tag) -- node {no}(pattern);
-    \path [line] (pattern) -- node {no}(stop);
-    % \path [line,dashed] (tags) -- (run);
-    \path [line,dashed] (patterns) -- (run);
-\end{tikzpicture}
-\caption{Process to discover cast tags and patterns.} \label{fig:process}
-\end{figure}
-
-Figure~\ref{fig:process} depicts our methodology.
 We have used this initial result as a starting point for our analysis.
 Afterwards, we select a random sample for manual inspection.
 We manually inspected the mentioned casts trying to understand
