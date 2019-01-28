@@ -12,6 +12,7 @@
         "deserialization",
         "goetz",
         "gpus",
+        "hypergeometric",
         "instanceof",
         "invokestatic",
         "invokevirtual",
