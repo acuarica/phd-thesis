@@ -51,7 +51,6 @@ The patterns in this group are guarded casts.
 \input{chapters/casts/TypeTag}
 \input{chapters/casts/Equals}
 \input{chapters/casts/GetByClassLiteral}
-\input{chapters/casts/ClassForName}
 
 \group{Creational}
 
@@ -60,10 +59,9 @@ These patterns creates to how they are created.
 \input{chapters/casts/Family}
 \input{chapters/casts/Factory}
 \input{chapters/casts/KnownLibraryMethod}
-\input{chapters/casts/NewDynamicInstance}
 \input{chapters/casts/Tag}
 \input{chapters/casts/Deserialization}
-% \input{chapters/casts/StackSymbol}
+\input{chapters/casts/StackSymbol}
 \input{chapters/casts/CreateByClassLiteral}
 
 \group{Tuples}
@@ -74,6 +72,38 @@ Tuples patterns.
 \input{chapters/casts/StaticResource}
 \input{chapters/casts/ObjectAsArray}
 
+\group{Member Resolution}
+
+\input{chapters/casts/SelectOverload}
+\input{chapters/casts/AccessPrivateField}
+
+\group{Variance}
+
+\input{chapters/casts/Clone}
+\input{chapters/casts/CovariantReturn}
+\input{chapters/casts/RemoveTypeParameter}
+
+\group{Implicit Types}
+
+\input{chapters/casts/ImplicitIntersectionType}
+\input{chapters/casts/ImplicitUnionType}
+
+\group{Structural}
+
+\input{chapters/casts/SoleSubclassImplementation}
+\input{chapters/casts/RecursiveGeneric}
+
+\group{Reflection}
+
+\input{chapters/casts/NewDynamicInstance}
+\input{chapters/casts/ReflectiveAccessibility}
+
+\group{Unchecked}
+
+\input{chapters/casts/UncheckedCast}
+\input{chapters/casts/GenericArray}
+\input{chapters/casts/RemoveWildcard}
+
 \group{Code Smell}
 
 These are code smells.
@@ -83,19 +113,5 @@ These are code smells.
 \input{chapters/casts/Redundant}
 \input{chapters/casts/VariableLessSpecificType}
 
-\input{chapters/casts/SelectOverload}
-\input{chapters/casts/Clone}
-\input{chapters/casts/ReflectiveAccessibility}
-\input{chapters/casts/ImplicitIntersectionType}
-\input{chapters/casts/ExceptionSoftening}
-\input{chapters/casts/SoleSubclassImplementation}
 
-* keep reference \cite{altidorTamingWildcardsCombining2011}
-
-- CovariantReturn
-%https://lgtm.com/projects/g/apache/cayenne/snapshot/dist-1890050-1524814812150/files/modeler/cayenne-modeler/src/main/java/org/apache/cayenne/modeler/undo/TextCompoundEdit.java?sort=name&dir=ASC&mode=heatmap#L74
-\begin{minted}{java}
-EditorView editorView = ((CayenneModelerFrame) Application.
-        getInstance().getFrameController().getView())
-        .getView();
-\end{minted}
+% * keep reference \cite{altidorTamingWildcardsCombining2011}

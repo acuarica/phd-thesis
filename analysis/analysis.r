@@ -11,7 +11,7 @@ groups <- list(
   'Tuples' = c('LookupById', 'ObjectAsArray', 'StaticResource'),
   'Member\nResolution' = c('SelectOverload', 'AccessPrivateField'),
   'Variance' = c('Clone', 'CovariantReturn', 'RemoveTypeParameter'),
-  'Complex\nTypes' = c('ImplicitIntersectionType', 'UnionType'),
+  'Implicit\nTypes' = c('ImplicitIntersectionType', 'ImplicitUnionType'),
   'Structural' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
   'Reflection' = c('ReflectiveAccesibility', 'NewDynamicInstance'),
   'Unchecked' = c('UncheckedCast', 'RemoveWildcard', 'GenericArray'),
