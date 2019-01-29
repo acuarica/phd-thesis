@@ -4,41 +4,41 @@
 \centering
 \caption{Patterns and their occurrences in the Maven Central repository.}
 \label{table:casts:patterns}
-\begin{tabularx}{\linewidth}{rp{2.5cm}llX}
-\hdr \# & \textbf{Cast Pattern} & \textbf{Cast Pattern Description} & \textbf{Group} & \textbf{Group Description} \\
-\alt  1 & PatternMatching & Cast guarded with an \code{instanceof} operator. & \multirow{4}{*}{Guarded}{Guarded casts.} & \\
-\row  2 & TypeTag & \\
-\alt  3 & Equals & \\
-\row  4 & GetByClassLiteral & \\
-\alt  5 & Family & & & \\
-\row  6 & Factory & & & \\
-\alt  7 & KnownLibraryMethod & & & \\
-\row  8 & Tag & & & \\
-\alt  9 & Deserialization & & & \\
-\row 10 & StackSymbol & & & \\
-\alt 11 & CreateByClassLiteral & & & \\
-\row 12 & LookupById & & & \\
-\alt 13 & StaticResource & & & \\
-\row 14 & ObjectAsArray & & & \\
-\alt 15 & SelectOverload & & & \\
-\row 16 & AccessPrivateField & & & \\
-\alt 17 & Clone & & & \\
-\row 18 & CovariantReturn & & & \\
-\alt 19 & RemoveTypeParameter & & & \\
-\row 20 & ImplicitIntersectionType & & & \\
-\alt 21 & ImplicitUnionType & & & \\
-\row 22 & SoleSubclassImplementation & & & \\
-\alt 23 & RecursiveGeneric & & & \\
-\row 24 & NewDynamicInstance & & & \\
-\alt 25 & ReflectiveAccesibility & & & \\
-\row 26 & UncheckedCast & & & \\
-\alt 27 & GenericArray & & & \\
-\row 28 & RemoveWildcard & & & \\
-\alt 29 & Literal & & & \\
-\row 30 & RawTypes & & & \\
-\alt 31 & Redundant & & & \\
-\row 32 & VariableLessSpecificType & & & \\
+\begin{tabularx}{\linewidth}{|r|lX|l|}
 \hline
+\hdr \# & \textbf{Cast Pattern} & \textbf{Cast Pattern Description} & \textbf{Group} \\ \hline
+ 1 & PatternMatching & Cast guarded with an \code{instanceof} operator. & \multirow{4}{*}{Guarded} \\
+ 2 & TypeTag & Cast guarded by an application-specific condition. & \\
+ 3 & Equals & A cast used in the implementation of the well-known \code{equals} method. & \\
+ 4 & GetByClassLiteral & Similar to \nameref{pat:TypeTag}, but guarded by a \code{Class} literal. & \\ \hline
+ 5 & Family & A cast applied in a family of classes. & \multirow{7}{*}{Creational} \\
+ 6 & Factory & A cast used to convert a newly created objects. & \\
+ 7 & KnownLibraryMethod & When the client of an API knows the exact return type of a method invocation. & \\
+ 8 & Tag & & \\
+ 9 & Deserialization & A cast used to convert newly created objects in deserialization. & \\
+10 & StackSymbol & & \\
+11 & CreateByClassLiteral & Casts & \\ \hline
+12 & LookupById & & \multirow{3}{*}{Tuples} \\
+13 & StaticResource & & \\
+14 & ObjectAsArray & & \\ \hline
+15 & SelectOverload & & Member \\
+16 & AccessPrivateField & & Resolution \\ \hline
+17 & Clone & & \multirow{3}{*}{Variance} \\
+18 & CovariantReturn & & \\
+19 & RemoveTypeParameter & & \\ \hline
+20 & ImplicitIntersectionType & & Implicit \\
+21 & ImplicitUnionType & & Types \\ \hline
+22 & SoleSubclassImplementation & & \multirow{2}{*}{Structural} \\
+23 & RecursiveGeneric & & \\ \hline
+24 & NewDynamicInstance & & \multirow{2}{*}{Reflection} \\
+25 & ReflectiveAccesibility & & \\ \hline
+26 & UncheckedCast & & \multirow{3}{*}{Unchecked} \\
+27 & GenericArray & & \\
+28 & RemoveWildcard & & \\ \hline
+29 & Literal & A conversion between numeric types at compile-time. & \multirow{4}{*}{Code Smell} \\
+30 & RawTypes & A cast used instead of the declared generic type. & \\
+31 & Redundant & A cast that is not necessary for compilation. & \\
+32 & VariableLessSpecificType & A cast to a variable that could be declared to be more specific. & \\ \hline
 \end{tabularx}
 \end{table*}
 
