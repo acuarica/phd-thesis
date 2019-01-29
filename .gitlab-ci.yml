@@ -1,7 +1,5 @@
 
 pages:
-  # image: aergus/latex
-  # image: bichselb/latex-plus
   image: dsferruzza/latex
   script:
     - latexmk -pdf -shell-escape -bibtex phd-thesis.tex
