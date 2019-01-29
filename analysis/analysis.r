@@ -93,7 +93,6 @@ values <- c(
 )
 write(values, 'casts.def')
 
-
 pname <- 'PatternMatching'
 for (pname in levels(df.patterns$pattern)) {
   pdf(sprintf('patterns/table-pattern-%s-%s.pdf', size, pname))
