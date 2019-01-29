@@ -1,6 +1,7 @@
 
 pages:
-  image: aergus/latex
+  # image: aergus/latex
+  image: bichselb/latex-plus
   script:
     - latexmk -pdf -shell-escape -bibtex phd-thesis.tex
     - cp phd-thesis.pdf public/
