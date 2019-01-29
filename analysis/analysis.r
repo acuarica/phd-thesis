@@ -13,7 +13,7 @@ groups <- list(
   'Variance' = c('Clone', 'CovariantReturn', 'RemoveTypeParameter'),
   'Implicit\nTypes' = c('ImplicitIntersectionType', 'ImplicitUnionType'),
   'Structural' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
-  'Reflection' = c('ReflectiveAccesibility', 'NewDynamicInstance'),
+  'Reflection' = c('ReflectiveAccessibility', 'NewDynamicInstance'),
   'Unchecked' = c('UncheckedCast', 'RemoveWildcard', 'GenericArray'),
   'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'RawTypes', 'Literal')
 )
