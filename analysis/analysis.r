@@ -89,7 +89,7 @@ gname <- 'Creational'
 for (gname in levels(df.patterns$group)) {
   pdf(
     sprintf('table-patterns-%s-by-group-%s.pdf', size, gsub('\n', ' ', gname)),
-    height = 0.5*length(groups[[gname]]))
+    height = 1+0.5*length(groups[[gname]]))
   p <- ggplot(df.patterns[df.patterns$group==gname,], aes(x=pattern))+
     geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
     geom_text(stat='count', aes(label=..count..,y=..count..+3))+
