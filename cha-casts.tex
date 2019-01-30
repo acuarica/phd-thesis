@@ -1,47 +1,24 @@
 
-\newcommand{\castpatternsection}[1]{\noindent\textbf{#1.}}
-\newcommand{\pname}[1]{\textsc{#1}}
-\newcommand{\group}[1]{
-
-\
-
-\
-
-{\noindent\Large\textsc{#1} Patterns}
-
-\
-
-}
-
-\newenvironment{pattern}[1]{
-	\newcommand{\desc}{\castpatternsection{Description}}
-	\newcommand{\instances}{\castpatternsection{Instances}}
-	\newcommand{\detection}{\castpatternsection{Detection}}
-	\newcommand{\discussion}{\castpatternsection{Discussion}}
-	\newcommand{\related}{\castpatternsection{Related Patterns}}
-    \newcommand{\thisp}{\textsc{#1}}
-    \subsection{\pname{#1}}
-    \label{pat:#1}
-	\desc
-}{}
-
-\chapter{Casting Operations in the Wild}
+\chapter{Cast Operations in the Wild}
 \label{cha:casts}
 
-Casting operations provide the means to escape the static type system.
+Cast operations provide a mechanism to escape the constraints of the static type system.
 \emph{But do they pose a problem for developers?}
-Several studies~\citep{kechagiaUndocumentedUncheckedExceptions2014,coelhoUnveilingExceptionHandling2015,zhitnitskyTop10Exception2016} show that \code{ClassCastException} is in top 10 of exceptions being
+Several studies~\citep{kechagiaUndocumentedUncheckedExceptions2014,coelhoUnveilingExceptionHandling2015,zhitnitskyTop10Exception2016} show that \code{ClassCastException} is in the top 10 of exceptions being
 thrown when analysing stack traces.
 
-To illustrate the sort of problem developers have when applying casting conversions, we performed a simple search for commits and issues including the term \code{ClassCastException} on \github{} within projects marked as using the \java{} language.
-The search returns about 171K%
+To illustrate the sort of problems developers have when applying casting conversions, we performed a simple search for commits and issues including the term \code{ClassCastException} on \github{} within projects marked as using the \java{} language.
+The search returned about 171K%
 \footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Commits}}
 and 73K%
 \footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Issues}}
-results respectively at the time of writing.
+results respectively at the time of this writing.
 At first glance, these results indicate that indeed \code{ClassCastException} represents a source for problems to developers.
-We have included here a few commit results as an example.%
-\footnote{To easily spot what the developer has changed to fix the \code{ClassCastException}, we present each source code excerpt using the Git commit \emph{diff} as reported by \github{}.}
+
+\section{Issues Developers have Applying the Cast Operator}
+
+We have included here a few commit results as an example.
+To easily spot what the developer has changed to fix the \code{ClassCastException}, we present each source code excerpt using the Git commit \emph{diff} as reported by \github{}.
 
 \textbf{Forgotten Guard.}
 The following listing%
@@ -63,9 +40,12 @@ In this case, the developer fixed the error by introducing a guard on the cast w
 \textbf{Wrong Cast Target.}
 In the next example%
 \footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}}
-the \code{CustomFileFilter} is an inner static class inside \code{JCustomFileFilter}.
-Notice that the cast happens inside an \code{equals} method, where this idiom is well known.
-But the developer has used the outer --- wrong --- class to cast to.
+the developer made a typo when writing the cast target.
+The \code{CustomFileFilter} is an inner static class inside the \code{JCustomFileFilter} class.
+Notice that the cast happens inside an \code{equals} method
+--- where this idiom is well known ---
+within the \code{CustomFileFilter} class.
+But the developer made a typo, using the outer class (\code{JCustomFileFilter}), instead of the inner class (\code{CustomFileFilter}).
 
 \begin{lstlisting}[style=java]
 @@ -156,7 +156,7 @@ public boolean equals(Object obj) {
