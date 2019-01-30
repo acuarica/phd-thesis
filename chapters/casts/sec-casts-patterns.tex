@@ -1,3 +1,38 @@
+
+\newcommand{\castpatternsection}[1]{\noindent\textbf{#1.}}
+\newcommand{\pname}[1]{\textsc{#1}}
+\newcommand{\group}[1]{
+
+\
+
+\
+
+{\noindent\Large\textsc{#1} Patterns}
+
+\
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{analysis/table-patterns-5000-by-group-#1.pdf}
+\caption{Cast Patterns Occurrences}
+\label{fig:group-patterns:#1}
+\end{figure}
+
+}
+
+\newenvironment{pattern}[1]{
+	\newcommand{\desc}{\castpatternsection{Description}}
+	\newcommand{\instances}{\castpatternsection{Instances}}
+	\newcommand{\detection}{\castpatternsection{Detection}}
+	\newcommand{\discussion}{\castpatternsection{Discussion}}
+	\newcommand{\related}{\castpatternsection{Related Patterns}}
+    \newcommand{\thisp}{\textsc{#1}}
+    \subsection{\pname{#1}}
+    \label{pat:#1}
+	\desc
+}{}
+
+
 \section{Cast Usage Patterns}
 \label{sec:casts:patterns}
 
@@ -15,6 +50,8 @@ Figure~\ref{fig:patterns} shows our patterns and their occurrences sort by frequ
 The column on the right correspond to the group the pattern belongs to.
 
 \input{chapters/casts/table-patterns}
+
+\clearpage
 
 \begin{figure}[ht!]
 \centering
@@ -48,6 +85,17 @@ Presents suggestions, flaws, or comments about the pattern.
 \item \textbf{Related Patterns.}
 How the pattern being described relates to other patterns?
 \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
 
 \group{Guarded}
 
