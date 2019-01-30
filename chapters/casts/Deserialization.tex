@@ -3,20 +3,16 @@ Used to deserialize an object.
 
 \instances
 
-% https://lgtm.com/projects/g/mockito/mockito/snapshot/da68900466a17e21fef3e27690f4cef4b5c240ea/files/src/test/java/org/mockitoutil/SimpleSerializationUtil.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L29
+\footnote{\url{}}
 
-\begin{lstlisting}[style=java,caption={Instance of the \pname{} pattern  (\url{http://bit.ly/2KOpj3A}) }]
-Object readObject = new ObjectInputStream(unserialize).readObject();
-assertNotNull(readObject);
-return type.cast(readObject);
-\end{lstlisting}
+\begin{minted}[highlightlines=2]{java}
 
-\detection
+\end{minted}
 
-\begin{lstlisting}[style=ql]
-DeserializationCastPattern() {
-    this instanceof ReadObjectCastTag
-}
-\end{lstlisting}
+\detection{}
+
+\discussion{}
+
+\related{}
 
 \end{pattern}

@@ -10,6 +10,7 @@
         "datalog",
         "dendrogram",
         "deserialization",
+        "deserialize",
         "goetz",
         "gpus",
         "hypergeometric",
@@ -30,6 +31,7 @@
         "unconstructed",
         "upcast",
         "upcasts",
-        "voicerecording"
+        "voicerecording",
+        "wifi"
     ]
 }

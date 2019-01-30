@@ -1,16 +1,30 @@
-
 \begin{pattern}{StaticResource}
-    
-A cast to a method access to \code{findViewById} or a method that reads a
-static resource.
-
+A cast to a method access to \code{findViewById} or a method that reads a static resource.
 This is a pattern seen when using the Android platform. 
 
-% \instances
+\instances{}
 
-% \detection
+\footnote{\url{http://bit.ly/2HGbrMq}}
 
-\discussion
+%https://lgtm.com/projects/g/pwittchen/NetworkEvents/snapshot/dist-2032650416-1524814812150/files/example/src/main/java/com/github/pwittchen/networkevents/app/MainActivity.java?sort=name&dir=ASC&mode=heatmap#L65
+\begin{minted}[highlightlines=6]{java}
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    connectivityStatus = (TextView) findViewById(R.id.connectivity_status);
+    mobileNetworkType = (TextView) findViewById(R.id.mobile_network_type);
+    accessPoints = (ListView) findViewById(R.id.access_points);
+    busWrapper = getOttoBusWrapper(new Bus());
+    networkEvents = new NetworkEvents(getApplicationContext(), busWrapper)
+        .enableInternetCheck()
+        .enableWifiScan();
+}
+\end{minted}
+
+\detection{}
+
+\discussion{}
 
 These casts could be solved by using code generation,
 or partial classes as in \csharp{}.
