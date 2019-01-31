@@ -71,7 +71,9 @@ stopifnot( length(x) == 0 )
 x <- setdiff( levels(df.patterns$pattern), unlist(groups, use.names=FALSE) )
 stopifnot( length(x) == 0 )
 
-pdf(sprintf('table-patterns-%s.pdf', size))
+pdf(
+  sprintf('table-patterns-%s.pdf', size),
+  height=0.3*length(unlist(groups, use.names=FALSE)) )
 p <- ggplot(df.patterns, aes(x=pattern))+
   geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
   geom_text(stat='count', aes(label=..count..,y=..count..+3))+
@@ -83,6 +85,23 @@ p <- ggplot(df.patterns, aes(x=pattern))+
 print(p)
 dev.off()
 
+gname <- 'Creational'
+for (gname in levels(df.patterns$group)) {
+  pdf(
+    sprintf('table-patterns-%s-by-group-%s.pdf', size, gsub('\n', ' ', gname)),
+    height = 1+0.5*length(groups[[gname]]))
+  p <- ggplot(df.patterns[df.patterns$group==gname,], aes(x=pattern))+
+    geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
+    geom_text(stat='count', aes(label=..count..,y=..count..+3))+
+    facet_grid(group~., scales="free", space="free")+
+    coord_flip()+
+    theme(strip.text.y=element_text(angle = 0), legend.position="top")+
+    labs(x="Cast Usage Patterns", y = "# Instances")+
+    scale_fill_discrete(name="Scope")
+  print(p)
+  dev.off()
+}
+
 lpatterns <- levels(as.factor(df.patterns$pattern))
 lgroups <- levels(as.factor(df.patterns$group))
 values <- c(
@@ -92,6 +111,7 @@ values <- c(
   sprintf("\\newcommand{\\nbrokenlinks}{%s}", format(nrow(df.brokenlinks), big.mark=','))
 )
 write(values, 'casts.def')
+
 
 pname <- 'PatternMatching'
 for (pname in levels(df.patterns$pattern)) {

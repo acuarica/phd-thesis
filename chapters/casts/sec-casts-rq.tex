@@ -1,0 +1,27 @@
+\section{Research Questions}
+
+The examples in the previous section indicates that type casts represent a source of errors for developers.
+Therefore we want to understand why developers need to use type casts.
+To this end, we propose to answer the following question:
+\emph{How and when do developers need to escape the type system?}
+The cast operator in \java{} provides the means to view a reference as a different type as it was declared.
+Upcasts are done automatically by the compiler.
+Nevertheless, as we shall see later, in some situations a developer is forced to insert upcasts.
+In the case of downcasts, a check is inserted at run-time to verify that the conversion is sound, thus escaping the static type system.
+
+Therefore, we believe we should care about how the casting operations are used in the wild.
+Specifically, we want to answer the following research questions:
+
+\begin{enumerate}[label=$RQ/C\arabic*:$,ref=$RQ/C\arabic*$,leftmargin=3.4\parindent]
+\item\label{enum:rq1}{\bf \crqA}
+We want to understand to what extent application code actually uses cast operations.
+\item\label{enum:rq2}{\bf \crqB}
+If casts are actually used in application code, we want to know how and why developers need to escape the type system.
+\item\label{enum:rq3}{\bf \crqC}
+In addition to understand how and when casts are used, we want to measure how often developers need to resort to certain idioms to solve a particular problem.
+\end{enumerate}
+
+To answer the above questions, we need to determine whether and how cast operations are actually used in real-world \java{} applications.
+In \S\ref{sec:casts:stats} we first give an estimation of how often the cast operator is used in real-world applications to answer~\ref{casts:rq1}.
+In \S\ref{sec:casts:methodology} we introduce the methodology we have used to devise cast usage patterns.
+Then, \S\ref{sec:casts:patterns} presents the cast usage patterns we have devised to answer both~\ref{casts:rq2} and \ref{casts:rq3}.
