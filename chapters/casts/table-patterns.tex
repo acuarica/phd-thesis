@@ -28,7 +28,7 @@
 19 & RemoveTypeParameter        & Remove type parameter in a generic type to permit covariant generics.                                                 &                               \\ \hline
 20 & ImplicitIntersectionType   & A cast to implicitly use an intersection type.                                                                        & Implicit                      \\
 21 & ImplicitUnionType          & A cast to implicitly use a union type.                                                                                & Types                         \\ \hline
-22 & SoleSubclassImplementation & A cast to the only subclass implementation.                                                                           & \multirow{2}{*}{Structural}   \\
+22 & SoleSubclassImplementation & A cast to the only subclass implementation.                                                                           & \multirow{2}{*}{Hierarchical}   \\
 23 & RecursiveGeneric           & A generic cast to \code{this}.                                                                                        &                               \\ \hline
 24 & NewDynamicInstance         & Cast the result of the \code{newInstance} method in the \code{Class}, \code{Constructor}, or \code{Array} classes.    & \multirow{2}{*}{Reflection}   \\
 25 & ReflectiveAccessibility    & Cast the result of the \code{Method::invoke}, or \code{Field::get}.                                                   &                               \\ \hline
