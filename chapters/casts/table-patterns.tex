@@ -7,37 +7,37 @@
 \begin{tabularx}{\linewidth}{|r|lX|l|}
 \hline
 \hdr \# & \textbf{Cast Pattern} & \textbf{Cast Pattern Description} & \textbf{Group} \\ \hline
- 1 & PatternMatching            & Cast guarded with an \code{instanceof} operator.                                                                      & \multirow{4}{*}{Guarded}      \\
- 2 & TypeTag                    & Cast guarded by an application-specific condition.                                                                    &                               \\
- 3 & Equals                     & A cast used in the implementation of the well-known \code{equals} method.                                             &                               \\
- 4 & GetByClassLiteral          & Similar to \nameref{pat:TypeTag}, but guarded by a \code{Class} literal.                                              &                               \\ \hline
- 5 & Family                     & A cast applied in a family of classes.                                                                                & \multirow{7}{*}{Creational}   \\
- 6 & Factory                    & A cast used to convert a newly created objects.                                                                       &                               \\
- 7 & KnownLibraryMethod         & When the client of an API knows the exact return type of a method invocation.                                         &                               \\
- 8 & Tag                        & A library provides a field to stash user-specific values. Cast to it.                                                 &                               \\
- 9 & Deserialization            & A cast used to convert newly created objects in deserialization.                                                      &                               \\
-10 & StackSymbol                & A cast to an heterogenous stack.                                                                                      &                               \\
-11 & CreateByClassLiteral       & Cast an object created depending on a class literal.                                                                  &                               \\ \hline
-12 & LookupById                 & A cast to an heterogenous collection element.                                                                         & \multirow{3}{*}{Tuples}       \\
-13 & StaticResource             & A cast to a value known at compile-time.                                                                              &                               \\
-14 & ObjectAsArray              & A cast to a constant array slot used as a field of an object.                                                         &                               \\ \hline
-15 & SelectOverload             & A cast to disambiguate between overloaded methods.                                                                    & Member                        \\
-16 & AccessPrivateField         & A cast to access a private field in a superclass.                                                                     & Resolution                    \\ \hline
-17 & Clone                      & A cast to the well-known method \code{clone}.                                                                         & \multirow{3}{*}{Variance}     \\
-18 & CovariantReturn            & A generalization of \nameref{pat:Clone}, A cast when the return type of a method is covariant.                        &                               \\
-19 & RemoveTypeParameter        & Remove type parameter in a generic type to permit covariant generics.                                                 &                               \\ \hline
-20 & ImplicitIntersectionType   & A cast to implicitly use an intersection type.                                                                        & Implicit                      \\
-21 & ImplicitUnionType          & A cast to implicitly use a union type.                                                                                & Types                         \\ \hline
-22 & SoleSubclassImplementation & A cast to the only subclass implementation.                                                                           & \multirow{2}{*}{Hierarchical}   \\
-23 & RecursiveGeneric           & A generic cast to \code{this}.                                                                                        &                               \\ \hline
-24 & NewDynamicInstance         & Cast the result of the \code{newInstance} method in the \code{Class}, \code{Constructor}, or \code{Array} classes.    & \multirow{2}{*}{Reflection}   \\
-25 & ReflectiveAccessibility    & Cast the result of the \code{Method::invoke}, or \code{Field::get}.                                                   &                               \\ \hline
-26 & UncheckedCast              & An unchecked cast.                                                                                                    & \multirow{3}{*}{Unchecked}    \\
-27 & GenericArray               & A cast to create a generic array.                                                                                     &                               \\
-28 & RemoveWildcard             & A cast used to remove the wildcard in a generic type.                                                                 &                               \\ \hline
-29 & Literal                    & A conversion between numeric types at compile-time.                                                                   & \multirow{4}{*}{Code Smell}   \\
-30 & RawTypes                   & A cast used instead of the declared generic type.                                                                     &                               \\
-31 & Redundant                  & A cast that is not necessary for compilation.                                                                         &                               \\
-32 & VariableLessSpecificType   & A cast to a variable that could be declared to be more specific.                                                      &                               \\ \hline
+ 1 & \nameref{pat:PatternMatching}            & Cast guarded with an \code{instanceof} operator.                                                                      & \multirow{4}{*}{Guarded}      \\
+ 2 & \nameref{pat:TypeTag}                    & Cast guarded by an application-specific condition.                                                                    &                               \\
+ 3 & \nameref{pat:Equals}                     & A cast used in the implementation of the well-known \code{equals} method.                                             &                               \\
+ 4 & \nameref{pat:GetByClassLiteral}          & Similar to \nameref{pat:TypeTag}, but guarded by a \code{Class} literal.                                              &                               \\ \hline
+ 5 & \nameref{pat:Family}                     & A cast applied in a family of classes.                                                                                & \multirow{7}{*}{Creational}   \\
+ 6 & \nameref{pat:Factory}                    & A cast used to convert a newly created objects.                                                                       &                               \\
+ 7 & \nameref{pat:KnownLibraryMethod}         & When the client of an API knows the exact return type of a method invocation.                                         &                               \\
+ 8 & \nameref{pat:Tag}                        & A library provides a field to stash user-specific values. Cast to it.                                                 &                               \\
+ 9 & \nameref{pat:Deserialization}            & A cast used to convert newly created objects in deserialization.                                                      &                               \\
+10 & \nameref{pat:StackSymbol}                & A cast to an heterogenous stack.                                                                                      &                               \\
+11 & \nameref{pat:CreateByClassLiteral}       & Cast an object created depending on a class literal.                                                                  &                               \\ \hline
+12 & \nameref{pat:LookupById}                 & A cast to an heterogenous collection element.                                                                         & \multirow{3}{*}{Tuples}       \\
+13 & \nameref{pat:StaticResource}             & A cast to a value known at compile-time.                                                                              &                               \\
+14 & \nameref{pat:ObjectAsArray}              & A cast to a constant array slot used as a field of an object.                                                         &                               \\ \hline
+15 & \nameref{pat:SelectOverload}             & A cast to disambiguate between overloaded methods.                                                                    & Member                        \\
+16 & \nameref{pat:AccessPrivateField}         & A cast to access a private field in a superclass.                                                                     & Resolution                    \\ \hline
+17 & \nameref{pat:Clone}                      & A cast to the well-known method \code{clone}.                                                                         & \multirow{3}{*}{Variance}     \\
+18 & \nameref{pat:CovariantReturn}            & A generalization of \nameref{pat:Clone}, A cast when the return type of a method is covariant.                        &                               \\
+19 & \nameref{pat:RemoveTypeParameter}        & Remove type parameter in a generic type to permit covariant generics.                                                 &                               \\ \hline
+20 & \nameref{pat:ImplicitIntersectionType}   & A cast to implicitly use an intersection type.                                                                        & Implicit                      \\
+21 & \nameref{pat:ImplicitUnionType}          & A cast to implicitly use a union type.                                                                                & Types                         \\ \hline
+22 & \nameref{pat:SoleSubclassImplementation} & A cast to the only subclass implementation.                                                                           & \multirow{2}{*}{Hierarchical}   \\
+23 & \nameref{pat:RecursiveGeneric}           & A generic cast to \code{this}.                                                                                        &                               \\ \hline
+24 & \nameref{pat:NewDynamicInstance}         & Cast the result of the \code{newInstance} method in the \code{Class}, \code{Constructor}, or \code{Array} classes.    & \multirow{2}{*}{Reflection}   \\
+25 & \nameref{pat:ReflectiveAccessibility}    & Cast the result of the \code{Method::invoke}, or \code{Field::get}.                                                   &                               \\ \hline
+26 & \nameref{pat:UncheckedCast}              & An unchecked cast.                                                                                                    & \multirow{3}{*}{Unchecked}    \\
+27 & \nameref{pat:GenericArray}               & A cast to create a generic array.                                                                                     &                               \\
+28 & \nameref{pat:RemoveWildcard}             & A cast used to remove the wildcard in a generic type.                                                                 &                               \\ \hline
+29 & \nameref{pat:Literal}                    & A conversion between numeric types at compile-time.                                                                   & \multirow{4}{*}{Code Smell}   \\
+30 & \nameref{pat:RawTypes}                   & A cast used instead of the declared generic type.                                                                     &                               \\
+31 & \nameref{pat:Redundant}                  & A cast that is not necessary for compilation.                                                                         &                               \\
+32 & \nameref{pat:VariableLessSpecificType}   & A cast to a variable that could be declared to be more specific.                                                      &                               \\ \hline
 \end{tabularx}
 \end{table*}
