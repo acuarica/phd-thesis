@@ -8,7 +8,7 @@
 \newcommand{\nexpr}{57,292,018}
 \newcommand{\nCastExpr}{21,491}
 
-\newcommand{\castpercentage}{5.47}
+% \newcommand{\castpercentage}{5.47}
 
 To answer \ref{casts:rq1} (\emph{\crqA}),
 we need the following elements:
@@ -45,19 +45,24 @@ The query to gather these statistics is available online.\footnote{\url{https://
 \end{tabular}
 \end{center}
 
+% 1+2+3 -> (1+2)+3
+% +
+%  +
+%   1
+%   2
+%  3
 The \emph{Number of Methods} and \emph{Number of Methods w/Cast} values includes only methods with a body, \ie{}, not abstract, nor native.
-The \emph{Number of Expressions} value shows how many expressions there are in the ASTs of all source code analyzed.
+The \emph{Number of Expressions} value shows how many expressions there are in the ASTs of all source code analyzed, \eg,
+the AST of the expression $(1+2)+3$ contains 5 expressions: 2 add and 3 literal expressions.
 Finally, the \emph{Number of Cast Expressions} value indicates how many cast expressions (subtype of \code{Expr} as defined by \ql{}) were found.
 
 For our study, we are interested in both upcasts and downcasts.
-Thus, we \emph{exclude} primitive conversions in our study
-(Sections~$5.1.2$, $5.1.3$, $5.1.4$, and $5.1.13$ from the \java{} Language Specification%
-\footnote{\url{https://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html}}
-).
-The \emph{Number of Casts} value shown above include only reference conversions.
-Primitive conversions are always safe (in terms of throwing \code{ClassCastException}.
-A primitive conversion happens when both the type of the expression to be casted to and
-the type to cast to are primitive types.
+We are also interested in widening primitive conversions
+(Section~$5.1.2$ from the \java{} Language Specification~\citep{Gosling:2013:JLS:2462622}).
+We \emph{exclude} narrowing primitive conversions in our study
+(Section~$5.1.3$ from \cite{Gosling:2013:JLS:2462622}).
+Primitive conversions are always safe in terms of throwing \code{ClassCastException}.
+A primitive conversion happens when both the type of the expression to be cast and the type to cast to are primitive types.
 Note that with this definition, we include in our study \emph{boxed} types.
 Since boxed types are reference types (and therefore not necessarily safe)
 we want to include them in our analysis.
@@ -70,7 +75,10 @@ The following chart shows this ratio for all analyzed projects:
 \includegraphics[width=0.9\columnwidth]{chapters/casts/stats-methodwcastXproject.pdf}
 
 All projects have less than 10\% of methods with at least a cast.
-Overall, around a \castpercentage{}\% of methods contain at least one cast operation. 
+The chart shows that overall around a
+1 method out of 20 
+% \castpercentage{}\% of methods
+contain at least one cast operation. 
 This means there is a low density of casts.
 Given the fact that generics were introduced \java{} 5, this can explain this low density.
 
