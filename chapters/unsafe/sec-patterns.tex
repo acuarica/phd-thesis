@@ -194,8 +194,8 @@ resources and does not allow other threads to proceed.}{Users of
   fields. The update should be done only on newly created objects
   (perhaps also using \member{allocate\-Instance} to avoid
   invoking the constructor) before the object becomes visible to
-  other threads. The Java Language
-  Specification (Section 17.5.3)~\cite{Gosling:2013:JLS:2462622}
+  other threads. The \java{} Language
+  Specification (Section~17.5.3)~\cite{Gosling:2013:JLS:2462622}
   recommends that final fields not be read until all updates are
   complete. In addition, the language permits compiler optimizations
   with final fields that can prevent updates to the field from being

@@ -15,7 +15,7 @@ groups <- list(
   'Hierarchical' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
   'Reflection' = c('ReflectiveAccessibility', 'NewDynamicInstance'),
   'Unchecked' = c('UncheckedCast', 'RemoveWildcard', 'GenericArray'),
-  'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'RawTypes', 'Literal')
+  'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'UseRawType', 'Literal')
 )
 
 size <- 5000

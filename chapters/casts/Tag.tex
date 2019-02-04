@@ -3,10 +3,25 @@ Used
 
 \instances{}
 
-\footnote{\url{}}
+\footnote{\url{http://bit.ly/2HUmGki}}
 
-\begin{minted}[highlightlines=1]{java}
+%https://lgtm.com/projects/g/UniTime/cpsolver/snapshot/dist-4860376-1524814812150/files/src/org/cpsolver/ifs/assignment/context/AssignmentContextHolderMap.java?sort=name&dir=ASC&mode=heatmap#L47
+\begin{minted}[highlightlines=9]{java}
+protected Map<Integer,AssignmentContext> iContexts =
+                new HashMap<Integer, AssignmentContext>();
 
+@Override
+@SuppressWarnings("unchecked")
+public <U extends AssignmentContext> U getAssignmentContext(
+                Assignment<V, T> assignment,
+                AssignmentContextReference<V, T, U> reference) {
+    U context = (U) iContexts.get(reference.getIndex());
+    if (context != null) return context;
+    
+    context = reference.getParent().createAssignmentContext(assignment);
+    iContexts.put(reference.getIndex(), context);
+    return context;
+}
 \end{minted}
 
 \detection{}
@@ -15,5 +30,6 @@ Used
 
 \related{}
 Related to \nameref{pat:VariableLessSpecificType}.
+\nameref{pat:LookupById}.
 
 \end{pattern}

@@ -10,23 +10,27 @@
 
 \newcommand{\castpercentage}{5.47}
 
-To answer \ref{casts:rq1} (\emph{\crqA}), several elements are needed.
+To answer \ref{casts:rq1} (\emph{\crqA}),
+we need the following elements:
 
 \textbf{Source Code Analysis.}
-We have gathered cast usage using the \ql{} query language:
-``a declarative, object-oriented logic programming language for querying complex, potentially recursive data structures encoded in a relational data model''~\citep{avgustinovQLObjectorientedQueries2016}.
-\ql{} allows us to analyze programs at the source code level by abstracting the code sources into a Datalog model.
+We have gathered cast usage using the \ql{} query language.
+\ql{} is ``a declarative, object-oriented logic programming language for querying complex, potentially recursive data structures encoded in a relational data model''~\citep{avgustinovQLObjectorientedQueries2016}.
+\ql{} allows us to analyze programs at the source code level.
+\ql{} extracts the code sources of a project into a Datalog model.
 Besides providing structural data for programs, \ie{}, ASTs, \ql{} has the ability to query static types and perform data-flow analysis.
 To run our \ql{} queries, we have used the service provided by Semmle.\footnote{\url{https://lgtm.com/}} 
 
 \textbf{Projects.} 
-As a code base representative of the ``real world'', we have chosen open-source projects hosted in \github{}, the world-most popular source code management repository.
+As a code base representative of the ``real world'',
+we have chosen open-source projects hosted in \github{},
+the world's most popular source code management repository.
 To answer \ref{casts:rq1}, we have analyzed \nproject{} \java{} projects in \lgtm{}.
 
 Ultimately, we want to know how many cast instances are used in a given project.
 To this end, we gather the following statistics using \ql{}.
-We show them here to give an estimation of the size of the code base being analized.
-The query to gather this statistics is available online.\footnote{\url{https://gitlab.com/acuarica/java-cast-queries/blob/master/ql/stats.ql}}
+We show them here to give an estimation of the size of the code base being analyzed.
+The query to gather these statistics is available online.\footnote{\url{https://gitlab.com/acuarica/java-cast-queries/blob/master/ql/stats.ql}}
 
 \begin{center}
 \begin{tabular}{lr}
@@ -42,12 +46,12 @@ The query to gather this statistics is available online.\footnote{\url{https://g
 \end{center}
 
 The \emph{Number of Methods} and \emph{Number of Methods w/Cast} values includes only methods with a body, \ie{}, not abstract, nor native.
-The \emph{Number of Expressions} value show how many expressions there are in the ASTs of all source code analyzed.
+The \emph{Number of Expressions} value shows how many expressions there are in the ASTs of all source code analyzed.
 Finally, the \emph{Number of Cast Expressions} value indicates how many cast expressions (subtype of \code{Expr} as defined by \ql{}) were found.
 
 For our study, we are interested in both upcasts and downcasts.
 Thus, we \emph{exclude} primitive conversions in our study
-(\S$5.1.2$, \S$5.1.3$, \S$5.1.4$, and \S$5.1.13$ from the \java{} Language Specification%
+(Sections~$5.1.2$, $5.1.3$, $5.1.4$, and $5.1.13$ from the \java{} Language Specification%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html}}
 ).
 The \emph{Number of Casts} value shown above include only reference conversions.
