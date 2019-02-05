@@ -22,6 +22,7 @@
         "javac",
         "lgtm",
         "mockito",
+        "parameterize",
         "parcelable",
         "performant",
         "println",

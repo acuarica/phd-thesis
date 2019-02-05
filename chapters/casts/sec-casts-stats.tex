@@ -3,13 +3,6 @@
 
 \input{stats/stats.def}
 
-% \newcommand{\nproject}{195}
-% \newcommand{\nloc}{19,264,590}
-% \newcommand{\nmethod}{1,492,490}
-% \newcommand{\nmethodwithcast}{99,018}
-% \newcommand{\nexpr}{57,292,018}
-% \newcommand{\castpercentage}{5.47}
-
 \newcommand{\nCastExpr}{21,491} 
 
 To answer \ref{casts:rq1} (\emph{\crqA}),
@@ -32,7 +25,7 @@ To answer \ref{casts:rq1}, we have analyzed \nproject{} \java{} projects in \lgt
 Ultimately, we want to know how many cast instances are used in a given project.
 To this end, we gather the following statistics using \ql{}.
 We show them here to give an estimation of the size of the code base being analyzed.
-The query to gather these statistics is available online.\footnote{\url{https://gitlab.com/acuarica/java-cast-queries/blob/master/ql/stats.ql}}
+The query to gather these statistics is available in Appendix~\ref{cha:ap:qlstats}.
 
 \begin{center}
 \begin{tabular}{lr}
@@ -47,12 +40,6 @@ The query to gather these statistics is available online.\footnote{\url{https://
 \end{tabular}
 \end{center}
 
-% 1+2+3 -> (1+2)+3
-% +
-%  +
-%   1
-%   2
-%  3
 The \emph{Number of Methods} and \emph{Number of Methods w/Cast} values includes only methods with a body, \ie{}, not abstract, nor native.
 The \emph{Number of Expressions} value shows how many expressions there are in the ASTs of all source code analyzed, \eg,
 the AST of the expression $(1+2)+3$ contains 5 expressions: 2 add and 3 literal expressions.
@@ -79,11 +66,17 @@ The following chart shows this ratio for all analyzed projects:
 \caption{Methods with casts over total number of methods by project.}
 \end{figure}
 
+Each dot in the chart represents a project, and its size is given by the number of methods in the project.
 All projects have less than 30\% of methods with at least a cast.
-The chart shows that overall around \castpercentage{}\% of methods contain at least one cast operation. 
+The chart shows that overall \castpercentage{}\% of methods contain at least one cast operation. 
 This means there is a low density of casts.
-Given the fact that generics were introduced \java{} 5, this can explain this low density.
+This low density of casts can be attributed to the introduction of generics
+--- parametric polymorphism~\citep{cardelliUnderstandingTypesData1985} ---
+to \java{} 5 in 2004.
+Parametric polymorphism allows the developer to use types as parameters when defining classes or methods. It permits more type errors to be checked at compile-time rather than run-time.
+Since these type errors are checked at compile-time,
+the cast operation in those situations is no longer needed.
 
 Nevertheless, casts are still used.
-We want to understand why there are casts instances (\ref{casts:rq2}) and how often the use cases that leads to casts are used (\ref{casts:rq3}).
+We want to understand why there are cast instances (\ref{casts:rq2}) and how often the use cases that lead to casts are used (\ref{casts:rq3}).
 The following sections give an answer to these questions.
