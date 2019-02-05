@@ -21,14 +21,14 @@ stats.raw$value <- as.numeric(stats.raw$value)
 stats.project <- dcast(stats.raw, project~stat)
 stats.project$ratio <- stats.project$MethodWithCast/stats.project$Method
 
-pdf('stats-methodwcastXproject.pdf', height = 2)
+pdf('stats-methodwcastXproject.pdf', height = 2.4)
 ggplot(stats.project, aes(x="", y=ratio))+
   geom_boxplot(outlier.shape=NA)+
   geom_jitter(aes(size=Method))+
   coord_flip()+
   theme_minimal()+
-  theme(axis.title.y=element_blank(),axis.text.y=element_blank(),axis.ticks.y=element_blank())+
-  labs(y = "Methods with casts over total number of methods")
+  theme(axis.title.y=element_blank(), axis.title.x=element_blank())+
+  labs(size="Number of\nMethods")
 dev.off()
 
 values <- c(

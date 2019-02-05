@@ -1,14 +1,16 @@
 \section{Is the Cast Operator used?}
 \label{sec:casts:stats}
 
-\newcommand{\nproject}{195}
-\newcommand{\nloc}{19,264,590}
-\newcommand{\nmethod}{1,492,490}
-\newcommand{\nmethodwithcast}{99,018}
-\newcommand{\nexpr}{57,292,018}
-\newcommand{\nCastExpr}{21,491}
+\input{stats/stats.def}
 
+% \newcommand{\nproject}{195}
+% \newcommand{\nloc}{19,264,590}
+% \newcommand{\nmethod}{1,492,490}
+% \newcommand{\nmethodwithcast}{99,018}
+% \newcommand{\nexpr}{57,292,018}
 % \newcommand{\castpercentage}{5.47}
+
+\newcommand{\nCastExpr}{21,491} 
 
 To answer \ref{casts:rq1} (\emph{\crqA}),
 we need the following elements:
@@ -72,13 +74,13 @@ Thus, we have computed the ratio between methods containing
 at least a cast over total number of methods --- with implementation --- in a given project.
 The following chart shows this ratio for all analyzed projects:
 
-\includegraphics[width=0.9\columnwidth]{chapters/casts/stats-methodwcastXproject.pdf}
+\begin{figure}[ht!]
+\includegraphics[width=0.9\columnwidth]{stats/stats-methodwcastXproject.pdf}
+\caption{Methods with casts over total number of methods by project.}
+\end{figure}
 
-All projects have less than 10\% of methods with at least a cast.
-The chart shows that overall around a
-1 method out of 20 
-% \castpercentage{}\% of methods
-contain at least one cast operation. 
+All projects have less than 30\% of methods with at least a cast.
+The chart shows that overall around \castpercentage{}\% of methods contain at least one cast operation. 
 This means there is a low density of casts.
 Given the fact that generics were introduced \java{} 5, this can explain this low density.
 
