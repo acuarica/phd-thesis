@@ -15,13 +15,13 @@ writeDef <- function(defPath, values) {
   close(f)
 }
 
-stats.raw <- dbReadObs("csv/.output.sqlite3")
+stats.raw <- dbReadObs(".lgtm/last-results/.output.sqlite3")
 
 stats.raw$value <- as.numeric(stats.raw$value)
 stats.project <- dcast(stats.raw, project~stat)
 stats.project$ratio <- stats.project$MethodWithCast/stats.project$Method
 
-pdf('stats-methodwcastXproject.pdf', height = 2.4)
+pdf('.lgtm/last-results/stats-methodwcastXproject.pdf', height = 2.4)
 ggplot(stats.project, aes(x="", y=ratio))+
   geom_boxplot(outlier.shape=NA)+
   geom_jitter(aes(size=Method))+
@@ -36,6 +36,7 @@ values <- c(
   sprintf("\\newcommand{\\nloc}{%s}", format(sum(stats.project$LOC), big.mark=',')),
   sprintf("\\newcommand{\\nexpr}{%s}", format(sum(stats.project$Expr), big.mark=',')),
   sprintf("\\newcommand{\\nstmt}{%s}", format(sum(stats.project$Stmt), big.mark=',')),
+  sprintf("\\newcommand{\\ncast}{%s}", format(sum(stats.project$Cast), big.mark=',')),
   sprintf("\\newcommand{\\nmethod}{%s}", format(sum(stats.project$Method), big.mark=',')),
   sprintf("\\newcommand{\\nmethodwithcast}{%s}", format(sum(stats.project$MethodWithCast), big.mark=',')),
   sprintf("\\newcommand{\\castpercentage}{%#.2f}", mean(stats.project$ratio, na.rm=TRUE)*100)

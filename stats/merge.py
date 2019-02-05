@@ -29,7 +29,7 @@ def main(path):
     project, _ = os.path.splitext(filename)
 
     with open(path) as f:
-        csvf = csv.reader(f, delimiter=',', quotechar='"')
+        csvf = csv.reader(f, delimiter=',', quotechar="\"")
         nrows = 0
         for row in csvf:
             if nrows == 0:
