@@ -47,6 +47,16 @@ def runQuery(filename, t):
     print(r.text)
     return r
 
+def getProjectsByKey(keys, t):
+    print("[Getting Projects by Key]", file=sys.stderr)
+
+    r = requests.get("https://lgtm.com/internal_api/v0.2/getProjectsByKey", stream=True, params = {
+        'keys': keys,
+        'nonce': t[0],
+        'apiVersion': t[1]
+    }, cookies=t[2])
+    return r
+
 def getCustomQueryRunResults(filename, t):
     print("[Getting Query Run Results from '%s' ... ]" % filename, file=sys.stderr)
 
@@ -85,25 +95,59 @@ def getCustomQueryRunResults(filename, t):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run QL query.')
-    parser.add_argument('action', choices=['pk', 'run', 'results', 'csv'])
+    parser.add_argument('action', choices=['pk', 'checkpk', 'run', 'results', 'csv'])
     args = parser.parse_args()
 
     if args.action == 'pk':
+        t = init()
+
         with open("all-casts-run.json") as f:
             text = f.read()
         js = json.loads(text)
 
-        pks = "["
+        pks = ""
+        i = 0
         for run in js['data']['runs']:
             pk = run['projectKey']
-            if pks == '[':
+            if pks == "":
                 pks += pk
             else:
                 pks += "," + pk
+            
+            if len(pks) > 10000:
+                r = getProjectsByKey('['+pks+']', t)
+                pks = ""
 
-        pks += "]"
+                with open('pks-' + str(i) + '.json', 'w') as f:
+                    print("Writing json project keys")
+                    f.write(r.text)
+                    i += 1
         
-        print(pks)
+        if len(pks) > 0:
+            r = getProjectsByKey('['+pks+']', t)
+            with open('pks-' + str(i) + '.json', 'w') as f:
+                print("Writing json project keys")
+                f.write(r.text)
+
+    elif args.action == 'checkpk':
+        pks = []
+        for path in glob.iglob('pks-*.json'):
+            with open(path) as f:
+                jsontext = f.read()
+            js = json.loads(jsontext)
+            for p in js['data']['fullProjects']:
+                print(p)
+                pks.append(p)
+
+        with open('pks.list', 'w') as f:
+            f.write("[" + ",".join(pks) + "]")
+
+        # with open("pks.list") as f:
+            # keys = f.read()
+        # keys = '[2035560523,2032380248,2027960546,12,2034290425,123,1506125455972,12345,1506123436363]'
+        # t = init()
+        # r = getProjectsByKey(keys, t)
+        # print(r.text)
 
     elif args.action == 'run':
         t = init()
