@@ -7,7 +7,7 @@ library(plyr)
 
 groups <- list(
   'Guarded' = c('PatternMatching', 'TypeTag', "Equals", 'GetByClassLiteral'),
-  'Creational' = c('Family', 'Factory', 'KnownLibraryMethod', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol'),
+  'Creational' = c('Family', 'Factory', 'KnownReturnType', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol'),
   'Tuples' = c('LookupById', 'ObjectAsArray', 'StaticResource'),
   'Member\nResolution' = c('SelectOverload', 'AccessPrivateField'),
   'Variance' = c('Clone', 'CovariantReturn', 'RemoveTypeParameter'),
