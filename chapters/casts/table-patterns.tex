@@ -13,7 +13,7 @@
  4 & \nameref{pat:GetByClassLiteral}          & Similar to \nameref{pat:TypeTag}, but guarded by a \code{Class} literal.                                              &                               \\ \hline
  5 & \nameref{pat:Family}                     & A cast applied in a family of classes.                                                                                & \multirow{7}{*}{Creational}   \\
  6 & \nameref{pat:Factory}                    & A cast used to convert a newly created objects.                                                                       &                               \\
- 7 & \nameref{pat:KnownLibraryMethod}         & When the client of an API knows the exact return type of a method invocation.                                         &                               \\
+ 7 & \nameref{pat:KnownReturnType}            & When the client of an API knows the exact return type of a method invocation.                                         &                               \\
  8 & \nameref{pat:Tag}                        & A library provides a field to stash user-specific values. Cast to it.                                                 &                               \\
  9 & \nameref{pat:Deserialization}            & A cast used to convert newly created objects in deserialization.                                                      &                               \\
 10 & \nameref{pat:StackSymbol}                & A cast to an heterogenous stack.                                                                                      &                               \\
@@ -28,16 +28,15 @@
 19 & \nameref{pat:RemoveTypeParameter}        & Remove type parameter in a generic type to permit covariant generics.                                                 &                               \\ \hline
 20 & \nameref{pat:ImplicitIntersectionType}   & A cast to implicitly use an intersection type.                                                                        & Implicit                      \\
 21 & \nameref{pat:ImplicitUnionType}          & A cast to implicitly use a union type.                                                                                & Types                         \\ \hline
-22 & \nameref{pat:SoleSubclassImplementation} & A cast to the only subclass implementation.                                                                           & \multirow{2}{*}{Hierarchical}   \\
+22 & \nameref{pat:SoleSubclassImplementation} & A cast to the only subclass implementation.                                                                           & \multirow{2}{*}{Hierarchical} \\
 23 & \nameref{pat:RecursiveGeneric}           & A generic cast to \code{this}.                                                                                        &                               \\ \hline
 24 & \nameref{pat:NewDynamicInstance}         & Cast the result of the \code{newInstance} method in the \code{Class}, \code{Constructor}, or \code{Array} classes.    & \multirow{2}{*}{Reflection}   \\
 25 & \nameref{pat:ReflectiveAccessibility}    & Cast the result of the \code{Method::invoke}, or \code{Field::get}.                                                   &                               \\ \hline
-26 & \nameref{pat:UncheckedCast}              & An unchecked cast.                                                                                                    & \multirow{3}{*}{Unchecked}    \\
-27 & \nameref{pat:GenericArray}               & A cast to create a generic array.                                                                                     &                               \\
-28 & \nameref{pat:RemoveWildcard}             & A cast used to remove the wildcard in a generic type.                                                                 &                               \\ \hline
-29 & \nameref{pat:Literal}                    & A conversion between numeric types at compile-time.                                                                   & \multirow{4}{*}{Code Smell}   \\
-30 & \nameref{pat:UseRawType}                 & A cast used instead of the declared generic type.                                                                     &                               \\
-31 & \nameref{pat:Redundant}                  & A cast that is not necessary for compilation.                                                                         &                               \\
-32 & \nameref{pat:VariableLessSpecificType}   & A cast to a variable that could be declared to be more specific.                                                      &                               \\ \hline
+26 & \nameref{pat:GenericArray}               & A cast to create a generic array.                                                                                     & \multirow{2}{*}{Unchecked}    \\
+27 & \nameref{pat:RemoveWildcard}             & A cast used to remove the wildcard in a generic type.                                                                 &                               \\ \hline
+28 & \nameref{pat:Literal}                    & A conversion between numeric types at compile-time.                                                                   & \multirow{4}{*}{Code Smell}   \\
+29 & \nameref{pat:UseRawType}                 & A cast used instead of the declared generic type.                                                                     &                               \\
+30 & \nameref{pat:Redundant}                  & A cast that is not necessary for compilation.                                                                         &                               \\
+31 & \nameref{pat:VariableLessSpecificType}   & A cast to a variable that could be declared to be more specific.                                                      &                               \\ \hline
 \end{tabularx}
 \end{table*}

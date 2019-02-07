@@ -1,6 +1,4 @@
 
-# install.packages("tidyr")
-
 library(tidyr)
 library(ggplot2)
 library(plyr)
@@ -14,7 +12,7 @@ groups <- list(
   'Implicit\nTypes' = c('ImplicitIntersectionType', 'ImplicitUnionType'),
   'Hierarchical' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
   'Reflection' = c('ReflectiveAccessibility', 'NewDynamicInstance'),
-  'Unchecked' = c('UncheckedCast', 'RemoveWildcard', 'GenericArray'),
+  'Unchecked' = c('RemoveWildcard', 'GenericArray'),
   'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'UseRawType', 'Literal')
 )
 

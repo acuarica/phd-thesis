@@ -43,6 +43,24 @@ public class SnappyCompressor implements Compressor {
 }
 \end{minted}
 
+\footnote{\url{http://bit.ly/2UKxm6H}}
+
+%https://lgtm.com/projects/g/oblac/jodd/snapshot/dist-12050004-1524814812150/files/jodd-core/src/main/java/jodd/util/collection/SortedArrayList.java?sort=name&dir=ASC&mode=heatmap#L154
+\begin{minted}[highlightlines=7]{java}
+public class SortedArrayList<E> extends ArrayList<E> {
+    protected final Comparator<E> comparator;
+    // [...]
+    @SuppressWarnings( {"unchecked"})
+    protected int compare(final E k1, final E k2) {
+            if (comparator == null) {
+                    return ((Comparable) k1).compareTo(k2);
+            }
+            return comparator.compare(k1, k2);
+    }
+}
+
+\end{minted}
+
 \detection{}
 To detect this pattern, a cast needs to be applied to a variable whose
 value can be determined simply by looking at
