@@ -69,6 +69,12 @@ stopifnot( length(x) == 0 )
 x <- setdiff( levels(df.patterns$pattern), unlist(groups, use.names=FALSE) )
 stopifnot( length(x) == 0 )
 
+stopifnot(
+  nrow(df.raw) == nrow(df.patterns)+nrow(df.patterns.prim)+nrow(df.numeral)+nrow(df.brokenlinks)
+)
+
+cat("[Remaining cast instances to manually analyze: ", nrow(df.numeral), "]", sep='', fill=TRUE)
+
 pdf(
   sprintf('table-patterns-%s.pdf', size),
   height=0.3*length(unlist(groups, use.names=FALSE)) )
