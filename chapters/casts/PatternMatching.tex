@@ -142,9 +142,15 @@ As a workaround, alternatives to the \thisp{} pattern can be the visitor pattern
 But in some cases, the chain of \code{instanceof}s is of boxed types.
 Thus no polymorphism can be used.
 There is an ongoing proposal%
-\footnote{\url{http://openjdk.java.net/jeps/305}}
+\footnote{\url{http://openjdk.java.net/jeps/305}}$^{,}$%
+\footnote{\url{https://cr.openjdk.java.net/~briangoetz/amber/pattern-match.html}}
 to add pattern matching to the \java{} language.
+The proposal explores how to change the \code{instanceof} operator in order to support pattern matching.
+\java{} 12 already extends the \code{switch} statement to be used as either a statement or an expression.%
+\footnote{\url{https://openjdk.java.net/jeps/325}}
+This enhancement aims to ease the transition to a \code{switch} expression that supports pattern matching.
 
 \related{}
-The \nameref{pat:Equals} pattern can be seen as a special case for the \thisp{} pattern, because often the parameter to the \code{equals} method is guarded by an \code{instanceof} expression.
+The \nameref{pat:Equals} pattern can be seen as a special case for the \thisp{} pattern,
+because often the parameter to the \code{equals} method is guarded by an \code{instanceof} expression.
 \end{pattern}
