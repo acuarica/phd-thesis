@@ -31,6 +31,16 @@ RSAKey rsaJWK2 = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
         .build();
 \end{minted}
 
+\footnote{\url{http://bit.ly/2E6KY6T}}
+
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/net/URL.html\#openConnection--}}
+
+%https://lgtm.com/projects/g/apache/hadoop/snapshot/dist-956730001-1524814812150/files/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/webapp/TestRMWebServicesHttpStaticUserPermissions.java?sort=name&dir=ASC&mode=heatmap#L138
+\begin{minted}[highlightlines=2]{java}
+URL url = new URL("http://localhost:8088/ws/v1/cluster/apps");
+HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+\end{minted}
+
 \detection{}
 
 \discussion{}
