@@ -14,6 +14,54 @@ transactionTemplate.execute((TransactionCallback<Void>) transactionStatus -> {
 });
 \end{minted}
 
+\footnote{\url{http://bit.ly/2SIqWYq}}
+
+%https://lgtm.com/projects/g/sigmoidanalytics/spork/snapshot/dist-1794190395-1524814812150/files/src/org/apache/pig/builtin/BigDecimalAvg.java?sort=name&dir=ASC&mode=heatmap#L258
+\begin{minted}[highlightlines=4]{java}
+@Override
+public void accumulate(Tuple b) throws IOException {
+    // [...]
+    BigDecimal count = (BigDecimal)count(b);
+    // [...]
+}
+
+static protected BigDecimal count(Tuple input) throws ExecException {
+    // [...]
+}
+\end{minted}
+
+\footnote{\url{http://bit.ly/2SGcH6w}}
+
+%https://lgtm.com/projects/g/phishman3579/java-algorithms-implementation/snapshot/dist-1797111073-1524814812150/files/src/com/jwetherell/algorithms/data_structures/ImplicitKeyTreap.java?sort=name&dir=ASC&mode=heatmap#L266
+\begin{minted}[highlightlines=12]{java}
+public class ImplicitKeyTreap<T> implements IList<T> {
+
+    protected Node<T> root = null;
+
+    // [...]
+
+    private int getIndexByValue(T value) {
+        final Node<T> node = (Node<T>)root;
+        if (value == null || node == null)
+            return Integer.MIN_VALUE;
+        final Node<T> l = (Node<T>)node.left;
+        final Node<T> r = (Node<T>)node.right;
+        // [...]
+        return i;
+    }
+
+    public static class Node<T> {
+        private T value = null;
+        private int priority;
+        private int size;
+        private Node<T> parent = null;
+        private Node<T> left = null;
+        private Node<T> right = null;
+        // [...]
+    }
+}
+\end{minted}
+
 \detection{}
 
 \discussion{}

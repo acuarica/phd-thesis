@@ -8,7 +8,7 @@ groups <- list(
   'Creational' = c('Family', 'Factory', 'KnownReturnType', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol'),
   'Tuples' = c('LookupById', 'ObjectAsArray', 'StaticResource'),
   'Member\nResolution' = c('SelectOverload', 'AccessPrivateField'),
-  'Variance' = c('Clone', 'CovariantReturn', 'RemoveTypeParameter'),
+  'Variance' = c('Clone', 'CovariantReturn', 'CovariantGeneric'),
   'Implicit\nTypes' = c('ImplicitIntersectionType', 'ImplicitUnionType'),
   'Hierarchical' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
   'Reflection' = c('ReflectiveAccessibility', 'NewDynamicInstance'),

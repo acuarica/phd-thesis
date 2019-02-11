@@ -1,0 +1,56 @@
+\begin{pattern}{CovariantGeneric}
+
+\instances{}
+The following snippet%
+\footnote{\url{http://bit.ly/2USL7Ai}}
+
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html\#singletonList-T-}}
+
+%https://lgtm.com/projects/g/arpruss/raspberryjammod/snapshot/dist-1796220064-1524814812150/files/build/sources/java/org/java_websocket/drafts/Draft_10.java?sort=name&dir=ASC&mode=heatmap#L157
+\begin{minted}[highlightlines=5]{java}
+@Override
+public List<Framedata> createFrames( String text, boolean mask ) {
+    FrameBuilder curframe = new FramedataImpl1();
+    // [...]
+    return Collections.singletonList( (Framedata) curframe );
+}
+
+public interface FrameBuilder extends Framedata {
+    // [...]
+}
+
+public class Collections {
+    public static <T> List<T> singletonList(T o) {
+        // [...]
+    }
+}
+\end{minted}
+
+\footnote{\url{http://bit.ly/2UYEsF5}}
+
+\footnote{\url{http://docs.groovy-lang.org/latest/html/api/org/codehaus/groovy/ast/expr/ArrayExpression.html\#<init>(org.codehaus.groovy.ast.ClassNode,java.util.List)}}
+
+%https://lgtm.com/projects/g/spockframework/spock/snapshot/dist-7950040-1524814812150/files/spock-core/src/main/java/org/spockframework/compiler/WhereBlockRewriter.java?sort=name&dir=ASC&mode=heatmap#L360
+\begin{minted}[highlightlines=5]{java}
+dataProcessorStats.add(
+    new ReturnStatement(
+        new ArrayExpression(
+            ClassHelper.OBJECT_TYPE,
+            (List) dataProcessorVars)));
+
+private final List<VariableExpression> dataProcessorVars = new ArrayList<>();
+
+public class ArrayExpression extends Expression {
+    public ArrayExpression(ClassNode elementType,
+                       java.util.List<Expression> expressions) {}
+}
+\end{minted}
+
+
+\detection{}
+
+\discussion{}
+
+\related{}
+
+\end{pattern}

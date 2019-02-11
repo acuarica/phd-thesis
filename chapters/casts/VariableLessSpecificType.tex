@@ -58,7 +58,16 @@ public class SortedArrayList<E> extends ArrayList<E> {
             return comparator.compare(k1, k2);
     }
 }
+\end{minted}
 
+\footnote{\url{http://bit.ly/2SNoUXj}}
+
+%https://lgtm.com/projects/g/apache/cxf/snapshot/dist-2126650689-1524814812150/files/services/sts/sts-core/src/test/java/org/apache/cxf/sts/token/renewer/SAMLTokenRenewerTest.java?sort=name&dir=ASC&mode=heatmap#L465
+\begin{minted}[highlightlines=4]{java}
+TokenRenewer samlTokenRenewer = new SAMLTokenRenewer();
+samlTokenRenewer.setVerifyProofOfPossession(false);
+samlTokenRenewer.setAllowRenewalAfterExpiry(true);
+((SAMLTokenRenewer)samlTokenRenewer).setMaxExpiry(1L);
 \end{minted}
 
 \detection{}

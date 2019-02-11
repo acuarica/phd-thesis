@@ -25,11 +25,55 @@ public class DynamicSQLRow extends BaseStep implements StepInterface {
 }
 \end{minted}
 
+\footnote{\url{http://bit.ly/2SE4C2m}}
+
+%https://lgtm.com/projects/g/apache/orc/snapshot/dist-1506201906740-1524814812150/files/java/core/src/java/org/apache/orc/impl/mask/DoubleIdentity.java?sort=name&dir=ASC&mode=heatmap#L32
+\begin{minted}[highlightlines=1]{java}
+public class DoubleIdentity implements DataMask {
+  @Override
+  public void maskData(ColumnVector original, ColumnVector masked, int start,
+                       int length) {
+    DoubleColumnVector target = (DoubleColumnVector) masked;
+    DoubleColumnVector source = (DoubleColumnVector) original;
+    // [...]
+  }
+}
+\end{minted}
+
+\footnote{\url{http://bit.ly/2UPPDj9}}
+
+%https://lgtm.com/projects/g/knowm/XChange/snapshot/dist-4990076-1524814812150/files/xchange-bitflyer/src/main/java/org/knowm/xchange/bitflyer/BitflyerExchange.java?sort=name&dir=ASC&mode=heatmap#L52
+\begin{minted}[highlightlines=12]{java}
+public class BitflyerExchange extends BaseExchange implements Exchange {
+  // [...]
+  @Override
+  protected void initServices() {
+    this.marketDataService = new BitflyerMarketDataService(this);
+    // [...]
+  }
+  // [...]
+  @Override
+  public void remoteInit() throws IOException, ExchangeException {
+    BitflyerMarketDataServiceRaw dataService =
+        (BitflyerMarketDataServiceRaw) this.marketDataService;
+    List<BitflyerMarket> markets = dataService.getMarkets();
+    exchangeMetaData = BitflyerAdapters.adaptMetaData(markets);
+  }
+}
+
+public abstract class BaseExchange implements Exchange {
+  // [...]
+  protected MarketDataService marketDataService;
+  // [...]
+}
+\end{minted}
+
 \detection{}
 
 \discussion{}
 \cite{ernstFamilyPolymorphism2001}
 
 \related{}
+\nameref{pat:VariableLessSpecificType}
 
 \end{pattern}

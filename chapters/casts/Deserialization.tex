@@ -1,12 +1,41 @@
 \begin{pattern}{Deserialization}
 Used to deserialize an object.
 
-\instances
+\instances{}
+The following example%
+\footnote{\url{http://bit.ly/2SF4j7k}}
+shows how the \thisp{} pattern is used to create objects from a file system.
 
-\footnote{\url{}}
-
-\begin{minted}[highlightlines=2]{java}
-
+%https://lgtm.com/projects/g/internetarchive/heritrix3/snapshot/dist-12140105-1524814812150/files/engine/src/test/java/org/archive/crawler/datamodel/CrawlURITest.java?sort=name&dir=ASC&mode=heatmap#L83
+\begin{minted}[highlightlines=19]{java}
+final public void testSerialization()
+        throws IOException, ClassNotFoundException {
+    File serialize = new File(getTmpDir(),
+            this.getClass().getName() + ".serialize");
+    try {
+        FileOutputStream fos = new FileOutputStream(serialize);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this.seed);
+        oos.reset();
+        oos.writeObject(this.seed);
+        oos.reset();
+        oos.writeObject(this.seed);
+        oos.close();
+        // Read in the object.
+        FileInputStream fis = new FileInputStream(serialize);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        CrawlURI deserializedCuri = (CrawlURI)ois.readObject();
+        deserializedCuri = (CrawlURI)ois.readObject();
+        deserializedCuri = (CrawlURI)ois.readObject();
+        assertEquals("Deserialized not equal to original",
+                this.seed.toString(), deserializedCuri.toString());
+        String host = this.seed.getUURI().getHost();
+        assertTrue("Deserialized host not null",
+                host != null && host.length() >= 0);
+    } finally {
+        serialize.delete();
+    }
+}
 \end{minted}
 
 \detection{}
