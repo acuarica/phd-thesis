@@ -85,6 +85,25 @@ abstract class $AutoValue_ListsItem extends ListsItem {
 }
 \end{minted}
 
+\footnote{\url{http://bit.ly/2SM5pOw}}
+%https://lgtm.com/projects/g/bndtools/bnd/snapshot/dist-930051-1524814812150/files/biz.aQute.bndlib/src/aQute/bnd/osgi/resource/CapReq.java?sort=name&dir=ASC&mode=heatmap#L73
+\begin{minted}[highlightlines=12]{java}
+@Override
+public boolean equals(Object obj) {
+    if (this == obj)
+            return true;
+    if (obj == null)
+            return false;
+    if (obj instanceof CapReq)
+            return equalsNative((CapReq) obj);
+    if ((mode == MODE.Capability) && (obj instanceof Capability))
+            return equalsCap((Capability) obj);
+    if ((mode == MODE.Requirement) && (obj instanceof Requirement))
+            return equalsReq((Requirement) obj);
+    return false;
+}
+\end{minted}
+
 \detection{}
 The detection query looks for a cast expression inside an \code{equals} method implementation.
 Moreover, the cast needs to be guarded by either an \code{instanceof} test or a \code{getClass} comparison.

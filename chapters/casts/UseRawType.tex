@@ -4,6 +4,18 @@ The expression of this cast is a method invocation,
 but the declaration differs from the usage.
 
 \instances{}
+
+Using a collection as a raw type.
+\footnote{\url{http://bit.ly/2SD2HLm}}
+
+%https://lgtm.com/projects/g/bcgit/bc-java/snapshot/dist-20740003-1524814812150/files/pkix/src/test/java/org/bouncycastle/cms/test/Rfc4134Test.java?sort=name&dir=ASC&mode=heatmap#L268
+\begin{minted}[highlightlines=4]{java}
+Collection c = recipients.getRecipients();
+assertTrue(c.size() >= 1 && c.size() <= 2);
+Iterator it = c.iterator();
+verifyRecipient((RecipientInformation)it.next(), privKey);
+\end{minted}
+
 The following snippet\footnote{\url{http://bit.ly/2FAI5x5}}
 
 \todo{Not necessarily mistakes, maybe requirement is jdk 1.2}

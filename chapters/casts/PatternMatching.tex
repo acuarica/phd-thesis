@@ -89,6 +89,30 @@ public static boolean nullSafeEquals(Object o1, Object o2) {
 }
 \end{minted}
 
+Typecase to rethrow
+\footnote{\url{http://bit.ly/2SGDUG5}}
+
+%https://lgtm.com/projects/g/codefollower/Tomcat-Research/snapshot/dist-13734061-1524814812150/files/java/org/apache/naming/factory/DataSourceLinkFactory.java?sort=name&dir=ASC&mode=heatmap#L85
+\begin{minted}[highlightlines=10]{java}
+try {
+	// [...]
+}catch (Exception x) {
+	if (x instanceof InvocationTargetException) {
+		Throwable cause = x.getCause();
+		if (cause instanceof ThreadDeath) {
+			throw (ThreadDeath) cause;
+		}
+		if (cause instanceof VirtualMachineError) {
+			throw (VirtualMachineError) cause;
+		}
+		if (cause instanceof Exception) {
+			x = (Exception) cause;
+		}
+	}
+	// [...]
+}
+\end{minted}
+
 \detection{}
 To detect this pattern, we look for a cast guarded by an \code{instanceof} expression.
 The operand expression to both the cast and the \code{instanceof} needs to be the same.

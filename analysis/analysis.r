@@ -52,9 +52,12 @@ df.patterns$pattern <- substring(df.patterns$pattern, 2)
 df.patterns.prim <- df.patterns[df.patterns$pattern == 'Prim', ]
 df.patterns <- df.patterns[df.patterns$pattern != 'Prim', ]
 df.patterns$pattern <- as.factor(df.patterns$pattern)
+
 df.patterns$scope <- substring(df.patterns$scope, 2)
 df.patterns$scope <- factor(df.patterns$scope, levels=c('src', 'test', 'gen'))
+stopifnot( nrow(df.patterns[is.na(df.patterns$scope),]) == 0 )
 df.patterns$scope <- revalue(df.patterns$scope, c('src'='Sources', 'test'='Test', 'gen'='Generated'))
+
 tb <- table(df.patterns$pattern)
 df.patterns$pattern <- factor(df.patterns$pattern, levels=names(tb[order(tb, decreasing = FALSE)]))
 df.patterns$group <- ''
