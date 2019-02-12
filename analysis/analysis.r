@@ -25,6 +25,8 @@ df.raw$t <- NULL
 df.raw$tag <- NULL
 
 df.brokenlinks <- df.raw[df.raw$value == '?BrokenLink', ]
+df.likelybugs <- df.raw[df.raw$value == '?LikelyBug', ]
+
 df.empty <- df.raw[df.raw$value == '', ]
 stopifnot(nrow(df.empty)==0)
 
@@ -33,6 +35,7 @@ df.numeral <- df.raw[df.raw$value == '#', ]
 df <- df.raw
 df <- df[df$value != '#', ]
 df <- df[df$value != '?BrokenLink', ]
+df <- df[df$value != '?LikelyBug', ]
 df$key <- ''
 
 df.malformed1 <- df[grep("#",df$value,invert=TRUE),]
@@ -73,10 +76,12 @@ x <- setdiff( levels(df.patterns$pattern), unlist(groups, use.names=FALSE) )
 stopifnot( length(x) == 0 )
 
 stopifnot(
-  nrow(df.raw) == nrow(df.patterns)+nrow(df.patterns.prim)+nrow(df.numeral)+nrow(df.brokenlinks)
+  nrow(df.raw) == nrow(df.patterns)+nrow(df.patterns.prim)+nrow(df.numeral)+nrow(df.brokenlinks)+nrow(df.likelybugs)
 )
 
 cat("[Remaining cast instances to manually analyze: ", nrow(df.numeral), "]", sep='', fill=TRUE)
+
+cat("[Writing table-patterns-", size, ".pdf]", sep='', fill=TRUE)
 
 pdf(
   sprintf('table-patterns-%s.pdf', size),
@@ -92,11 +97,12 @@ p <- ggplot(df.patterns, aes(x=pattern))+
 print(p)
 dev.off()
 
+cat("[Patterns by Group ... ]", sep='', fill=TRUE)
 gname <- 'Creational'
 for (gname in levels(df.patterns$group)) {
-  pdf(
-    sprintf('table-patterns-%s-by-group-%s.pdf', size, gsub('\n', ' ', gname)),
-    height = 1+0.5*length(groups[[gname]]))
+  path = sprintf('table-patterns-%s-by-group-%s.pdf', size, gsub('\n', ' ', gname))
+  cat("[Writing '", path, "']", sep='', fill=TRUE)
+  pdf(path, height = 1+0.5*length(groups[[gname]]) )
   p <- ggplot(df.patterns[df.patterns$group==gname,], aes(x=pattern))+
     geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
     geom_text(stat='count', aes(label=..count..,y=..count..+3))+
@@ -115,14 +121,18 @@ values <- c(
   sprintf("\\newcommand{\\npattern}{%s}", format(length(lpatterns), big.mark=',')),
   sprintf("\\newcommand{\\ngroup}{%s}", format(length(lgroups), big.mark=',')),
   sprintf("\\newcommand{\\nprim}{%s}", format(nrow(df.patterns.prim), big.mark=',')),
-  sprintf("\\newcommand{\\nbrokenlinks}{%s}", format(nrow(df.brokenlinks), big.mark=','))
+  sprintf("\\newcommand{\\nbrokenlinks}{%s}", format(nrow(df.brokenlinks), big.mark=',')),
+  sprintf("\\newcommand{\\nlikelybugs}{%s}", format(nrow(df.likelybugs), big.mark=','))
 )
 write(values, 'casts.def')
 
 
+cat("[Pattern Arguments ... ]", sep='', fill=TRUE)
 pname <- 'PatternMatching'
 for (pname in levels(df.patterns$pattern)) {
-  pdf(sprintf('patterns/table-pattern-%s-%s.pdf', size, pname))
+  path = sprintf('patterns/table-pattern-%s-%s.pdf', size, pname)
+  cat("[Writing '", path, "']", sep='', fill=TRUE)
+  pdf(path)
   x <- df.patterns[df.patterns$pattern==pname,]
   pp <- ggplot(x, aes(x=args))+
     geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+

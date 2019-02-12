@@ -5,11 +5,25 @@
 \footnote{\url{http://bit.ly/2HF6nrF}}
 
 %https://lgtm.com/projects/g/fabioz/Pydev/snapshot/dist-20832102-1524814812150/files/plugins/org.python.pydev.parser/src/org/python/pydev/parser/grammar27/TreeBuilder27.java?sort=name&dir=ASC&mode=heatmap#L231
-\begin{minted}[highlightlines=1]{java}
-            case JJTASSERT_STMT:
-                exprType msg = arity == 2 ? ((exprType) stack.popNode()) : null;
-                test = (exprType) stack.popNode();
-                return new Assert(test, msg);
+\begin{minted}[highlightlines=2]{java}
+case JJTASSERT_STMT:
+    exprType msg = arity == 2 ? ((exprType) stack.popNode()) : null;
+    test = (exprType) stack.popNode();
+    return new Assert(test, msg);
+\end{minted}
+
+\footnote{\url{http://bit.ly/2MZLZ3m}}
+
+%https://lgtm.com/projects/g/Sable/soot/snapshot/dist-1791462132-1524814812150/files/src/main/generated/jastadd/soot/JastAddJ/JastAddJavaParser.java?sort=name&dir=ASC&mode=heatmap#L1036
+\begin{minted}[highlightlines=4]{java}
+case 40: // qualified_name_decl = name_decl.n DOT.DOT IDENTIFIER.i
+{
+    final Symbol _symbol_n = _symbols[offset + 1];
+    final IdUse n = (IdUse) _symbol_n.value;
+    final Symbol DOT = _symbols[offset + 2];
+    final Symbol i = _symbols[offset + 3];
+    return new IdUse(n.getID() + "." + ((String)i.value));
+}
 \end{minted}
 
 \detection{}

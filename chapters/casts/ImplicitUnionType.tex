@@ -2,10 +2,30 @@
 
 \instances{}
 
-\footnote{\url{}}
+\footnote{\url{http://bit.ly/groovy_groovy-core_2SGzK16}}
 
+\code{invokeMethod(String name, Object args)}
+\code{call(Object... args)}
+
+%https://lgtm.com/projects/g/groovy/groovy-core/snapshot/dist-45390050-1524814812150/files/src/main/groovy/util/Expando.java?sort=name&dir=ASC&mode=heatmap#L103
 \begin{minted}[highlightlines=1]{java}
-
+public Object invokeMethod(String name, Object args) {
+    try {
+        return super.invokeMethod(name, args);
+    }
+    catch (GroovyRuntimeException e) {
+        // br should get a "native" property match first. getProperty includes such fall-back logic
+        Object value = this.getProperty(name);
+        if (value instanceof Closure) {
+            Closure closure = (Closure) value;
+            closure = (Closure) closure.clone();
+            closure.setDelegate(this);
+            return closure.call((Object[]) args);
+        } else {
+            throw e;
+        }
+    }
+}
 \end{minted}
 
 \detection{}

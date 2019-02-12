@@ -62,6 +62,16 @@ public class ImplicitKeyTreap<T> implements IList<T> {
 }
 \end{minted}
 
+Redundant null
+\footnote{\url{http://bit.ly/togglz-togglz-2SGncXB}}
+
+%https://lgtm.com/projects/g/togglz/togglz/snapshot/dist-44910020-1524814812150/files/slack/target/generated-sources/groovy-stubs/test/org/togglz/slack/sender/AsyncNotifierSpecIT.java?sort=name&dir=ASC&mode=heatmap#L17
+\begin{minted}[highlightlines=1]{java}
+public groovy.lang.MetaClass getMetaClass() {
+    return (groovy.lang.MetaClass) null;
+}
+\end{minted}
+
 \detection{}
 
 \discussion{}
