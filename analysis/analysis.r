@@ -5,14 +5,14 @@ library(plyr)
 
 groups <- list(
   'Guarded' = c('PatternMatching', 'TypeTag', "Equals", 'GetByClassLiteral'),
-  'Creational' = c('Family', 'Factory', 'KnownReturnType', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol'),
+  'Creational' = c('Family', 'Factory', 'KnownReturnType', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol', 'Composite'),
   'Tuples' = c('LookupById', 'ObjectAsArray', 'StaticResource'),
   'Member\nResolution' = c('SelectOverload', 'AccessPrivateField'),
   'Variance' = c('Clone', 'CovariantReturn', 'CovariantGeneric'),
   'Implicit\nTypes' = c('ImplicitIntersectionType', 'ImplicitUnionType'),
   'Hierarchical' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
   'Reflection' = c('ReflectiveAccessibility', 'NewDynamicInstance'),
-  'Unchecked' = c('RemoveWildcard', 'GenericArray'),
+  'Unchecked' = c('RemoveWildcard', 'GenericArray', 'UnoccupiedTypeParameter'),
   'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'UseRawType', 'Literal')
 )
 
@@ -85,7 +85,7 @@ cat("[Writing table-patterns-", size, ".pdf]", sep='', fill=TRUE)
 
 pdf(
   sprintf('table-patterns-%s.pdf', size),
-  height=0.3*length(unlist(groups, use.names=FALSE)) )
+  height=0.29*length(unlist(groups, use.names=FALSE)) )
 p <- ggplot(df.patterns, aes(x=pattern))+
   geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
   geom_text(stat='count', aes(label=..count..,y=..count..+3))+

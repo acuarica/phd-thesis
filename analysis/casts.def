@@ -1,4 +1,4 @@
-\newcommand{\npattern}{31}
+\newcommand{\npattern}{33}
 \newcommand{\ngroup}{10}
 \newcommand{\nprim}{281}
 \newcommand{\nbrokenlinks}{262}

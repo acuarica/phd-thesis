@@ -4,6 +4,7 @@
 The following snippet%
 \footnote{\url{http://bit.ly/2USL7Ai}}
 
+
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html\#singletonList-T-}}
 
 %https://lgtm.com/projects/g/arpruss/raspberryjammod/snapshot/dist-1796220064-1524814812150/files/build/sources/java/org/java_websocket/drafts/Draft_10.java?sort=name&dir=ASC&mode=heatmap#L157
@@ -46,32 +47,14 @@ public class ArrayExpression extends Expression {
 }
 \end{minted}
 
-Either this fluent \api{}
-\footnote{\url{http://bit.ly/vavr-io-vavr-2SMIfI2}}
-
-%https://lgtm.com/projects/g/vavr-io/vavr/snapshot/dist-11000099-1524814812150/files/vavr/src/main/java/io/vavr/control/Either.java?sort=name&dir=ASC&mode=heatmap#L398
-\begin{listing}[h!]
-\caption{Either fluent \api{}  \url{http://bit.ly/vavr-io-vavr-2SMIfI2}  }
-\begin{minted}[highlightlines=9]{java}
-public interface Either<L, R> extends Value<R>, Serializable {
-    // [...]
-    @SuppressWarnings("unchecked")
-    default <U> Either<U, R> mapLeft(Function<? super L, ? extends U> leftMapper) {
-        Objects.requireNonNull(leftMapper, "leftMapper is null");
-        if (isLeft()) {
-            return Either.left(leftMapper.apply(getLeft()));
-        } else {
-            return (Either<U, R>) this;
-        }
-    }
-    // [...]
-}
-\end{minted}
-\end{listing}
-
 \detection{}
 
 \discussion{}
+
+Avoided with
+\code{Collections.<Framedata>singletonList(curframe)}
+From \java{} 8 this cast is unnecesary due to better type inference.
+\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-18.html\#jls-18.5}}
 
 \todo{Mention}
 reference \cite{altidorTamingWildcardsCombining2011}
