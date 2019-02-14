@@ -6,9 +6,10 @@ usually one \emph{per} subtype.
 
 \instances{}
 The following listing shows an example of the \thisp{} pattern.%
-\footnote{\url{http://bit.ly/2FzYYHq}}
+\footnote{\url{http://bit.ly/OpenMods_OpenBlocks_2FzYYHq}}
 In this example, there is only a single case.
 After the cast is done, a specific operation is performed on the casted type, \ie, invoking the \code{checkBlock} method.
+\done{Nate: Highlightlines color difficult to read}
 
 %https://lgtm.com/projects/g/OpenMods/OpenBlocks/snapshot/dist-2040060754-1524814812150/files/build/sources/java/openblocks/common/tileentity/TileEntityImaginary.java?sort=name&dir=ASC&mode=heatmap#L268
 \begin{minted}[highlightlines=3]{java}
@@ -18,7 +19,7 @@ if (item instanceof ItemImaginationGlasses)
 \end{minted}
 
 In the next case,%
-\footnote{\url{http://bit.ly/2HnNwB7}}
+\footnote{\url{http://bit.ly/PenguinSquad_Enchiridion_2HnNwB7}}
 more than one type test are performed.
 Each cast corresponds to a type test.
 
@@ -41,7 +42,7 @@ public static String getStringFromObject(Object object) {
 
 There are situations when the type test is applied to more than one variable.
 In the following example%
-\footnote{\url{http://bit.ly/2FDN9Rd}}
+\footnote{\url{http://bit.ly/bbossgroups_bboss_2FDN9Rd}}
 a double type test is performed on the parameters \code{o1} and \code{o2}.
 
 %https://lgtm.com/projects/g/bbossgroups/bboss/snapshot/dist-2025970729-1524814812150/files/bboss-util/src/org/frameworkset/util/ObjectUtils.java?sort=name&dir=ASC&mode=heatmap#L228
@@ -90,7 +91,7 @@ public static boolean nullSafeEquals(Object o1, Object o2) {
 \end{minted}
 
 Typecase to rethrow
-\footnote{\url{http://bit.ly/2SGDUG5}}
+\footnote{\url{http://bit.ly/codefollower_Tomcat-Research_2SGDUG5}}
 
 %https://lgtm.com/projects/g/codefollower/Tomcat-Research/snapshot/dist-13734061-1524814812150/files/java/org/apache/naming/factory/DataSourceLinkFactory.java?sort=name&dir=ASC&mode=heatmap#L85
 \begin{minted}[highlightlines=10]{java}
@@ -119,6 +120,9 @@ The operand expression to both the cast and the \code{instanceof} needs to be th
 In the case the operand expression is a variable, we also check that there is no assignment between the \code{instanceof} guard and the cast to that variable.
 
 In some situations the operand expression is a method invocation.
+%
+\todo{Nate: Avoid "we"}
+%
 We make sure that the value returned is the same for both the \code{instanceof} and the cast, \ie, it is a pure method.
 
 \discussion{}
@@ -170,6 +174,9 @@ There is an ongoing proposal%
 \footnote{\url{https://cr.openjdk.java.net/~briangoetz/amber/pattern-match.html}}
 to add pattern matching to the \java{} language.
 The proposal explores how to change the \code{instanceof} operator in order to support pattern matching.
+%
+\done{Java 12 will (maybe) add matching.}
+%
 \java{} 12 already extends the \code{switch} statement to be used as either a statement or an expression.%
 \footnote{\url{https://openjdk.java.net/jeps/325}}
 This enhancement aims to ease the transition to a \code{switch} expression that supports pattern matching.

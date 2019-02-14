@@ -8,13 +8,14 @@
 \code{call(Object... args)}
 
 %https://lgtm.com/projects/g/groovy/groovy-core/snapshot/dist-45390050-1524814812150/files/src/main/groovy/util/Expando.java?sort=name&dir=ASC&mode=heatmap#L103
-\begin{minted}[highlightlines=12]{java}
+\begin{minted}[highlightlines=13]{java}
 public Object invokeMethod(String name, Object args) {
     try {
         return super.invokeMethod(name, args);
     }
     catch (GroovyRuntimeException e) {
-        // br should get a "native" property match first. getProperty includes such fall-back logic
+        // br should get a "native" property match first.
+        // getProperty includes such fall-back logic
         Object value = this.getProperty(name);
         if (value instanceof Closure) {
             Closure closure = (Closure) value;

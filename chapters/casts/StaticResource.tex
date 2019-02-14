@@ -1,4 +1,7 @@
 \begin{pattern}{StaticResource}
+%
+\todo{Nate: Why not LookupById?}
+%
 A cast to a method access to \code{findViewById} or a method that reads a static resource.
 This is a pattern seen when using the Android platform. 
 
@@ -25,7 +28,9 @@ protected void onCreate(Bundle savedInstanceState) {
 \detection{}
 
 \discussion{}
-
+%
+\todo{Nate: Could be determined at compile-time.}
+%
 These casts could be solved by using code generation,
 or partial classes as in \csharp{}.
 

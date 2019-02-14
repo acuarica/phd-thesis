@@ -5,15 +5,28 @@
 Cast operations provide a mechanism to escape the constraints of the static type system.
 \emph{But do they pose a problem for developers?}
 Several studies~\citep{kechagiaUndocumentedUncheckedExceptions2014,coelhoUnveilingExceptionHandling2015,zhitnitskyTop10Exception2016}
-suggest that in \java{}, the \code{ClassCastException} is in the top 10 of exceptions being thrown when analysing stack traces.
+suggest that in \java{},
+%
+\todo{Nate: Expand on this}
+%
+the \code{ClassCastException} is in the top 10 of exceptions being thrown when analysing stack traces.
 
-To illustrate the sort of problems developers have when applying casting conversions, we performed a simple search for commits and issues including the term \code{ClassCastException} on \github{} within projects marked as using the \java{} language.
-The search returned about 171K%
+To illustrate the sort of problems developers have when applying casting conversions,
+%
+\done{Nate: Why GitHub?}
+%
+we performed a simple search for commits and issues including the term \code{ClassCastException} within projects marked as using the \java{} language on \github{}.
+We have used \github{} since is the largest host of source code in the world~\citep{gousiosLeanGHTorrentGitHub2014}.
+The searches returned about 171K commits%
 \footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Commits}}
-and 73K%
+and 73K issues%
 \footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Issues}}
+%
+\todo{Nate: Unclear}
+\todo{Nate: Need short background section at beginning. What is a cast? upcast, downcast, instanceof? How compiled? checkcast.}
+%
 results respectively at the time of this writing.
-At first glance, these results indicate that indeed \code{ClassCastException} represents a source for problems to developers.
+At first glance, these results indicate that \code{ClassCastException} indeed represents a source for problems to developers.
 
 \input{chapters/casts/sec-casts-issues}
 \input{chapters/casts/sec-casts-rq}

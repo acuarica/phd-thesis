@@ -9,8 +9,7 @@
 \end{mdframed}
 }
 
-\newcommand{\tbd}[1]{{\color{violet} #1\footnotesize ?}}
-\newcommand{\todo}[1]{{\color{red} \textbf{TODO:} #1\ \footnotesize !}}
+\newcommand{\done}[1]{\todo[color=cyan]{\textbf{[DONE]} #1}}
 
 \newcommand{\rquestion}[1]{\hlbox{#1}{yellow}{Research Question}}
 
@@ -47,6 +46,7 @@
 \newcommand{\swift}{\lang{Swift}}
 \newcommand{\php}{\lang{PHP}}
 \newcommand{\racket}{\lang{Racket}}
+\newcommand{\rust}{\lang{Rust}}
 
 \newcommand{\jvm}{JVM}
 \newcommand{\jvmti}{JVMTI}
@@ -85,7 +85,8 @@
 \definecolor{gray}{rgb}{0.2,0.2,0.2}
 
 \definecolor{light-gray}{rgb}{0.97,0.97,0.97}
-\definecolor{light-orange}{rgb}{1,0.6,0}
+% \definecolor{light-orange}{rgb}{1,0.6,0}
+% \definecolor{light-orange}{rgb}{1,0.6,0}
 
 \definecolor{diffstart}{named}{Grey}
 \definecolor{diffincl}{named}{Green}
@@ -98,7 +99,7 @@
 	baselinestretch=1.2,
 	bgcolor=light-gray,
 	fontsize=\footnotesize,
-	highlightcolor=light-orange,
+	% highlightcolor=light-orange,
 	tabsize=4,
 	linenos
 }
@@ -109,7 +110,7 @@
 	baselinestretch=1.2,
 	bgcolor=light-gray,
 	fontsize=\footnotesize,
-	highlightcolor=light-orange,
+	% highlightcolor=light-orange,
 	tabsize=4,
 	linenos
 }

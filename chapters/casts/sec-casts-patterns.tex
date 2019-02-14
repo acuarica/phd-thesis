@@ -48,6 +48,7 @@ Table~\ref{table:casts:patterns} presents each pattern and the groups they belon
 Moreover, we are interested in the scope of the cast instance, \ie, \emph{does it appear in application source code, test code, or generated code?}
 Figure~\ref{fig:patterns} shows our patterns and their occurrences sort by frequency.
 The column on the right correspond to the group the pattern belongs to.
+\todo{Describe where patterns come from. Sample -> Invent patterns -> repeat.?}
 
 \input{chapters/casts/table-patterns}
 
@@ -63,7 +64,7 @@ Each pattern is described using the following template:
 
 \begin{itemize}
 \item \textbf{Description.}
-Tells what is this pattern about.
+Tells what the pattern is about.
 It gives a general overview of the structure of the pattern.
 \item \textbf{Instances.}
 Gives one or more concrete examples found in real code.
@@ -72,18 +73,28 @@ modified for formatting purposes.
 Moreover, to facilitate some snippet presentations,
 we remove irrelevant code and replace it with the
 comment \code{// [...]}.
+%
+\todo{Nate: What's the orange (hightlight color) mean? The line with the cast being inspected. Explain here}
+%
 For each instance presented here, we provide the link to the source code repository in \lgtm{}.
 We provide the link in case the reader wants to do further inspection
 of the presented snippet.
+%
+\todo{Nate: List project name too.}
+\todo{Luis: Mention that the back links were customized to include the project names.}
+%
 Instead of presenting \lgtm{} long URLs,
 we have used the URL shortening service \url{https://bitly.com/}
-for an easier reading.
+for easier reading.
 \item \textbf{Detection.}
 Describes briefly how this pattern was detected in terms of the tags introduced in the previous section.
 \item \textbf{Discussion.}
 Presents suggestions, flaws, or comments about the pattern.
 \item \textbf{Related Patterns.}
-How the pattern being described relates to other patterns?
+How the pattern being described relates to other patterns.
+%
+\done{Nate: Remove "?"}
+%
 \end{itemize}
 
 
@@ -112,6 +123,7 @@ These patterns creates to how they are created.
 
 \group{Tuples}
 
+\todo{Nate: Why?}
 Tuples patterns.
 
 \input{chapters/casts/LookupById}

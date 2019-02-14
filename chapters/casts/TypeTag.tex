@@ -5,7 +5,9 @@ A cast guarded by a test on a field from the same object instead of
 using \code{instanceof}.
 
 \instances{}
-The following example\footnote{\url{http://bit.ly/2Ho8bVL}} shows an instance of the \thisp{} pattern.
+The following example%
+\footnote{\url{http://bit.ly/JesusFreke_smali_2Ho8bVL}}
+shows an instance of the \thisp{} pattern.
 The cast type of the parameter \code{reference} is determined by the value of the parameter \code{referenceType}.
 
 %https://lgtm.com/projects/b/JesusFreke/smali/snapshot/dist-1306230039-1524814812150/files/dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java?sort=name&dir=ASC&mode=heatmap#L492
@@ -29,8 +31,10 @@ private int getReferenceIndex(int referenceType, Reference reference) {
 }
 \end{minted}
 
+\todo{Why is this not pattern matching?}
+%
 In the next case%
-\footnote{\url{http://bit.ly/2FW5SXU}}
+\footnote{\url{http://bit.ly/apache_poi_2FW5SXU}}
 a type test is performed --- through a method call --- before actually applying the cast to the variable \code{props}.
 Note that the type test is using the \code{instanceof} operator (line 8).
 
@@ -53,5 +57,8 @@ The detection of this pattern is similar to the \nameref{pat:PatternMatching} de
 \discussion{}
 
 \related{}
+%
+\todo{Nate: PatternMatching}
+Related to \nameref{pat:PatternMatching}
 
 \end{pattern}

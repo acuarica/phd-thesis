@@ -1,7 +1,6 @@
 \begin{pattern}{SelectOverload}
-This pattern is used to select
-the appropriate version of an overloaded method%
-\footnote{Using ad-hoc polymorphism~\cite{stracheyFundamentalConceptsProgramming2000}}
+This pattern is used to select the appropriate version of an overloaded method%
+\footnote{Using ad-hoc polymorphism~\citep{stracheyFundamentalConceptsProgramming2000}.}
 where two or more of its implementations differ \emph{only} in some argument type.
 
 A cast to \code{null} is often used to select against different versions
@@ -16,8 +15,8 @@ the compiler cannot determine which method implementation to select.
 
 \instances{}
 The following listing%
-\footnote{\url{http://bit.ly/2FENovD}}
-shows an example of \pname{} pattern.
+\footnote{\url{http://bit.ly/loopj_android-async-http_2FENovD}}
+shows an example of the \thisp{} pattern.
 In this example, there are three versions of the \code{onSuccess} method,
 The cast \code{(String) null} is used to select the appropriate version
 (line 7), based on the third parameter.
@@ -30,7 +29,6 @@ calling a method with variable arguments.
 \begin{minted}[highlightlines=1]{java}
 onSuccess(statusCode, headers, (String) null);
 
-
 public void onSuccess(
       int statusCode, Header[] headers, JSONObject response) {...}
 
@@ -41,8 +39,11 @@ public void onSuccess(
       int statusCode, Header[] headers, String responseString) {...}
 \end{minted}
 
-In the following example\footnote{\url{http://bit.ly/2FC9Llb}}
+In the following example%
+\footnote{\url{http://bit.ly/spullara_redis-protocol_2FC9Llb}}
 \code{actual.data()} returns \code{Long}.
+%
+\todo{Nate: ... so the cast is needed because ... }
 
 % https://lgtm.com/projects/g/spullara/redis-protocol/snapshot/dist-41940059-1524814812150/files/client/src/test/java/redis/client/AllCommandsTest.java?sort=name&dir=ASC&mode=heatmap#L366
 \begin{minted}[highlightlines=2]{java}
@@ -54,19 +55,19 @@ public static void assertEquals(Object expected, Object actual) { }
 public static void assertEquals(long expected, long actual) { }
 \end{minted}
 
-Similar 
-\footnote{\url{http://bit.ly/2StrlOn}}
+Similar%
+\footnote{\url{http://bit.ly/apache_poi_2StrlOn}}
 
 %https://lgtm.com/projects/g/apache/poi/snapshot/dist-1790760597-1524814812150/files/src/testcases/org/apache/poi/hssf/record/chart/TestLegendRecord.java#L50
 \begin{minted}[highlightlines=1]{java}
 assertEquals((byte) 0x1, record.getSpacing());
 \end{minted}
 
-Upcast generic
-\footnote{\url{http://bit.ly/2HDAkbF}}
+Upcast generic%
+\footnote{\url{http://bit.ly/groovy_groovy-core_2HDAkbF}}
 
 %https://lgtm.com/projects/g/groovy/groovy-core/snapshot/dist-45390050-1524814812150/files/src/main/org/codehaus/groovy/runtime/DefaultGroovyMethods.java?sort=name&dir=ASC&mode=heatmap#L6715
-\begin{minted}[highlightlines=1]{java}
+\begin{minted}[highlightlines=2]{java}
 public static <T> T max(Iterator<T> self, Comparator<T> comparator) {
       return max((Iterable<T>)toList(self), comparator);
 }
@@ -92,5 +93,5 @@ a bad \api{} design.
 Several other languages support default parameters, \eg{},
 \scala{}, \csharp{} and \cpp{}.
 Adding default parameters might be a partial solution.
-% \todo{Relate null as theorical point of view in the TAPL book.}
+\todo{Luis: Relate null as theorical point of view in the TAPL book.}
 \end{pattern}

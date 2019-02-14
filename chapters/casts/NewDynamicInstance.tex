@@ -1,4 +1,7 @@
 \begin{pattern}{NewDynamicInstance}
+%
+\todo{Nate: Why not Creational?}
+%
 Dynamically creates an object or array by means of reflection.
 The \code{newInstance} method family declared in the \code{Class},%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html\#newInstance--}}
@@ -91,7 +94,8 @@ where the expression being cast is a call site to methods mentioned above.
 
 \discussion{}
 The cast here is needed because of the dynamic essence of reflection.
-This pattern is mostly unguarded, that is, the application programmer knows what is the target type being created.
+This pattern is mostly unguarded, that is,
+the application programmer knows what target type is being created.
 
 The following two code snippets:
 

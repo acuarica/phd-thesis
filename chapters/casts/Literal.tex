@@ -1,4 +1,7 @@
 \begin{pattern}{Literal}
+%
+\todo{Nate: Why is this a smell?}
+%
 Cast a numeric or character literal or constant --- defined as \code{static final} ---
 to a primitive type.
 
@@ -74,8 +77,14 @@ This pattern looks for casting a literal or constant to a primitive type.
 \code{int}, \code{long}, \code{float} and \code{double}.
 
 \related{}
+%
+\todo{Nate: ?}
+%
 Also it is related with the \nameref{pat:SelectOverload}
 because it does not permit for narrowing conversions.%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html\#jls-5.3}}
+%
+\todo{Nate: ?}
+%
 Related to \nameref{pat:Redundant} because of cast automatically generated.
 \end{pattern}

@@ -22,13 +22,18 @@ AuthState authState =
         (AuthState) context.getAttribute(ClientContext.TARGET_AUTH_STATE);
 \end{lstlisting}
 
-\discussion
-
-This pattern suggests an heterogeneous dictionary.
+\discussion{}
+%
+\todo{Cut/Move to future work.}
+%
+This pattern suggests heterogeneous dictionary.
 Given our manual inspection,
 we believe that all dictionary keys and resulting types are known at
 compile-time, \ie, by the programmer.
-But in any case a cast is needed given the restriction of the type system.
+%
+\done{Nate: Replace "restriction" for "inexpressiveness"}
+%
+But in any case a cast is needed given the inexpressiveness of the type system.
 As a complementary analysis,
 it would be interesting to check whether all call sites to
 \code{getAttribute} receives a constant (\code{final static} field).

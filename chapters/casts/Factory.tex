@@ -1,17 +1,21 @@
 \begin{pattern}{Factory}
+\todo{Also Logger}
 Creates an object based on some arguments either to the method call or constructor.
 Since the arguments are known at compile-time, cast to the specific type.
 
+\todo{Nate: Move to "Related Patterns"}
 Cast factory method result to subtype (special case of family polymorphism).
 Usually Logger.getLogger.
 
 The method is declared to return URLConnection but can return a more specific type based on the URL string.
 Cast to that.
 We should generalize this pattern.
+%
+\todo{Nate: Create with type descriptor "Tag"}
 
 \instances{}
-
-\footnote{\url{http://bit.ly/2HvRlUX}}
+\todo{Describe}
+\footnote{\url{http://bit.ly/connect2id_oauth-2-0-sdk-with-_2HvRlUX}}
 
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html\#getPrivate()}}
 
@@ -31,7 +35,8 @@ RSAKey rsaJWK2 = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
         .build();
 \end{minted}
 
-\footnote{\url{http://bit.ly/2E6KY6T}}
+\done{Also URLOpenConnection.}
+\footnote{\url{http://bit.ly/apache_hadoop_2E6KY6T}}
 
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/net/URL.html\#openConnection--}}
 

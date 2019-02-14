@@ -43,7 +43,10 @@ Returning to our problem of finding an appropriate sample size, we can model our
 The two distinct features are either finding a cast of the least frequent pattern or not.
 Therefore we want to know what is the probability of not finding this pattern, \ie, $k = 0$.
 Our finite population consists of $N = 9,030,852$ cast instances.
-Then we assume that a pattern is irrelevant if it represents less than $0.1\%$ of the population, thus $K = 9,000$ cast instances.
+%
+\done{Nate: Remove "then"}
+%
+We assume that a pattern is irrelevant if it represents less than $0.1\%$ of the population, thus $K = 9,000$ cast instances.
 Plugging-in these parameters using the Hypergeometric Distribution formula,%
 \footnote{The reader can use any available online Hypergeometric Distribution calculator to plug-in these parameters, \eg, \url{https://keisan.casio.com/exec/system/1180573201}}
 with different sample sizes, we found that with a sample size of $n = 5000$ the probability is $0.0068$, \ie, less than $0.1 \%$, of not finding the least frequent pattern.

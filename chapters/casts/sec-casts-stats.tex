@@ -11,13 +11,24 @@ We have gathered cast usage using the \ql{} query language.
 \ql{} is ``a declarative, object-oriented logic programming language for querying complex, potentially recursive data structures encoded in a relational data model''~\citep{avgustinovQLObjectorientedQueries2016}.
 \ql{} allows us to analyze programs at the source code level.
 \ql{} extracts the code sources of a project into a Datalog model.
-Besides providing structural data for programs, \ie{}, ASTs, \ql{} has the ability to query static types and perform data-flow analysis.
-To run our \ql{} queries, we have used the service provided by Semmle.\footnote{\url{https://lgtm.com/}} 
+Besides providing structural data for programs, \ie{}, ASTs,
+\ql{} has the ability to query static types and perform data-flow analysis.
+To run our \ql{} queries,
+we have used the service provided by Semmle,%
+\footnote{\url{https://lgtm.com/}} 
+%
+\done{Nate: Add "the developers of QL at the end."}
+%
+the developers of \ql{}.
 
 \textbf{Projects.} 
 As a code base representative of the ``real world'',
 we have chosen open-source projects hosted in \github{},
-the world's most popular source code management repository.
+the world's most popular source code
+%
+\done{Nate: citation}
+%
+management repository~\citep{gousiosLeanGHTorrentGitHub2014}.
 To answer \ref{casts:rq1}, we have analyzed \nproject{} \java{} projects in \lgtm{}.
 
 Ultimately, we want to know how many cast instances are used in a given project.

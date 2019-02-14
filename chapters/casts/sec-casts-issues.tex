@@ -5,10 +5,10 @@ To easily spot what the developer has changed to fix the \code{ClassCastExceptio
 we present each source code excerpt using the Git commit \emph{diff} as reported by \github{}.
 
 \textbf{Forgotten Guard.}
-The following listing%
+The following diff%
 \footnote{\url{https://github.com/jenkinsci/extra-columns-plugin/commit/02d10bd1fcbb2e656da9b1b4ec54208b0cc1cbb2}}
 shows a cast applied to the variable \code{job} (in line 6) that throws \code{ClassCastException} because the developer forgot to include a guard.
-In this case, the developer fixed the error by introducing a guard on the cast with \code{instanceof}.
+In this case, the developer fixed the error by introducing an \code{instanceof} guard to the cast.
 
 \begin{lstlisting}[style=java]
 @@ -41,6 +41,8 @@ public SCMTypeColumn() {
@@ -24,7 +24,11 @@ In this case, the developer fixed the error by introducing a guard on the cast w
 \textbf{Wrong Cast Target.}
 In the next example%
 \footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}}
-the developer made a typo when writing the cast target.
+%
+\done{Nate: use the wrong class name}
+%
+the developer made a mistake by choosing a wrong class for the cast target,
+\ie, \code{JCustomFileChooser} instead of \code{CustomFileFilter}.
 The \code{CustomFileFilter} is an inner static class inside the \code{JCustomFileFilter} class.
 There is no subclass relationship between these two classes.
 The cast happens inside an \code{equals} method
@@ -48,7 +52,7 @@ But the developer made a typo, using the outer class (\code{JCustomFileFilter}),
 In the following listing,%
 \footnote{\url{https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382}}
 the \emph{dynamic} property \code{"peer.p2p.pingInterval"} (lines 5 and 6) has type \code{int}.
-To fix the error, the developer only changed the type of the
+To fix the error, the developer changed only the type of the
 literal 5: from \code{long} to \code{int}.
 
 \begin{lstlisting}[style=java]
@@ -64,15 +68,9 @@ literal 5: from \code{long} to \code{int}.
 Looking at the definition of the \code{getProperty} method below,%
 \footnote{\url{https://github.com/ethereum/ethereumj/blob/224e65b9b4ddcb46198a6f8faf69edc65d34d382/ethereumj-core/src/main/java/org/ethereum/config/SystemProperties.java\#L312}}
 it obtains a dynamic property given a property name.
-If it finds a value, returns it.
-Otherwise, it returns the default value (second argument).
-But the return type of \code{getProperty} is a generic type inferred
-by the type of the default value, in this case, \code{long}.
-Since the default value is a generic parameter, the type \code{long} is wrapped into \code{java.lang.Long} due to autoboxing.
-The \code{ClassCastException} is then thrown in line $5$,
-when casting \code{java.lang.Integer} to \code{java.lang.Long}.
-To then fix the bug, the developer changed the type of the literal:
-from \code{long} to \code{int}.
+If it finds a value, it returns it.
+Otherwise, it returns the default value (the second argument).
+\done{Nate: Show earlier}
 
 \begin{lstlisting}[style=java]
 public <T> T getProperty(String propName, T defaultValue) {
@@ -83,9 +81,27 @@ public <T> T getProperty(String propName, T defaultValue) {
 }
 \end{lstlisting}
 
+But the return type of \code{getProperty} is a generic type inferred
+by the type of the default value, in this case, \code{long}.
+Since the default value is a generic parameter, the type \code{long} is wrapped into \code{java.lang.Long} due to autoboxing.
+The \code{ClassCastException} is then thrown in line $5$,
+when casting \code{java.lang.Integer} to \code{java.lang.Long}.
+To then fix the bug, the developer changed the type of the literal
+from \code{long} to \code{int}.
+
+
 \textbf{Compiler Bug.}
-One issue\footnote{\url{https://github.com/mockito/mockito/issues/357}} shows bad things happen when abusing the type system.
+One issue%
+\footnote{\url{https://github.com/mockito/mockito/issues/357}}
+%
+\todo{Nate: vague}
+%
+shows bad things happen when abusing the type system.
 A bug in the \textsf{javac} compiler%
 \footnote{\url{https://bugs.openjdk.java.net/browse/JDK-8058199}}
 caused \jvm{}'s \code{checkcast} instructions to be skipped.
-This bug was fixed in JDK 9, breaking Mockito answer strategies.
+This bug was fixed in JDK 9,
+%
+\todo{?}
+%
+breaking Mockito answer strategies.
