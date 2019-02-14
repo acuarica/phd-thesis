@@ -1,12 +1,40 @@
 \begin{pattern}{CreateByClassLiteral}
     
 \instances{}
+\done{Nate: CreateByClassLiteral}
+The following snippet\footnote{\url{http://bit.ly/apache_karaf_2HE55gE}} shows an instance of the \thisp{} pattern. 
+Even if a test against a class literal (\code{AtomicInteger.class}) is used to determine a suitable cast for the parameter \code{value}.
 
-\footnote{\url{}}
-
-\begin{minted}[highlightlines=1]{java}
-
+%https://lgtm.com/projects/g/apache/karaf/snapshot/dist-13960098-1524814812150/files/shell/core/src/main/java/org/apache/karaf/shell/support/converter/DefaultConverter.java?sort=name&dir=ASC&mode=heatmap#L117
+\begin{minted}[highlightlines=4]{java}
+public Object convertToNumber(Number value, Class toType) throws Exception {
+    toType = unwrap(toType);
+    if (AtomicInteger.class == toType) {
+        return new AtomicInteger((Integer) convertToNumber(value, Integer.class));
+    } else if (AtomicLong.class == toType) {
+        return new AtomicLong((Long) convertToNumber(value, Long.class));
+    } else if (Integer.class == toType) {
+        return value.intValue();
+    } else if (Short.class == toType) {
+        return value.shortValue();
+    } else if (Long.class == toType) {
+        return value.longValue();
+    } else if (Float.class == toType) {
+        return value.floatValue();
+    } else if (Double.class == toType) {
+        return value.doubleValue();
+    } else if (Byte.class == toType) {
+        return value.byteValue();
+    } else if (BigInteger.class == toType) {
+        return new BigInteger(value.toString());
+    } else if (BigDecimal.class == toType) {
+        return new BigDecimal(value.toString());
+    } else {
+        throw new Exception("Unable to convert number " + value + " to " + toType);
+    }
+}
 \end{minted}
+
 
 \detection{}
 

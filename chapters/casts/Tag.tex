@@ -3,7 +3,7 @@ Used
 
 \instances{}
 
-\footnote{\url{http://bit.ly/2HUmGki}}
+\footnote{\url{http://bit.ly/UniTime_cpsolver_2HUmGki}}
 
 %https://lgtm.com/projects/g/UniTime/cpsolver/snapshot/dist-4860376-1524814812150/files/src/org/cpsolver/ifs/assignment/context/AssignmentContextHolderMap.java?sort=name&dir=ASC&mode=heatmap#L47
 \begin{minted}[highlightlines=9]{java}
@@ -24,11 +24,29 @@ public <U extends AssignmentContext> U getAssignmentContext(
 }
 \end{minted}
 
-\footnote{\url{http://bit.ly/2SAEXHu}}
+\footnote{\url{http://bit.ly/ggp-org_ggp-base_2SAEXHu}}
 
 %https://lgtm.com/projects/g/ggp-org/ggp-base/snapshot/dist-59800051-1524814812150/files/src/main/java/org/ggp/base/apps/player/match/MatchPanel.java?sort=name&dir=ASC&mode=heatmap#L66
-\begin{minted}{java}
-    
+\begin{minted}[highlightlines=16]{java}
+public final class MatchPanel extends JPanel implements Observer {
+    private final JZebraTable matchTable;
+    public MatchPanel() {
+        super(new GridBagLayout());
+        DefaultTableModel model = new DefaultTableModel();
+        // [...]
+        matchTable = new JZebraTable(model) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
+    }
+    // [...]
+    private void observe(GamerCompletedMatchEvent event) {
+        DefaultTableModel model = (DefaultTableModel) matchTable.getModel();
+        model.setValueAt("Inactive", model.getRowCount() - 1, 4);
+    }
+}
 \end{minted}
 
 \detection{}

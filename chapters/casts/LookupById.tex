@@ -6,21 +6,18 @@ Lookup an object by ID, tag or name and cast the result
 It accesses a collection that holds values of different types
 (usually implemented as \code{Collection<Object>} or as \code{Map<K, Object>}).
 
-\instances
+\instances{}
+In the example shown below,%
+\footnote{\url{http://bit.ly/loopj_android-async-http_2SUzY4E}}
+the \code{getAttribute} method returns \code{Object}.
+The variable \texttt{context} is of type \code{BasicHttpContext},
+which is implemented with \code{HashMap}.
 
 %https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1518514025554/files/library/src/main/java/com/loopj/android/http/AsyncHttpClient.java?sort=name&dir=ASC&mode=heatmap&excluded=false#L258
-
-In the example shown in listing,
-% \footnote{\url{d}},
-the \texttt{getAttribute} method returns \texttt{Object}.
-The variable \texttt{context} is of type \texttt{BasicHttpContext},
-which is implemented with \texttt{HashMap}.
-
-\lstset{language=java,label=orga7c88d3,caption={Example of the \pname{} pattern.},captionpos=b,numbers=none,style=java}
-\begin{lstlisting}
+\begin{minted}[highlightlines=2]{java}
 AuthState authState =
         (AuthState) context.getAttribute(ClientContext.TARGET_AUTH_STATE);
-\end{lstlisting}
+\end{minted}
 
 \discussion{}
 %
