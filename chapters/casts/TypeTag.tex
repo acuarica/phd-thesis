@@ -1,6 +1,9 @@
 \begin{pattern}{TypeTag}
 Lookup in a collection using a application-specific type tag or a
 \code{java.lang.Class}.
+%
+\todo{Matthias: Your first example doesn't have the tag in the *same* object, but passes it as a separate variable.}
+%
 A cast guarded by a test on a field from the same object instead of
 using \code{instanceof}.
 
@@ -31,12 +34,12 @@ private int getReferenceIndex(int referenceType, Reference reference) {
 }
 \end{minted}
 
-\todo{Why is this not pattern matching?}
+\todo{Nate: Why is this not pattern matching?}
 %
 In the next case%
 \footnote{\url{http://bit.ly/apache_poi_2FW5SXU}}
 a type test is performed --- through a method call --- before actually applying the cast to the variable \code{props}.
-Note that the type test is using the \code{instanceof} operator (line 8).
+Note that the type test is internally using the \code{instanceof} operator (line 8).
 
 %https://lgtm.com/projects/g/apache/poi/snapshot/dist-1790760597-1524814812150/files/src/ooxml/java/org/apache/poi/xslf/usermodel/XSLFPropertiesDelegate.java?sort=name&dir=ASC&mode=heatmap#L1367
 \begin{minted}[highlightlines=3]{java}

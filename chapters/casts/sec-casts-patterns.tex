@@ -36,18 +36,26 @@
 \section{Cast Usage Patterns}
 \label{sec:casts:patterns}
 
-Using the methodology described in the above section, we have devised \npattern{} casts usage patterns.%
-\footnote{We have excluded casts that represents primitive numeric type conversions, as they do not represent any pattern.
+Using the methodology described in the above section,
+we have devised \npattern{} cast usage patterns.
+We have excluded casts that represent primitive numeric type conversions,
+as they do not represent any pattern.
 However, during our manual analysis we found \nprim{} primitive conversions.
-Moreover, we found \nbrokenlinks{} links that were not accessible during our analysis.}
+Moreover, we found \nbrokenlinks{} links that were not accessible during our analysis.
+
 In this section we present the cast usage patterns we found.
 The manual categorization can be found online.%
 \footnote{\url{https://gitlab.com/acuarica/phd-thesis/blob/master/analysis/casts-5000.csv}}
-To ease the patterns presentation, we have clustered them in \ngroup{} groups according to their purpose.
+To ease the patterns presentation,
+we have organized them into \ngroup{} categories according to their purpose.
 Table~\ref{table:casts:patterns} presents each pattern and the groups they belong to.
-Moreover, we are interested in the scope of the cast instance, \ie, \emph{does it appear in application source code, test code, or generated code?}
-Figure~\ref{fig:patterns} shows our patterns and their occurrences sort by frequency.
-The column on the right correspond to the group the pattern belongs to.
+Moreover, we are interested in the scope of the cast instance,
+\ie, \emph{does it appear in application source code, test code, or generated code?}
+%
+\todo{Matthias: Add a paragraph describing and analyzing what one sees in that figure.}
+%
+Figure~\ref{fig:patterns} shows our patterns and their occurrences sorted by frequency.
+The column on the right corresponds to the group the pattern belongs to.
 \todo{Describe where patterns come from. Sample -> Invent patterns -> repeat.?}
 
 \input{chapters/casts/table-patterns}
@@ -57,9 +65,11 @@ The column on the right correspond to the group the pattern belongs to.
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{analysis/table-patterns-5000.pdf}
-\caption{Cast Patterns Occurrences} \label{fig:patterns}
+\caption{Cast Pattern Occurrences} \label{fig:patterns}
 \end{figure}
 
+\todo{Matthias: Start a new subsection here.}
+\todo{Matthias: When describing each pattern, you may want to repear the number of occurrences within the description (maybe as part of the section title, or just below)}
 Each pattern is described using the following template:
 
 \begin{itemize}
@@ -101,6 +111,7 @@ How the pattern being described relates to other patterns.
 
 \group{Guarded}
 
+\todo[inline]{Matthias: Say what it means to be guarded.}
 The patterns in this group are guarded casts, \ie, before the cast is applied some condition needs to be verified.
 
 \input{chapters/casts/PatternMatching}
@@ -110,7 +121,9 @@ The patterns in this group are guarded casts, \ie, before the cast is applied so
 
 \group{Creational}
 
-These patterns creates to how they are created.
+\todo{Matthias: In these paragraphs, can you also enumerate the patterns by name, so readers see what's coming?}
+\todo{Matthias: ???}
+These patterns create to how they are created.
 
 \input{chapters/casts/Family}
 \input{chapters/casts/Factory}

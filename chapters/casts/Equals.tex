@@ -55,15 +55,16 @@ public boolean equals( Object o ) {
 }
 \end{minted}
 
-In some situations, the type casted to is not same as the enclosing class.
+In some situations,
+the type casted to is not the same as the enclosing class.
 Instead, the type casted to is the super class of the enclosing class.
 The following example%
 \footnote{\url{http://bit.ly/square_sqlbrite_2HmHMYE}}
 shows this scenario.
-This usually happens when the Google AutoValue library%
+This happens, for example, when the Google AutoValue library%
 \footnote{\url{https://github.com/google/auto/tree/master/value}}
 is used.
-The AutoValue is a code generator for value classes.
+AutoValue is a code generator for value classes.
 
 %https://lgtm.com/projects/g/square/sqlbrite/snapshot/3a9916985485ba5922097fe59a18230500f02df4/files/sample/build/generated/source/apt/debug/com/example/sqlbrite/todo/ui/$AutoValue_ListsItem.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L52
 \begin{minted}[highlightlines=13]{java}
@@ -111,6 +112,7 @@ public boolean equals(Object obj) {
 \end{minted}
 
 \detection{}
+\todo{Matthias: If you do it manually, I wouldn't talk of a detection *query*.}
 The detection query looks for a cast expression inside an \code{equals} method implementation.
 Moreover, the cast needs to be guarded by either an \code{instanceof} test or a \code{getClass} comparison.
 And the type being casted to needs to be either the same as the enclosing class or a superclass of it.
@@ -120,6 +122,7 @@ The pattern for an \code{equals} method implementation is well-known.
 
 We found out that, with respect to cast,
 most \code{equals} methods are implemented with the same structure.
+\todo{Matthias: This sentence needs to be expanded (add something before)}
 Maybe avoid boilerplate code by providing code generation,
 %
 \todo{Nate: \rust{} traits too. \code{\#[derive(Eq)]} }
