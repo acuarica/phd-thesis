@@ -6,17 +6,18 @@ It uses reflection because at compile time the field is unaccesible.
 Usually the method \code{setAccessible(true)} is invoked on the field
 before actually getting the value from an object.
 
-\instances
-
-%https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1529316783166/files/library/src/main/java/com/loopj/android/http/AsyncHttpClient.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L445
-
-The following cast
-% \footnote{\url{d}}
+\instances{}
+The following cast%
+\footnote{\url{http://bit.ly/loopj_android-async-http_2SOISRr}}
 uses this pattern:
 
-\begin{lstlisting}[style=java,caption=Using \code{Field::get} to gain access to a field.]
+%https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1529316783166/files/library/src/main/java/com/loopj/android/http/AsyncHttpClient.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L445
+\begin{listing}
+\caption{Using \code{Field::get} to gain access to a field.}
+\begin{minted}[highlightlines=2]{java}
 f.setAccessible(true);
 HttpEntity wrapped = (HttpEntity) f.get(entity);
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \end{pattern}

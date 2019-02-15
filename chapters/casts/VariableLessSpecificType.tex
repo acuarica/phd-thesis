@@ -8,7 +8,9 @@ The type of the value being assigned to can be determined locally
 either within the enclosing method or class.
 
 \instances{}
-The following example\footnote{\url{http://bit.ly/2FuDeO7}} shows the \thisp{} pattern.
+The following example%
+\footnote{\url{http://bit.ly/facebookarchive_hadoop-20_2FuDeO7}}
+shows the \thisp{} pattern.
 We can see that the field \code{uncompressedDirectBuf} is being casted to the \code{java.nio.ByteBuffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
 Nevertheless, the field is assigned only once in the constructor (line $7$)
 with a value of type \code{java.nio.ByteBuffer}.
@@ -43,7 +45,7 @@ public class SnappyCompressor implements Compressor {
 }
 \end{minted}
 
-\footnote{\url{http://bit.ly/2UKxm6H}}
+\footnote{\url{http://bit.ly/oblac_jodd_2UKxm6H}}
 
 %https://lgtm.com/projects/g/oblac/jodd/snapshot/dist-12050004-1524814812150/files/jodd-core/src/main/java/jodd/util/collection/SortedArrayList.java?sort=name&dir=ASC&mode=heatmap#L154
 \begin{minted}[highlightlines=7]{java}
@@ -60,7 +62,7 @@ public class SortedArrayList<E> extends ArrayList<E> {
 }
 \end{minted}
 
-\footnote{\url{http://bit.ly/2SNoUXj}}
+\footnote{\url{http://bit.ly/apache_cxf_2SNoUXj}}
 
 %https://lgtm.com/projects/g/apache/cxf/snapshot/dist-2126650689-1524814812150/files/services/sts/sts-core/src/test/java/org/apache/cxf/sts/token/renewer/SAMLTokenRenewerTest.java?sort=name&dir=ASC&mode=heatmap#L465
 \begin{minted}[highlightlines=4]{java}
