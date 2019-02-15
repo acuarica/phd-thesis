@@ -34,6 +34,23 @@ private int getReferenceIndex(int referenceType, Reference reference) {
 }
 \end{minted}
 
+Instead of a \code{switch}, \code{if}
+\footnote{\url{http://bit.ly/FenixEdu_fenixedu-academic_2SUNOUJ}}
+The \code{enrolment} variable is declared as an interface.
+
+%https://lgtm.com/projects/g/FenixEdu/fenixedu-academic/snapshot/dist-29270029-1524814812150/files/src/main/java/org/fenixedu/academic/ui/renderers/student/curriculum/StudentCurricularPlanRenderer.java?sort=name&dir=ASC&mode=heatmap#L853
+\begin{minted}[highlightlines=6]{java}
+for (final IEnrolment enrolment : dismissal.getSourceIEnrolments()) {
+    if (enrolment.isExternalEnrolment()) {
+        generateExternalEnrolmentRow(mainTable, (ExternalEnrolment) enrolment,
+                level + 1, true);
+    } else {
+        generateEnrolmentRow(mainTable, (Enrolment) enrolment,
+                level + 1, false, true, true);
+    }
+}
+\end{minted}
+
 \todo{Nate: Why is this not pattern matching?}
 %
 In the next case%

@@ -1,11 +1,25 @@
 \begin{pattern}{AccessPrivateField}
+Perform an upcast to access a private field defined within the same class.
+Notice that there is only one instance of this pattern,
+and from generated code.
 
 \instances{}
 
-\footnote{\url{}}
+\footnote{\url{http://bit.ly/FenixEdu_fenixedu-academic_2SQxlkC}}
 
-\begin{minted}[highlightlines=1]{java}
-
+%https://lgtm.com/projects/g/FenixEdu/fenixedu-academic/snapshot/dist-29270029-1524814812150/files/target/generated-test-sources/dml-maven-plugin/org/fenixedu/academic/domain/residence/StudentsPerformanceReport_Base.java?sort=name&dir=ASC&mode=heatmap#L12
+\begin{minted}[highlightlines=4]{java}
+public abstract class StudentsPerformanceReport_Base extends QueueJobWithFile {
+    // [...]
+    public ExecutionSemester getValue(StudentsPerformanceReport o1) {
+        return ((StudentsPerformanceReport_Base)o1).executionSemester.get();
+    }
+    private OwnedVBox<ExecutionSemester> executionSemester;
+}
+ 
+public class StudentsPerformanceReport extends StudentsPerformanceReport_Base {
+    // [...]
+}
 \end{minted}
 
 \detection{}

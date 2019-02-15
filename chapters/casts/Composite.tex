@@ -5,12 +5,12 @@
 \footnote{\url{http://bit.ly/flyingsaucerproject_flyingsaucer_2N2nYbY}}
 
 %https://lgtm.com/projects/g/flyingsaucerproject/flyingsaucer/snapshot/dist-26624048-1524814812150/files/flying-saucer-core/src/main/java/org/xhtmlrenderer/newtable/TableBox.java#L711
-\begin{minted}[highlightlines=3]{java}
+\begin{minted}[highlightlines=5]{java}
 public class TableBox extends BlockBox {
     // [...]
     protected TableSectionBox sectionAbove(
             TableSectionBox section, boolean skipEmptySections) {
-        TableSectionBox prevSection = (TableSectionBox)section.getPreviousSibling();
+        TableSectionBox prevSection=(TableSectionBox)section.getPreviousSibling();
     }
 }
 
@@ -20,8 +20,6 @@ public abstract class Box implements Styleable {
         // [...]
     }
 }
-
-
 \end{minted}
 
 \detection{}

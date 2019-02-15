@@ -2,6 +2,43 @@
 
 \instances{}
 
+\footnote{\url{http://bit.ly/elastic_elasticsearch_2SSgsFV}}
+
+%https://lgtm.com/projects/g/elastic/elasticsearch/snapshot/dist-1916470085-1524814812150/files/server/src/main/java/org/elasticsearch/common/lucene/Lucene.java?sort=name&dir=ASC&mode=heatmap#L478
+\begin{minted}[highlightlines=22]{java}
+Class type = field.getClass();
+if (type == String.class) {
+    out.writeByte((byte) 1);
+    out.writeString((String) field);
+} else if (type == Integer.class) {
+    out.writeByte((byte) 2);
+    out.writeInt((Integer) field);
+} else if (type == Long.class) {
+    out.writeByte((byte) 3);
+    out.writeLong((Long) field);
+} else if (type == Float.class) {
+    out.writeByte((byte) 4);
+    out.writeFloat((Float) field);
+} else if (type == Double.class) {
+    out.writeByte((byte) 5);
+    out.writeDouble((Double) field);
+} else if (type == Byte.class) {
+    out.writeByte((byte) 6);
+    out.writeByte((Byte) field);
+} else if (type == Short.class) {
+    out.writeByte((byte) 7);
+    out.writeShort((Short) field);
+} else if (type == Boolean.class) {
+    out.writeByte((byte) 8);
+    out.writeBoolean((Boolean) field);
+} else if (type == BytesRef.class) {
+    out.writeByte((byte) 9);
+    out.writeBytesRef((BytesRef) field);
+} else {
+    throw new IOException("Can't handle sort field value of type ["+type+"]");
+}
+\end{minted}
+
 \detection{}
 
 \discussion{}

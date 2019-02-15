@@ -10,7 +10,7 @@ Even if a test against a class literal (\code{AtomicInteger.class}) is used to d
 public Object convertToNumber(Number value, Class toType) throws Exception {
     toType = unwrap(toType);
     if (AtomicInteger.class == toType) {
-        return new AtomicInteger((Integer) convertToNumber(value, Integer.class));
+        return new AtomicInteger((Integer)convertToNumber(value,Integer.class));
     } else if (AtomicLong.class == toType) {
         return new AtomicLong((Long) convertToNumber(value, Long.class));
     } else if (Integer.class == toType) {
@@ -30,7 +30,7 @@ public Object convertToNumber(Number value, Class toType) throws Exception {
     } else if (BigDecimal.class == toType) {
         return new BigDecimal(value.toString());
     } else {
-        throw new Exception("Unable to convert number " + value + " to " + toType);
+        throw new Exception("Unable to convert number "+value+" to "+toType);
     }
 }
 \end{minted}
