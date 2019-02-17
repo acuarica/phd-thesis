@@ -8,6 +8,24 @@ The type of the value being assigned to can be determined locally
 either within the enclosing method or class.
 
 \instances{}
+%
+The following snippet%
+\footnote{\url{http://bit.ly/apache_cxf_2SNoUXj}}
+shows an example of the \thisp{} pattern.
+The variable \code{samlTokenRenewer} is being casted to the \code{SAMLTokenRenewer} class (line 4).
+The variable is declared with type \code{TokenRenewer} (superclass of \code{SAMLTokenRenewer}) in line 1.
+However, the variable is being initialized with the expression \code{new SAMLTokenRenewer()}. 
+Thus, the cast instance could be trivially avoided by changing the declaration of the \code{samlTokenRenewer} variable to \code{SAMLTokenRenewer} instead of \code{TokenRenewer}.
+
+%https://lgtm.com/projects/g/apache/cxf/snapshot/dist-2126650689-1524814812150/files/services/sts/sts-core/src/test/java/org/apache/cxf/sts/token/renewer/SAMLTokenRenewerTest.java?sort=name&dir=ASC&mode=heatmap#L465
+\begin{minted}[highlightlines=4]{java}
+TokenRenewer samlTokenRenewer = new SAMLTokenRenewer();
+samlTokenRenewer.setVerifyProofOfPossession(false);
+samlTokenRenewer.setAllowRenewalAfterExpiry(true);
+((SAMLTokenRenewer)samlTokenRenewer).setMaxExpiry(1L);
+\end{minted}
+
+
 The following example%
 \footnote{\url{http://bit.ly/facebookarchive_hadoop-20_2FuDeO7}}
 shows the \thisp{} pattern.
@@ -60,16 +78,6 @@ public class SortedArrayList<E> extends ArrayList<E> {
             return comparator.compare(k1, k2);
     }
 }
-\end{minted}
-
-\footnote{\url{http://bit.ly/apache_cxf_2SNoUXj}}
-
-%https://lgtm.com/projects/g/apache/cxf/snapshot/dist-2126650689-1524814812150/files/services/sts/sts-core/src/test/java/org/apache/cxf/sts/token/renewer/SAMLTokenRenewerTest.java?sort=name&dir=ASC&mode=heatmap#L465
-\begin{minted}[highlightlines=4]{java}
-TokenRenewer samlTokenRenewer = new SAMLTokenRenewer();
-samlTokenRenewer.setVerifyProofOfPossession(false);
-samlTokenRenewer.setAllowRenewalAfterExpiry(true);
-((SAMLTokenRenewer)samlTokenRenewer).setMaxExpiry(1L);
 \end{minted}
 
 \detection{}
