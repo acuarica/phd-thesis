@@ -62,8 +62,10 @@ public class ImplicitKeyTreap<T> implements IList<T> {
 }
 \end{minted}
 
-Redundant null
+There are cases when code generators insert superfluous casts to \code{null}.
+The following cast instance%
 \footnote{\url{http://bit.ly/togglz_togglz_2SGncXB}}
+could be removed since in this case the cast to \code{null} is not needed.
 
 %https://lgtm.com/projects/g/togglz/togglz/snapshot/dist-44910020-1524814812150/files/slack/target/generated-sources/groovy-stubs/test/org/togglz/slack/sender/AsyncNotifierSpecIT.java?sort=name&dir=ASC&mode=heatmap#L17
 \begin{minted}[highlightlines=2]{java}
