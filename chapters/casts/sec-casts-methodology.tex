@@ -3,7 +3,7 @@
 
 Similarly to Section~\ref{sec:casts:stats},
 %
-\todo{Matthias: And again, in-line an enumeration of those elements into this sentence.}
+\discuss{Matthias: And again, in-line an enumeration of those elements into this sentence.}
 %
 to answer both research questions \ref{casts:rq2} (\emph{\crqB}) and \ref{casts:rq3} (\emph{\crqC}) several elements are needed.
 
@@ -28,25 +28,29 @@ that were pulled in by Semmle itself as demo projects.
 
 At the time of writing, there is a total of 7.559 projects in the Semmle project database, with a total 10,193,435 casts.
 %
-\todo{Matthias: Why?}
+\done{Matthias: Why?}
 %
 There are 215 projects for which we could not get the source code to be analyzed.
+This happens since the project links to analyze source code could not be reconstructed from the data provided by Semmle.
 In total, these 215 projects represents 1,162,583 casts.
 Moreover, there are also 516 projects that do not contain any cast.
 Therefore the total cast population to be analyzed consists of 9,030,852 casts spread over 6,840 projects.
 
-\todo{Matthias: What is the point of this sentence?}
-We assume that all cast instances can be categorized in several patterns.
+\done{Matthias: What is the point of this sentence? {\scriptsize "We assume that all cast instances can be categorized in several patterns."}}
+%
 Since the amount of cast instances is quite large, it is not feasible to \emph{manually} analyze all of them.
 Therefore we have opted to perform random sampling to get a subset of cast instances to manually analyze.
 Now comes the question: \emph{What is an appropriate sample size?}
 We want to pick a sample size such that the probability of missing the least frequent pattern is extremely low.
-\todo{Matthias: Insert paragraph break here, and improve the clarity of the subsequent text.}
-This kind of question is exactly answered by the \textbf{Hypergeometric Distribution}.
 
+\done{Matthias: Insert paragraph break here, and improve the clarity of the subsequent text.}
+%
+This kind of question is exactly answered by the \textbf{Hypergeometric Distribution}.
 The Hypergeometric Distribution is a discrete probability distribution used with a finite population of $N$ subjects
-\todo{Matthias: Who has two distinct features? The distribution? The subjects?}
-with two distinct features.
+%
+\done{Matthias: Who has two distinct features? The distribution? The subjects?}
+%
+which exhibit two distinct features.
 It is used to calculate the probability of obtaining $k$ successes of getting one feature --- provided that there are $K$ subjects with that feature in the population --- in $n$ draws.
 
 Returning to our problem of finding an appropriate sample size, we can model our question as follows:
@@ -60,11 +64,22 @@ We assume that a pattern is irrelevant if it represents less than $0.1\%$ of the
 Plugging-in these parameters using the Hypergeometric Distribution formula,%
 \footnote{The reader can use any available online Hypergeometric Distribution calculator to plug-in these parameters, \eg, \url{https://keisan.casio.com/exec/system/1180573201}}
 with different sample sizes,
-\todo{Matthias: Wrong, no?}
+%
+\discuss{Matthias: Wrong, no?}
+%
 we found that with a sample size of $n = 5000$ the probability is $0.0068$,
 \ie, less than $0.1 \%$, of not finding the least frequent pattern.
 
-\todo[inline]{Put your raw results (the file with the 5000 cast instances and your tags) into some repo and say here that it's available there.}
+\done{Matthias: Put your raw results {\scriptsize (the file with the 5000 cast instances and your tags)} into some repo and say here that it's available there.}
+%
+The manual categorization can be found online.% 
+\footnote{\url{https://gitlab.com/acuarica/phd-thesis/blob/master/analysis/casts-5000.csv}}
+This file is comma-separated values (CSV) table.
+Each row represents a cast instance.
+The last two columns in this table are the link to the source code snippet and the result of the manual inspection.
+The script to process the results of the manual inspection is available online.%
+\footnote{\url{https://gitlab.com/acuarica/phd-thesis/blob/master/analysis/analysis.r}}
+
 
 % \subsection*{Why do we not use \ql{} to find cast patterns?}
 
