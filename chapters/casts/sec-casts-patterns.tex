@@ -14,7 +14,7 @@
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{"analysis/table-patterns-5000-by-group-#1"}
-\caption{Cast Patterns Occurrences}
+\caption{#1 Cast Pattern Occurrences}
 \label{fig:group-patterns:#1}
 \end{figure}
 
@@ -66,8 +66,8 @@ The column on the right corresponds to the group the pattern belongs to.
 \caption{Cast Pattern Occurrences} \label{fig:patterns}
 \end{figure}
 
-\todo{Matthias: Start a new subsection here.}
-\todo{Matthias: When describing each pattern, you may want to repear the number of occurrences within the description (maybe as part of the section title, or just below)}
+\discuss{Matthias: Start a new subsection here.}
+\todo{Matthias: When describing each pattern, you may want to repeat the number of occurrences within the description {\scriptsize (maybe as part of the section title, or just below)}}
 Each pattern is described using the following template:
 
 \begin{itemize}
@@ -95,7 +95,7 @@ Instead of presenting \lgtm{} long URLs,
 we have used the URL shortening service
 \href{https://bitly.com/}{\bitly} for easier reading.
 %
-\done{Luis: Mention that the links were customized to include the project names.}
+\done{Luis: Links were customized to include the project names.}
 %
 Each link was customized to include the project name.
 \item \textbf{Detection.}
@@ -103,18 +103,22 @@ Describes briefly how this pattern was detected in terms of the tags introduced 
 \item \textbf{Discussion.}
 Presents suggestions, flaws, or comments about the pattern.
 \item \textbf{Related Patterns.}
-How the pattern being described relates to other patterns.
 %
 \done{Nate: Remove "?"}
 %
+How the pattern being described relates to other patterns.
 \end{itemize}
-
-
 
 \group{Guarded}
 
-\todo[inline]{Matthias: Say what it means to be guarded.}
-The patterns in this group are guarded casts, \ie, before the cast is applied some condition needs to be verified.
+\done{Matthias: Say what it means to be guarded.}
+The patterns in this category are guarded casts.
+A guarded cast is a cast such that before the cast is applied,
+some condition --- the \emph{guard} -- needs to be verified.
+The condition to be verified guarantees that the cast will not fail at runtime (unless there is a bug in the application), \ie,
+the cast will not throw a \code{ClassCastException}.
+Some kind of guards ensure that the cast will not fail at the language-level,
+while others only can guarantee it at the application-level.
 
 \input{chapters/casts/PatternMatching}
 \input{chapters/casts/TypeTag}
