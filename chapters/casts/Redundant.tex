@@ -1,20 +1,56 @@
 \begin{pattern}{Redundant}
-A cast that is not necessary for compilation.
+A redundant cast is a cast that is not necessary for compilation.
+It is a superfluous cast,
+and thus can be removed from source code without affecting the application.
 
 \instances{}
-The following example%
+%
+The following listing%
 \footnote{\url{http://bit.ly/vladmihalcea_high-performance-java-persistence_2FWXw2e}}
+exhibits an instance of the \thisp{} pattern.
+A redundant cast is applied to a lambda expression (line 8).
+This cast is not needed a \java{} compiler can infer that the lambda expression is of type \code{TransactionCallback<Void>} (defined in line 22).
 
 %https://lgtm.com/projects/g/vladmihalcea/high-performance-java-persistence/snapshot/dist-1813180502-1524814812150/files/core/src/test/java/com/vladmihalcea/book/hpjp/hibernate/schema/flyway/FlywayTest.java#L40
-\begin{minted}[highlightlines=1]{java}
-transactionTemplate.execute((TransactionCallback<Void>) transactionStatus -> {
-    Post post = new Post();
-    entityManager.persist(post);
-    return null;
-});
+\begin{minted}[highlightlines=8]{java}
+public class FlywayTest {
+    // [...]
+    private TransactionTemplate transactionTemplate;
+    @Test
+    public void test() {
+        // [...]
+        transactionTemplate.execute(
+            (TransactionCallback<Void>) transactionStatus -> {
+                Post post = new Post();
+                entityManager.persist(post);
+                return null;
+        });
+        // [...]
+    }
+}
+
+public interface TransactionStatus {
+    // [...]
+}
+
+@FunctionalInterface
+public interface TransactionCallback<T> {	
+	T doInTransaction(TransactionStatus status);
+}
+
+public class TransactionTemplate {
+	<T> T execute(TransactionCallback<T> action) {
+        // [...]
+	}
+}
 \end{minted}
 
+The next cast instance%
 \footnote{\url{http://bit.ly/sigmoidanalytics_spork_2SIqWYq}}
+is trivially redundant.
+A cast to the \code{BigDecimal} type is applied to the method invocation \code{count(b)} (line 4).
+However, the \code{count} method (defined in line 8) already returns a value of type \code{BigDecimal}.
+Thus, the cast is not needed.
 
 %https://lgtm.com/projects/g/sigmoidanalytics/spork/snapshot/dist-1794190395-1524814812150/files/src/org/apache/pig/builtin/BigDecimalAvg.java?sort=name&dir=ASC&mode=heatmap#L258
 \begin{minted}[highlightlines=4]{java}
