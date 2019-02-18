@@ -1,8 +1,13 @@
 \begin{pattern}{GetByClassLiteral}
+A cast is using an application-specific guard,
+but the guard depends on a class literal.
 
 \instances{}
-
+The following example,%
 \footnote{\url{http://bit.ly/elastic_elasticsearch_2SSgsFV}}
+shows an instance of the \thisp{} pattern.
+A cast is performed to the \code{field} variable (line 22),
+based whether the runtime class of the variable is actually \code{Short.class}.
 
 %https://lgtm.com/projects/g/elastic/elasticsearch/snapshot/dist-1916470085-1524814812150/files/server/src/main/java/org/elasticsearch/common/lucene/Lucene.java?sort=name&dir=ASC&mode=heatmap#L478
 \begin{minted}[highlightlines=22]{java}

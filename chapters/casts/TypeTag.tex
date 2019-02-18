@@ -1,11 +1,8 @@
 \begin{pattern}{TypeTag}
-Lookup in a collection using a application-specific type tag or a
-\code{java.lang.Class}.
 %
-\todo{Matthias: Your first example doesn't have the tag in the *same* object, but passes it as a separate variable.}
+\done{Matthias: Your first example doesn't have the tag in the *same* object, but passes it as a separate variable.}
 %
-A cast guarded by a test on a field from the same object instead of
-using \code{instanceof}.
+A cast instance belonging to the \thisp{} pattern is guarded by an application-specific test instead of using an \code{instanceof} test.
 
 \instances{}
 The following example%
@@ -34,9 +31,10 @@ private int getReferenceIndex(int referenceType, Reference reference) {
 }
 \end{minted}
 
-Instead of a \code{switch}, \code{if}
+In the next example,%
 \footnote{\url{http://bit.ly/FenixEdu_fenixedu-academic_2SUNOUJ}}
-The \code{enrolment} variable is declared as an interface.
+instead of a \code{switch} statement,
+an \code{if} statement is used to guard the cast (in line 6).
 
 %https://lgtm.com/projects/g/FenixEdu/fenixedu-academic/snapshot/dist-29270029-1524814812150/files/src/main/java/org/fenixedu/academic/ui/renderers/student/curriculum/StudentCurricularPlanRenderer.java?sort=name&dir=ASC&mode=heatmap#L853
 \begin{minted}[highlightlines=6]{java}
@@ -51,12 +49,14 @@ for (final IEnrolment enrolment : dismissal.getSourceIEnrolments()) {
 }
 \end{minted}
 
-\todo{Nate: Why is this not pattern matching?}
+\done{Nate: Why is this not pattern matching?}
 %
 In the next case%
 \footnote{\url{http://bit.ly/apache_poi_2FW5SXU}}
-a type test is performed --- through a method call --- before actually applying the cast to the variable \code{props}.
+a type test is performed --- through a method call --- before actually applying the cast to the variable \code{props} (line 3).
 Note that the type test is internally using the \code{instanceof} operator (line 8).
+Although in this case the type test is using an \code{instanceof} operator,
+it is not considered \nameref{pat:PatternMatching} because the \code{instanceof} is located in a method call.
 
 %https://lgtm.com/projects/g/apache/poi/snapshot/dist-1790760597-1524814812150/files/src/ooxml/java/org/apache/poi/xslf/usermodel/XSLFPropertiesDelegate.java?sort=name&dir=ASC&mode=heatmap#L1367
 \begin{minted}[highlightlines=3]{java}
