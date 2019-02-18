@@ -11,8 +11,8 @@ either within the enclosing method or class.
 %
 The following snippet%
 \footnote{\url{http://bit.ly/apache_cxf_2SNoUXj}}
-shows an example of the \thisp{} pattern.
-The variable \code{samlTokenRenewer} is being casted to the \code{SAMLTokenRenewer} class (line 4).
+shows an example of the \thisp{} pattern (line 4).
+The \code{samlTokenRenewer} variable is being casted to the \code{SAMLTokenRenewer} class.
 The variable is declared with type \code{TokenRenewer} (superclass of \code{SAMLTokenRenewer}) in line 1.
 However, the variable is being initialized with the expression \code{new SAMLTokenRenewer()}. 
 Thus, the cast instance could be trivially avoided by changing the declaration of the \code{samlTokenRenewer} variable to \code{SAMLTokenRenewer} instead of \code{TokenRenewer}.
@@ -25,9 +25,9 @@ samlTokenRenewer.setAllowRenewalAfterExpiry(true);
 ((SAMLTokenRenewer)samlTokenRenewer).setMaxExpiry(1L);
 \end{minted}
 
-The following example%
+The following listing%
 \footnote{\url{http://bit.ly/facebookarchive_hadoop-20_2FuDeO7}}
-shows the \thisp{} pattern.
+shows an example of the \thisp{} pattern.
 We can see that the field \code{uncompressedDirectBuf} is being casted to the \code{java.nio.ByteBuffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
 Nevertheless, the field is assigned only once in the constructor (line $7$)
 with a value of type \code{java.nio.ByteBuffer}.
