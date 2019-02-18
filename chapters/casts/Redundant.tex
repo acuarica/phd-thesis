@@ -66,7 +66,11 @@ static protected BigDecimal count(Tuple input) throws ExecException {
 }
 \end{minted}
 
+In the following cast instance,%
 \footnote{\url{http://bit.ly/phishman3579_java-algorithms-implementation_2SGcH6w}}
+a cast is applied to the \code{node.right} field (line 12).
+Nevertheless, the \code{right} field of the \code{Node} class is already defined as \code{Node<T>},
+rendering the cast redundant.
 
 %https://lgtm.com/projects/g/phishman3579/java-algorithms-implementation/snapshot/dist-1797111073-1524814812150/files/src/com/jwetherell/algorithms/data_structures/ImplicitKeyTreap.java?sort=name&dir=ASC&mode=heatmap#L266
 \begin{minted}[highlightlines=12]{java}
