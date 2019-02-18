@@ -90,8 +90,9 @@ public static boolean nullSafeEquals(Object o1, Object o2) {
 }
 \end{minted}
 
-Typecase to rethrow
+Another common scenario%
 \footnote{\url{http://bit.ly/codefollower_Tomcat-Research_2SGDUG5}}
+is when several cases are used to re-\code{throw} an exception of the right type, as shown below.
 
 %https://lgtm.com/projects/g/codefollower/Tomcat-Research/snapshot/dist-13734061-1524814812150/files/java/org/apache/naming/factory/DataSourceLinkFactory.java?sort=name&dir=ASC&mode=heatmap#L85
 \begin{minted}[highlightlines=10]{java}
@@ -115,13 +116,14 @@ try {
 \end{minted}
 
 \detection{}
-To detect this pattern, we look for a cast guarded by an \code{instanceof} expression.
+To detect this pattern,
+a cast needs to be guarded by an \code{instanceof} expression.
 The operand expression to both the cast and the \code{instanceof} needs to be the same.
 In the case the operand expression is a variable, we also check that there is no assignment between the \code{instanceof} guard and the cast to that variable.
 
 In some situations the operand expression is a method invocation.
 %
-\todo{Nate: Avoid "we"}
+\discuss{Nate: Avoid "we"}
 %
 We make sure that the value returned is the same for both the \code{instanceof} and the cast, \ie, it is a pure method.
 
