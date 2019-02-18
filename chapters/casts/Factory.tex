@@ -46,6 +46,31 @@ URL url = new URL("http://localhost:8088/ws/v1/cluster/apps");
 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 \end{minted}
 
+\todo{Luis: Get bitly link}
+\footnote{\url{}}
+
+%https://lgtm.com/projects/g/bcgit/bc-java/snapshot/dist-20740003-1524814812150/files/prov/src/test/java/org/bouncycastle/jce/provider/test/X509LDAPCertStoreTest.java?sort=name&dir=ASC&mode=heatmap#L241
+\begin{minted}[highlightlines=1]{java}
+CertStore cs = CertStore.getInstance("X509LDAP", params1, "BC");
+X509CertSelector sl = new X509CertSelector();
+CertificateFactory cf = CertificateFactory.getInstance("X.509", "BC");
+X509Certificate xcert = (X509Certificate)cf.generateCertificate(new ByteArrayInputStream(cert1));
+sl.setCertificate(xcert);
+Collection coll = cs.getCertificates(sl);
+if (coll.isEmpty() || !coll.iterator().next().equals(xcert)) {
+fail("certificate could not be picked from LDAP directory.");
+}
+// System.out.println(coll.toArray()[0]);
+sl.setCertificate(null);
+sl.setSubject(getSubject(xcert).getEncoded());
+coll = cs.getCertificates(sl);
+if (coll.isEmpty() || !coll.iterator().next().equals(xcert)) {
+        fail("certificate could not be picked from LDAP directory.");
+}
+X509CRLSelector sl2 = new X509CRLSelector();
+X509CRL crl = (X509CRL)cf.generateCRL(new ByteArrayInputStream(directCRL));
+\end{minted}
+
 \detection{}
 
 \discussion{}

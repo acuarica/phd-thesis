@@ -11,6 +11,29 @@ EditorView editorView = ((CayenneModelerFrame) Application.
         .getView();
 \end{minted}
 
+\todo{Luis: Get bitly link.}
+\footnote{\url{}}
+
+%https://lgtm.com/projects/g/aws-amplify/aws-sdk-android/snapshot/dist-2970378-1524814812150/files/aws-android-sdk-autoscaling/src/main/java/com/amazonaws/services/autoscaling/model/transform/ResourceContentionExceptionUnmarshaller.java?sort=name&dir=ASC&mode=heatmap#L39
+\begin{minted}[highlightlines=1]{java}
+public class ResourceContentionExceptionUnmarshaller extends StandardErrorUnmarshaller {
+    public ResourceContentionExceptionUnmarshaller() {
+        super(ResourceContentionException.class);
+    }
+    public AmazonServiceException unmarshall(Node node) throws Exception {
+        // Bail out if this isn't the right error code that this
+        // marshaller understands.
+        String errorCode = parseErrorCode(node);
+        if (errorCode == null || !errorCode.equals("ResourceContention"))
+            return null;
+        ResourceContentionException e = (ResourceContentionException) super.unmarshall(node);
+        return e;
+    }
+}
+
+        
+\end{minted}
+
 \detection{}
     
 \discussion{}
