@@ -1,4 +1,5 @@
 \begin{pattern}{CovariantGeneric}
+According to the generics are invariant.
 
 \instances{}
 The following snippet%
@@ -26,6 +27,26 @@ public class Collections {
     }
 }
 \end{minted}
+
+The 
+\footnote{\url{http://bit.ly/jfaster_mango_2EhXzUW}}
+
+%https://lgtm.com/projects/g/jfaster/mango/snapshot/dist-1793930711-1524814812150/files/src/test/java/org/jfaster/mango/operator/UpdateOperatorTest.java?sort=name&dir=ASC&mode=heatmap#L125
+\begin{minted}[highlightlines=6]{java}
+@Test
+public void testUpdateReturnBoolean() throws Exception {
+    // [...]
+    List<Object> args = boundSql.getArgs();
+    // [...]
+    assertThat(args.get(0), equalTo((Object) "ash"));
+    // [...]
+}
+
+public static <T> Matcher<T> equalTo(T operand) {
+    // [...]
+}
+\end{minted}
+
 
 \footnote{\url{http://bit.ly/spockframework_spock_2UYEsF5}}
 

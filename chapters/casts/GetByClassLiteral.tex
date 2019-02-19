@@ -44,6 +44,21 @@ if (type == String.class) {
 }
 \end{minted}
 
+The following%
+\footnote{\url{http://bit.ly/smartdevicelink_sdl_android_2EjJiaq}}
+
+\code{isInstance} method%
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html\#isInstance-java.lang.Object-}}
+of the class \code{java.lang.Class}
+
+%https://lgtm.com/projects/g/smartdevicelink/sdl_android/snapshot/dist-2037360569-1524814812150/files/sdl_android/src/main/java/com/smartdevicelink/proxy/rpc/GetVehicleDataResponse.java?sort=name&dir=ASC&mode=heatmap#L236
+\begin{minted}[highlightlines=2]{java}
+public MyKey getMyKey() {
+    return (MyKey) getObject(MyKey.class, KEY_MY_KEY);
+} 
+\end{minted}
+
+
 \detection{}
 
 \discussion{}

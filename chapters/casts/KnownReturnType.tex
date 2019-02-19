@@ -4,11 +4,11 @@ actual return type value.
 This is usually to hide implementation details.
 Nevertheless, sometimes it is convenient for the developer to work
 directly on the actual return type.
-This pattern is used to cast from the method's return type to
-the \emph{known} actual return type.
 %
 \done{Nate: KnownReturnType?}
 %
+This pattern is used to cast from the method's return type to
+the \emph{known} actual return type.
 
 \instances{}
 
@@ -33,6 +33,24 @@ public class CubeInstance
     // [...]
 }
 \end{minted}
+
+
+\footnote{\url{http://bit.ly/eclipse_pdt_2Ekeu9v}}
+
+%https://lgtm.com/projects/g/eclipse/pdt/snapshot/dist-19313119-1524814812150/files/plugins/org.eclipse.php.debug.core/src/org/eclipse/php/internal/debug/core/zend/communication/DebugConnection.java?sort=name&dir=ASC&mode=heatmap#L795
+\begin{minted}[highlightlines=1]{java}
+debugTarget = (PHPDebugTarget) createDebugTarget(this, launch, URL, requestPort, process, runWithDebug, stopAtFirstLine, project);
+    
+protected IDebugTarget createDebugTarget(DebugConnection thread, ILaunch launch, String url, int requestPort,
+                        PHPProcess process, boolean runWithDebug, boolean stopAtFirstLine, IProject project) throws CoreException {
+                return new PHPDebugTarget(thread, launch, url, requestPort, process, runWithDebug, stopAtFirstLine, project);
+}
+
+public class PHPDebugTarget extends PHPDebugElement
+                implements IPHPDebugTarget, IBreakpointManagerListener, IStepFilters {
+}
+\end{minted}
+
 
 \detection{}
 

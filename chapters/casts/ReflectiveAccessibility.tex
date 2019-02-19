@@ -20,4 +20,17 @@ HttpEntity wrapped = (HttpEntity) f.get(entity);
 \end{minted}
 \end{listing}
 
+\footnote{\url{http://bit.ly/joel-costigliola_assertj-db_2Ip1Rho}}
+
+%https://lgtm.com/projects/g/joel-costigliola/assertj-db/snapshot/dist-890344-1524814812150/files/src/test/java/org/assertj/db/navigation/ToChange_ChangeOfModification_Integer_Test.java?sort=name&dir=ASC&mode=heatmap#L199
+\begin{minted}[highlightlines=4]{java}
+Field fieldPosition = ChangesOutputter.class.getDeclaredField("changesPosition");
+fieldPosition.setAccessible(true);
+ChangesOutputter changesDisplayBis = output(changes);
+PositionWithChanges<ChangesAssert, ChangeAssert> positionBis = 
+            (PositionWithChanges) fieldPosition.get(changesDisplayBis);
+\end{minted}
+
+
+
 \end{pattern}

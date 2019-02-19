@@ -14,6 +14,17 @@ implement the \code{Comparable} interface, but class \code{Integer} does.
 final Comparable max = (Comparable) properties.getMaxValue();
 \end{minted}
 
+Dynamic Proxy implementation
+\footnote{\url{http://bit.ly/CloudSlang_cloud-slang_2EkgP4l}}
+
+%https://lgtm.com/projects/g/CloudSlang/cloud-slang/snapshot/dist-13290023-1524814812150/files/cloudslang-entities/src/main/java/io/cloudslang/lang/entities/bindings/values/PyObjectValueProxyFactory.java?sort=name&dir=ASC&mode=heatmap#L51
+\begin{minted}[highlightlines=1]{java}
+PyObjectValueProxyClass proxyClass = getProxyClass(pyObject);
+PyObjectValue pyObjectValue = (PyObjectValue) proxyClass.getConstructor()
+        .newInstance(proxyClass.getParams());
+((Proxy) pyObjectValue).setHandler(new PyObjectValueMethodHandler(content, sensitive, pyObject));
+\end{minted}
+
 \detection{}
 
 \discussion{}
