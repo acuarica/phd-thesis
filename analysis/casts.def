@@ -1,5 +1,5 @@
 \newcommand{\npattern}{33}
 \newcommand{\ngroup}{10}
-\newcommand{\nprim}{300}
-\newcommand{\nbrokenlinks}{286}
+\newcommand{\nprim}{301}
+\newcommand{\nbrokenlinks}{288}
 \newcommand{\nlikelybugs}{1}
