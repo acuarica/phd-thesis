@@ -39,7 +39,7 @@ Alternatively, the following listing%
 \footnote{\url{http://bit.ly/neo4j_neo4j_2vKP0MW}}
 shows another example of the \thisp{} pattern.
 But in this case,
-a \code{getClass} comparison is used to guard for the same type as the receiver.
+a \code{getClass} comparison is used to guard for the same type as the receiver (line 4).
 
 %https://lgtm.com/projects/g/neo4j/neo4j/snapshot/dist-15760049-1519892555006/files/community/bolt/src/main/java/org/neo4j/bolt/v1/messaging/infrastructure/ValuePath.java?sort=name&dir=ASC&mode=heatmap&excluded=false#L278
 \begin{minted}[highlightlines=7]{java}
@@ -112,16 +112,20 @@ public boolean equals(Object obj) {
 \end{minted}
 
 \detection{}
-\todo{Matthias: If you do it manually, I wouldn't talk of a detection *query*.}
-The detection query looks for a cast expression inside an \code{equals} method implementation.
+\done{Matthias: If you do it manually, I wouldn't talk of a detection *query*.}
+We look for a cast expression inside an \code{equals} method implementation.
 Moreover, the cast needs to be guarded by either an \code{instanceof} test or a \code{getClass} comparison.
 And the type being casted to needs to be either the same as the enclosing class or a superclass of it.
 
 \discussion{}
 The pattern for an \code{equals} method implementation is well-known.
-
-We found out that, with respect to cast,
-most \code{equals} methods are implemented with the same structure.
+We found out that most \code{equals} methods are implemented with the same structure.
+That is, first checking if the parameter is actually the receiver object;
+then checking if the argument is not null;
+and at last, checking if the argument is of the right class
+(with either an \code{instanceof} test or a \code{getClass} comparison).
+Once all checks are performed, a cast follows, and a field-by-field comparison is made.
+Usually this leads to boilerplate code.
 \todo{Matthias: This sentence needs to be expanded (add something before)}
 Maybe avoid boilerplate code by providing code generation,
 %
