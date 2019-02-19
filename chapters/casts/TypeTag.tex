@@ -71,15 +71,63 @@ public boolean isSetSolidFill() {
 }
 \end{minted}
 
+In some cases, the type to be casted to is the same in every branch.
+The following snippet%
+\footnote{\url{http://bit.ly/loopj_android-async-http_2IpIULk}}
+shows an instance of this case.
+The cast is applied to the \code{message.obj} field to (line 13),
+according to the value of the \code{message.what} field (line 1).
+However, a similar cast is applied in the first branch (line 3).
+In both branches \code{message.obj} is of type \code{Object[]},
+but in the case of \code{FAILURE\_MESSAGE},
+the array contains one more element (line 16).
+This suggests that the \code{(Object[]) message.obj} array denotes two different objects,
+but are not distinguishable from the type system perspective.
+
+%https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1549372228293/files/library/src/main/java/com/loopj/android/http/AsyncHttpResponseHandler.java?sort=name&dir=ASC&mode=heatmap#L359
+\begin{minted}[highlightlines=13]{java}
+switch (message.what) {
+    case SUCCESS_MESSAGE:
+        response = (Object[]) message.obj;
+        if (response != null && response.length >= 3) {
+            onSuccess((Integer) response[0], (Header[]) response[1],
+                    (byte[]) response[2]);
+        } else {
+            AsyncHttpClient.log.e(LOG_TAG, 
+                    "SUCCESS_MESSAGE didn't got enough params");
+        }
+        break;
+    case FAILURE_MESSAGE:
+        response = (Object[]) message.obj;
+        if (response != null && response.length >= 4) {
+            onFailure((Integer) response[0], (Header[]) response[1],
+                    (byte[]) response[2], (Throwable) response[3]);
+        } else {
+            AsyncHttpClient.log.e(LOG_TAG,
+                    "FAILURE_MESSAGE didn't got enough params");
+        }
+        break;
+    // [...]
+}
+\end{minted}
+
+
 \detection{}
 The detection of this pattern is similar to the \nameref{pat:PatternMatching} detection, but instead of looking for an \code{instanceof} guarded cast, we look for an application-specific guard.
+The guard needs to determine either the resulting type of the cast instance, or
+the subsequent operations applied to the result of the cast instance if the types in every branch are the same.
 
 \discussion{}
-In some cases, the \thisp{} could be replaced by \nameref{pat:PatternMatching}.
+In some cases, the \thisp{} pattern can be replaced by \nameref{pat:PatternMatching}.
+However, if the application-specific tag is a numeric value,
+the \thisp{} could perform better than the \nameref{pat:PatternMatching} using \code{instanceof}.
+Moreover, there are situation where the \thisp{} can not be avoid since the types to be casted to are the same.
 
 \related{}
 %
-\todo{Nate: PatternMatching}
-Related to \nameref{pat:PatternMatching}
+\done{Nate: PatternMatching}
+This pattern is related to \nameref{pat:PatternMatching} since both denoted guarded casts.
+The difference is that \thisp{} uses an application-specific test.
+\nameref{pat:GetByClassLiteral} could be seen as a special case of \thisp{} where the tag is a class literal.
 
 \end{pattern}

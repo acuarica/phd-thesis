@@ -81,7 +81,24 @@
 \newcommand{\sourcegraph}{\host{sourcegraph}}
 \newcommand{\bitly}{\host{Bitly}}
 
+\newcommand{\hdr}{\rowcolor{header-color}}
+\newcommand{\alt}{\rowcolor{alt-row-color}}
+\newcommand{\row}{}
+
 \newcommand{\unsafe}{\emph{Unsafe}}
+
+\definecolor{header-color}{HTML}{D1D1D1}
+\definecolor{alt-row-color}{HTML}{ECECEC}
+
+\newcommand{\artstyle}[1]{\textsl{#1}}
+\newcommand{\artexp}[2]{\artstyle{#1}:\artstyle{#2}}
+\newcommand{\art}[3]{\artstyle{#1}:\artstyle{#2}\footnote{\url{#3}}}
+
+\newcommand{\member}[1]{\emph{#1}}
+\newcommand{\smugroup}[1]{\textsl{#1}}
+\newcommand{\stackoverflow}{Stack Overflow}
+
+
 
 \definecolor{lightblue}{rgb}{0,0.4,1}
 \definecolor{gray}{rgb}{0.2,0.2,0.2}

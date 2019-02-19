@@ -90,24 +90,31 @@ abstract class $AutoValue_ListsItem extends ListsItem {
 }
 \end{minted}
 
-The following shows a non-trivial implementation of equals.
+The following snippet%
 \footnote{\url{http://bit.ly/bndtools_bnd_2SM5pOw}}
+shows a non-trivial implementation of \code{equals}.
+The enclosing class of the \code{equals} method is \code{CapReq} (line 1).
+However, the cast instance (line 13) is not against the enclosing class,
+it is against to the \code{Requirement} class.
+Note that the cast using the enclosing class as target type is in line 9.
 
 %https://lgtm.com/projects/g/bndtools/bnd/snapshot/dist-930051-1524814812150/files/biz.aQute.bndlib/src/aQute/bnd/osgi/resource/CapReq.java?sort=name&dir=ASC&mode=heatmap#L73
-\begin{minted}[highlightlines=12]{java}
-@Override
-public boolean equals(Object obj) {
-    if (this == obj)
-            return true;
-    if (obj == null)
-            return false;
-    if (obj instanceof CapReq)
-            return equalsNative((CapReq) obj);
-    if ((mode == MODE.Capability) && (obj instanceof Capability))
-            return equalsCap((Capability) obj);
-    if ((mode == MODE.Requirement) && (obj instanceof Requirement))
-            return equalsReq((Requirement) obj);
-    return false;
+\begin{minted}[highlightlines=13]{java}
+class CapReq {
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+                return true;
+        if (obj == null)
+                return false;
+        if (obj instanceof CapReq)
+                return equalsNative((CapReq) obj);
+        if ((mode == MODE.Capability) && (obj instanceof Capability))
+                return equalsCap((Capability) obj);
+        if ((mode == MODE.Requirement) && (obj instanceof Requirement))
+                return equalsReq((Requirement) obj);
+        return false;
+    }
 }
 \end{minted}
 
@@ -120,18 +127,20 @@ And the type being casted to needs to be either the same as the enclosing class 
 \discussion{}
 The pattern for an \code{equals} method implementation is well-known.
 We found out that most \code{equals} methods are implemented with the same structure.
-That is, first checking if the parameter is actually the receiver object;
+That is, first checking if the parameter is another reference to the receiver object;
 then checking if the argument is not null;
 and at last, checking if the argument is of the right class
 (with either an \code{instanceof} test or a \code{getClass} comparison).
 Once all checks are performed, a cast follows, and a field-by-field comparison is made.
 Usually this leads to boilerplate code.
-\todo{Matthias: This sentence needs to be expanded (add something before)}
-Maybe avoid boilerplate code by providing code generation,
+\done{Matthias: This sentence needs to be expanded (add something before)}
+\java{} could provide a mechanism to avoid boilerplate code by providing code generation,
 %
-\todo{Nate: \rust{} traits too. \code{\#[derive(Eq)]} }
+\done{Nate: \rust{} traits too. \code{\#[derive(Eq)]} }
 %
-like in \haskell{} (with \code{deriving}).
+like in \haskell{} with \code{deriving},
+\scala{} (with case classes), or
+\rust{} (with \code{derive(Eq)}).
 
 \cite{vaziriDeclarativeObjectIdentity2007} propose a declarative approach to avoid boilerplate code when implementing both the \code{equals} and \code{hashCode} methods.
 They manually analyzed several applications, and found there are many issues while implementing \code{equals()} and \code{hashCode()} methods.
@@ -143,5 +152,6 @@ by Brian Goetz --- \java{} Language Architect --- addressing these issues from a
 It is definitely a starting point towards improving the \java{} language.
 
 \related{}
-This pattern can be seen as a special instance of the \nameref{pat:PatternMatching} pattern.
+This pattern can be seen as a special instance of the \nameref{pat:PatternMatching} pattern when the guard is an \code{instanceof} test.
+
 \end{pattern}
