@@ -3,7 +3,7 @@ A cast is using an application-specific guard,
 but the guard depends on a class literal.
 
 \instances{}
-The following example,%
+The following example%
 \footnote{\url{http://bit.ly/elastic_elasticsearch_2SSgsFV}}
 shows an instance of the \thisp{} pattern.
 A cast is performed to the \code{field} variable (line 22),
@@ -44,12 +44,13 @@ if (type == String.class) {
 }
 \end{minted}
 
-The following%
+In the following listing,%
 \footnote{\url{http://bit.ly/smartdevicelink_sdl_android_2EjJiaq}}
-
-\code{isInstance} method%
+a cast is applied to the result of the \code{getObject} method (line 2).
+The target type of the cast, \code{MyKey}, corresponds to the class literal argument, \code{MyKey.class}.
+Essentially, \code{getObject} is using the \code{isInstance} method%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html\#isInstance-java.lang.Object-}}
-of the class \code{java.lang.Class}
+of the class \code{java.lang.Class} to check whether an object is from a certain type.
 
 %https://lgtm.com/projects/g/smartdevicelink/sdl_android/snapshot/dist-2037360569-1524814812150/files/sdl_android/src/main/java/com/smartdevicelink/proxy/rpc/GetVehicleDataResponse.java?sort=name&dir=ASC&mode=heatmap#L236
 \begin{minted}[highlightlines=2]{java}
@@ -58,13 +59,21 @@ public MyKey getMyKey() {
 } 
 \end{minted}
 
-
 \detection{}
+This pattern is characterized by the use of a class literal.%
+\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.8.2}}
+The class literal needs to be used in a comparison such that guards the cast instance.
 
 \discussion{}
+This pattern may be used instead of \nameref{pat:PatternMatching} when the developer wants to match exactly the runtime class.
+The \code{instanceof} operator%
+\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.20.2}}
+returns \code{true} if the expression could be cast to the specified type,
+whereas using a class literal comparison returns \code{true} if the expression is exactly the runtime class.
 
 \related{}
-
-\nameref{pat:TypeTag}
+This pattern can be seen as a particular instance of the \nameref{pat:TypeTag} pattern,
+where the tag is given by the class literal.
+As discussed above, it is related to \nameref{pat:PatternMatching} but this pattern uses an exact match of the runtime class.
 
 \end{pattern}
