@@ -4,12 +4,18 @@ Family polymorphism.
 \instances{}
 The following example%
 \footnote{\url{http://bit.ly/pentaho_pentaho-kettle_2FN59J8}}
-%
-\todo{Nate: ?}
-%
 shows an instance of the \thisp{} pattern.
-
+%
+\done{Nate: ?}
+%
+A cast is applied to the parameter \code{smi} (line 13).
+The \code{smi} parameter is declared as \code{StepMetaInterface}, parameter of the \code{stopRunning} method in line 11.
+The \code{stopRunning} method is an implementation of the interface method declared in line 3.
+%
 \done{Nate: Good example.}
+%
+This cast needs to be done because the developer expects the \code{smi} parameter to be an instance of \code{DynamicSQLRowMeta} when invoking the \code{stopRunning} method on a \code{DynamicSQLRow} object.
+
 %https://lgtm.com/projects/g/pentaho/pentaho-kettle/snapshot/dist-1815472020-1524814812150/files/engine/src/main/java/org/pentaho/di/trans/steps/dynamicsqlrow/DynamicSQLRow.java?sort=name&dir=ASC&mode=heatmap#L281
 \begin{minted}[highlightlines=13]{java}
 public interface StepInterface extends VariableSpace, HasLogChannelInterface {
@@ -31,7 +37,11 @@ public class DynamicSQLRow extends BaseStep implements StepInterface {
 }
 \end{minted}
 
+The next example%
 \footnote{\url{http://bit.ly/apache_orc_2SE4C2m}}
+is similar to the previous one.
+The \code{masked} parameter is cast to \code{DoubleColumnVector} (line 5).
+It is so because the \code{masked} variable is expected to hold an instance of \code{DoubleColumnVector} when the \code{maskData} method is applied to an object of type \code{DoubleIdentity}.
 
 %https://lgtm.com/projects/g/apache/orc/snapshot/dist-1506201906740-1524814812150/files/java/core/src/java/org/apache/orc/impl/mask/DoubleIdentity.java?sort=name&dir=ASC&mode=heatmap#L32
 \begin{minted}[highlightlines=5]{java}
@@ -44,6 +54,13 @@ public class DoubleIdentity implements DataMask {
     // [...]
   }
 }
+
+public interface DataMask {
+  // [...]
+  void maskData(ColumnVector original, ColumnVector masked,
+                int start, int length);
+}
+
 \end{minted}
 
 \footnote{\url{http://bit.ly/knowm_XChange_2UPPDj9}}
@@ -77,6 +94,11 @@ public abstract class BaseExchange implements Exchange {
 \detection{}
 
 \discussion{}
+Another way to see the \thisp{} is when an overriding method uses covariant parameter types.
+In \java{}, parameter types are invariant.
+That is, parameter types can not be covariant because that would break subtype polymorphism,
+and can not be contravariant because that would cause conflict resolution issues with overloading.
+
 \cite{ernstFamilyPolymorphism2001}
 
 \related{}

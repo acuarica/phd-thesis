@@ -8,6 +8,7 @@
         "bytecode",
         "checkcast",
         "clazz",
+        "contravariant",
         "datalog",
         "dendrogram",
         "deserialization",

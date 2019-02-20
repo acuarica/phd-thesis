@@ -5,13 +5,12 @@ library(plyr)
 
 groups <- list(
   'Guarded' = c('PatternMatching', 'TypeTag', "Equals", 'GetByClassLiteral'),
-  'Creational' = c('Family', 'Factory', 'KnownReturnType', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol', 'Composite'),
+  'Creational' = c('Family', 'Factory', 'KnownReturnType', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol', 'Composite', 'NewDynamicInstance'),
   'Tuples' = c('LookupById', 'ObjectAsArray', 'StaticResource'),
-  'Member\nResolution' = c('SelectOverload', 'AccessPrivateField'),
+  'Member\nResolution' = c('SelectOverload', 'AccessPrivateField', 'ReflectiveAccessibility'),
   'Variance' = c('Clone', 'CovariantReturn', 'CovariantGeneric'),
   'Implicit\nTypes' = c('ImplicitIntersectionType', 'ImplicitUnionType'),
   'Hierarchical' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
-  'Reflection' = c('ReflectiveAccessibility', 'NewDynamicInstance'),
   'Unchecked' = c('RemoveWildcard', 'GenericArray', 'UnoccupiedTypeParameter'),
   'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'UseRawType', 'Literal')
 )

@@ -12,7 +12,7 @@ either within the enclosing method or class.
 The following snippet%
 \footnote{\url{http://bit.ly/apache_cxf_2SNoUXj}}
 shows an example of the \thisp{} pattern (line 4).
-The \code{samlTokenRenewer} variable is being casted to the \code{SAMLTokenRenewer} class.
+The \code{samlTokenRenewer} variable is being cast to the \code{SAMLTokenRenewer} class.
 The variable is declared with type \code{TokenRenewer} (superclass of \code{SAMLTokenRenewer}) in line 1.
 However, the variable is being initialized with the expression \code{new SAMLTokenRenewer()}. 
 Thus, the cast instance could be trivially avoided by changing the declaration of the \code{samlTokenRenewer} variable to \code{SAMLTokenRenewer} instead of \code{TokenRenewer}.
@@ -28,7 +28,7 @@ samlTokenRenewer.setAllowRenewalAfterExpiry(true);
 The following listing%
 \footnote{\url{http://bit.ly/facebookarchive_hadoop-20_2FuDeO7}}
 shows an example of the \thisp{} pattern.
-We can see that the field \code{uncompressedDirectBuf} is being casted to the \code{java.nio.ByteBuffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
+We can see that the field \code{uncompressedDirectBuf} is being cast to the \code{java.nio.ByteBuffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
 Nevertheless, the field is assigned only once in the constructor (line $7$)
 with a value of type \code{java.nio.ByteBuffer}.
 The value assigned is returned by the method
@@ -38,7 +38,7 @@ Inspecting the enclosing class, there is no other assignment to the
 \code{uncompressedDirectBuf} field,
 thus making possible to declare it as \code{final}.
 Therefore, the cast pattern in line $13$ will always succeed.
-Any other similar use of the \code{uncompressedDirectBuf} field needs to be casted to as well.
+Any other similar use of the \code{uncompressedDirectBuf} field needs to be cast as well.
 
 % https://lgtm.com/projects/g/facebookarchive/hadoop-20/snapshot/dist-1802091768-1524814812150/files/src/core/org/apache/hadoop/io/compress/snappy/SnappyCompressor.java?sort=name&dir=ASC&mode=heatmap#L134
 \begin{minted}[highlightlines=13]{java}
@@ -64,7 +64,7 @@ public class SnappyCompressor implements Compressor {
 
 In the next cast instance,%
 \footnote{\url{http://bit.ly/oblac_jodd_2UKxm6H}}
-the parameter \code{k1} is casted to the \code{Comparable} class (line 7).
+the parameter \code{k1} is cast to the \code{Comparable} class (line 7).
 \code{k1} is declared as \code{E} (line 5), an unbounded type parameter (line 1).
 This cast instance could be removed if \code{E} were a bounded type parameter, with \code{Comparable<E>} as upper bound, \ie,
 \code{SortedArrayList<E extends Comparable<E>>}.
