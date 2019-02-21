@@ -51,6 +51,12 @@ public class PHPDebugTarget extends PHPDebugElement
 }
 \end{minted}
 
+\footnote{\url{http://bit.ly/apache_activemq_2EnSivc}}
+
+%https://lgtm.com/projects/g/apache/activemq/snapshot/dist-11730660-1524814812150/files/activemq-client/src/main/java/org/apache/activemq/ActiveMQConnectionFactory.java?sort=name&dir=ASC&mode=heatmap#L235
+\begin{minted}[highlightlines=1]{java}
+throw (IllegalArgumentException)new IllegalArgumentException("Invalid broker URI: " + brokerURL).initCause(e);
+\end{minted}
 
 \detection{}
 
