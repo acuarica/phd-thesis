@@ -40,7 +40,14 @@ df$key <- ''
 df.malformed1 <- df[grep("#",df$value,invert=TRUE),]
 stopifnot(nrow(df.malformed1)==0)
 df.malformed2 <- df[grep(",",df$value,invert=TRUE),]
+stopifnot(nrow(df.malformed2)==0)
 df.malformed3 <- df[grep("@",df$value,invert=TRUE),]
+stopifnot(nrow(df.malformed3)==0)
+df.malformed4 <- df[grep(",.*,",df$value),]
+stopifnot(nrow(df.malformed4)==0)
+
+df.malformed <- df[grep("#\\w+(:\\w(\\w|-)*)?,@(src|test|gen)",df$value,invert=TRUE),]
+stopifnot(nrow(df.malformed)==0)
 
 df.long <- df
 df.long <- separate_rows(df.long, value, sep=',')
