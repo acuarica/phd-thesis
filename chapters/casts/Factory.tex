@@ -71,6 +71,21 @@ X509CRLSelector sl2 = new X509CRLSelector();
 X509CRL crl = (X509CRL)cf.generateCRL(new ByteArrayInputStream(directCRL));
 \end{minted}
 
+
+\footnote{\url{http://bit.ly/JSQLParser_JSqlParser_2TecMyB}}
+the \code{parserManager.parse} method returns a value of type \code{Statement}.
+
+%https://lgtm.com/projects/g/JSQLParser/JSqlParser/snapshot/dist-43250114-1524814812150/files/src/test/java/net/sf/jsqlparser/test/select/SelectTest.java?sort=name&dir=ASC&mode=heatmap#L437
+\begin{minted}[highlightlines=2]{java}
+statement = "SELECT * FROM mytable WHERE mytable.col = 9 LIMIT :param_name";
+select = (Select) parserManager.parse(new StringReader(statement));
+
+public class Select implements Statement {
+        // [...]
+}
+\end{minted}
+
+
 \detection{}
 
 \discussion{}
