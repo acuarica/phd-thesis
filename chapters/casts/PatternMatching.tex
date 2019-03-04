@@ -118,6 +118,20 @@ try {
 }
 \end{minted}
 
+
+\footnote{\url{http://bit.ly/kiegroup_jbpm_2ENCL8a}}
+
+
+%https://lgtm.com/projects/g/kiegroup/jbpm/snapshot/dist-1810050-1524814812150/files/jbpm-case-mgmt/jbpm-case-mgmt-impl/src/main/java/org/jbpm/casemgmt/impl/wih/StartCaseWorkItemHandler.java?sort=name&dir=ASC&mode=heatmap#L212
+\begin{minted}[highlightlines=1]{java}
+Collection<OrganizationalEntity> caseAssignments = ((CaseAssignment)caseFile).getAssignments(name);
+user = (User) caseAssignments.stream()
+		.filter(oe -> oe instanceof User)
+		.findFirst()
+		.orElseThrow(() -> new IllegalArgumentException());
+\end{minted}
+
+
 \detection{}
 To detect this pattern,
 a cast needs to be guarded by an \code{instanceof} expression.
