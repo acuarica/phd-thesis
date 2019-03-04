@@ -1,10 +1,16 @@
 \begin{pattern}{GenericArray}
 
 \instances{}
+The following snippet%
+\footnote{\url{http://bit.ly/ppiastucki_recast4j_2EM7zWK}}
 
-\footnote{\url{}}
-
+%https://lgtm.com/projects/g/ppiastucki/recast4j/snapshot/dist-4860452-1524814812150/files/detourtilecache/src/main/java/org/recast4j/detour/tilecache/AbstractTileLayersBuilder.java?sort=name&dir=ASC&mode=heatmap#L50
 \begin{minted}[highlightlines=1]{java}
+List<?>[][] partialResults = new List[th][tw];
+partialResults[ty][tx] = build(tx, ty, order, cCompatibility);
+layers.addAll((List<byte[]>) partialResults[y][x]);
+
+protected abstract List<byte[]> build(int tx, int ty, ByteOrder order, boolean cCompatibility);
 
 \end{minted}
 
