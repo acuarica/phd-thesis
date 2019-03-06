@@ -26,9 +26,31 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 \end{minted}
 
+
+make url
+\footnote{\url{}}
+
+%https://lgtm.com/projects/g/pentaho/pentaho-kettle/snapshot/dist-1815472020-1524814812150/files/ui/src/main/java/org/pentaho/di/ui/repository/controllers/RepositoriesController.java?sort=name&dir=ASC&mode=heatmap#L115
+\begin{minted}[highlightlines=7]{java}
+private void createBindings() {
+    loginDialog = (XulDialog) document.getElementById( "repository-login-dialog" );
+    repositoryEditButton = (XulButton) document.getElementById( "repository-edit" );
+    repositoryRemoveButton = (XulButton) document.getElementById( "repository-remove" );
+    username = (XulTextbox) document.getElementById( "user-name" );
+    userPassword = (XulTextbox) document.getElementById( "user-password" );
+    availableRepositories = (XulListbox) document.getElementById( "available-repository-list" );
+    showAtStartup = (XulCheckbox) document.getElementById( "show-login-dialog-at-startup" );
+    okButton = (XulButton) document.getElementById( "repository-login-dialog_accept" );
+    cancelButton = (XulButton) document.getElementById( "repository-login-dialog_cancel" );
+    // [...]
+}
+\end{minted}
+
+
 \detection{}
 
 \discussion{}
+Difference with tag and LookupById.
 %
 \todo{Nate: Could be determined at compile-time.}
 %

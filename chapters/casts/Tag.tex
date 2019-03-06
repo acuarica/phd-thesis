@@ -49,12 +49,45 @@ public final class MatchPanel extends JPanel implements Observer {
 }
 \end{minted}
 
+\footnote{\url{http://bit.ly/proninyaroslav_libretorrent_2TxpZCM}}
+
+%https://lgtm.com/projects/g/proninyaroslav/libretorrent/snapshot/dist-1506096326216-1524814812150/files/app/src/main/java/org/proninyaroslav/libretorrent/fragments/DetailTorrentFilesFragment.java?sort=name&dir=ASC&mode=heatmap#L166
+\begin{minted}[highlightlines=12]{java}
+private TorrentContentFileTree curDir;
+
+@Override
+public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    if (activity == null)
+        activity = (AppCompatActivity) getActivity();
+    if (savedInstanceState != null) {
+        files = (ArrayList<BencodeFileItem>) savedInstanceState.getSerializable(TAG_FILES);
+        priorities = (ArrayList<FilePriority>) savedInstanceState.getSerializable(TAG_PRIORITIES);
+        fileTree = (TorrentContentFileTree) savedInstanceState.getSerializable(TAG_FILE_TREE);
+        curDir = (TorrentContentFileTree) savedInstanceState.getSerializable(TAG_CUR_DIR);
+    } else {
+        makeFileTree();
+    }
+    // [...]
+}
+
+@Override
+public void onSaveInstanceState(Bundle outState) {
+    outState.putSerializable(TAG_FILES, files);
+    outState.putSerializable(TAG_PRIORITIES, priorities);
+    outState.putSerializable(TAG_FILE_TREE, fileTree);
+    outState.putSerializable(TAG_CUR_DIR, curDir);
+}
+\end{minted}
+
 \detection{}
 
 \discussion{}
 
 \related{}
 Related to \nameref{pat:VariableLessSpecificType}.
+
+How is it different from
 \nameref{pat:LookupById}.
 
 \end{pattern}
