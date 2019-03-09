@@ -118,17 +118,23 @@ try {
 }
 \end{minted}
 
-
+The next example%
 \footnote{\url{http://bit.ly/kiegroup_jbpm_2ENCL8a}}
-
+shows how \thisp{} can be used to filter elements by type within a stream.
+The cast instance is applied to stream operations (line 3) over the \code{caseAssignments} collection.
+The filter operation by type is performed in line 4.
 
 %https://lgtm.com/projects/g/kiegroup/jbpm/snapshot/dist-1810050-1524814812150/files/jbpm-case-mgmt/jbpm-case-mgmt-impl/src/main/java/org/jbpm/casemgmt/impl/wih/StartCaseWorkItemHandler.java?sort=name&dir=ASC&mode=heatmap#L212
-\begin{minted}[highlightlines=1]{java}
-Collection<OrganizationalEntity> caseAssignments = ((CaseAssignment)caseFile).getAssignments(name);
+\begin{minted}[highlightlines=3]{java}
+Collection<OrganizationalEntity> caseAssignments = 
+		((CaseAssignment)caseFile).getAssignments(name);
 user = (User) caseAssignments.stream()
 		.filter(oe -> oe instanceof User)
 		.findFirst()
 		.orElseThrow(() -> new IllegalArgumentException());
+
+public interface User extends OrganizationalEntity {}
+public interface OrganizationalEntity {}
 \end{minted}
 
 
