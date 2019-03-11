@@ -97,16 +97,6 @@ public abstract class BaseExchange implements Exchange {
 }
 \end{minted}
 
-\footnote{\url{http://bit.ly/apache_calcite_2Tcg6KC}}
-
-%https://lgtm.com/projects/g/apache/calcite/snapshot/dist-21860106-1524814812150/files/core/src/test/java/org/apache/calcite/test/RexImplicationCheckerTest.java?sort=name&dir=ASC&mode=heatmap#L417
-\begin{minted}[highlightlines=1]{java}
-final RexNode outerFloorCall = f.rexBuilder.makeCall(
-    SqlStdOperatorTable.CEIL, innerFloorCall,
-    f.rexBuilder.makeFlag(timeUnitRanges.get(j)));
-final RexCall simplifiedExpr = (RexCall) defaultSimplifier.apply(outerFloorCall);
-\end{minted}
-
 \detection{}
 
 \discussion{}
