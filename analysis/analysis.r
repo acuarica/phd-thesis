@@ -4,15 +4,15 @@ library(ggplot2)
 library(plyr)
 
 groups <- list(
-  'Guarded' = c('PatternMatching', 'TypeTag', "Equals", 'GetByClassLiteral'),
-  'Creational' = c('Family', 'Factory', 'KnownReturnType', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol', 'Composite', 'NewDynamicInstance'),
-  'Tuples' = c('LookupById', 'ObjectAsArray', 'StaticResource'),
-  'Member\nResolution' = c('SelectOverload', 'AccessPrivateField', 'ReflectiveAccessibility'),
+  'Guarded' = c('PatternMatching', 'TypeTag', 'Equals', 'GetByClassLiteral'),
+  'Creational' = c('Family', 'Factory', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol', 'Composite', 'NewDynamicInstance'),
+  'Tuples' = c('LookupById', 'StaticResource'),
+  'Member\nResolution' = c('SelectOverload', 'ReflectiveAccessibility'),
   'Variance' = c('Clone', 'CovariantReturn', 'CovariantGeneric'),
   'Implicit\nTypes' = c('ImplicitIntersectionType', 'ImplicitUnionType'),
   'Hierarchical' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
   'Unchecked' = c('RemoveWildcard', 'GenericArray', 'UnoccupiedTypeParameter'),
-  'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'UseRawType', 'Literal')
+  'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'UseRawType', 'Literal', 'KnownReturnType', 'ObjectAsArray', 'AccessPrivateField')
 )
 
 size <- 5000

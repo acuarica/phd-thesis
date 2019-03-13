@@ -59,6 +59,25 @@ public MyKey getMyKey() {
 } 
 \end{minted}
 
+\footnote{\url{http://bit.ly/OPCFoundation_UA-Java-Legacy_2Fb2xmZ}}
+
+%https://lgtm.com/projects/g/OPCFoundation/UA-Java-Legacy/snapshot/dist-1804064538-1524814812150/files/src/main/java/org/opcfoundation/ua/encoding/binary/BinaryDecoder.java?sort=name&dir=ASC&mode=heatmap#L214
+\begin{minted}[highlightlines=9]{java}
+@Override
+@SuppressWarnings("unchecked")
+public <T> T get(String fieldName, Class<T> clazz) throws DecodingException {
+    if (clazz.equals(Boolean.class)) {
+            return (T) getBoolean(fieldName);
+    }
+    // [...]
+    if (clazz.equals(ExtensionObject.class)) {
+            return (T) getExtensionObject(fieldName);
+    }
+    // [...]
+}
+\end{minted}
+
+
 \detection{}
 This pattern is characterized by the use of a class literal.%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.8.2}}
