@@ -59,7 +59,11 @@ public MyKey getMyKey() {
 } 
 \end{minted}
 
+Similar to the first example, the next snippet%
 \footnote{\url{http://bit.ly/OPCFoundation_UA-Java-Legacy_2Fb2xmZ}}
+contains several type cases.
+Each type case is guarded by an \code{equals} comparison between a class literal and the \code{clazz} parameter.
+The cast is applied to the type parameter \code{T} only if the guard succeeds.
 
 %https://lgtm.com/projects/g/OPCFoundation/UA-Java-Legacy/snapshot/dist-1804064538-1524814812150/files/src/main/java/org/opcfoundation/ua/encoding/binary/BinaryDecoder.java?sort=name&dir=ASC&mode=heatmap#L214
 \begin{minted}[highlightlines=9]{java}
@@ -67,11 +71,11 @@ public MyKey getMyKey() {
 @SuppressWarnings("unchecked")
 public <T> T get(String fieldName, Class<T> clazz) throws DecodingException {
     if (clazz.equals(Boolean.class)) {
-            return (T) getBoolean(fieldName);
+        return (T) getBoolean(fieldName);
     }
     // [...]
     if (clazz.equals(ExtensionObject.class)) {
-            return (T) getExtensionObject(fieldName);
+        return (T) getExtensionObject(fieldName);
     }
     // [...]
 }
