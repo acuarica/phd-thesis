@@ -2278,7 +2278,7 @@ scope here.},
 
 @book{sorensenTurchinSupercompilerRevisited1996,
   title = {Turchin's {{Supercompiler Revisited}} - {{An}} Operational Theory of Positive Information Propagation},
-  abstract = {Turchin‘s supercompiler is a program transformer that includes both partial evaluation and deforestation. Although known in the West since 1979, the essence of its techniques, its more precise relations to other transformers, and the properties of the programs that it produces are only now becoming apparent in the Western functional programming community. This thesis gives a new formulation of the supercompiler in familiar terms; we study the essence of it, how it achieves its effects, and its relations to related transformers; and we develop results dealing with the problems of preserving semantics, assessing the efficiency of transformed programs, and ensuring termination.},
+  abstract = {Turchin`s supercompiler is a program transformer that includes both partial evaluation and deforestation. Although known in the West since 1979, the essence of its techniques, its more precise relations to other transformers, and the properties of the programs that it produces are only now becoming apparent in the Western functional programming community. This thesis gives a new formulation of the supercompiler in familiar terms; we study the essence of it, how it achieves its effects, and its relations to related transformers; and we develop results dealing with the problems of preserving semantics, assessing the efficiency of transformed programs, and ensuring termination.},
   author = {S\o{}rensen, Morten Heine},
   year = {1996},
   file = {/Users/luigi/work/zotero/storage/KMWFFDQC/Sørensen - 1996 - Turchin's Supercompiler Revisited - An operational.pdf;/Users/luigi/work/zotero/storage/Q79BHCQY/summary.html}
@@ -3516,7 +3516,7 @@ Associated with the functional style of programming is an algebra of programs wh
   volume = {1},
   issn = {2473-7321},
   doi = {10.22152/programming-journal.org/2017/1/8},
-  abstract = {The occurrence of similar code, or ‘code clones', can make program code difficult to read, modify and maintain. This paper describes industrial case studies of clone detection and elimination using a refactoring and clone detection tool. We discuss how the studies have informed the design of the tool; more importantly, we use the studies to illustrate the complex set of decisions that have to be taken when performing clone elimination in practice. The case studies were performed in collaboration with engineers from Ericsson AB, and used the refactoring tool Wrangler for Erlang. However, the conclusions we draw are largely language-independent, and set out the pragmatics of clone detection and elimination in real-world projects as well as design principles for clone detection decision-support tools.},
+  abstract = {The occurrence of similar code, or `code clones', can make program code difficult to read, modify and maintain. This paper describes industrial case studies of clone detection and elimination using a refactoring and clone detection tool. We discuss how the studies have informed the design of the tool; more importantly, we use the studies to illustrate the complex set of decisions that have to be taken when performing clone elimination in practice. The case studies were performed in collaboration with engineers from Ericsson AB, and used the refactoring tool Wrangler for Erlang. However, the conclusions we draw are largely language-independent, and set out the pragmatics of clone detection and elimination in real-world projects as well as design principles for clone detection decision-support tools.},
   language = {en},
   number = {2},
   journal = {The Art, Science, and Engineering of Programming},
@@ -3715,7 +3715,7 @@ Associated with the functional style of programming is an algebra of programs wh
   issn = {2473-7321},
   shorttitle = {{{TRIOT}}},
   doi = {10.22152/programming-journal.org/2017/1/6},
-  abstract = {Context: Multidimensional arrays are used by many different algorithms. As such, indexing and broadcasting complex operations over multidimensional arrays are ubiquitous tasks and can be performance limiting. Inquiry: Simultaneously indexing two or more multidimensional arrays with different shapes (e.g., copying data from one tensor to another larger, zero padded tensor in anticipation of a convolution) is difficult to do efficiently: Hard-coded nested for loops in C, Fortran, and Go cannot be applied when the dimension of a tensor is unknown at compile time. Likewise, boost::multi\_array cannot be used unless the dimensions of the array are known at compile time, and the style of implementation restricts the user from using the index tuple inside a vectorized operation (as would be required to compute an expected value of a multidimensional distribution). On the other hand, iteration methods that do not require the dimensionality or shape to be known at compile time (e.g., incrementing and applying carry operations to index tuples or remapping integer indices in the flat array), can be substantially slower than hard-coded nested for loops. Approach: Using a few tasks that broadcast operations over multidimensional arrays, several existing methods are compared: hard-coded nested for loops in C and Go, vectorized operations in Fortran, boost::multi\_array, numpy, tuple incrementing, and integer reindexing. Knowledge: A new approach to this problem, ‘‘template-recursive iteration over tensors'' (TRIOT), is proposed. This new method, which is made possible by features of C++11, can be used when the dimensions of the tensors are unknown at compile time. Furthermore, the proposed method can access the index tuple inside the vectorized operations, permitting much more flexible operations. Grounding: Runtimes of all methods are compared, and demonstrate that the proposed TRIOT method is competitive with both hard-coded nested for loops in C and Go, as well as vectorized operations in Fortran, despite not knowing the dimensions at compile time. TRIOT outperforms boost::multi\_array, numpy, tuple incrementing, and integer reindexing. Importance: Manipulation of multidimensional arrays is a common task in software, especially in high-performance numerical methods. This paper proposes a novel way to leverage template recursion to iterate over and apply operations to multidimensional arrays, and then demonstrates the superior performance and flexibility of operations that can be achieved using this new approach.},
+  abstract = {Context: Multidimensional arrays are used by many different algorithms. As such, indexing and broadcasting complex operations over multidimensional arrays are ubiquitous tasks and can be performance limiting. Inquiry: Simultaneously indexing two or more multidimensional arrays with different shapes (e.g., copying data from one tensor to another larger, zero padded tensor in anticipation of a convolution) is difficult to do efficiently: Hard-coded nested for loops in C, Fortran, and Go cannot be applied when the dimension of a tensor is unknown at compile time. Likewise, boost::multi\_array cannot be used unless the dimensions of the array are known at compile time, and the style of implementation restricts the user from using the index tuple inside a vectorized operation (as would be required to compute an expected value of a multidimensional distribution). On the other hand, iteration methods that do not require the dimensionality or shape to be known at compile time (e.g., incrementing and applying carry operations to index tuples or remapping integer indices in the flat array), can be substantially slower than hard-coded nested for loops. Approach: Using a few tasks that broadcast operations over multidimensional arrays, several existing methods are compared: hard-coded nested for loops in C and Go, vectorized operations in Fortran, boost::multi\_array, numpy, tuple incrementing, and integer reindexing. Knowledge: A new approach to this problem, ``template-recursive iteration over tensors'' (TRIOT), is proposed. This new method, which is made possible by features of C++11, can be used when the dimensions of the tensors are unknown at compile time. Furthermore, the proposed method can access the index tuple inside the vectorized operations, permitting much more flexible operations. Grounding: Runtimes of all methods are compared, and demonstrate that the proposed TRIOT method is competitive with both hard-coded nested for loops in C and Go, as well as vectorized operations in Fortran, despite not knowing the dimensions at compile time. TRIOT outperforms boost::multi\_array, numpy, tuple incrementing, and integer reindexing. Importance: Manipulation of multidimensional arrays is a common task in software, especially in high-performance numerical methods. This paper proposes a novel way to leverage template recursion to iterate over and apply operations to multidimensional arrays, and then demonstrates the superior performance and flexibility of operations that can be achieved using this new approach.},
   language = {en},
   number = {2},
   journal = {The Art, Science, and Engineering of Programming},
@@ -3814,7 +3814,7 @@ Associated with the functional style of programming is an algebra of programs wh
   title = {Partial {{Evaluation}} of {{Machine Code}}},
   isbn = {978-1-4503-3689-5},
   doi = {10.1145/2814270.2814321},
-  abstract = {This paper presents an algorithm for off-line partial evaluation of machine code. The algorithm follows the classical two-phase approach of binding-time analysis (BTA) followed by specialization. However, machine-code partial evaluation presents a number of new challenges, and it was necessary to devise new techniques for use in each phase. - Our BTA algorithm makes use of an instruction-rewriting method that ‘‘decouples'' multiple updates performed by a single instruction. This method counters the cascading imprecision that would otherwise occur with a more naive approach to BTA. - Our specializer specializes an explicit representation of the semantics of an instruction, and emits residual code via machine-code synthesis. Moreover, to create code that allows the stack and heap to be at different positions at run-time than at specialization-time, the specializer represents specialization-time addresses using symbolic constants, and uses a symbolic state for specialization. Our experiments show that our algorithm can be used to specialize binaries with respect to commonly used inputs to produce faster binaries, as well as to extract an executable component from a bloated binary.},
+  abstract = {This paper presents an algorithm for off-line partial evaluation of machine code. The algorithm follows the classical two-phase approach of binding-time analysis (BTA) followed by specialization. However, machine-code partial evaluation presents a number of new challenges, and it was necessary to devise new techniques for use in each phase. - Our BTA algorithm makes use of an instruction-rewriting method that ``decouples'' multiple updates performed by a single instruction. This method counters the cascading imprecision that would otherwise occur with a more naive approach to BTA. - Our specializer specializes an explicit representation of the semantics of an instruction, and emits residual code via machine-code synthesis. Moreover, to create code that allows the stack and heap to be at different positions at run-time than at specialization-time, the specializer represents specialization-time addresses using symbolic constants, and uses a symbolic state for specialization. Our experiments show that our algorithm can be used to specialize binaries with respect to commonly used inputs to produce faster binaries, as well as to extract an executable component from a bloated binary.},
   booktitle = {Proceedings of the 2015 {{ACM SIGPLAN International Conference}} on {{Object}}-{{Oriented Programming}}, {{Systems}}, {{Languages}}, and {{Applications}}},
   publisher = {{ACM}},
   author = {Srinivasan, Venkatesh and Reps, Thomas},
@@ -4199,7 +4199,7 @@ Associated with the functional style of programming is an algebra of programs wh
 
 @inproceedings{feautrierAutomaticParallelizationPolytope1996,
   title = {Automatic {{Parallelization}} in the {{Polytope Model}}},
-  abstract = {. The aim of this paper is to explain the importance of polytope and polyhedra in automatic parallelization. We show that the semantics of parallel programs is best described geometrically, as properties of sets of integral points in n-dimensional spaces, where n is related to the maximum nesting depth of DO loops. The needed properties translate nicely to properties of polyhedra, for which many algorithms have been designed for the needs of optimization and operation research. We show how these ideas apply to scheduling, placement and parallel code generation. R'esum'e Le but de cet article est d'expliquer le role jou'e par les poly‘edres et les polytopes en parall'elisation automatique. On montre que la s'emantique d'un programme parall‘ele se d'ecrit naturellement sous forme g'eom'etrique, les propri'et'es du programme 'etant formalis'ees comme des propri'et'es d'ensemble de points dans un espace ‘a n dimensions. n est li'e ‘a la profondeur maximale d'imbrication des boucles DO. Les...},
+  abstract = {. The aim of this paper is to explain the importance of polytope and polyhedra in automatic parallelization. We show that the semantics of parallel programs is best described geometrically, as properties of sets of integral points in n-dimensional spaces, where n is related to the maximum nesting depth of DO loops. The needed properties translate nicely to properties of polyhedra, for which many algorithms have been designed for the needs of optimization and operation research. We show how these ideas apply to scheduling, placement and parallel code generation. R'esum'e Le but de cet article est d'expliquer le role jou'e par les poly`edres et les polytopes en parall'elisation automatique. On montre que la s'emantique d'un programme parall`ele se d'ecrit naturellement sous forme g'eom'etrique, les propri'et'es du programme 'etant formalis'ees comme des propri'et'es d'ensemble de points dans un espace `a n dimensions. n est li'e `a la profondeur maximale d'imbrication des boucles DO. Les...},
   booktitle = {Laboratoire {{PRiSM}}, {{Universit\'e}} Des {{Versailles St}}-{{Quentin}} En {{Yvelines}}, 45, Avenue Des {{\'Etats}}-{{Unis}}, {{F}}-78035 {{Versailles Cedex}}},
   publisher = {{Springer-Verlag}},
   author = {Feautrier, Paul},
@@ -4635,7 +4635,7 @@ Associated with the functional style of programming is an algebra of programs wh
   series = {Lecture {{Notes}} in {{Computer Science}}},
   title = {A {{Reflection}} on {{Types}}},
   isbn = {978-3-319-30935-4 978-3-319-30936-1},
-  abstract = {The ability to perform type tests at runtime blurs the line between statically-typed and dynamically-checked languages. Recent developments in Haskell's type system allow even programs that use reflection to themselves be statically typed, using a type-indexed runtime representation of types called $\backslash$𝗍𝖾𝗑𝗍𝗂𝗍\{𝖳𝗒𝗉𝖾𝖱𝖾𝗉\}$\backslash$textit\{TypeRep\}$\backslash$textsf \{$\backslash$textit\{TypeRep\}\}. As a result we can build dynamic types as an ordinary, statically-typed library, on top of $\backslash$𝗍𝖾𝗑𝗍𝗂𝗍\{𝖳𝗒𝗉𝖾𝖱𝖾𝗉\}$\backslash$textit\{TypeRep\}$\backslash$textsf \{$\backslash$textit\{TypeRep\}\} in an open-world context.},
+  abstract = {The ability to perform type tests at runtime blurs the line between statically-typed and dynamically-checked languages. Recent developments in Haskell's type system allow even programs that use reflection to themselves be statically typed, using a type-indexed runtime representation of types called $\backslash\mathsf{t}\mathsf{e}\mathsf{x}\mathsf{t}\mathsf{i}\mathsf{t}$\{$\mathsf{T}\mathsf{y}\mathsf{p}\mathsf{e}\mathsf{R}\mathsf{e}\mathsf{p}$\}$\backslash$textit\{TypeRep\}$\backslash$textsf \{$\backslash$textit\{TypeRep\}\}. As a result we can build dynamic types as an ordinary, statically-typed library, on top of $\backslash\mathsf{t}\mathsf{e}\mathsf{x}\mathsf{t}\mathsf{i}\mathsf{t}$\{$\mathsf{T}\mathsf{y}\mathsf{p}\mathsf{e}\mathsf{R}\mathsf{e}\mathsf{p}$\}$\backslash$textit\{TypeRep\}$\backslash$textsf \{$\backslash$textit\{TypeRep\}\} in an open-world context.},
   language = {en},
   booktitle = {A {{List}} of {{Successes That Can Change}} the {{World}}},
   publisher = {{Springer, Cham}},
@@ -5500,7 +5500,7 @@ Programming languages often come with type systems. Some of these are simple, ot
   title = {Understanding {{Misunderstandings}} in {{Source Code}}},
   isbn = {978-1-4503-5105-8},
   doi = {10.1145/3106237.3106264},
-  abstract = {Humans often mistake the meaning of source code, and so misjudge a program's true behavior. These mistakes can be caused by extremely small, isolated patterns in code, which can lead to significant runtime errors. These patterns are used in large, popular software projects and even recommended in style guides. To identify code patterns that may confuse programmers we extracted a preliminary set of ‘atoms of confusion' from known confusing code. We show empirically in an experiment with 73 participants that these code patterns can lead to a significantly increased rate of misunderstanding versus equivalent code without the patterns. We then go on to take larger confusing programs and measure (in an experiment with 43 participants) the impact, in terms of programmer confusion, of removing these confusing patterns. All of our instruments, analysis code, and data are publicly available online for replication, experimentation, and feedback.},
+  abstract = {Humans often mistake the meaning of source code, and so misjudge a program's true behavior. These mistakes can be caused by extremely small, isolated patterns in code, which can lead to significant runtime errors. These patterns are used in large, popular software projects and even recommended in style guides. To identify code patterns that may confuse programmers we extracted a preliminary set of `atoms of confusion' from known confusing code. We show empirically in an experiment with 73 participants that these code patterns can lead to a significantly increased rate of misunderstanding versus equivalent code without the patterns. We then go on to take larger confusing programs and measure (in an experiment with 43 participants) the impact, in terms of programmer confusion, of removing these confusing patterns. All of our instruments, analysis code, and data are publicly available online for replication, experimentation, and feedback.},
   booktitle = {Proceedings of the 2017 11th {{Joint Meeting}} on {{Foundations}} of {{Software Engineering}}},
   publisher = {{ACM}},
   author = {Gopstein, Dan and Iannacone, Jake and Yan, Yu and DeLong, Lois and Zhuang, Yanyan and Yeh, Martin K.-C. and Cappos, Justin},
@@ -7568,7 +7568,7 @@ Experimental results using the tool and manually rewriting code show average spa
 
 @article{kennedyCompilingContinuationsContinued2007,
   title = {Compiling with {{Continuations}}, {{Continued}}},
-  abstract = {We present a series of CPS-based intermediate languages suitable for functional language compilation, arguing that they have practical benefits over direct-style languages based on A-normal form (ANF) or monads. Inlining of functions demonstrates the benefits most clearly: in ANF-based languages, inlining involves a re-normalization step that rearranges let expressions and possibly introduces a new ‘join \ldots{}},
+  abstract = {We present a series of CPS-based intermediate languages suitable for functional language compilation, arguing that they have practical benefits over direct-style languages based on A-normal form (ANF) or monads. Inlining of functions demonstrates the benefits most clearly: in ANF-based languages, inlining involves a re-normalization step that rearranges let expressions and possibly introduces a new `join \ldots{}},
   language = {en-US},
   journal = {Microsoft Research},
   author = {Kennedy, Andrew},
@@ -12560,7 +12560,7 @@ The measurement results of usage profiles can be used as guidelines for selectin
   publisher = {{ACM}},
   author = {Andreasen, Esben Sparre and M\o{}ller, Anders and Nielsen, Benjamin Barslev},
   year = {2017},
-  keywords = {JavaScript,Soundness,Static Analysis,Testing},
+  keywords = {JavaScript,Static Analysis,Testing,Soundness},
   pages = {31--36},
   file = {/Users/luigi/work/zotero/storage/FS3J4SR8/Andreasen et al. - 2017 - Systematic Approaches for Increasing Soundness and.pdf}
 }
@@ -12576,9 +12576,293 @@ The measurement results of usage profiles can be used as guidelines for selectin
   author = {Wang, Z. and O'Boyle, M.},
   month = nov,
   year = {2018},
-  keywords = {Code optimization,compiler,compiler optimization,Data models,Feature extraction,High performance computing,learning (artificial intelligence),machine learning,Machine learning,machine-learning-based compilation,optimisation,Optimization,program compilers,Program processors,program tuning,Training data},
+  keywords = {Optimization,program compilers,optimisation,High performance computing,Data models,machine learning,Program processors,compiler,compiler optimization,Training data,Feature extraction,learning (artificial intelligence),Code optimization,Machine learning,machine-learning-based compilation,program tuning},
   pages = {1879-1901},
   file = {/Users/luigi/work/zotero/storage/XK4PIVDF/Wang and O’Boyle - 2018 - Machine Learning in Compiler Optimization.pdf;/Users/luigi/work/zotero/storage/ZM3KRENF/8357388.html}
+}
+
+@inproceedings{harmanStartupsScaleupsOpportunities2018,
+  title = {From {{Start}}-Ups to {{Scale}}-Ups: {{Opportunities}} and {{Open Problems}} for {{Static}} and {{Dynamic Program Analysis}}},
+  shorttitle = {From {{Start}}-Ups to {{Scale}}-Ups},
+  doi = {10.1109/SCAM.2018.00009},
+  abstract = {This paper describes some of the challenges and opportunities when deploying static and dynamic analysis at scale, drawing on the authors' experience with the Infer and Sapienz Technologies at Facebook, each of which started life as a research-led start-up that was subsequently deployed at scale, impacting billions of people worldwide. The paper identifies open problems that have yet to receive significant attention from the scientific community, yet which have potential for profound real world impact, formulating these as research questions that, we believe, are ripe for exploration and that would make excellent topics for research projects. Note: This paper accompanies the authors' joint keynote at the 18th IEEE International Working Conference on Source Code Analysis and Manipulation, September 23rd-24th, 2018 - Madrid, Spain.},
+  booktitle = {2018 {{IEEE}} 18th {{International Working Conference}} on {{Source Code Analysis}} and {{Manipulation}} ({{SCAM}})},
+  author = {Harman, M. and O'Hearn, P.},
+  month = sep,
+  year = {2018},
+  keywords = {verification,program diagnostics,dynamic analysis,Software,dynamic program analysis,Tools,Testing,Static analysis,Prototypes,static program analysis,social networking (online),Separation Logic,authors experience,compositional reasoning,Facebook,flaky test,Industries,Infer,open problems,opportunities,Sapienz,SBSE,scale-ups,scientific community,significant attention,start-ups,testing},
+  pages = {1-23},
+  file = {/Users/luigi/work/zotero/storage/64N5CXWJ/Harman and O'Hearn - 2018 - From Start-ups to Scale-ups Opportunities and Ope.pdf;/Users/luigi/work/zotero/storage/B4WGGYN3/8530713.html}
+}
+
+@article{daleyVirtualMemoryProcesses,
+  title = {Virtual {{Memory}}, {{Processes}},and {{Sharing}} in {{MULTICS}}},
+  abstract = {Some basic concepts involved in the design of the MULTICS operating system are introduced. MULTICS concepts of processes, address space, and virtual memory are defined and the use of paging and segmentation is explained. The means by which users may share procedures and data is discussed and the mechanism by which symbolic references are dynamically transformed into virtual machine addresses is described in detail.},
+  language = {en},
+  author = {Daley, Robert C and Dennis, Jack B},
+  pages = {7},
+  file = {/Users/luigi/work/zotero/storage/MQSS5J76/Daley and Dennis - Virtual Memory, Processes,and Sharing in MULTICS.pdf}
+}
+
+@article{dijkstraStructureMultiprogrammingSystem,
+  title = {The {{Structure}} of the "{{THE}}"-{{Multiprogramming System}}},
+  abstract = {A multiprogramming system is described in which all activities are divided over a number of sequential processes. These sequential processes are placed at various hierarchical levels, in each of which one or more independent abstractions have been implemented. The hierarchical structure proved to be vital for the verification of the logical soundness of the design and the correctness of its implementation.},
+  language = {en},
+  journal = {Communications of the ACM},
+  author = {Dijkstra, Edsger W},
+  pages = {6},
+  file = {/Users/luigi/work/zotero/storage/Q85GFVLJ/Dijkstra - The Structure of the THE-Multiprogramming System.pdf}
+}
+
+@article{bensoussanMulticsVirtualMemory1972,
+  title = {The {{Multics}} Virtual Memory: Concepts and Design},
+  volume = {15},
+  issn = {00010782},
+  shorttitle = {The {{Multics}} Virtual Memory},
+  doi = {10.1145/355602.361306},
+  abstract = {As experience with use of on-line operating systems has grown, the need to share information among system users has become increasingly apparent. Many contemporary systems permit some degree of sharing. Usually, sharing is accomplished by allowing several users to share data via input and output of information stored in files kept in secondary storage. Through the use of segmentation, however, Multics provides direct hardware addressing by user and system programs of all information, independent of its physical storage location. Information is stored in segments each of which is potentially sharable and carries its own independent attributes of size and access privilege. Here, the design and implementation considerations of segmentation and sharing in Multics are first discussed under the assumption that all information resides in a large, segmented main memory. Since the size of main memory on contemporary systems is rather limited, it is then shown how the Multics software achieves the effect of a large segmented main memory through the use of the Honeywell 645 segmentation and paging hardware.},
+  language = {en},
+  number = {5},
+  journal = {Communications of the ACM},
+  author = {Bensoussan, A. and Clingen, C. T. and Daley, R. C.},
+  month = may,
+  year = {1972},
+  pages = {308-318},
+  file = {/Users/luigi/work/zotero/storage/BPZL6926/Bensoussan et al. - 1972 - The Multics virtual memory concepts and design.pdf}
+}
+
+@article{schroederHardwareArchitectureImplementing1972,
+  title = {A {{Hardware Architecture}} for {{Implementing Protection Rings}}},
+  volume = {15},
+  abstract = {Protection of computations and information is an important aspect of a computer utility. In a system which uses segmentation as a memory addressing scheme, protection can be achieved in part by associating concentric rings of decreasing access privilege with a computation. This paper describes hardware processor mechanisms for implementing these rings of protection. The mechanisms allow cross-ring calls and subsequent returns to occur without trapping to the supervisor. Automatic hardware validation of references across ring boundaries is also performed. Thus, a call by a user procedure to a protected subsystem (including the the supervisor) is identical to a call to a companion user procedure. The mechanisms of passing and referencing arguments are the same in both cases as well.},
+  language = {en},
+  number = {3},
+  author = {Schroeder, Michael D},
+  year = {1972},
+  pages = {14},
+  file = {/Users/luigi/work/zotero/storage/DQFNPS3H/Schroeder - 1972 - A Hardware Architecture for Implementing Protectio.pdf}
+}
+
+@inproceedings{sungTestingInterlayerIntertask2010,
+  title = {Testing {{Inter}}-Layer and {{Inter}}-Task {{Interactions}} in {{RTES Applications}}},
+  doi = {10.1109/APSEC.2010.38},
+  abstract = {Real-time embedded systems (RTESs) are becoming increasingly ubiquitous, controlling a wide variety of popular and safety-critical devices. Effective testing techniques could improve the dependability of these systems. In this paper we present an approach for testing RTESs, intended specifically to help RTES application developers detect faults related to functional correctness. Our approach consists of two techniques that focus on exercising the interactions between system layers and between the multiple user tasks that enact application behaviors. We present results of an empirical study that shows that our techniques are effective at detecting faults.},
+  booktitle = {2010 {{Asia Pacific Software Engineering Conference}}},
+  author = {Sung, A. and {Srisa-an}, W. and Rothermel, G. and Yu, T.},
+  month = nov,
+  year = {2010},
+  keywords = {Libraries,Kernel,Testing,Context,program testing,Algorithm design and analysis,embedded systems,fault detection,fault diagnosis,real time embedded system,Real time systems,real-time embedded systems,RTES,safety critical device,safety-critical software,software testing,system layers,system testing,ubiquitous computing,ubiquitous system},
+  pages = {260-269},
+  file = {/Users/luigi/work/zotero/storage/ICVB6YFF/Sung et al. - 2010 - Testing Inter-layer and Inter-task Interactions in.pdf;/Users/luigi/work/zotero/storage/VTSEEHSF/5693202.html}
+}
+
+@inproceedings{baumannMultikernelNewOS2009,
+  address = {Big Sky, Montana, USA},
+  title = {The Multikernel: A New {{OS}} Architecture for Scalable Multicore Systems},
+  isbn = {978-1-60558-752-3},
+  shorttitle = {The Multikernel},
+  doi = {10.1145/1629575.1629579},
+  abstract = {Commodity computer systems contain more and more processor cores and exhibit increasingly diverse architectural tradeoffs, including memory hierarchies, interconnects, instruction sets and variants, and IO configurations. Previous high-performance computing systems have scaled in specific cases, but the dynamic nature of modern client and server workloads, coupled with the impossibility of statically optimizing an OS for all workloads and hardware variants pose serious challenges for operating system structures.},
+  language = {en},
+  booktitle = {Proceedings of the {{ACM SIGOPS}} 22nd Symposium on {{Operating}} Systems Principles - {{SOSP}} '09},
+  publisher = {{ACM Press}},
+  author = {Baumann, Andrew and Barham, Paul and Dagand, Pierre-Evariste and Harris, Tim and Isaacs, Rebecca and Peter, Simon and Roscoe, Timothy and Sch\"upbach, Adrian and Singhania, Akhilesh},
+  year = {2009},
+  pages = {29},
+  file = {/Users/luigi/work/zotero/storage/LWHGJSK7/Baumann et al. - 2009 - The multikernel a new OS architecture for scalabl.pdf}
+}
+
+@article{smansImplicitDynamicFrames2012,
+  title = {Implicit {{Dynamic Frames}}},
+  volume = {34},
+  issn = {0164-0925},
+  doi = {10.1145/2160910.2160911},
+  abstract = {An important, challenging problem in the verification of imperative programs with shared, mutable state is the frame problem in the presence of data abstraction. That is, one must be able to specify and verify upper bounds on the set of memory locations a method can read and write without exposing that method's implementation. Separation logic is now widely considered the most promising solution to this problem. However, unlike conventional verification approaches, separation logic assertions cannot mention heap-dependent expressions from the host programming language, such as method calls familiar to many developers. Moreover, separation logic-based verifiers are often based on symbolic execution. These symbolic execution-based verifiers typically do not support non-separating conjunction, and some of them rely on the developer to explicitly fold and unfold predicate definitions. Furthermore, several researchers have wondered whether it is possible to use verification condition generation and standard first-order provers instead of symbolic execution to automatically verify conformance with a separation logic specification. In this article, we propose a variant of separation logic called implicit dynamic frames that supports heap-dependent expressions inside assertions. Conformance with an implicit dynamic frames specification can be checked by proving the validity of a number of first-order verification conditions. To show that these verification conditions can be discharged automatically by standard first-order provers, we have implemented our approach in a verifier prototype and have used this prototype to verify several challenging examples from related work. Our prototype automatically folds and unfolds predicate definitions, as required, during the proof and can reason about non-separating conjunction which is used in the specifications of some of these examples. Finally, we prove the soundness of the approach.},
+  number = {1},
+  journal = {ACM Trans. Program. Lang. Syst.},
+  author = {Smans, Jan and Jacobs, Bart and Piessens, Frank},
+  month = may,
+  year = {2012},
+  keywords = {frame problem,Program verification,separation logic},
+  pages = {2:1--2:58},
+  file = {/Users/luigi/work/zotero/storage/2UYNVK4G/Smans et al. - 2012 - Implicit Dynamic Frames.pdf}
+}
+
+@article{bouckaertMappingOriginsExpansion2012,
+  title = {Mapping the Origins and Expansion of the {{Indo}}-{{European}} Language Family},
+  volume = {337},
+  issn = {0036-8075},
+  doi = {10.1126/science.1219669},
+  abstract = {There are two competing hypotheses for the origin of the Indo-European language family. The conventional view places the homeland in the Pontic steppes approximately 6kya. An alternative hypothesis claims the languages spread from Anatolia with the expansion of farming 8\textendash{}9.5kya. Here we use Bayesian phylogeographic approaches together with basic vocabulary data from 103 ancient and contemporary Indo-European languages to explicitly model the expansion of the family and test between the homeland hypotheses. We find decisive support for an Anatolian over a steppe origin. Both the inferred timing and root location of the Indo-European language trees fit with an agricultural expansion from Anatolia beginning in the 9th millennium BP. These results highlight the critical role phylogeographic inference can play in resolving longstanding debates about human prehistory.},
+  number = {6097},
+  journal = {Science (New York, N.Y.)},
+  author = {Bouckaert, Remco and Lemey, Philippe and Dunn, Michael and Greenhill, Simon J. and Alekseyenko, Alexander V. and Drummond, Alexei J. and Gray, Russell D. and Suchard, Marc A. and Atkinson, Quentin},
+  month = aug,
+  year = {2012},
+  pages = {957-960},
+  file = {/Users/luigi/work/zotero/storage/9PJHBLXT/Bouckaert et al. - 2012 - Mapping the origins and expansion of the Indo-Euro.pdf},
+  pmid = {22923579},
+  pmcid = {PMC4112997}
+}
+
+@book{johnsonTableContents1995,
+  title = {Table of {{Contents}}},
+  abstract = {This is a preliminary version of a chapter that appeared in the book Local Search in Combinatorial Optimization, E. H. L. Aarts and J. K. Lenstra (eds.), John Wiley and Sons, London, 1997, pp. 215-310. The traveling salesman problem (TSP) has been an early proving ground for many approaches to combinatorial optimization, including classical local optimization techniques as well as many of the more recent variants on local optimization, such as simulated annealing, tabu search, neural networks, and genetic algorithms. This chapter discusses how these various approaches have been adapted to the TSP and evaluates their relative success in this perhaps atypical domain from both a},
+  author = {Johnson, David S. and Mcgeoch, Lyle A.},
+  year = {1995},
+  file = {/Users/luigi/work/zotero/storage/73QNQYAG/Johnson and Mcgeoch - 1995 - Table of Contents.pdf;/Users/luigi/work/zotero/storage/VHS8IL56/summary.html}
+}
+
+@article{solteszContainerbasedOperatingSystem,
+  title = {Container-Based {{Operating System Virtualization}}: {{A Scalable}}, {{High}}-Performance {{Alternative}} to {{Hypervisors}}},
+  abstract = {Hypervisors, popularized by Xen and VMware, are quickly becoming commodity. They are appropriate for many usage scenarios, but there are scenarios that require system virtualization with high degrees of both isolation and efficiency. Examples include HPC clusters, the Grid, hosting centers, and PlanetLab. We present an alternative to hypervisors that is better suited to such scenarios. The approach is a synthesis of prior work on resource containers and security containers applied to general-purpose, timeshared operating systems. Examples of such container-based systems include Solaris 10, Virtuozzo for Linux, and LinuxVServer. As a representative instance of container-based systems, this paper describes the design and implementation of Linux-VServer. In addition, it contrasts the architecture of Linux-VServer with current generations of Xen, and shows how Linux-VServer provides comparable support for isolation and superior system efficiency.},
+  language = {en},
+  author = {Soltesz, Stephen and P\"otzl, Herbert and Fiuczynski, Marc E},
+  pages = {13},
+  file = {/Users/luigi/work/zotero/storage/UUHPU34X/Soltesz et al. - Container-based Operating System Virtualization A.pdf}
+}
+
+@inproceedings{legoutRarestFirstChoke2006,
+  address = {Rio de Janeriro, Brazil},
+  title = {Rarest First and Choke Algorithms Are Enough},
+  isbn = {978-1-59593-561-8},
+  doi = {10.1145/1177080.1177106},
+  abstract = {The performance of peer-to-peer file replication comes from its piece and peer selection strategies. Two such strategies have been introduced by the BitTorrent protocol: the rarest first and choke algorithms. Whereas it is commonly admitted that BitTorrent performs well, recent studies have proposed the replacement of the rarest first and choke algorithms in order to improve efficiency and fairness. In this paper, we use results from real experiments to advocate that the replacement of the rarest first and choke algorithms cannot be justified in the context of peer-to-peer file replication in the Internet.},
+  language = {en},
+  booktitle = {Proceedings of the 6th {{ACM SIGCOMM}} on {{Internet}} Measurement  - {{IMC}} '06},
+  publisher = {{ACM Press}},
+  author = {Legout, Arnaud and {Urvoy-Keller}, G. and Michiardi, P.},
+  year = {2006},
+  pages = {203},
+  file = {/Users/luigi/work/zotero/storage/DH2FIR77/Legout et al. - 2006 - Rarest first and choke algorithms are enough.pdf}
+}
+
+@inproceedings{andImpactNATBitTorrentlike2009,
+  title = {The Impact of {{NAT}} on {{BitTorrent}}-like {{P2P}} Systems},
+  doi = {10.1109/P2P.2009.5284521},
+  abstract = {BitTorrent nowadays is one of the most popular peer-to-peer (P2P) applications on the Internet; on the other hand, network address translation (NAT) has become pervasive in almost all networking scenarios. Despite the effort of NAT traversal, it is still very likely that P2P applications cannot receive incoming connection requests properly if they are behind NAT. Although this phenomenon has been widely observed, so far there is no quantitative study in the literature examining the impact of NAT on P2P applications. In this paper, we build analytical models to capture the performance of BitTorrent-like P2P systems with the presence of homogeneous and heterogeneous NAT peers. We further propose biased optimistic unchoke strategies in order to improve the overall system performance considerably. The analytical models have been validated by simulation results, which also reveal some interesting facts about the coexistence of NAT and public peers in P2P systems.},
+  booktitle = {2009 {{IEEE Ninth International Conference}} on {{Peer}}-to-{{Peer Computing}}},
+  author = {{and}},
+  month = sep,
+  year = {2009},
+  keywords = {Internet,DSL,Analytical models,biased optimistic unchoke strategy,BitTorrent-like P2P system,File servers,IP networks,Modems,network address translation,Network address translation,Peer to peer computing,peer-to-peer application,peer-to-peer computing,System performance,Web server},
+  pages = {242-251},
+  file = {/Users/luigi/work/zotero/storage/4A2LFCQF/and - 2009 - The impact of NAT on BitTorrent-like P2P systems.pdf;/Users/luigi/work/zotero/storage/D2SN6ESI/5284521.html}
+}
+
+@article{turnerChurchThesisFunctional,
+  title = {Church's {{Thesis}} and {{Functional Programming}}},
+  abstract = {The earliest statement of Church's Thesis, from Church (1936) p356 is
+
+We now define the notion, already discussed, of an effectively calculable function of positive integers by identifying it with the notion of a recursive function of positive integers (or of a lambda- definable function of positive integers).
+
+The phrase in parentheses refers to the apparatus which Church had developed to investigate this and other problems in the foundations of mathematics: the calculus of lambda conversion. Both the Thesis and the lambda calculus have been of seminal influence on the development of Computing Science. The main subject of this article is the lambda calculus but I will begin with a brief sketch of the emergence of the Thesis.},
+  journal = {Journal of Universal Computer Science},
+  author = {Turner, David},
+  pages = {2004},
+  file = {/Users/luigi/work/zotero/storage/L7SHGFMC/Turner - Church’s Thesis and Functional Programming.pdf;/Users/luigi/work/zotero/storage/LSZ5DL8G/summary.html}
+}
+
+@article{leinoSpecificationVerificationObjectOriented,
+  title = {Specification and {{Verification}} of {{Object}}-{{Oriented Software}}},
+  abstract = {The specification of object-oriented and other pointer-based programs must be able to describe the structure of the program's dynamically allocated data as well as some abstract view of what the code implements. The verification of such programs can be done by generating logical verification conditions from the program and its specifications and then analyzing the verification conditions by a mechanical theorem prover.},
+  language = {en},
+  author = {Leino, K Rustan M},
+  pages = {36},
+  file = {/Users/luigi/work/zotero/storage/CTB2Y4ZI/Leino - Speciﬁcation and Veriﬁcation of Object-Oriented So.pdf}
+}
+
+@incollection{merzModelCheckingTutorial2001,
+  address = {Berlin, Heidelberg},
+  title = {Model {{Checking}}: {{A Tutorial Overview}}},
+  volume = {2067},
+  isbn = {978-3-540-42787-2 978-3-540-45510-3},
+  shorttitle = {Model {{Checking}}},
+  abstract = {We survey principles of model checking techniques for the automatic analysis of reactive systems. The use of model checking is exemplified by an analysis of the Needham-Schroeder public key protocol. We then formally define transition systems, temporal logic, $\omega$-automata, and their relationship. Basic model checking algorithms for linear- and branching-time temporal logics are defined, followed by an introduction to symbolic model checking and partial-order reduction techniques. The paper ends with a list of references to some more advanced topics.},
+  language = {en},
+  booktitle = {Modeling and {{Verification}} of {{Parallel Processes}}},
+  publisher = {{Springer Berlin Heidelberg}},
+  author = {Merz, Stephan},
+  editor = {Goos, Gerhard and Hartmanis, Juris and {van Leeuwen}, Jan and Cassez, Franck and Jard, Claude and Rozoy, Brigitte and Ryan, Mark Dermot},
+  year = {2001},
+  pages = {3-38},
+  file = {/Users/luigi/work/zotero/storage/PIMALZP3/Merz - 2001 - Model Checking A Tutorial Overview.pdf},
+  doi = {10.1007/3-540-45510-8_1}
+}
+
+@incollection{vanlamsweerdeObjectOrientationGoal2004,
+  address = {Berlin, Heidelberg},
+  title = {From {{Object Orientation}} to {{Goal Orientation}}: {{A Paradigm Shift}} for {{Requirements Engineering}}},
+  volume = {2941},
+  isbn = {978-3-540-21179-2 978-3-540-24626-8},
+  shorttitle = {From {{Object Orientation}} to {{Goal Orientation}}},
+  abstract = {Requirements engineering (RE) is concerned with the elicitation of the objectives to be achieved by the system envisioned, the operationalization of such objectives into specifications of services and constraints, the assignment of responsibilities for the resulting requirements to agents such as humans, devices and software, and the evolution of such requirements over time and across system families. Getting highquality requirements is difficult and critical. Recent surveys have confirmed the growing recognition of RE as an area of primary concern in software engineering research and practice. The paper reviews the important limitations of OO modeling and formal specification technology when applied to this early phase of the software lifecycle. It argues that goals are an essential abstraction for eliciting, elaborating, modeling, specifying, analyzing, verifying, negotiating and documenting robust and conflict-free requirements. A safety injection system for a nuclear power plant is used as a running example to illustrate the key role of goals while engineering requirements for high assurance systems.},
+  language = {en},
+  booktitle = {Radical {{Innovations}} of {{Software}} and {{Systems Engineering}} in the {{Future}}},
+  publisher = {{Springer Berlin Heidelberg}},
+  author = {{van Lamsweerde}, Axel and Letier, Emmanuel},
+  editor = {Goos, Gerhard and Hartmanis, Juris and {van Leeuwen}, Jan and Wirsing, Martin and Knapp, Alexander and Balsamo, Simonetta},
+  year = {2004},
+  pages = {325-340},
+  file = {/Users/luigi/work/zotero/storage/Y58AW9GU/van Lamsweerde and Letier - 2004 - From Object Orientation to Goal Orientation A Par.pdf},
+  doi = {10.1007/978-3-540-24626-8_23}
+}
+
+@inproceedings{vanlamsweerdeGoalorientedRequirementsEngineering2000,
+  address = {Toronto, Ont., Canada},
+  title = {Goal-Oriented Requirements Engineering: A Guided Tour},
+  isbn = {978-0-7695-1125-2},
+  shorttitle = {Goal-Oriented Requirements Engineering},
+  doi = {10.1109/ISRE.2001.948567},
+  abstract = {Goals capture, at different levels of abstraction, the various objectives the system under consideration should achieve. Goal-oriented requirements engineering is concerned with the use of goals for eliciting, elaborating, structuring, specifying, analyzing, negotiating, documenting, and modifying requirements. This area has received increasing attention over the past few years.},
+  language = {en},
+  booktitle = {Proceedings {{Fifth IEEE International Symposium}} on {{Requirements Engineering}}},
+  publisher = {{IEEE Comput. Soc}},
+  author = {{van Lamsweerde}, A.},
+  year = {2000},
+  pages = {249-262},
+  file = {/Users/luigi/work/zotero/storage/5XV3LZU9/van Lamsweerde - 2000 - Goal-oriented requirements engineering a guided t.pdf}
+}
+
+@inproceedings{burckhardtEffectiveProgramVerification2008,
+  series = {Lecture {{Notes}} in {{Computer Science}}},
+  title = {Effective {{Program Verification}} for {{Relaxed Memory Models}}},
+  isbn = {978-3-540-70545-1},
+  abstract = {Program verification for relaxed memory models is hard. The high degree of nondeterminism in such models challenges standard verification techniques. This paper proposes a new verification technique for the most common relaxation, store buffers. Crucial to this technique is the observation that all programmers, including those who use low-lock techniques for performance, expect their programs to be sequentially consistent. We first present a monitor algorithm that can detect the presence of program executions that are not sequentially consistent due to store buffers while only exploring sequentially consistent executions. Then, we combine this monitor with a stateless model checker that verifies that every sequentially consistent execution is correct. We have implemented this algorithm in a prototype tool called Sober and present experiments that demonstrate the precision and scalability of our method. We find relaxed memory model bugs in several programs, including two previously unknown bugs in a production-level concurrency library that would have been difficult to find by other means.},
+  language = {en},
+  booktitle = {Computer {{Aided Verification}}},
+  publisher = {{Springer Berlin Heidelberg}},
+  author = {Burckhardt, Sebastian and Musuvathi, Madanlal},
+  editor = {Gupta, Aarti and Malik, Sharad},
+  year = {2008},
+  keywords = {Coherence Index,Memory Model,Sequentially Consistent,Transitive Closure,Vector Clock},
+  pages = {107-120},
+  file = {/Users/luigi/work/zotero/storage/6F9262F2/Burckhardt and Musuvathi - 2008 - Effective Program Verification for Relaxed Memory .pdf}
+}
+
+@inproceedings{hummelGeneralDataDependence1994,
+  address = {New York, NY, USA},
+  series = {{{PLDI}} '94},
+  title = {A {{General Data Dependence Test}} for {{Dynamic}}, {{Pointer}}-Based {{Data Structures}}},
+  isbn = {978-0-89791-662-2},
+  doi = {10.1145/178243.178262},
+  abstract = {Optimizing compilers require accurate dependence testing to enable numerous, performance-enhancing transformations. However, data dependence testing is a difficult problem, particularly in the presence of pointers. Though existing approaches work well for pointers to named memory locations (i.e. other variables), they are overly conservative in the case of pointers to unnamed memory locations. The latter occurs in the context of dynamic, pointer-based data structures, used in a variety of applications ranging from system software to computational geometry to N-body and circuit simulations.
+In this paper we present a new technique for performing more accurate data dependence testing in the presence of dynamic, pointer-based data structures. We will demonstrate its effectiveness by breaking false dependences that existing approaches cannot, and provide results which show that removing these dependences enables significant parallelization of a real application.},
+  booktitle = {Proceedings of the {{ACM SIGPLAN}} 1994 {{Conference}} on {{Programming Language Design}} and {{Implementation}}},
+  publisher = {{ACM}},
+  author = {Hummel, Joseph and Hendren, Laurie J. and Nicolau, Alexandru},
+  year = {1994},
+  pages = {218--229},
+  file = {/Users/luigi/work/zotero/storage/4G63BL2R/Hummel et al. - 1994 - A General Data Dependence Test for Dynamic, Pointe.pdf}
+}
+
+@article{nystromSoftwareCompositionMultiple,
+  title = {Software {{Composition}} with {{Multiple Nested Inheritance}}},
+  abstract = {This paper introduces a programming language that makes it convenient to extend large software systems and even to compose them in a modular way. JX/MI supports multiple nested inheritance, building on earlier work on nested inheritance in the language JX. Nested inheritance permits modular, type-safe extension of a package (including nested packages and classes), while preserving existing type relationships. Multiple nested inheritance enables simultaneous extension of two or more classes or packages, composing their types and behavior while resolving conflicts with a relatively small amount of code. The utility of JX/MI is demonstrated by using it to construct two composable, extensible frameworks: a compiler framework for Java, and a peer-to-peer networking system. Both frameworks support composition of extensions. For example, two compilers adding different, domain-specific features to Java can be composed to obtain a compiler for a language that supports both sets of features.},
+  language = {en},
+  author = {Nystrom, Nathaniel and Qi, Xin and Myers, Andrew C},
+  pages = {17},
+  file = {/Users/luigi/work/zotero/storage/JCCITJDZ/Nystrom et al. - Software Composition with Multiple Nested Inherita.pdf}
 }
 
 
