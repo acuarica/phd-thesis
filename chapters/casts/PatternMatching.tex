@@ -96,25 +96,37 @@ public static boolean nullSafeEquals(Object o1, Object o2) {
 Another common scenario%
 \footnote{\url{http://bit.ly/codefollower_Tomcat-Research_2SGDUG5}}
 is when several cases are used to re-\code{throw} an exception of the right type, as shown below.
+The cast instance is applied to a variable of type \code{Throwable}
+(line 13).
+Nevertheless, the enclosing method is only allowed to throw \code{NamingException} by the \code{throws} declaration (line 3).
+Since an exception of type \code{Throwable} is checked,
+a cast to \code{VirtualMachineError} (subclass of \code{Error}) is needed.
 
 %https://lgtm.com/projects/g/codefollower/Tomcat-Research/snapshot/dist-13734061-1524814812150/files/java/org/apache/naming/factory/DataSourceLinkFactory.java?sort=name&dir=ASC&mode=heatmap#L85
-\begin{minted}[highlightlines=10]{java}
-try {
-	// [...]
-}catch (Exception x) {
-	if (x instanceof InvocationTargetException) {
-		Throwable cause = x.getCause();
-		if (cause instanceof ThreadDeath) {
-			throw (ThreadDeath) cause;
+\begin{minted}[highlightlines=13]{java}
+protected Object wrapDataSource(
+			Object datasource, String username, String password)
+			throws NamingException {
+	try {
+		// [...]
+	}catch (Exception x) {
+		if (x instanceof InvocationTargetException) {
+			Throwable cause = x.getCause();
+			if (cause instanceof ThreadDeath) {
+				throw (ThreadDeath) cause;
+			}
+			if (cause instanceof VirtualMachineError) {
+				throw (VirtualMachineError) cause;
+			}
+			if (cause instanceof Exception) {
+				x = (Exception) cause;
+			}
 		}
-		if (cause instanceof VirtualMachineError) {
-			throw (VirtualMachineError) cause;
-		}
-		if (cause instanceof Exception) {
-			x = (Exception) cause;
+		if (x instanceof NamingException) throw (NamingException)x;
+		else {
+			// [...]
 		}
 	}
-	// [...]
 }
 \end{minted}
 

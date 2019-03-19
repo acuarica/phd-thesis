@@ -14,10 +14,21 @@ We should generalize this pattern.
 \todo{Nate: Create with type descriptor "Tag"}
 
 \instances{}
-\todo{Describe}
+The following snippet%
 \footnote{\url{http://bit.ly/connect2id_oauth-2-0-sdk-with-_2HvRlUX}}
-
+shows an instance of the \thisp{} pattern.
+The cast is applied to the result of invoking \code{keyPair.getPrivate}
+(line 10).
+The variable \code{keyPair} is assigned the result of \code{pairGen.generateKeyPair} (line 3).
+At the same time, \code{pairGen} is assigned the value of \code{KeyPairGenerator.getInstance("RSA")}.
+The argument \code{"RSA"} indicates the algorithm to use.
+%
+\done{Describe}
+%
+The method%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html\#getPrivate()}}
+will return a reference to the private key component,
+and this is determined by the algorithm argument described above.
 
 %https://lgtm.com/projects/b/connect2id/oauth-2.0-sdk-with-openid-connect-extensions/snapshot/dist-1311020143-1524814812150/files/src/test/java/com/nimbusds/oauth2/sdk/jose/jwk/RemoteJWKSetTest.java?sort=name&dir=ASC&mode=heatmap#L242
 \begin{minted}[highlightlines=10]{java}
@@ -36,9 +47,15 @@ RSAKey rsaJWK2 = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
 \end{minted}
 
 \done{Also URLOpenConnection.}
+Similar to the above snippet, the next example%
 \footnote{\url{http://bit.ly/apache_hadoop_2E6KY6T}}
-
+shows an instance of the \thisp{} pattern where a cast is performed on the result of the \code{openConnection} method%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/net/URL.html\#openConnection--}}
+(line 2).
+The \code{openConnection} method is applied to the \code{url} variable,
+which is assigned in line 1 using the \code{URL} constructor.
+The argument to the constructor is an \code{http} URL,
+thus the result is cast to \code{HttpURLConnection}.
 
 %https://lgtm.com/projects/g/apache/hadoop/snapshot/dist-956730001-1524814812150/files/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/webapp/TestRMWebServicesHttpStaticUserPermissions.java?sort=name&dir=ASC&mode=heatmap#L138
 \begin{minted}[highlightlines=2]{java}
@@ -46,34 +63,29 @@ URL url = new URL("http://localhost:8088/ws/v1/cluster/apps");
 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 \end{minted}
 
-\done{Luis: Get bitly link}
+The following example%
 \footnote{\url{http://bit.ly/bcgit_bc-java_2TEVScM}}
+\done{Luis: Get bitly link}
+shows how a cast (line 3) is being determined by the argument to the \code{CertificateFactory.getInstance} method (line 1).
+The argument is the string \code{"X.509"},
+therefore the method \code{generateCRL} will return a value of type \code{X509CRL}.
 
 %https://lgtm.com/projects/g/bcgit/bc-java/snapshot/dist-20740003-1524814812150/files/prov/src/test/java/org/bouncycastle/jce/provider/test/X509LDAPCertStoreTest.java?sort=name&dir=ASC&mode=heatmap#L241
 \begin{minted}[highlightlines=1]{java}
-CertStore cs = CertStore.getInstance("X509LDAP", params1, "BC");
-X509CertSelector sl = new X509CertSelector();
 CertificateFactory cf = CertificateFactory.getInstance("X.509", "BC");
-X509Certificate xcert = (X509Certificate)cf.generateCertificate(new ByteArrayInputStream(cert1));
-sl.setCertificate(xcert);
-Collection coll = cs.getCertificates(sl);
-if (coll.isEmpty() || !coll.iterator().next().equals(xcert)) {
-fail("certificate could not be picked from LDAP directory.");
-}
-// System.out.println(coll.toArray()[0]);
-sl.setCertificate(null);
-sl.setSubject(getSubject(xcert).getEncoded());
-coll = cs.getCertificates(sl);
-if (coll.isEmpty() || !coll.iterator().next().equals(xcert)) {
-        fail("certificate could not be picked from LDAP directory.");
-}
-X509CRLSelector sl2 = new X509CRLSelector();
+// [...]
 X509CRL crl = (X509CRL)cf.generateCRL(new ByteArrayInputStream(directCRL));
 \end{minted}
 
-
+In our last example%
 \footnote{\url{http://bit.ly/JSQLParser_JSqlParser_2TecMyB}}
-the \code{parserManager.parse} method returns a value of type \code{Statement}.
+the cast instance (line 2) is applied to the \code{parse} method.
+The \code{parse} method (defined in line 10) returns a value of type \code{Statement}.
+The method is using the argument \code{statement},
+assigned in line 1.
+Since the statement is a \code{SELECT} statement,
+the value returned by the \code{parse} method is of type \code{Select}
+(declared in line 4).
 
 %https://lgtm.com/projects/g/JSQLParser/JSqlParser/snapshot/dist-43250114-1524814812150/files/src/test/java/net/sf/jsqlparser/test/select/SelectTest.java?sort=name&dir=ASC&mode=heatmap#L437
 \begin{minted}[highlightlines=2]{java}
@@ -83,13 +95,23 @@ select = (Select) parserManager.parse(new StringReader(statement));
 public class Select implements Statement {
         // [...]
 }
+
+public class CCJSqlParserManager implements JSqlParser {
+    @Override
+    public Statement parse(Reader statementReader) throws JSQLParserException {
+        // [...]
+    }
+}
 \end{minted}
 
 
 \detection{}
 
 \discussion{}
+Almost a third of this cast instances appear in test code.
 
 \related{}
+The \nameref{pat:KnownReturnType} pattern is similar to the \thisp{} pattern,
+since both depends on the knowledge that a method returns a more specific type.
 
 \end{pattern}

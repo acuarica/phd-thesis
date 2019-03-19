@@ -39,15 +39,19 @@ public class CubeInstance
 
 %https://lgtm.com/projects/g/eclipse/pdt/snapshot/dist-19313119-1524814812150/files/plugins/org.eclipse.php.debug.core/src/org/eclipse/php/internal/debug/core/zend/communication/DebugConnection.java?sort=name&dir=ASC&mode=heatmap#L795
 \begin{minted}[highlightlines=1]{java}
-debugTarget = (PHPDebugTarget) createDebugTarget(this, launch, URL, requestPort, process, runWithDebug, stopAtFirstLine, project);
-    
-protected IDebugTarget createDebugTarget(DebugConnection thread, ILaunch launch, String url, int requestPort,
-                        PHPProcess process, boolean runWithDebug, boolean stopAtFirstLine, IProject project) throws CoreException {
-                return new PHPDebugTarget(thread, launch, url, requestPort, process, runWithDebug, stopAtFirstLine, project);
+debugTarget = (PHPDebugTarget) createDebugTarget(this, launch, URL,
+        requestPort, process, runWithDebug, stopAtFirstLine, project);
+
+protected IDebugTarget createDebugTarget(DebugConnection thread,
+        ILaunch launch, String url, int requestPort, PHPProcess process,
+        boolean runWithDebug, boolean stopAtFirstLine, IProject project)
+        throws CoreException {
+    return new PHPDebugTarget(thread, launch, url, requestPort, process,
+            runWithDebug, stopAtFirstLine, project);
 }
 
 public class PHPDebugTarget extends PHPDebugElement
-                implements IPHPDebugTarget, IBreakpointManagerListener, IStepFilters {
+        implements IPHPDebugTarget, IBreakpointManagerListener, IStepFilters {
 }
 \end{minted}
 
@@ -55,7 +59,9 @@ public class PHPDebugTarget extends PHPDebugElement
 
 %https://lgtm.com/projects/g/apache/activemq/snapshot/dist-11730660-1524814812150/files/activemq-client/src/main/java/org/apache/activemq/ActiveMQConnectionFactory.java?sort=name&dir=ASC&mode=heatmap#L235
 \begin{minted}[highlightlines=1]{java}
-throw (IllegalArgumentException)new IllegalArgumentException("Invalid broker URI: " + brokerURL).initCause(e);
+throw (IllegalArgumentException)
+        new IllegalArgumentException("Invalid broker URI: " + brokerURL)
+        .initCause(e);
 \end{minted}
 
 \detection{}
