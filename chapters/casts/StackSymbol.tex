@@ -26,10 +26,34 @@ case 40: // qualified_name_decl = name_decl.n DOT.DOT IDENTIFIER.i
 }
 \end{minted}
 
+In the following case,%
+\footnote{\url{http://bit.ly/datanucleus_datanucleus-mongodb_2HvBMMc}}
+a cast is performed to the \code{left} variable (line 7)
+whether the guard condition succeeds (line 3).
+The value of the \code{left} variable is taken from the top of a stack (line 2).
+
+%https://lgtm.com/projects/g/datanucleus/datanucleus-mongodb/snapshot/dist-1985910491-1524814812150/files/src/main/java/org/datanucleus/store/mongodb/query/QueryToMongoDBMapper.java?sort=name&dir=ASC&mode=heatmap#L487
+\begin{minted}[highlightlines=7]{java}
+Object right = stack.pop();
+Object left = stack.pop();
+if (left instanceof MongoFieldExpression && right instanceof MongoLiteral)
+{
+    // [...]
+    MongoBooleanExpression mongoExpr = new MongoBooleanExpression(
+            (MongoFieldExpression) left, elemLit, MongoOperator.OP_EQ);
+}
+\end{minted}
+
+
 \detection{}
+The detection of this pattern is similar to \nameref{pat:TypeTag}.
+There should be a guard, \eg, a \code{switch} or \code{if} statement,
+that determines that type to cast to.
 
 \discussion{}
 
 \related{}
+This pattern can be seen as a more specific case of \nameref{pat:TypeTag}.
+In this case, the ``type tag'' is provided by a symbol on a stack-like collection.
 
 \end{pattern}
