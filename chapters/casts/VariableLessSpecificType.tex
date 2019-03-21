@@ -84,6 +84,33 @@ public class SortedArrayList<E> extends ArrayList<E> {
 }
 \end{minted}
 
+In the next example,%
+\footnote{\url{http://bit.ly/tarzanek_luke_2OhDT6O}}
+the \code{ir} field is cast to \code{DirectoryReader} (line 11).
+The \code{ir} field is declared as \code{IndexReader} (superclass of \code{DirectoryReader}) in line 1.
+The cast to \code{ir} is performed using the value of the expression \code{readers.get(0)} (line 10).
+But \code{readers} is defined as \code{ArrayList<DirectoryReader>} (line 3),
+making the cast superfluous if an extra variable of type \code{DirectoryReader} had been used.
+
+%https://lgtm.com/projects/g/tarzanek/luke/snapshot/dist-1794550833-1524814812150/files/src/org/getopt/luke/Luke.java?sort=name&dir=ASC&mode=heatmap#L970
+\begin{minted}[highlightlines=11]{java}
+private IndexReader ir = null;  
+// [...]
+ArrayList<DirectoryReader> readers = new ArrayList<DirectoryReader>();
+for (Directory dd : dirs) {
+    DirectoryReader reader;        
+    reader = DirectoryReader.open(dd);
+    readers.add(reader);
+}
+if (readers.size() == 1) {
+    ir = readers.get(0);
+    dir = ((DirectoryReader)ir).directory();
+} else {
+    ir = new MultiReader(
+            (IndexReader[])readers.toArray(new IndexReader[readers.size()]));
+}
+\end{minted}
+
 \detection{}
 To detect this pattern, a cast needs to be applied to a variable whose
 value can be determined simply by looking at

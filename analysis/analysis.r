@@ -4,15 +4,12 @@ library(ggplot2)
 library(plyr)
 
 groups <- list(
-  'Guarded' = c('PatternMatching', 'TypeTag', 'Equals', 'GetByClassLiteral'),
-  'Creational' = c('Family', 'Factory', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'StackSymbol', 'Composite', 'NewDynamicInstance'),
-  'Tuples' = c('LookupById', 'StaticResource'),
-  'Member\nResolution' = c('SelectOverload', 'ReflectiveAccessibility'),
-  'Variance' = c('Clone', 'CovariantReturn', 'CovariantGeneric'),
-  'Implicit\nTypes' = c('ImplicitIntersectionType', 'ImplicitUnionType'),
-  'Hierarchical' = c('SoleSubclassImplementation', 'RecursiveGeneric'),
-  'Unchecked' = c('RemoveWildcard', 'GenericArray', 'UnoccupiedTypeParameter'),
-  'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'UseRawType', 'Literal', 'KnownReturnType', 'ObjectAsArray', 'AccessPrivateField')
+  'Guarded' = c('PatternMatching', 'TypeTag', 'Equals', 'GetByClassLiteral', 'StackSymbol'),
+  'Creational' = c('Family', 'Factory', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'Composite', 'NewDynamicInstance', 'LookupById', 'StaticResource'),
+  'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'UseRawType', 'Literal', 'KnownReturnType', 'ObjectAsArray', 'AccessPrivateField', 'Clone'),
+  'Resolution' = c('SelectOverload', 'ReflectiveAccessibility', 'CovariantReturn', 'CovariantGeneric'),
+  'Hierarchical' = c('SoleSubclassImplementation', 'RecursiveGeneric', 'ImplicitIntersectionType'),
+  'Unchecked' = c('RemoveWildcard', 'GenericArray', 'UnoccupiedTypeParameter')
 )
 
 size <- 5000

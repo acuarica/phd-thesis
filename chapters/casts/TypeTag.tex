@@ -111,6 +111,41 @@ switch (message.what) {
 }
 \end{minted}
 
+In the next example,%
+\footnote{\url{http://bit.ly/groovy_groovy-core_2SGzK16}}
+the parameter \code{args} is cast to \code{Object[]} (line 13).
+The ``type tag'' is given by the fact that the cast is executed in a \code{catch} block,
+and that \code{value} is an instance of \code{Closure} (line 9).
+The \code{args} parameter flows into two methods,
+\code{invokeMethod(String name, Object args)}
+and
+\code{call(Object... args)}%
+.
+Thus, \code{args} is treated as an \code{Object} or \code{Object[]} depending on the type tag,
+resembling an union type.
+
+%https://lgtm.com/projects/g/groovy/groovy-core/snapshot/dist-45390050-1524814812150/files/src/main/groovy/util/Expando.java?sort=name&dir=ASC&mode=heatmap#L103
+\begin{minted}[highlightlines=13]{java}
+public Object invokeMethod(String name, Object args) {
+    try {
+        return super.invokeMethod(name, args);
+    }
+    catch (GroovyRuntimeException e) {
+        // br should get a "native" property match first.
+        // getProperty includes such fall-back logic
+        Object value = this.getProperty(name);
+        if (value instanceof Closure) {
+            Closure closure = (Closure) value;
+            closure = (Closure) closure.clone();
+            closure.setDelegate(this);
+            return closure.call((Object[]) args);
+        } else {
+            throw e;
+        }
+    }
+}
+\end{minted}
+
 
 \detection{}
 The detection of this pattern is similar to the \nameref{pat:PatternMatching} detection, but instead of looking for an \code{instanceof} guarded cast, we look for an application-specific guard.

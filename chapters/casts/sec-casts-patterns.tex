@@ -126,62 +126,26 @@ Some kind of guards ensure that the cast will not fail at the language-level,
 while others only can guarantee it at the application-level.
 
 \input{chapters/casts/PatternMatching}
-\input{chapters/casts/TypeTag}
 \input{chapters/casts/Equals}
+\input{chapters/casts/TypeTag}
 \input{chapters/casts/GetByClassLiteral}
+\input{chapters/casts/StackSymbol}
 
 \group{Creational}
 
-\todo{Matthias: In these paragraphs, can you also enumerate the patterns by name, so readers see what's coming?}
-\todo{Matthias: ???}
-These patterns create to how they are created.
-
-\input{chapters/casts/Family}
-\input{chapters/casts/Factory}
-\input{chapters/casts/KnownReturnType}
-\input{chapters/casts/Tag}
-\input{chapters/casts/Deserialization}
-\input{chapters/casts/NewDynamicInstance}
-\input{chapters/casts/StackSymbol}
-\input{chapters/casts/CreateByClassLiteral}
-\input{chapters/casts/Composite}
-
-\group{Tuples}
-
-\todo{Nate: Why?}
-Tuples patterns.
+\done{Matthias: In these paragraphs, can you also enumerate the patterns by name, so readers see what's coming?}
+\done{Matthias: ???}
+Creational patterns are cast instances that are determined by how the value being cast is created.
 
 \input{chapters/casts/LookupById}
+\input{chapters/casts/Factory}
+\input{chapters/casts/Family}
+\input{chapters/casts/Tag}
 \input{chapters/casts/StaticResource}
-\input{chapters/casts/ObjectAsArray}
-
-\group{Member Resolution}
-
-\input{chapters/casts/SelectOverload}
-\input{chapters/casts/ReflectiveAccessibility}
-\input{chapters/casts/AccessPrivateField}
-
-\group{Variance}
-
-\input{chapters/casts/Clone}
-\input{chapters/casts/CovariantReturn}
-\input{chapters/casts/CovariantGeneric}
-
-\group{Implicit Types}
-
-\input{chapters/casts/ImplicitIntersectionType}
-\input{chapters/casts/ImplicitUnionType}
-
-\group{Hierarchical}
-
-\input{chapters/casts/SoleSubclassImplementation}
-\input{chapters/casts/RecursiveGeneric}
-
-\group{Unchecked}
-
-\input{chapters/casts/GenericArray}
-\input{chapters/casts/RemoveWildcard}
-\input{chapters/casts/UnoccupiedTypeParameter}
+\input{chapters/casts/NewDynamicInstance}
+\input{chapters/casts/Deserialization}
+\input{chapters/casts/CreateByClassLiteral}
+\input{chapters/casts/Composite}
 
 \group{Code Smell}
 
@@ -190,4 +154,27 @@ These are code smells.
 \input{chapters/casts/Literal}
 \input{chapters/casts/UseRawType}
 \input{chapters/casts/Redundant}
+\input{chapters/casts/KnownReturnType}
+\input{chapters/casts/Clone}
 \input{chapters/casts/VariableLessSpecificType}
+\input{chapters/casts/ObjectAsArray}
+\input{chapters/casts/AccessPrivateField}
+
+\group{Resolution}
+
+\input{chapters/casts/SelectOverload}
+\input{chapters/casts/CovariantReturn}
+\input{chapters/casts/ReflectiveAccessibility}
+\input{chapters/casts/CovariantGeneric}
+
+\group{Hierarchical}
+
+\input{chapters/casts/SoleSubclassImplementation}
+\input{chapters/casts/ImplicitIntersectionType}
+\input{chapters/casts/RecursiveGeneric}
+
+\group{Unchecked}
+
+\input{chapters/casts/RemoveWildcard}
+\input{chapters/casts/GenericArray}
+\input{chapters/casts/UnoccupiedTypeParameter}
