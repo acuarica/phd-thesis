@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "Creational",
         "aload",
         "analized",
         "astore",
@@ -40,5 +41,11 @@
         "upcasts",
         "voicerecording",
         "wifi"
-    ]
+    ],
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    }
 }
