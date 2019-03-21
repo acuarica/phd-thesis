@@ -1,8 +1,11 @@
 \begin{pattern}{StackSymbol}
+The \thisp{} pattern is a guarded cast whose target type depends on a tag is a stack-like collection.
 
 \instances{}
-
+The following example,%
 \footnote{\url{http://bit.ly/fabioz_Pydev_2HF6nrF}}
+shows a cast instance whose value is the top of a stack (line 2).
+The cast is only valid when the guard succeeds.
 
 %https://lgtm.com/projects/g/fabioz/Pydev/snapshot/dist-20832102-1524814812150/files/plugins/org.python.pydev.parser/src/org/python/pydev/parser/grammar27/TreeBuilder27.java?sort=name&dir=ASC&mode=heatmap#L231
 \begin{minted}[highlightlines=2]{java}
@@ -12,7 +15,10 @@ case JJTASSERT_STMT:
     return new Assert(test, msg);
 \end{minted}
 
+Similar to the previous example,%
 \footnote{\url{http://bit.ly/Sable_soot_2MZLZ3m}}
+in this case a guarded cast is performed using the value of an array,
+in a stack-like fashion.
 
 %https://lgtm.com/projects/g/Sable/soot/snapshot/dist-1791462132-1524814812150/files/src/main/generated/jastadd/soot/JastAddJ/JastAddJavaParser.java?sort=name&dir=ASC&mode=heatmap#L1036
 \begin{minted}[highlightlines=4]{java}
@@ -51,6 +57,8 @@ There should be a guard, \eg, a \code{switch} or \code{if} statement,
 that determines that type to cast to.
 
 \discussion{}
+This pattern is usually seen when implementing grammar-related operations,
+such as tokenization, parsing or evaluators.
 
 \related{}
 This pattern can be seen as a more specific case of \nameref{pat:TypeTag}.
