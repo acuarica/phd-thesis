@@ -29,26 +29,6 @@ public interface Either<L, R> extends Value<R>, Serializable {
 \todo{Phantom Types, 2003, Cheney, Hinze}
 
 
-
-Empty collection%
-\footnote{\url{http://bit.ly/puniverse_capsule_2IBlrHi}}
-
-%https://lgtm.com/projects/g/puniverse/capsule/snapshot/dist-35850049-1524814812150/files/capsule/src/main/java/Capsule.java?sort=name&dir=ASC&mode=heatmap#L3170
-\begin{minted}[highlightlines=1]{java}
-@SuppressWarnings("unchecked")
-private <T> T defaultValue(T type, T d) {
-    if (d == null) {
-        if (type instanceof List)
-            return (T) emptyList();
-        if (type instanceof Set)
-            return (T) emptySet();
-        if (type instanceof Map)
-            return (T) emptyMap();
-    }
-    return d;
-}
-\end{minted}
-
 \detection{}
 
 \discussion{}
