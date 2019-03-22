@@ -3,13 +3,27 @@
 \label{cha:casts}
 
 Cast operations provide a mechanism to escape the constraints of the static type system.
+A cast operation can fail at compile-time if the cast operand and the target type are incompatible,
+\eg, in the expression \code{(String) new Integer(1)} a value of type \code{Integer} can \emph{never} be converted to \code{String}.
+Whenever a cast operation fails at run-time, it throws a \code{ClassCastException}.
+This exception is unchecked, \ie,
+it is not enforced by the compiler to either handle it, or
+specify the exception in the \code{throws}%
+\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html\#jls-8.4.6}}
+declaration of a method.
+
 \emph{But do they pose a problem for developers?}
 Several studies~\citep{kechagiaUndocumentedUncheckedExceptions2014,coelhoUnveilingExceptionHandling2015,zhitnitskyTop10Exception2016}
 suggest that in \java{},
 %
-\todo{Nate: Expand on this}
+\done{Nate: Expand on this}
 %
 the \code{ClassCastException} is in the top 10 of exceptions being thrown when analysing stack traces.
+These studies have analyzed the exceptions thrown in stack traces.
+The exceptions come from third-party libraries \api{}s and the Android \api{},
+indicating a misuse of such \api{}s.
+The \code{ClassCastException} is in the top 10 of exceptions thrown,
+thus it represents a problem for developers.
 
 To illustrate the sort of problems developers have when applying casting conversions,
 %
