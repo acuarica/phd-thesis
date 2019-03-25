@@ -24,7 +24,6 @@ This implies that downcasts provide the means to bypass the type system.
 By avoiding the type system, downcasts can pose potential threats, because it is like the developer saying to the compiler: \emph{``Trust me here, I know what I'm doing''}.
 Being a escape-hatch to the type system, a cast is often seen as a design flaw or code smell~\citep{tufanoWhenWhyYour2015} in an object-oriented system.
 
-Cast operations provide a mechanism to escape the constraints of the static type system.
 A cast operation can fail at compile-time if the cast operand and the target type are incompatible,
 \eg, in the expression \code{(String) new Integer(1)} a value of type \code{Integer} can \emph{never} be converted to \code{String}.
 Whenever a cast operation fails at run-time, it throws a \code{ClassCastException}.
@@ -34,23 +33,26 @@ specify the exception in the \code{throws}%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html\#jls-8.4.6}}
 declaration of a method.
 
-
-
-As defined by the~\java{} Language Specification\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html}},
-there are several kinds of conversions:
-Primitive, Reference, Boxing/Unboxing, Unchecked, Capture, String, and Value set conversions.
-In this paper, we are interested in \emph{Reference} conversion, \emph{i.e.}, conversion between classes related by the subtyping relation.
-A cast\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.16}} in \java{} serves the purpose of convert between two different, but related types.
-
 Listing~\ref{lst:casts:simple} shows how to use the cast operator (line 2) to treat a reference (the variable \code{o}) as a different type (\code{String}) as it was defined (\code{Object}).
-% Therefore, in order to use it properly, a cast is needed.
 
-\begin{lstlisting}[style=java,label=lst:casts:simple,caption=Variable \code{o} (defined as \code{Object}) is casted to \code{String}.]
+\begin{lstlisting}[style=java,label=lst:casts:simple,caption=Variable \code{o} (defined as \code{Object}) is cast to \code{String}.]
 Object o = "foo"; 
 String s = (String)o;
 \end{lstlisting}
 
-A downcast operation can fail at runtime.
+The above snippet is compiled into the following \java{} bytecode.
+The \code{aload\_1} instruction (line 3) pushes the local variable \code{o} into the operand stack.
+The \code{checkcast} instruction (line 4) then checks at run-time that the top of the stack has the specified type (\code{java.lang.String} in this example).
+
+\begin{lstlisting}[style=bytecode]
+ldc           #2     // String foo
+astore_1
+aload_1
+checkcast     #3     // class java/lang/String
+astore_2
+\end{lstlisting}
+
+As we have mentioned above, a downcast operation can fail at runtime.
 Whenever it fails, a \code{ClassCastException} is thrown.
 Listing~\ref{lst:catchcce} shows how to detect whether a cast failed by catching this exception.
 
@@ -64,7 +66,7 @@ try {
 \end{lstlisting}
 
 Sometimes it is not desired to catch an exception to test whether a cast would fail otherwise. 
-Thus, in addition to the cast operator, the \code{instanceof}\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.20.2}} operator tests whether an expression can be casted without throwing a \code{ClassCastException}.
+Thus, in addition to the cast operator, the \code{instanceof} operator tests whether an expression can be casted to a desired type without throwing a \code{ClassCastException}.
 Listing~\ref{lst:instanceoftest} shows a usage of the \code{instanceof} operator together with a cast expression.
 
 \begin{lstlisting}[style=java,label=lst:instanceoftest,caption=Runtime type test using \code{instanceof} before applying a cast.]
