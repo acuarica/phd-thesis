@@ -120,18 +120,17 @@ To then fix the bug, the developer changed the type of the literal
 from \code{long} to \code{int}.
 
 
-\textbf{Compiler Bug.}
-One issue%
-\footnote{\url{https://github.com/mockito/mockito/issues/357}}
+% \textbf{Compiler Bug.}
+% One issue\footnote{\url{https://github.com/mockito/mockito/issues/357}}
 %
-\todo{Nate: vague}
+\done{Nate: vague}
 %
-shows bad things happen when abusing the type system.
-A bug in the \textsf{javac} compiler%
-\footnote{\url{https://bugs.openjdk.java.net/browse/JDK-8058199}}
-caused \jvm{}'s \code{checkcast} instructions to be skipped.
-This bug was fixed in JDK 9,
+% shows bad things happen when abusing the type system.
+% A bug in the \textsf{javac} compiler%
+% \footnote{\url{https://bugs.openjdk.java.net/browse/JDK-8058199}}
+% caused \jvm{}'s \code{checkcast} instructions to be skipped.
+% This bug was fixed in JDK 9,
 %
-\todo{?}
+\done{?}
 %
-breaking Mockito answer strategies.
+% breaking Mockito answer strategies.
