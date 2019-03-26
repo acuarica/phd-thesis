@@ -1,8 +1,6 @@
 \begin{pattern}{LookupById}
 This pattern is used to extract stashed values from a generic container.
-
-Lookup an object by ID, tag or name and cast the result
-(it is used often in Android code).
+It looks up for an object by ID, tag or name and cast the result to an appropriate type.
 It accesses a collection that holds values of different types
 (usually implemented as \code{Collection<Object>} or as \code{Map<K, Object>}).
 
@@ -18,6 +16,40 @@ which is implemented with \code{HashMap}.
 AuthState authState =
         (AuthState) context.getAttribute(ClientContext.TARGET_AUTH_STATE);
 \end{minted}
+
+The next snippet%
+\footnote{\url{http://bit.ly/skerit_cmusphinx_2HGgL1D}}
+shows a call site to the \code{getComponent} method cast to the \code{ActiveListManager} class (line 15).
+The \code{getComponent} method in this cast instance uses as argument the \code{PROP\_ACTIVE\_LIST\_MANAGER} constant.
+Looking at the definition of this constant (line 3),
+we can see there is a companion attribute (\code{@S4Component}) whose argument is the \code{ActiveListManager} class, the target of the cast instance.
+
+% https://lgtm.com/projects/g/skerit/cmusphinx/snapshot/dist-1506204046584-1524814812150/files/sphinx4/src/sphinx4/edu/cmu/sphinx/decoder/search/WordPruningBreadthFirstSearchManager.java?sort=name&dir=ASC&mode=heatmap#L207
+\begin{minted}[highlightlines=15]{java}
+/** The property that defines the type of active list to use */
+@S4Component(type = ActiveListManager.class)
+public final static String PROP_ACTIVE_LIST_MANAGER = "activeListManager";
+
+@Override
+public void newProperties(PropertySheet ps) throws PropertyException {
+    super.newProperties(ps);
+    
+    logMath = (LogMath) ps.getComponent(PROP_LOG_MATH);
+    logger = ps.getLogger();
+    linguist = (Linguist) ps.getComponent(PROP_LINGUIST);
+    pruner = (Pruner) ps.getComponent(PROP_PRUNER);
+    scorer = (AcousticScorer) ps.getComponent(PROP_SCORER);
+    activeListManager = 
+            (ActiveListManager) ps.getComponent(PROP_ACTIVE_LIST_MANAGER);
+    // [...]
+}
+\end{minted}
+
+
+\detection{}
+This pattern is characterized by a cast applied to a \code{get}-like method invocation on a heterogenous collection or map.
+Usually, the \code{get}-like method has a compile-time argument (literal or constant).
+The actual run-time type returned by the \code{get}-like method is determined by the value of this argument.
 
 \discussion{}
 %
@@ -46,5 +78,7 @@ This raises the following questions:
 \item \emph{How other --- statically typed --- languages support this kind of idiom?}
 \item \emph{Could generative programming a.k.a. templates solve this problem?}
 \end{itemize}
+
+\related{}
 
 \end{pattern}
