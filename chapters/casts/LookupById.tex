@@ -53,9 +53,9 @@ The actual run-time type returned by the \code{get}-like method is determined by
 
 \discussion{}
 %
-\todo{Cut/Move to future work.}
+\done{Cut/Move to future work.}
 %
-This pattern suggests heterogeneous dictionary.
+This pattern suggests an heterogeneous dictionary.
 Given our manual inspection,
 we believe that all dictionary keys and resulting types are known at
 compile-time, \ie, by the programmer.
@@ -80,5 +80,11 @@ This raises the following questions:
 \end{itemize}
 
 \related{}
+This pattern retrieves a stashed a value from an heterogeneous collection (or dictionary).
+A cast is needed because the return type depends on the ID to be retrieved.
+This scenario is similar to the \nameref{pat:Tag} pattern,
+where usually the developer retrieves a stashed value from a superclass field.
+Since this pattern casts a value to a known type from a method invocation,
+it can be seen as a kind of \nameref{pat:KnownReturnType} pattern.
 
 \end{pattern}
