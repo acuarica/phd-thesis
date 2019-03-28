@@ -108,11 +108,12 @@ In \java{}, parameter types are invariant.
 That is, parameter types can not be covariant because that would break subtype polymorphism,
 and can not be contravariant because that would cause conflict resolution issues with overloading.
 
-\cite{ernstFamilyPolymorphism2001}
-\cite{nystromSoftwareCompositionMultiple}
+% \cite{ernstFamilyPolymorphism2001}
+% \cite{nystromSoftwareCompositionMultiple}
 
 \related{}
-
-\nameref{pat:VariableLessSpecificType}
+This pattern can be seen as a generalization of the \nameref{pat:Factory} pattern.
+Whenever the cast is applied to a field declared in a superclass,
+\thisp{} can be related to the \nameref{pat:VariableLessSpecificType} pattern.
 
 \end{pattern}
