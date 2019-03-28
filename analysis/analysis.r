@@ -6,7 +6,7 @@ library(plyr)
 groups <- list(
   'Guarded' = c('PatternMatching', 'TypeTag', 'Equals', 'GetByClassLiteral', 'StackSymbol'),
   'Creational' = c('Family', 'Factory', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'Composite', 'NewDynamicInstance', 'LookupById', 'StaticResource'),
-  'Code Smell' = c('Redundant', 'VariableLessSpecificType', 'UseRawType', 'Literal', 'KnownReturnType', 'ObjectAsArray', 'AccessPrivateField', 'Clone'),
+  'Avoidable' = c('Redundant', 'VariableLessSpecificType', 'UseRawType', 'Literal', 'KnownReturnType', 'ObjectAsArray', 'AccessPrivateField', 'Clone'),
   'Resolution' = c('SelectOverload', 'ReflectiveAccessibility', 'CovariantReturn', 'CovariantGeneric'),
   'Hierarchical' = c('SoleSubclassImplementation', 'RecursiveGeneric', 'ImplicitIntersectionType'),
   'Unchecked' = c('RemoveWildcard', 'GenericArray', 'UnoccupiedTypeParameter')
