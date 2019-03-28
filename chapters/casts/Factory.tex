@@ -1,17 +1,9 @@
 \begin{pattern}{Factory}
-\todo{Also Logger}
 Creates an object based on some arguments either to the method call or constructor.
-Since the arguments are known at compile-time, cast to the specific type.
-
-\todo{Nate: Move to "Related Patterns"}
-Cast factory method result to subtype (special case of family polymorphism).
-Usually Logger.getLogger.
-
-The method is declared to return URLConnection but can return a more specific type based on the URL string.
-Cast to that.
-We should generalize this pattern.
-%
-\todo{Nate: Create with type descriptor "Tag"}
+Since the arguments are known at compile-time,
+cast to the specific type.
+\done{Nate: Create with type descriptor "Tag"}
+In this pattern, the arguments resembles a type ``tag'' descriptor.
 
 \instances{}
 The following snippet%
@@ -20,7 +12,7 @@ shows an instance of the \thisp{} pattern.
 The cast is applied to the result of invoking \code{keyPair.getPrivate}
 (line 10).
 The variable \code{keyPair} is assigned the result of \code{pairGen.generateKeyPair} (line 3).
-At the same time, \code{pairGen} is assigned the value of \code{KeyPairGenerator.getInstance("RSA")}.
+At the same time, the \code{pairGen} variable is assigned the value returned by \code{KeyPairGenerator.getInstance("RSA")}.
 The argument \code{"RSA"} indicates the algorithm to use.
 %
 \done{Describe}
@@ -46,12 +38,14 @@ RSAKey rsaJWK2 = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
         .build();
 \end{minted}
 
+\done{We should generalize this pattern.}
 \done{Also URLOpenConnection.}
 Similar to the above snippet, the next example%
 \footnote{\url{http://bit.ly/apache_hadoop_2E6KY6T}}
 shows an instance of the \thisp{} pattern where a cast is performed on the result of the \code{openConnection} method%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/net/URL.html\#openConnection--}}
 (line 2).
+The method is declared to return \code{URLConnection} but can return a more specific type based on the URL string.
 The \code{openConnection} method is applied to the \code{url} variable,
 which is assigned in line 1 using the \code{URL} constructor.
 The argument to the constructor is an \code{http} URL,
@@ -106,11 +100,20 @@ public class CCJSqlParserManager implements JSqlParser {
 
 
 \detection{}
+This pattern is characterized by a cast to a method call passing one or more arguments.
+The method call needs to create an object based on those arguments.
+Usually the arguments that determine the run-time type to be returned are known at compile-time.
 
 \discussion{}
-Almost a third of this cast instances appear in test code.
+In some situations, the use of this pattern can be seen as breaking the contract \api{} between the caller and the callee.
+This happens because the caller needs to know how the method is implemented in order to determine the run-time return type.
 
 \related{}
+\done{Nate: Move to "Related Patterns"}
+The \thisp{} pattern cast a method call result to a subtype of the declared return type.
+This can be seen as a special case of \nameref{pat:Family} polymorphism pattern,
+where several subclasses are meant to work together.
+
 The \nameref{pat:KnownReturnType} pattern is similar to the \thisp{} pattern,
 since both depends on the knowledge that a method returns a more specific type.
 
