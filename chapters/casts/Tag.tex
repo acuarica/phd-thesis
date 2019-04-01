@@ -103,8 +103,13 @@ public final class MatchPanel extends JPanel implements Observer {
 
 
 \detection{}
+This pattern consists of a cast on a third-party library method,
+that retrieves a value previously set.
+The characteristic feature is that the method returns a more general type,
+hence a cast is needed.
 
 \discussion{}
+Usually, the client application knows at compile-time the kind of values that the \thisp{} will use.
 
 \related{}
 This pattern is closely related to the \nameref{pat:LookupById} pattern.
