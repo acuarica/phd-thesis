@@ -33,7 +33,6 @@ public final static String PROP_ACTIVE_LIST_MANAGER = "activeListManager";
 @Override
 public void newProperties(PropertySheet ps) throws PropertyException {
     super.newProperties(ps);
-    
     logMath = (LogMath) ps.getComponent(PROP_LOG_MATH);
     logger = ps.getLogger();
     linguist = (Linguist) ps.getComponent(PROP_LINGUIST);
