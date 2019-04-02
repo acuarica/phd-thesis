@@ -3,13 +3,15 @@
 \done{Nate: Why not Creational?}
 %
 Dynamically creates an object or array by means of reflection.
-The \code{newInstance} method family declared in the \code{Class},%
-\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html\#newInstance--}}
-\code{Array}\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Array.html\#newInstance-java.lang.Class-int-}}\(^{,}\)
-\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Array.html\#newInstance-java.lang.Class-int...-}}
-and \code{Constructor}%
-\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Constructor.html\#newInstance-java.lang.Object...-}}
-classes creates an object or array dynamically by means of reflection, \ie, the type of object being created is not known at compile-time.
+The \code{newInstance} method family declared in the \code{Class},
+% \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html\#newInstance--}}
+\code{Array}
+% \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Array.html\#newInstance-java.lang.Class-int-}}\(^{,}\)
+% \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Array.html\#newInstance-java.lang.Class-int...-}}
+and \code{Constructor}
+% \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Constructor.html\#newInstance-java.lang.Object...-}}
+classes creates an object or array dynamically by means of reflection, \ie,
+the type of object being created is not known at compile-time.
 This pattern consists of casting the result of these methods to the appropriate target type.
 
 \instances{}
@@ -72,7 +74,7 @@ There are cases when the cast is not directly applied to the result of the \code
 The following snippet shows such a case.%
 \footnote{\url{http://bit.ly/pac4j_pac4j_2HJtXUn}}
 The cast is used to convert from \code{Class<?>} to \code{Class<ConfigFactory>} (line 4).
-The \code{newInstance} invocation then does not need a direct cast (line 8) given the definition of the \code{clazz} variable (line 2).
+The invocation to the \code{newInstance} method then does not need a direct cast (line 8) given the definition of the \code{clazz} variable (line 2).
 Nevertheless, the cast is unchecked, and a \code{checkcast} instruction is going to be emitted anyway for the result of the \code{newInstance} invocation.
 
 %https://lgtm.com/projects/g/pac4j/pac4j/snapshot/dist-4840350-1524814812150/files/pac4j-core/src/main/java/org/pac4j/core/config/ConfigBuilder.java?sort=name&dir=ASC&mode=heatmap#L25
@@ -123,6 +125,7 @@ checkcast     #36    // class java/lang/String
 \related{}
 This pattern is related to \nameref{pat:Deserialization},
 since both create an object dynamically.
-Also it is related to \nameref{pat:ReflectiveAccessibility}, where both retrieve objects by reflection.
+It is also related to \nameref{pat:ReflectiveAccessibility},
+where both retrieve objects by reflection.
 
 \end{pattern}
