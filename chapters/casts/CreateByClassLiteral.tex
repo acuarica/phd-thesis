@@ -5,9 +5,10 @@
 \footnote{\url{http://bit.ly/liferay_liferay-ide_2FMG0f6}}
 
 %https://lgtm.com/projects/g/liferay/liferay-ide/snapshot/dist-2980259-1524814812150/files/tools/plugins/com.liferay.ide.server.ui/src/com/liferay/ide/server/ui/handlers/RedeployHandler.java?sort=name&dir=ASC&mode=heatmap#L64
-\begin{minted}[highlightlines=1]{java}
-final ILiferayServerBehavior liferayServerBehavior = (ILiferayServerBehavior)
-            moduleServer.getServer().loadAdapter( ILiferayServerBehavior.class, null );
+\begin{minted}[highlightlines=2-3]{java}
+final ILiferayServerBehavior liferayServerBehavior =
+                (ILiferayServerBehavior) moduleServer.getServer()
+                        .loadAdapter( ILiferayServerBehavior.class, null );
 \end{minted}
 
 \footnote{\url{http://bit.ly/robovm_robovm_2FMFWvS}}
