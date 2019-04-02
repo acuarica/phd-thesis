@@ -82,6 +82,45 @@ public <T> T get(String fieldName, Class<T> clazz) throws DecodingException {
 \end{minted}
 
 
+\done{Nate: CreateByClassLiteral. Luis: GetByClassLiteral}
+The following snippet%
+\footnote{\url{http://bit.ly/apache_karaf_2HE55gE}}
+shows an instance of the \thisp{} pattern. 
+In this case, the cast is guaranteed to succeed because the class literal used as argument to the recursive call (\code{Integer.class}) determines that the method returns an \code{int} value.
+
+%https://lgtm.com/projects/g/apache/karaf/snapshot/dist-13960098-1524814812150/files/shell/core/src/main/java/org/apache/karaf/shell/support/converter/DefaultConverter.java?sort=name&dir=ASC&mode=heatmap#L117
+\begin{minted}[highlightlines=4]{java}
+public Object convertToNumber(Number value, Class toType) throws Exception {
+    toType = unwrap(toType);
+    if (AtomicInteger.class == toType) {
+        return new AtomicInteger((Integer)convertToNumber(value,Integer.class));
+    } else if (AtomicLong.class == toType) {
+        return new AtomicLong((Long) convertToNumber(value, Long.class));
+    } else if (Integer.class == toType) {
+        return value.intValue();
+    } else if (Short.class == toType) {
+        return value.shortValue();
+    } else if (Long.class == toType) {
+        return value.longValue();
+    } else if (Float.class == toType) {
+        return value.floatValue();
+    } else if (Double.class == toType) {
+        return value.doubleValue();
+    } else if (Byte.class == toType) {
+        return value.byteValue();
+    } else if (BigInteger.class == toType) {
+        return new BigInteger(value.toString());
+    } else if (BigDecimal.class == toType) {
+        return new BigDecimal(value.toString());
+    } else {
+        throw new Exception("Unable to convert number "+value+" to "+toType);
+    }
+}
+\end{minted}
+
+
+
+
 \detection{}
 This pattern is characterized by the use of a class literal.%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.8.2}}

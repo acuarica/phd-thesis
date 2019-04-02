@@ -4,7 +4,7 @@ This pattern is used to deserialize an object at run-time.
 \instances{}
 The following example%
 \footnote{\url{http://bit.ly/internetarchive_heritrix3_2SF4j7k}}
-shows how the \thisp{} pattern is used to create objects from a file system.
+shows how the \thisp{} pattern is used to create objects from a file system (line 19).
 
 %https://lgtm.com/projects/g/internetarchive/heritrix3/snapshot/dist-12140105-1524814812150/files/engine/src/test/java/org/archive/crawler/datamodel/CrawlURITest.java?sort=name&dir=ASC&mode=heatmap#L83
 \begin{minted}[highlightlines=19]{java}
@@ -39,9 +39,15 @@ final public void testSerialization()
 \end{minted}
 
 \detection{}
+This pattern is characterized for a cast to the \code{readObject} method on a \code{ObjectInputStream} object.
 
 \discussion{}
+From a language design perspective,
+the \thisp{} pattern is one of the most difficult patterns to avoid.
+It is difficult to avoid because a compiler cannot verify at compile-time that a certain byte stream can be deserialized into an object of a given type.
 
 \related{}
+Both this pattern and the \nameref{pat:NewDynamicInstance} pattern create objects by using reflection.
+\nameref{pat:StaticResource}
 
 \end{pattern}
