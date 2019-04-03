@@ -7,7 +7,7 @@
 
 \
 
-{\noindent\Large\textsc{#1} Patterns}
+{\noindent\Large Patterns for \textsc{#1}}
 
 \
 
@@ -36,6 +36,8 @@
 \section{Cast Usage Patterns}
 \label{sec:casts:patterns}
 
+\todo{Describe where patterns come from. Sample -> Invent patterns -> repeat.?}
+%
 Using the methodology described in the above section,
 we have devised \npattern{} cast usage patterns.
 We have excluded casts that represent primitive numeric type conversions,
@@ -48,7 +50,7 @@ To ease the patterns presentation,
 %
 \todo{Nate: Overview of categories.}
 \todo{Nate: Explain why each pattern belongs to a certain category.}
-\todo{Nate: Try to lump together patterns into fewer categories.}
+\done{Nate: Try to lump together patterns into fewer categories.}
 %
 we have organized them into \ngroup{} categories according to their purpose.
 Table~\ref{table:casts:patterns} presents each pattern and the groups they belong to.
@@ -59,9 +61,8 @@ Moreover, we are interested in the scope of the cast instance,
 %
 Figure~\ref{fig:patterns} shows our patterns and their occurrences sorted by frequency.
 The column on the right corresponds to the group the pattern belongs to.
-\todo{Describe where patterns come from. Sample -> Invent patterns -> repeat.?}
 
-\input{chapters/casts/table-patterns}
+\input{chapters/casts/table-cast-patterns}
 
 \clearpage
 
@@ -114,7 +115,7 @@ Presents suggestions, flaws, or comments about the pattern.
 How the pattern being described relates to other patterns.
 \end{itemize}
 
-\group{Guarded}
+\group{Language Designers}
 
 \done{Matthias: Say what it means to be guarded.}
 The patterns in this category are guarded casts.
@@ -126,12 +127,18 @@ Some kind of guards ensure that the cast will not fail at the language-level,
 while others only can guarantee it at the application-level.
 
 \input{chapters/casts/patterns/PatternMatching}
+\input{chapters/casts/patterns/Family}
 \input{chapters/casts/patterns/Equals}
-\input{chapters/casts/patterns/TypeTag}
-\input{chapters/casts/patterns/GetByClassLiteral}
-\input{chapters/casts/patterns/StackSymbol}
+\input{chapters/casts/patterns/SelectOverload}
+\input{chapters/casts/patterns/StaticResource}
+\input{chapters/casts/patterns/CovariantReturn}
+\input{chapters/casts/patterns/RemoveWildcard}
+\input{chapters/casts/patterns/CovariantGeneric}
+\input{chapters/casts/patterns/Composite}
+\input{chapters/casts/patterns/GenericArray} 
+\input{chapters/casts/patterns/UnoccupiedTypeParameter}
 
-\group{Creational}
+\group{Tool Builders}
 
 \done{Matthias: In these paragraphs, can you also enumerate the patterns by name, so readers see what's coming?}
 \done{Matthias: ???}
@@ -139,15 +146,18 @@ Creational patterns are cast instances that are determined by how the value bein
 
 \input{chapters/casts/patterns/LookupById}
 \input{chapters/casts/patterns/Factory}
-\input{chapters/casts/patterns/Family}
+\input{chapters/casts/patterns/TypeTag}
 \input{chapters/casts/patterns/Tag}
-\input{chapters/casts/patterns/StaticResource}
+\input{chapters/casts/patterns/GetByClassLiteral}
 \input{chapters/casts/patterns/NewDynamicInstance}
 \input{chapters/casts/patterns/Deserialization}
+\input{chapters/casts/patterns/ImplicitIntersectionType}
+\input{chapters/casts/patterns/StackSymbol}
+\input{chapters/casts/patterns/ReflectiveAccessibility}
+\input{chapters/casts/patterns/RecursiveGeneric}
 \input{chapters/casts/patterns/CreateByClassLiteral}
-\input{chapters/casts/patterns/Composite}
 
-\group{Avoidable}
+\group{Developers}
 
 These patterns can be avoidable either directly (by removing them)
 or through some minor refactor.
@@ -160,24 +170,6 @@ These are code smells.
 \input{chapters/casts/patterns/KnownReturnType}
 \input{chapters/casts/patterns/Clone}
 \input{chapters/casts/patterns/VariableLessSpecificType}
+\input{chapters/casts/patterns/SoleSubclassImplementation}
 \input{chapters/casts/patterns/ObjectAsArray}
 \input{chapters/casts/patterns/AccessPrivateField}
-
-\group{Resolution}
-
-\input{chapters/casts/patterns/SelectOverload}
-\input{chapters/casts/patterns/CovariantReturn}
-\input{chapters/casts/patterns/ReflectiveAccessibility}
-\input{chapters/casts/patterns/CovariantGeneric}
-
-\group{Hierarchical}
-
-\input{chapters/casts/patterns/SoleSubclassImplementation}
-\input{chapters/casts/patterns/ImplicitIntersectionType}
-\input{chapters/casts/patterns/RecursiveGeneric}
-
-\group{Unchecked}
-
-\input{chapters/casts/patterns/RemoveWildcard}
-\input{chapters/casts/patterns/GenericArray}
-\input{chapters/casts/patterns/UnoccupiedTypeParameter}
