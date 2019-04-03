@@ -1,7 +1,9 @@
 \begin{pattern}{CreateByClassLiteral}
+A cast applied to a method invocation where one of its arguments is a class literal.
+The target type of the cast is determined by this class literal.
 
 \instances{}
-
+The following example 
 \footnote{\url{http://bit.ly/liferay_liferay-ide_2FMG0f6}}
 
 %https://lgtm.com/projects/g/liferay/liferay-ide/snapshot/dist-2980259-1524814812150/files/tools/plugins/com.liferay.ide.server.ui/src/com/liferay/ide/server/ui/handlers/RedeployHandler.java?sort=name&dir=ASC&mode=heatmap#L64
@@ -10,6 +12,7 @@ final ILiferayServerBehavior liferayServerBehavior =
                 (ILiferayServerBehavior) moduleServer.getServer()
                         .loadAdapter( ILiferayServerBehavior.class, null );
 \end{minted}
+
 
 \footnote{\url{http://bit.ly/robovm_robovm_2FMFWvS}}
 
