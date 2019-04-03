@@ -125,11 +125,11 @@ the cast will not throw a \code{ClassCastException}.
 Some kind of guards ensure that the cast will not fail at the language-level,
 while others only can guarantee it at the application-level.
 
-\input{chapters/casts/PatternMatching}
-\input{chapters/casts/Equals}
-\input{chapters/casts/TypeTag}
-\input{chapters/casts/GetByClassLiteral}
-\input{chapters/casts/StackSymbol}
+\input{chapters/casts/patterns/PatternMatching}
+\input{chapters/casts/patterns/Equals}
+\input{chapters/casts/patterns/TypeTag}
+\input{chapters/casts/patterns/GetByClassLiteral}
+\input{chapters/casts/patterns/StackSymbol}
 
 \group{Creational}
 
@@ -137,15 +137,15 @@ while others only can guarantee it at the application-level.
 \done{Matthias: ???}
 Creational patterns are cast instances that are determined by how the value being cast is created.
 
-\input{chapters/casts/LookupById}
-\input{chapters/casts/Factory}
-\input{chapters/casts/Family}
-\input{chapters/casts/Tag}
-\input{chapters/casts/StaticResource}
-\input{chapters/casts/NewDynamicInstance}
-\input{chapters/casts/Deserialization}
-\input{chapters/casts/CreateByClassLiteral}
-\input{chapters/casts/Composite}
+\input{chapters/casts/patterns/LookupById}
+\input{chapters/casts/patterns/Factory}
+\input{chapters/casts/patterns/Family}
+\input{chapters/casts/patterns/Tag}
+\input{chapters/casts/patterns/StaticResource}
+\input{chapters/casts/patterns/NewDynamicInstance}
+\input{chapters/casts/patterns/Deserialization}
+\input{chapters/casts/patterns/CreateByClassLiteral}
+\input{chapters/casts/patterns/Composite}
 
 \group{Avoidable}
 
@@ -154,30 +154,30 @@ or through some minor refactor.
 Some of these patterns in this category also are 
 These are code smells.
 
-\input{chapters/casts/Literal}
-\input{chapters/casts/UseRawType}
-\input{chapters/casts/Redundant}
-\input{chapters/casts/KnownReturnType}
-\input{chapters/casts/Clone}
-\input{chapters/casts/VariableLessSpecificType}
-\input{chapters/casts/ObjectAsArray}
-\input{chapters/casts/AccessPrivateField}
+\input{chapters/casts/patterns/Literal}
+\input{chapters/casts/patterns/UseRawType}
+\input{chapters/casts/patterns/Redundant}
+\input{chapters/casts/patterns/KnownReturnType}
+\input{chapters/casts/patterns/Clone}
+\input{chapters/casts/patterns/VariableLessSpecificType}
+\input{chapters/casts/patterns/ObjectAsArray}
+\input{chapters/casts/patterns/AccessPrivateField}
 
 \group{Resolution}
 
-\input{chapters/casts/SelectOverload}
-\input{chapters/casts/CovariantReturn}
-\input{chapters/casts/ReflectiveAccessibility}
-\input{chapters/casts/CovariantGeneric}
+\input{chapters/casts/patterns/SelectOverload}
+\input{chapters/casts/patterns/CovariantReturn}
+\input{chapters/casts/patterns/ReflectiveAccessibility}
+\input{chapters/casts/patterns/CovariantGeneric}
 
 \group{Hierarchical}
 
-\input{chapters/casts/SoleSubclassImplementation}
-\input{chapters/casts/ImplicitIntersectionType}
-\input{chapters/casts/RecursiveGeneric}
+\input{chapters/casts/patterns/SoleSubclassImplementation}
+\input{chapters/casts/patterns/ImplicitIntersectionType}
+\input{chapters/casts/patterns/RecursiveGeneric}
 
 \group{Unchecked}
 
-\input{chapters/casts/RemoveWildcard}
-\input{chapters/casts/GenericArray}
-\input{chapters/casts/UnoccupiedTypeParameter}
+\input{chapters/casts/patterns/RemoveWildcard}
+\input{chapters/casts/patterns/GenericArray}
+\input{chapters/casts/patterns/UnoccupiedTypeParameter}
