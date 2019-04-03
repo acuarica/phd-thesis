@@ -3,6 +3,7 @@ library(tidyr)
 library(ggplot2)
 library(plyr)
 
+# By cast structure.
 groups <- list(
   'Guarded' = c('PatternMatching', 'TypeTag', 'Equals', 'GetByClassLiteral', 'StackSymbol'),
   'Creational' = c('Family', 'Factory', 'Tag', 'Deserialization', 'CreateByClassLiteral', 'Composite', 'NewDynamicInstance', 'LookupById', 'StaticResource'),
@@ -11,6 +12,29 @@ groups <- list(
   'Hierarchical' = c('SoleSubclassImplementation', 'RecursiveGeneric', 'ImplicitIntersectionType'),
   'Unchecked' = c('RemoveWildcard', 'GenericArray', 'UnoccupiedTypeParameter')
 )
+
+# By target audience, more emphasis on the discussion.
+groups <- list(
+  'Language Designers' = c('PatternMatching', 'Equals', 'SelectOverload', 'Family', 'StaticResource', 'GenericArray', 'Composite', 'UnoccupiedTypeParameter', 'RemoveWildcard', 'CovariantReturn', 'CovariantGeneric'),
+  'Tool Builders' = c('TypeTag', 'GetByClassLiteral', 'StackSymbol', 'LookupById', 'Factory', 'Tag', 'Deserialization', 'NewDynamicInstance', 'ReflectiveAccessibility', 'CreateByClassLiteral', 'RecursiveGeneric', 'ImplicitIntersectionType'),
+  'Developers' = c('Redundant', 'VariableLessSpecificType', 'UseRawType', 'Literal', 'KnownReturnType', 'ObjectAsArray', 'AccessPrivateField', 'Clone', 'SoleSubclassImplementation')
+)
+
+for (g in names(groups)) {
+  cat(g, ' : #', length(groups[[g]]), '\n', sep='')
+}
+
+
+# i <- 1 
+# cat('', file='table.def')
+# for (g in names(groups)) {
+#   for (p in groups[[g]]) {
+#     cat(i, p, file='table.def', append=TRUE)
+#     cat('\n', file='table.def', append=TRUE)
+#     i = i+1
+#   }
+# }
+
 
 size <- 5000
 
