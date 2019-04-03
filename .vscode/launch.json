@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Web",
+            "request": "launch",
+            "mainClass": "Web",
+            "projectName": "phd-thesis"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Hola",
+            "request": "launch",
+            "mainClass": "Hola"
+        }
+    ]
+}
