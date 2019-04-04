@@ -1,3 +1,4 @@
+package instances;
 
 public class Web {
 

@@ -11,7 +11,25 @@ partialResults[ty][tx] = build(tx, ty, order, cCompatibility);
 layers.addAll((List<byte[]>) partialResults[y][x]);
 
 protected abstract List<byte[]> build(int tx, int ty, ByteOrder order, boolean cCompatibility);
+\end{minted}
 
+\footnote{\url{http://bit.ly/seven332_Nimingban_2UdBwIL}}
+
+%https://lgtm.com/projects/g/seven332/Nimingban/snapshot/dist-1506180917302-1524814812150/files/yorozuya/src/main/java/com/hippo/yorozuya/ArrayUtils.java?sort=name&dir=ASC&mode=heatmap#L124
+\begin{minted}[highlightlines=1]{java}
+public static <T> T[] insert(T[] array, int currentSize, int index, T element) {
+    if (currentSize + 1 <= array.length) {
+        System.arraycopy(array, index, array, index + 1, currentSize - index);
+        array[index] = element;
+        return array;
+    }
+    @SuppressWarnings("unchecked")
+    T[] newArray = (T[]) new Object[growSize(currentSize)];
+    System.arraycopy(array, 0, newArray, 0, index);
+    newArray[index] = element;
+    System.arraycopy(array, index, newArray, index + 1, array.length - index);
+    return newArray;
+}
 \end{minted}
 
 \detection{}
