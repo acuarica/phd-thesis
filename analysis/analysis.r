@@ -1,0 +1,364 @@
+
+library(tidyr)
+library(plyr)
+library(reshape2)
+library(ggplot2)
+library(UpSetR)
+
+taxonomy = list(
+  'Typecase' = list(
+    'features' = c('GuardByInstanceOf', 'GuardByTypeTag', 'GuardByClassLiteral', 'Equals'),
+    'categories' = c('lang')
+  ),
+  'OperandStack' = list(
+    'features' = c('OperandStack'),
+    'categories' = c('lang')
+  ),
+  'Family' = list(
+    'features' = c('Family'),
+    'categories' = c('lang')
+  ),
+  'Factory' = list(
+    'features' = c('Factory', 'GetOrCreateByClassLiteral'),
+    'categories' = c('tools')
+  ),
+  'Deserialization' = list(
+    'features' = c('Deserialization'),
+    'categories' = c('tools')
+  ),
+  'Composite' = list(
+    'features' = c('Composite'),
+    'categories' = c('lang')
+  ),
+  'NewDynamicInstance' = list(
+    'features' = c('NewDynamicInstance'),
+    'categories' = c('tools')
+  ),
+  'LookupById' = list(
+    'features' = c('LookupById', 'Tag', 'StaticResource'),
+    'categories' = c('tools')
+  ),
+  'CovariantReturnType' = list(
+    'features' = c('CovariantReturnType'),
+    'categories' = c('lang')
+  ),
+  'Redundant' = list(
+    'features' = c('Redundant'),
+    'categories' = c('dev')
+  ),
+  'VariableSupertype' = list(
+    'features' = c('VariableSupertype'),
+    'categories' = c('dev')
+  ),
+  'UseRawType' = list(
+    'features' = c('UseRawType'),
+    'categories' = c('dev')
+  ),
+  'RemoveWildcard' = list(
+    'features' = c('RemoveWildcard'),
+    'categories' = c('lang', 'generic')
+  ),
+  'KnownReturnType' = list(
+    'features' = c('KnownReturnType', 'Clone'),
+    'categories' = c('tools', 'dev')
+  ),
+  'ObjectAsArray' = list(
+    'features' = c('ObjectAsArray'),
+    'categories' = c('dev')
+  ),
+  'AccessSuperclassField' = list(
+    'features' = c('AccessSuperclassField'),
+    'categories' = c('dev')
+  ),
+  'SelectOverload' = list(
+    'features' = c('SelectOverload'),
+    'categories' = c('lang')
+  ),
+  'ReflectiveAccessibility' = list(
+    'features' = c('ReflectiveAccessibility'),
+    'categories' = c('lang')
+  ),
+  'CovariantGeneric' = list(
+    'features' = c('CovariantGeneric'),
+    'categories' = c('lang', 'generic')
+  ),
+  'SoleSubclassImplementation' = list(
+    'features' = c('SoleSubclassImplementation'),
+    'categories' = c('lang')
+  ),
+  'FluentAPI' = list(
+    'features' = c('FluentAPI'),
+    'categories' = c('lang')
+  ),
+  'ImplicitIntersectionType' = list(
+    'features' = c('ImplicitIntersectionType'),
+    'categories' = c('lang')
+  ),
+  'GenericArray' = list(
+    'features' = c('GenericArray', 'MatchBoxedType'),
+    'categories' = c('lang', 'generic')
+  ),
+  'UnoccupiedTypeParameter' = list(
+    'features' = c('UnoccupiedTypeParameter'),
+    'categories' = c('lang', 'generic')
+  ),
+  'Primitive' = list(
+    'features' = c('Literal', 'Numeric'),
+    'categories' = c('lang')
+  ),
+  'ToRemove' = list(
+    'features' = c('Boxing', 'Unboxing', 'This'),
+    'categories' = c('lang')
+  )
+  )
+
+groups = list(
+  'Language' = c(
+    'Typecase', 'SelectOverload', 'Family', 'StaticResource', 'GenericArray', 'Composite',
+    'UnoccupiedTypeParameter', 'RemoveWildcard', 'CovariantGeneric'
+  ),
+  'Tools' = c(
+    'PatternMatching', 'OperandStack', 'LookupById', 'Factory',
+    'Tag', 'Deserialization', 'NewDynamicInstance', 'ReflectiveAccessibility',
+    'CreateByClassLiteral', 'FluentAPI', 'ImplicitIntersectionType'
+  ),
+  'Developers' = c(
+    'Redundant', 'VariableSupertype', 'UseRawType', 'KnownReturnType',
+    'ObjectAsArray', 'AccessPrivateField', 'SoleSubclassImplementation'
+  ))
+
+declared.features <-  unlist(lapply(taxonomy, `[[`, 'features'), use.names=FALSE)
+declared.categories <- unique(unlist(lapply(taxonomy, `[[`, 'categories'), use.names=FALSE))
+declared.omitted <- c('BrokenLink', 'Bug', 'Duplicated')
+
+read.sample <- function(size) {
+  df <- read.csv(sprintf('casts-%s.csv', size))
+  df$batch <- size
+  stopifnot(nrow(df) == size)
+  stopifnot(ncol(df) == 7+1)
+  
+  df.undefined <- df[df$value == '', ]
+  stopifnot(nrow(df.undefined)==0)
+
+  df.empty <- df[df$value == '#', ]
+  cat("[Remaining cast instances to manually analyze in batch size ", size, ": ", nrow(df.empty), "]", sep='', fill=TRUE)
+  stopifnot(nrow(df.empty) == 0)
+  df <- df[df$value != '#', ]
+
+  re.omitted <- paste('\\?', declared.omitted, sep='', collapse='|')
+  re.features <- paste(declared.features, collapse='|') 
+  re <- sprintf("^((#(%s)(:\\w+)?)+,@(src|test|gen)|%s)$", re.features, re.omitted)
+  df.malformed <- df[grep(re, df$value, invert=TRUE),]
+  if (nrow(df.malformed) != 0) stop("Cast malformed found: ", paste(df.malformed$castid, df.malformed$value, sep='', collapse=' & '))
+
+  df
+}
+
+read.samples <- function(...) {
+  args <- c(...)
+  ls <- lapply(args, read.sample)
+  total <- do.call(sum , lapply(ls, nrow))
+  df <- do.call(rbind, ls)
+  stopifnot(nrow(df)==total)
+  df
+}
+
+write.def <- function(patterns.def, casts.def, file='casts.def') {
+  cat("[Writing def '", file, "']", sep='', fill=TRUE)
+  values <- c('% DO NOT EDIT, AUTOMATICALLY GENERATED BY analysis.r')
+  num <- function(x) format(x, big.mark=',')
+  perc <- function(x) formatC( (x / casts.def$Size)*100, digits=2, format='f')
+  for (k in names(patterns.def)) {
+    values <- append(values, c(
+      sprintf("\\newcommand{\\n%s}{%s}", k, num(patterns.def[[k]]))
+    ))
+  }
+  for (k in names(casts.def)) {
+    values <- append(values, c(
+      sprintf("\\newcommand{\\n%s}{%s}", k, num(casts.def[[k]])),
+      sprintf("\\newcommand{\\p%s}{%s}", k, perc(casts.def[[k]]))
+    ))
+  }
+  write(values, file)
+}
+
+write.plot <- function(pp, path) {
+  cat("[Writing plot '", path, "']\n", sep='')
+  pdf(path)
+  print(pp)
+  dev.off()
+}
+
+check.consistency <- function(castids, casts.def) {
+  stopifnot(casts.def$Seen == casts.def$Size+casts.def$BrokenLink+casts.def$Bug+casts.def$Duplicated)
+  
+  castsids.duplicated <- castids[duplicated(castids)]
+  if (length(castsids.duplicated) != 0) stop("Duplicated casts found: ", castids.duplicated)
+  else cat("[OK: No casts duplicated found]", sep='', fill=TRUE)
+}
+
+check.auto <- function(df) {
+  check.diff <- function(df.auto, df.manual, msg) {
+    x <- df[df$castid %in% setdiff(df.auto$castid, df.manual$castid),]
+    if (!empty(x)) stop("Miscategorized ", msg, " casts: ", paste(x$castid, x$value, sep='', collapse=' & '))
+    
+    x <- df[df$castid %in% setdiff(df.manual$castid, df.auto$castid),]
+    if (!empty(x)) stop("Miscategorized ", msg, " casts: ", paste(x$castid, x$value, sep='', collapse=' & '))
+  }
+  
+  types.prim <- c('boolean', 'byte', 'char', 'short', 'int', 'long', 'float', 'double')
+  
+  df.prim.auto <- df[df$target %in% types.prim & df$source %in% types.prim,]
+  df.prim.manual <- df[grep('#Numeric|#Literal', df$features),]
+  check.diff(df.prim.auto, df.prim.manual, 'primitive')
+  
+  df.boxing.auto <- df[df$source %in% types.prim & !(df$target %in% types.prim),]
+  df.boxing.manual <- df[grep('#Boxing', df$features),]
+  check.diff(df.boxing.auto, df.boxing.manual, 'boxing')
+  
+  df.unboxing.auto <- df[!(df$source %in% types.prim) & df$target %in% types.prim,]
+  df.unboxing.manual <- df[grep('#Unboxing', df$features),]
+  check.diff(df.unboxing.auto, df.unboxing.manual, 'unboxing')
+}
+
+
+df <- read.samples(5000, 480, 47, 3)
+casts.def <- list()
+casts.def['Seen'] <- nrow(df)
+cat("[Links seen: ", casts.def$Seen, "]", sep='', fill=TRUE)
+for (key in declared.omitted) {
+  make.key <- paste('?', key, sep='')
+  df.omitted <- df[df$value == make.key, ]
+  cat("[# ", key, ": ", nrow(df.omitted), "]", sep='', fill=TRUE)
+  casts.def[key] <- nrow(df.omitted)
+  df <- df[df$value != make.key, ]
+}
+casts.def['Size'] <- nrow(df)
+cat("[Accoutable cast instances (sample size): ", casts.def$Size, "]", sep='', fill=TRUE)
+df <- separate(df, value, c('features', 'scope'), sep=',')
+check.consistency(df$castid, casts.def)
+check.auto(df)
+
+df$scope <- substring(df$scope, 2)
+df$scope <- factor(df$scope, levels=c('src', 'test', 'gen'))
+stopifnot(empty(df[is.na(df$scope),]))
+df$scope <- revalue(df$scope, c('src'='Sources', 'test'='Test', 'gen'='Generated'))
+
+df$features <- substring(df$features, 2)
+df <- separate_rows(df, features, sep='#')
+df <- separate(df, features, c('features', 'args'), sep=':', fill='right')
+df$pattern <- NA
+for (p in names(taxonomy)) {
+  df[df$features %in% taxonomy[[p]]$features,]$pattern <- p
+}
+stopifnot(empty(subset(df, is.na(pattern))))
+(function() {
+  x <- setdiff(declared.features, unique(df$features))
+  stopifnot(length(x) == 0)
+  x <- setdiff(unique(df$features), declared.features)
+  stopifnot(length(x) == 0)
+})()
+
+for (pname in levels(as.factor(df$pattern))) {
+  x <- df[df$pattern==pname,]
+  pp <- ggplot(x, aes(x=args))+
+    geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
+    geom_text(stat='count', aes(label=..count..,y=..count..+3))+
+    coord_flip()+
+    theme(legend.position="top")+
+    labs(x=sprintf('%s Pattern Arguments', pname), y = "# Instances")+
+    scale_fill_discrete(name="Scope")
+  write.plot(pp, sprintf('patterns/table-pattern-%s.pdf', pname))
+
+  casts.def[sprintf("%sPattern", pname)] <- nrow(x)
+  casts.def[sprintf("%sPatternSrc", pname)] <- nrow(x[which(x$scope=='Sources'),])
+  casts.def[sprintf("%sPatternTest", pname)] <- nrow(x[which(x$scope=='Test'),])
+  casts.def[sprintf("%sPatternGen", pname)] <- nrow(x[which(x$scope=='Generated'),])
+  
+  for (subp in levels(as.factor(x$features))) {
+    casts.def[sprintf("%s%sSubpattern", pname, subp)] <- nrow(x[which(x$features==subp),])
+    
+    pp <- ggplot(x[which(x$features==subp),], aes(x=args))+
+      geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
+      geom_text(stat='count', aes(label=..count..,y=..count..+3))+
+      coord_flip()+
+      theme(legend.position="top")+
+      labs(x=sprintf('%s/%s Features Arguments', pname, subp), y = "# Instances")+
+      scale_fill_discrete(name="Scope")
+    write.plot(pp, sprintf('patterns/table-pattern-%s-%s.pdf', pname, subp))
+  }
+}
+
+df <- df[!(df$pattern %in% c('Primitive', 'ToRemove')), ]
+
+tb <- table(df$pattern)
+df$pattern <- factor(df$pattern, levels=names(tb[order(tb, decreasing = FALSE)]))
+input.patterns.def <- c()
+table.def <- c()
+table.categories.def <- c()
+i <- 1 
+#for (p in levels(df$pattern)) {
+for (p in names(tb[order(tb, decreasing = TRUE)])) {
+  table.def <- append(table.def, sprintf("%s & \\nameref{pat:%s} & \\%sDesc & \\n%sPattern & \\p%sPattern \\%% \\\\", i, p, p, p, p))
+  input.patterns.def <- append(input.patterns.def, sprintf("\\input{patterns/%s}", p))
+  
+  a <- declared.categories %in% taxonomy[[p]]$categories
+  r <- paste(sapply(a, function(b) if (b) 'X' else ''), collapse=' & ', sep=' & ')
+  table.categories.def <- append(table.categories.def, sprintf("%s & \\nameref{pat:%s} & %s \\\\", i, p, r))
+  
+  i = i+1
+}
+write(table.def, 'table-casts-patterns.def')
+write(input.patterns.def, 'input-patterns.def')
+write(table.categories.def, 'table-categories.def')
+
+pp <- ggplot(df, aes(x=pattern))+
+  geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
+  geom_text(stat='count', aes(label=..count..,y=..count..+3))+
+  coord_flip()+
+  theme(strip.text.y=element_text(angle = 0), legend.position="top")+
+  labs(x="Cast Usage Patterns", y = "# Instances")+
+  scale_fill_discrete(name="Scope")
+write.plot(pp, 'table-patterns.pdf')
+
+patterns.def = list()
+lpatterns <- levels(as.factor(df$pattern))
+patterns.def['Pattern'] = length(lpatterns)
+
+df.guarded <- df[which(df$pattern %in% c('Typecase', 'OperandStack')),]
+df.upcast <- rbind(
+  df[which(df$pattern=='SelectOverload'),],
+  df[which(df$pattern=='CovariantGeneric' & df$args=='Upcast'),],
+  df[which(df$pattern=='CovariantGeneric' & df$args=='Null'),],
+  df[which(df$pattern=='CovariantGeneric' & df$args=='Boxing'),]
+)
+
+nReference <- casts.def$Size-casts.def$PrimitivePattern
+
+casts.def['Reference'] = nReference
+casts.def['Guarded'] = nrow(df.guarded)
+casts.def['Unguarded'] = nReference - nrow(df.guarded)
+casts.def['Upcast'] = nrow(df.upcast)
+casts.def['Downcast'] = nReference - nrow(df.upcast)
+
+write.def(patterns.def, casts.def, 'casts.def')
+
+
+
+# df.equals <- subset(df, df$features=='Equals')
+# df.wide <- dcast(df.equals, castid~args, length, value.var="args")
+# df.wide <- dcast(df, castid~features, length)
+# #upset(df.wide,nsets=ncol(df.wide),nintersects=NA,mb.ratio = c(0.3, 0.7))
+# upset(df.wide,nsets=ncol(df.wide) )
+# upset(df.wide)
+# df.repo <- dcast(df, repoid+features~'ads', length, value.var="features")
+# df.repo0 <- dcast(df.repo, repoid~'x', length, value.var="features")
+# a<-df.repo0[order(df.repo0$x,decreasing=TRUE),]
+# plot(df.repo)
+# ggplot(df.repo, aes(x=repoid))+geom_bar()
+# print(pp)
+
+# tb <- table(df.repo$.)
+# names(tb[order(tb, decreasing = FALSE)])
+
+# df.repo.long <- melt(df.repo, id.vars=c('repoid'))
