@@ -1,5 +1,5 @@
 
-\input{java-cast-oopsla-19/analysis/casts.def}
+\input{analysis/casts.def}
 
 \newcommand{\castpatternsection}[1]{\noindent\textbf{#1.}}
 \newcommand{\pname}[1]{\textsc{#1}}
@@ -70,7 +70,7 @@ The column on the right corresponds to the group the pattern belongs to.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{java-cast-oopsla-19/analysis/table-patterns.pdf}
+\includegraphics[width=\textwidth]{analysis/table-patterns.pdf}
 \caption{Cast Pattern Occurrences} \label{fig:patterns}
 \end{figure}
 
@@ -128,17 +128,17 @@ the cast will not throw a \code{ClassCastException}.
 Some kind of guards ensure that the cast will not fail at the language-level,
 while others only can guarantee it at the application-level.
 
-\input{chapters/casts/patterns/PatternMatching}
-\input{chapters/casts/patterns/Family}
-\input{chapters/casts/patterns/Equals}
-\input{chapters/casts/patterns/SelectOverload}
-\input{chapters/casts/patterns/StaticResource}
-\input{chapters/casts/patterns/CovariantReturn}
-\input{chapters/casts/patterns/RemoveWildcard}
-\input{chapters/casts/patterns/CovariantGeneric}
-\input{chapters/casts/patterns/Composite}
-\input{chapters/casts/patterns/GenericArray} 
-\input{chapters/casts/patterns/UnoccupiedTypeParameter}
+% \input{chapters/casts/patterns/PatternMatching}
+% \input{chapters/casts/patterns/Family}
+% \input{chapters/casts/patterns/Equals}
+% \input{chapters/casts/patterns/SelectOverload}
+% \input{chapters/casts/patterns/StaticResource}
+% \input{chapters/casts/patterns/CovariantReturn}
+% \input{chapters/casts/patterns/RemoveWildcard}
+% \input{chapters/casts/patterns/CovariantGeneric}
+% \input{chapters/casts/patterns/Composite}
+% \input{chapters/casts/patterns/GenericArray} 
+% \input{chapters/casts/patterns/UnoccupiedTypeParameter}
 
 \group{Tool Builders1}
 
@@ -146,18 +146,18 @@ while others only can guarantee it at the application-level.
 \done{Matthias: ???}
 Creational patterns are cast instances that are determined by how the value being cast is created.
 
-\input{chapters/casts/patterns/LookupById}
-\input{chapters/casts/patterns/Factory}
-\input{chapters/casts/patterns/TypeTag}
-\input{chapters/casts/patterns/Tag}
-\input{chapters/casts/patterns/GetByClassLiteral}
-\input{chapters/casts/patterns/NewDynamicInstance}
-\input{chapters/casts/patterns/Deserialization}
-\input{chapters/casts/patterns/ImplicitIntersectionType}
-\input{chapters/casts/patterns/StackSymbol}
-\input{chapters/casts/patterns/ReflectiveAccessibility}
-\input{chapters/casts/patterns/RecursiveGeneric}
-\input{chapters/casts/patterns/CreateByClassLiteral}
+% \input{chapters/casts/patterns/LookupById}
+% \input{chapters/casts/patterns/Factory}
+% \input{chapters/casts/patterns/TypeTag}
+% \input{chapters/casts/patterns/Tag}
+% \input{chapters/casts/patterns/GetByClassLiteral}
+% \input{chapters/casts/patterns/NewDynamicInstance}
+% \input{chapters/casts/patterns/Deserialization}
+% \input{chapters/casts/patterns/ImplicitIntersectionType}
+% \input{chapters/casts/patterns/StackSymbol}
+% \input{chapters/casts/patterns/ReflectiveAccessibility}
+% \input{chapters/casts/patterns/RecursiveGeneric}
+% \input{chapters/casts/patterns/CreateByClassLiteral}
 
 \group{Developers}
 
@@ -166,12 +166,14 @@ or through some minor refactor.
 Some of these patterns in this category also are 
 These are code smells.
 
-\input{chapters/casts/patterns/Literal}
-\input{chapters/casts/patterns/UseRawType}
-\input{chapters/casts/patterns/Redundant}
-\input{chapters/casts/patterns/KnownReturnType}
-\input{chapters/casts/patterns/Clone}
-\input{chapters/casts/patterns/VariableLessSpecificType}
-\input{chapters/casts/patterns/SoleSubclassImplementation}
-\input{chapters/casts/patterns/ObjectAsArray}
-\input{chapters/casts/patterns/AccessPrivateField}
+% \input{chapters/casts/patterns/Literal}
+% \input{chapters/casts/patterns/UseRawType}
+% \input{chapters/casts/patterns/Redundant}
+% \input{chapters/casts/patterns/KnownReturnType}
+% \input{chapters/casts/patterns/Clone}
+% \input{chapters/casts/patterns/VariableLessSpecificType}
+% \input{chapters/casts/patterns/SoleSubclassImplementation}
+% \input{chapters/casts/patterns/ObjectAsArray}
+% \input{chapters/casts/patterns/AccessPrivateField}
+
+% \input{analysis/input-patterns.def}
