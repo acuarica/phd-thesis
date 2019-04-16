@@ -1,15 +1,19 @@
 \begin{pattern}{Composite}
-    
-\instances{}
+The \thisp{} pattern is characterized by a cast to another element of a
+composite data structure, typically a tree, where the target type is known because of its
+position in the data structure.
 
+\instances{}
+The following example%
 \footnote{\url{http://bit.ly/flyingsaucerproject_flyingsaucer_2N2nYbY}}
+shows a cast from a \code{Box} to a \code{TableSectionBox}.
+The programmer reasons that the cast will succeed because the 
+the source of the cast is a sibling of another \code{TableSectionBox}.
 
 %https://lgtm.com/projects/g/flyingsaucerproject/flyingsaucer/snapshot/dist-26624048-1524814812150/files/flying-saucer-core/src/main/java/org/xhtmlrenderer/newtable/TableBox.java#L711
-\begin{minted}[highlightlines=5]{java}
+\begin{minted}[highlightlines=3]{java}
 public class TableBox extends BlockBox {
-    // [...]
-    protected TableSectionBox sectionAbove(
-            TableSectionBox section, boolean skipEmptySections) {
+    protected TableSectionBox sectionAbove(TableSectionBox section, boolean skipEmptySections) {
         TableSectionBox prevSection=(TableSectionBox)section.getPreviousSibling();
     }
 }
@@ -22,10 +26,25 @@ public abstract class Box implements Styleable {
 }
 \end{minted}
 
-\detection{}
-
 \discussion{}
+The pattern is typical of hierarchical data structures such as abstract syntax
+trees, document models, or UI layouts. Based on the grammar of 
+the data structure, the types of adjacent objects in the structure can be known.
+The cast succeeds if the data structure is well-formed.
 
-\related{}
+More precise typing of the links in the the data structure could 
+eliminate the need for the casts. For example, in the above example,
+the sibling of a \code{TableSectionBox} might be declared to have type
+\code{TableSectionBox}. However, this may require the programmer to override
+methods to refine return types covariantly.
+Language features available in other languages like generalized algebraic data types
+  (GADTs)~\cite{gadts} or self types~\cite{bruceChallengingTypingIssues2003,scalaIndependentlyExtensible} could also be 
+used to provide a more precise typing.
+
+The pattern can be thought of as a more dynamic variant of the
+\nameref{pat:Family} pattern. Rather than
+reasoning that the cast will succeed because of the source type's relative position in the 
+class hierarchy, the cast will succeed because of the source value's position
+in a composite data structure.
 
 \end{pattern}
