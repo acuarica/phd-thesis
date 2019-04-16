@@ -1,70 +1,61 @@
 \begin{pattern}{CovariantGeneric}
-According to the generics are invariant.
+The \thisp{} pattern occurs when an cast is used to use an invariant generic type as if it were covariant.
 
 \instances{}
 In the following snippet,%
 \footnote{\url{http://bit.ly/arpruss_raspberryjammod_2USL7Ai}}
-
-
-\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html\#singletonList-T-}}
+an upcast is performed to ensure that the inferred type of the call to \code{singletonList} is a supertype of the type that would be otherwise inferred.
+The \code{singletonList} method has the signature \code{<T> List<T> singletonList(T o)}.%
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html}}
+If \code{curframe} were passed in without the cast,
+the type of the list would be inferred to be \code{List<FrameBuilder>},
+which is not a subtype of the method return type \code{List<Framedata>},
+causing a compilation error.
+With the cast, the list type is inferred to be the same as the return type.
 
 %https://lgtm.com/projects/g/arpruss/raspberryjammod/snapshot/dist-1796220064-1524814812150/files/build/sources/java/org/java_websocket/drafts/Draft_10.java?sort=name&dir=ASC&mode=heatmap#L157
 \begin{minted}[highlightlines=5]{java}
 @Override
-public List<Framedata> createFrames( String text, boolean mask ) {
+public List<Framedata> createFrames(String text, boolean mask) {
     FrameBuilder curframe = new FramedataImpl1();
-    // [...]
+    /* [...] */
     return Collections.singletonList( (Framedata) curframe );
 }
-
-public interface FrameBuilder extends Framedata {
-    // [...]
-}
-
+public interface FrameBuilder extends Framedata { /* [...] */ }
 public class Collections {
-    public static <T> List<T> singletonList(T o) {
-        // [...]
-    }
+    public static <T> List<T> singletonList(T o) { /* [...] */ }
 }
 \end{minted}
 
-The 
+Similar to the previous example,
+in the following case,%
 \footnote{\url{http://bit.ly/jfaster_mango_2EhXzUW}}
+an upcast is performed to change the return type of the \code{Matcher<T> equalTo(T)} method.
 
 %https://lgtm.com/projects/g/jfaster/mango/snapshot/dist-1793930711-1524814812150/files/src/test/java/org/jfaster/mango/operator/UpdateOperatorTest.java?sort=name&dir=ASC&mode=heatmap#L125
-\begin{minted}[highlightlines=6]{java}
+\begin{minted}[highlightlines=5]{java}
 @Test
 public void testUpdateReturnBoolean() throws Exception {
-    // [...]
+    /* [...] */
     List<Object> args = boundSql.getArgs();
-    // [...]
     assertThat(args.get(0), equalTo((Object) "ash"));
-    // [...]
 }
-
-public static <T> Matcher<T> equalTo(T operand) {
-    // [...]
-}
+public static <T> Matcher<T> equalTo(T operand) { /* [...] */ }
 \end{minted}
 
-
-\footnote{\url{http://bit.ly/spockframework_spock_2UYEsF5}}
-
-\footnote{\url{http://docs.groovy-lang.org/latest/html/api/org/codehaus/groovy/ast/expr/ArrayExpression.html\#<init>(org.codehaus.groovy.ast.ClassNode,java.util.List)}}
+Another common version of this pattern%
+\footnote{For instance, \url{http://bit.ly/spockframework_spock_2UYEsF5}}
+for type \code{S} a subtype of \code{T},
+is to cast a generic type like \code{List<S>} to a raw type (\code{List}),
+which can then be assigned to a variable of \code{List<T>}.
 
 %https://lgtm.com/projects/g/spockframework/spock/snapshot/dist-7950040-1524814812150/files/spock-core/src/main/java/org/spockframework/compiler/WhereBlockRewriter.java?sort=name&dir=ASC&mode=heatmap#L360
-\begin{minted}[highlightlines=5]{java}
-dataProcessorStats.add(
-    new ReturnStatement(
-        new ArrayExpression(
-            ClassHelper.OBJECT_TYPE,
-            (List) dataProcessorVars)));
-
+\begin{minted}[highlightlines=2]{java}
 private final List<VariableExpression> dataProcessorVars = new ArrayList<>();
+new ArrayExpression(ClassHelper.OBJECT_TYPE, (List) dataProcessorVars);
 
 public class ArrayExpression extends Expression {
-    public ArrayExpression(ClassNode elementType,
-                       java.util.List<Expression> expressions) {}
+    public ArrayExpression(ClassNode elementType, List<Expression> exprs) {}
 }
 \end{minted}
 
@@ -73,17 +64,12 @@ public class ArrayExpression extends Expression {
 
 %https://lgtm.com/projects/g/EngineHub/WorldGuard/snapshot/dist-1795351250-1524814812150/files/worldguard-legacy/src/test/java/com/sk89q/worldguard/protection/FlagValueCalculatorTest.java?sort=name&dir=ASC&mode=heatmap#L1024
 
-
-\detection{}
-
 \discussion{}
-
 Avoided with
 \code{Collections.<Framedata>singletonList(curframe)}
-From \java{} 8 this cast is unnecesary due to better type inference.
+From \java{} 8 this cast is unnecessary due to better type inference.
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-18.html\#jls-18.5}}
 
-\todo{Mention}
 reference \cite{altidorTamingWildcardsCombining2011}
 
 \end{pattern}
