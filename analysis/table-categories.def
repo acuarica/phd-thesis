@@ -1,0 +1,24 @@
+1 & \nameref{pat:Typecase} & X &  &  &  \\
+2 & \nameref{pat:LookupById} &  & X &  &  \\
+3 & \nameref{pat:Factory} &  & X &  &  \\
+4 & \nameref{pat:Family} & X &  &  &  \\
+5 & \nameref{pat:UseRawType} &  &  & X &  \\
+6 & \nameref{pat:KnownReturnType} &  & X & X &  \\
+7 & \nameref{pat:Redundant} &  &  & X &  \\
+8 & \nameref{pat:SelectOverload} & X &  &  &  \\
+9 & \nameref{pat:Deserialization} &  & X &  &  \\
+10 & \nameref{pat:VariableSupertype} &  &  & X &  \\
+11 & \nameref{pat:SoleSubclassImplementation} & X &  &  &  \\
+12 & \nameref{pat:NewDynamicInstance} &  & X &  &  \\
+13 & \nameref{pat:ObjectAsArray} &  &  & X &  \\
+14 & \nameref{pat:ImplicitIntersectionType} & X &  &  &  \\
+15 & \nameref{pat:CovariantReturnType} & X &  &  &  \\
+16 & \nameref{pat:RemoveWildcard} & X &  &  & X \\
+17 & \nameref{pat:OperandStack} & X &  &  &  \\
+18 & \nameref{pat:ReflectiveAccessibility} & X &  &  &  \\
+19 & \nameref{pat:FluentAPI} & X &  &  &  \\
+20 & \nameref{pat:CovariantGeneric} & X &  &  & X \\
+21 & \nameref{pat:Composite} & X &  &  &  \\
+22 & \nameref{pat:GenericArray} & X &  &  & X \\
+23 & \nameref{pat:AccessSuperclassField} &  &  & X &  \\
+24 & \nameref{pat:UnoccupiedTypeParameter} & X &  &  & X \\
