@@ -17,6 +17,9 @@ Each type has a role in the family.
   another member using its derived family type rather that its base family
   type.
 
+To detect this pattern, the cast needs to be applied to a family.
+A family is distinguished by a covariant usage of a field or parameter in an overriding method.
+
 \instances{}
 The following example%
 \footnote{\url{http://bit.ly/pentaho_pentaho-kettle_2FN59J8}}
@@ -116,10 +119,6 @@ public abstract class BaseExchange implements Exchange {
   // [...]
 }
 \end{minted}
-
-\detection{}
-To detect this pattern, the cast needs to be applied to a family.
-A family is distinguished by a covariant usage of a field or parameter in an overriding method.
 
 \discussion{}
 \java{} itself does not support statically type-safe family polymorphism directly

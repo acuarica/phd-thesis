@@ -2,6 +2,9 @@
 A redundant cast is a cast that is not necessary for compilation.
 The cast could be removed from source code without affecting the application.
 
+To detect the \thisp{} pattern, 
+the expression being cast needs to be of the same type as the type being cast to.
+
 \instances{}
 %
 The following listing%
@@ -112,10 +115,6 @@ public groovy.lang.MetaClass getMetaClass() {
 }
 \end{minted}
 
-\detection{}
-%
-To detect the \thisp{} pattern, 
-the expression being cast needs to be of the same type as the type being cast to.
 
 \discussion{}
 Redundant casts are generally upcasts or casts involving erased type parameters.

@@ -6,6 +6,11 @@ is declared with a proper supertype of the value assigned into it.
 The type of the value being assigned to can be determined locally
 either within the enclosing method or class.
 
+To detect this pattern, a cast needs to be applied to a variable whose
+value can be determined simply by looking at
+the enclosing method or class.
+
+
 \instances{}
 The following snippet%
 \footnote{\url{http://bit.ly/apache_cxf_2SNoUXj}}
@@ -110,10 +115,6 @@ if (readers.size() == 1) {
 }
 \end{minted}
 
-\detection{}
-To detect this pattern, a cast needs to be applied to a variable whose
-value can be determined simply by looking at
-the enclosing method or class.
 
 \discussion{}
 In most the cases this can be considered as a bad practice or code smell.
