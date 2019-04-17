@@ -1,28 +1,32 @@
-\begin{pattern}{RecursiveGeneric}
+\begin{pattern}{FluentAPI}
+A fluent \api{} is an \api{} that allows the developer to operate on the same
+object using method chaining.
+This pattern is exhibited when the receiver (\code{this} reference) is cast to a type parameter
+  which is itself bounded by the self type.
 
-
-\footnote{\url{http://web.archive.org/web/20130721224442/http:/passion.forco.de/content/emulating-self-types-using-java-generics-simplify-fluent-api-implementation}}
 
 \instances{}
-
+In the following snippet,%
 \footnote{\url{http://bit.ly/HanSolo_Medusa_2TyBObH}}
+the receiver (\code{this}) is cast to a type parameter (\code{B}) (line 5).
+This allows subclasses to reuse the methods in the base class without overriding them just to change the return type.
 
 %https://lgtm.com/projects/g/HanSolo/Medusa/snapshot/dist-1798710811-1524814812150/files/src/main/java/eu/hansolo/medusa/ClockBuilder.java?sort=name&dir=ASC&mode=heatmap#L293
-
-
-
-\footnote{\url{http://bit.ly/fabric8io_fabric8_2SCvUWP}}
-
-%https://lgtm.com/projects/g/fabric8io/fabric8/snapshot/dist-18080068-1524814812150/files/components/kubernetes-assertions/target/generated-sources/io/fabric8/openshift/api/model/AbstractStageInfoAssert.java?sort=name&dir=ASC&mode=heatmap#L37
-\begin{minted}[highlightlines=1]{java}
-return (org.assertj.core.api.MapAssert) assertThat(actual.getAdditionalProperties())
-    .describedAs(io.fabric8.kubernetes.assertions.Assertions.joinDescription(this, "additionalProperties"));
+\begin{minted}[highlightlines=5]{java}
+public class ClockBuilder <B extends ClockBuilder<B>> {
+    // [...]
+    public final B alarms(final Alarm... ALARMS) {
+        properties.put("alarmsArray", new SimpleObjectProperty<>(ALARMS));
+        return (B) this;
+    }
+}
 \end{minted}
 
-\detection{}
-
 \discussion{}
-
-\related{}
+  This pattern is concerned with a particular implementation of fluent \api{}s
+  where recursive generics are used to mimic self
+  types~\cite{bruceChallengingTypingIssues2003}.
+  Other implementations of fluent \api{}s simply return \code{this} without a
+  cast, but these are less extensible.
 
 \end{pattern}

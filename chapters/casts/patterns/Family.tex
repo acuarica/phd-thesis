@@ -1,24 +1,44 @@
 \begin{pattern}{Family}
-This pattern is an instance of Family Polymorphism~\citep{ernstFamilyPolymorphism2001}.
-Family Polymorphism occurs when multiple classes are designed to collaborate with each other, denoting a ``family''.
+  The \thisp{} pattern implements casts
+  to provide a sort of
+  \emph{family
+polymorphism}~\citep{ernstFamilyPolymorphism2001}.
+A ``family'' consists of
+multiple mutually-dependent types designed to collaborate with each other.
+Each type has a role in the family.
+  Deriving from a base family to form another
+  family requires subclassing all the members of the base family, with the
+  subclasses in the new family retaining their roles in the new family.
+  Because method parameter types are invariant in \java{} and because
+  covariant parameter types are unsound in general, the
+  method parameter types in the
+  derived family are the same as in the base family.
+  Casts are therefore necessary for one member of a derived family to access
+  another member using its derived family type rather that its base family
+  type.
 
 \instances{}
 The following example%
 \footnote{\url{http://bit.ly/pentaho_pentaho-kettle_2FN59J8}}
 shows an instance of the \thisp{} pattern.
 %
-\done{Nate: ?}
-%
-A cast is applied to the parameter \code{smi} (line 13).
-The \code{smi} parameter is declared as \code{StepMetaInterface}, parameter of the \code{stopRunning} method in line 11.
-The \code{stopRunning} method is an implementation of the interface method declared in line 3.
-%
-\done{Nate: Good example.}
-%
-This cast needs to be done because the developer expects the \code{smi} parameter to be an instance of \code{DynamicSQLRowMeta} when invoking the \code{stopRunning} method on a \code{DynamicSQLRow} object.
+  In this case, the interfaces \code{StepInterface}, \code{StepMetaInterface},
+  and \code{StepDataInterface} are part of a base family and the
+  \code{stopRunning} method has parameters of these types.
+  In the derived family the roles of these three interfaces are
+  implemented by the classes
+  \code{DynamicSQLRow},
+  \code{DynamicSQLRowMeta}, and
+  \code{DynamicSQLRowData}.
+
+A cast is applied to the parameter \code{smi} of \code{stopRunning} in
+\code{DynamicSQLRow} (line 12). This cast is necessary to convert the
+method parameter, of the base
+family type \code{StepDataInterface}, into the derived family type with the
+same role.
 
 %https://lgtm.com/projects/g/pentaho/pentaho-kettle/snapshot/dist-1815472020-1524814812150/files/engine/src/main/java/org/pentaho/di/trans/steps/dynamicsqlrow/DynamicSQLRow.java?sort=name&dir=ASC&mode=heatmap#L281
-\begin{minted}[highlightlines=13]{java}
+\begin{minted}[highlightlines=12]{java}
 public interface StepInterface extends VariableSpace, HasLogChannelInterface {
   // [...]
   public void stopRunning( StepMetaInterface stepMetaInterface,
@@ -29,8 +49,7 @@ public class DynamicSQLRow extends BaseStep implements StepInterface {
   private DynamicSQLRowMeta meta;
   private DynamicSQLRowData data;
   // [...]
-  public void stopRunning( StepMetaInterface smi,
-        StepDataInterface sdi ) throws KettleException {
+  public void stopRunning( StepMetaInterface smi, StepDataInterface sdi ) throws KettleException {
     meta = (DynamicSQLRowMeta) smi;
     data = (DynamicSQLRowData) sdi;
     // [...]
@@ -103,17 +122,14 @@ To detect this pattern, the cast needs to be applied to a family.
 A family is distinguished by a covariant usage of a field or parameter in an overriding method.
 
 \discussion{}
-Another way to see the \thisp{} is when an overriding method uses covariant parameter types.
-In \java{}, parameter types are invariant.
-That is, parameter types can not be covariant because that would break subtype polymorphism,
-and can not be contravariant because that would cause conflict resolution issues with overloading.
-
-% \cite{ernstFamilyPolymorphism2001}
-% \cite{nystromSoftwareCompositionMultiple}
-
-\related{}
-This pattern can be seen as a generalization of the \nameref{pat:Factory} pattern.
-Whenever the cast is applied to a field declared in a superclass,
-\thisp{} can be related to the \nameref{pat:VariableLessSpecificType} pattern.
+\java{} itself does not support statically type-safe family polymorphism directly
+and so casts are often necessary. Various proposals have been made to better
+support family polymorphism (and the related ``expression
+problem''~\cite{Wadler98ExpressionProblem}) in object-oriented languages, including
+the use of design patterns~\cite{WangOliveira16ExpressionProblem, oliveiraExtensibilityMasses2012, nystromPolyglotExtensibleCompiler2003},
+and type systems~\cite{gbeta, scalaIndependentlyExtensible,
+Myers2006SoftwareCW, olivieraDisjointIntersectionTypes,
+funWithTypeFunctionsKiselyov09} that
+permit some restricted form of covariant method parameters.
 
 \end{pattern}

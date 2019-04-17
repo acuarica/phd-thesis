@@ -1,7 +1,6 @@
 \begin{pattern}{Redundant}
 A redundant cast is a cast that is not necessary for compilation.
-It is a superfluous cast,
-and thus can be removed from source code without affecting the application.
+The cast could be removed from source code without affecting the application.
 
 \instances{}
 %
@@ -47,10 +46,9 @@ public class TransactionTemplate {
 
 The next cast instance%
 \footnote{\url{http://bit.ly/sigmoidanalytics_spork_2SIqWYq}}
-is trivially redundant.
-A cast to the \code{BigDecimal} type is applied to the method invocation \code{count(b)} (line 4).
-However, the \code{count} method (defined in line 8) already returns a value of type \code{BigDecimal}.
-Thus, the cast is not needed.
+is trivially redundant: both the target type and the static type of the
+  operand \code{count(b)},
+  are \code{BigDecimal}.
 
 %https://lgtm.com/projects/g/sigmoidanalytics/spork/snapshot/dist-1794190395-1524814812150/files/src/org/apache/pig/builtin/BigDecimalAvg.java?sort=name&dir=ASC&mode=heatmap#L258
 \begin{minted}[highlightlines=4]{java}
@@ -120,7 +118,11 @@ To detect the \thisp{} pattern,
 the expression being cast needs to be of the same type as the type being cast to.
 
 \discussion{}
+Redundant casts are generally upcasts or casts involving erased type parameters.
+  This pattern arises often in generated code.
+  It may also appear 
+due to code refactorings that change a type and therefore make the cast
+  redundant.
 
-\related{}
     
 \end{pattern}
