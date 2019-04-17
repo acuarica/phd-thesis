@@ -1,14 +1,12 @@
-\begin{pattern}{VariableLessSpecificType}
+\begin{pattern}{VariableSupertype}
 This pattern occurs when a cast is applied to a variable (local variable,
 parameter, or field),
-that is usually being assigned once and
-is declared with a less specific type than the type of the value 
-that is being assigned to.
+that has usually been assigned just once and
+is declared with a proper supertype of the value assigned into it.
 The type of the value being assigned to can be determined locally
 either within the enclosing method or class.
 
 \instances{}
-%
 The following snippet%
 \footnote{\url{http://bit.ly/apache_cxf_2SNoUXj}}
 shows an example of the \thisp{} pattern (line 4).
@@ -66,8 +64,9 @@ In the next cast instance,%
 \footnote{\url{http://bit.ly/oblac_jodd_2UKxm6H}}
 the parameter \code{k1} is cast to the \code{Comparable} class (line 7).
 \code{k1} is declared as \code{E} (line 5), an unbounded type parameter (line 1).
-This cast instance could be removed if \code{E} were a bounded type parameter, with \code{Comparable<E>} as upper bound, \ie,
-\code{SortedArrayList<E extends Comparable<E>>}.
+The developer likely designed the class so that
+\code{E} must be \code{Comparable} only if \code{comparator} is \code{null},
+providing an API with two ways to compare list elements.
 
 %https://lgtm.com/projects/g/oblac/jodd/snapshot/dist-12050004-1524814812150/files/jodd-core/src/main/java/jodd/util/collection/SortedArrayList.java?sort=name&dir=ASC&mode=heatmap#L154
 \begin{minted}[highlightlines=7]{java}
@@ -117,13 +116,11 @@ value can be determined simply by looking at
 the enclosing method or class.
 
 \discussion{}
-In most the cases this can be considered as a bad practice or
-code smell.
+In most the cases this can be considered as a bad practice or code smell.
 This is because by only changing the declaration of the variable
 to a more specific type type, the cast can be simply eliminated.
 
-\related{}
-This pattern is related to the \nameref{pat:Redundant} pattern.
+This pattern sometimes related to the \nameref{pat:Redundant} pattern.
 Although \thisp{} is not redundant,
 by only changing the declaration of the variable to a more specific type,
 the cast becomes redundant.

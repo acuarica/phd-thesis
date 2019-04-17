@@ -1,13 +1,23 @@
 \begin{pattern}{UnoccupiedTypeParameter}
+This pattern occurs when a generic type changes its type parameter,
+but the new type parameter hold no values.
 
 \instances{}
-
-Either this fluent \api{}
 \footnote{\url{http://bit.ly/vavr-io_vavr_2SMIfI2}}
+It is used to implement an \code{Either} type.
+A value of type \code{Either<L, R>} can be either a value of type \code{L} or of type \code{R}.
+In this instance,
+the receiver---of type \code{Either<L, R>}---is cast to \code{Either<U, R>} (line 9).
+There is no subtype relation between \code{L} and \code{U}.
+However, the cast succeeds because the programmer ensures
+(using the guard \code{isLeft} in line 6)
+that no value of type \code{U} is accessible from \code{this}.
+Note that this cast does not conform to the \nameref{pat:Typecase}
+pattern, despite the guard, because the target type is not a subtype of the
+cast operand. The cast is successful only because of \java{}'s type erasure
+implementation.
 
 %https://lgtm.com/projects/g/vavr-io/vavr/snapshot/dist-11000099-1524814812150/files/vavr/src/main/java/io/vavr/control/Either.java?sort=name&dir=ASC&mode=heatmap#L398
-\begin{listing}[H]
-\caption{Either fluent \api{}}
 \begin{minted}[highlightlines=9]{java}
 public interface Either<L, R> extends Value<R>, Serializable {
     // [...]
@@ -23,20 +33,21 @@ public interface Either<L, R> extends Value<R>, Serializable {
     // [...]
 }
 \end{minted}
-\end{listing}
-
-
-\todo{Phantom Types, 2003, Cheney, Hinze}
-
-
-\detection{}
 
 \discussion{}
+  This pattern is related to the use of \emph{phantom types} in parametrically
+  polymorphic languags~\cite{LeijenMeijer99,cheneyHinzePhantomTypes}. Phantom types are type parameters used solely for
+  type checking and are not occupied by any value.
 
-Discuss
-\todo{Nate: Scala has a \code{Nothing} type}
-\todo{Option[String] :> Option[Nothing]}
+  This pattern also occurs with empty collections. For instance, the \java{}
+  standard library implementation of the method \code{Collections.<T>emptyList()}
+  casts a private constant with raw type \code{List} to a \code{List<T>}.
+  This is safe because the the list is empty and has no elements of type
+  \code{T}.
 
-\related{}
+  \scala{} has an unoccupied \code{Nothing} type to handle this situation.
+  For instance, an (immutable) empty list has \code{List[Nothing]}, which
+  is a subtype of \code{List[T]} for any type \code{T}.
+
 
 \end{pattern}
