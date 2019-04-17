@@ -1,41 +1,45 @@
 \begin{pattern}{GenericArray}
+A cast due to the instantiation of an array with a parameterized base type.
+  In \java{} these arrays cannot be instantiated, instead an \code{Object[]}
+  or an array of raw types must be created.
+  The cast is necessary to use the array at the intended type. 
 
 \instances{}
-The following snippet%
+In the following snippet,%
 \footnote{\url{http://bit.ly/ppiastucki_recast4j_2EM7zWK}}
+a cast is required when accessing an element in the array (line 4).
+  The array is created using the raw type \code{List[][]}
+  and assigned to a variable of using the wildcard type \code{List<?>[][]}
+  (line 1).
+  It is not possible to simply allocate a \code{List<byte[]>}.
 
 %https://lgtm.com/projects/g/ppiastucki/recast4j/snapshot/dist-4860452-1524814812150/files/detourtilecache/src/main/java/org/recast4j/detour/tilecache/AbstractTileLayersBuilder.java?sort=name&dir=ASC&mode=heatmap#L50
-\begin{minted}[highlightlines=1]{java}
+\begin{minted}[highlightlines=4]{java}
 List<?>[][] partialResults = new List[th][tw];
-partialResults[ty][tx] = build(tx, ty, order, cCompatibility);
-layers.addAll((List<byte[]>) partialResults[y][x]);
-
-protected abstract List<byte[]> build(int tx, int ty, ByteOrder order, boolean cCompatibility);
-\end{minted}
-
-\footnote{\url{http://bit.ly/seven332_Nimingban_2UdBwIL}}
-
-%https://lgtm.com/projects/g/seven332/Nimingban/snapshot/dist-1506180917302-1524814812150/files/yorozuya/src/main/java/com/hippo/yorozuya/ArrayUtils.java?sort=name&dir=ASC&mode=heatmap#L124
-\begin{minted}[highlightlines=1]{java}
-public static <T> T[] insert(T[] array, int currentSize, int index, T element) {
-    if (currentSize + 1 <= array.length) {
-        System.arraycopy(array, index, array, index + 1, currentSize - index);
-        array[index] = element;
-        return array;
-    }
-    @SuppressWarnings("unchecked")
-    T[] newArray = (T[]) new Object[growSize(currentSize)];
-    System.arraycopy(array, 0, newArray, 0, index);
-    newArray[index] = element;
-    System.arraycopy(array, index, newArray, index + 1, array.length - index);
-    return newArray;
+for (...) {
+    partialResults[ty][tx] = build(tx, ty, order, cCompatibility);
+    layers.addAll((List<byte[]>) partialResults[y][x]);
 }
 \end{minted}
+% protected abstract List<byte[]> build(int tx, int ty, ByteOrder order, boolean cCompatibility);
 
-\detection{}
+Instead of casting individual elements,
+the following example%
+\footnote{\url{http://bit.ly/seven332_Nimingban_2UdBwIL}}
+shows a cast applied directly when the array is created. 
+
+%https://lgtm.com/projects/g/seven332/Nimingban/snapshot/dist-1506180917302-1524814812150/files/yorozuya/src/main/java/com/hippo/yorozuya/ArrayUtils.java?sort=name&dir=ASC&mode=heatmap#L124
+\begin{minted}[highlightlines=1,linenos=false]{java}
+T[] newArray = (T[]) new Object[growSize(currentSize)];
+\end{minted}
+
 
 \discussion{}
-
-\related{}
+This pattern occurs because generic type parameters are not reified at runtime,
+but array types are reified. To create a generic \code{T[]}, for instance, since the
+  parameter \code{T} is not known statically, the compiler cannot know the
+  runtime representation of the array. The \java{} specification just forbids
+  these problematic cases and therefore requires programmers to create
+  arrays of raw types and to use casts.
 
 \end{pattern}

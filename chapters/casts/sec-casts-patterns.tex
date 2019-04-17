@@ -22,16 +22,22 @@
 
 }
 
+
 \newenvironment{pattern}[1]{
-	\newcommand{\desc}{\castpatternsection{Description}}
-	\newcommand{\instances}{\castpatternsection{Instances}}
-	\newcommand{\detection}{\castpatternsection{Detection}}
-	\newcommand{\discussion}{\castpatternsection{Discussion}}
-	\newcommand{\related}{\castpatternsection{Related Patterns}}
-    \newcommand{\thisp}{\textsc{#1}}
-    \subsection{\pname{#1}}
-    \label{pat:#1}
-	\desc
+\newcommand{\nocc}{\csname n#1Pattern\endcsname{}}
+\newcommand{\noccsrc}{\csname n#1PatternSrc\endcsname{}}
+\newcommand{\noccgen}{\csname n#1PatternGen\endcsname{}}
+\newcommand{\nocctest}{\csname n#1PatternTest\endcsname{}}
+\newcommand{\pocc}{\csname p#1Pattern\endcsname{}}
+
+\newcommand{\desc}{\castpatternsection{Description}}
+\newcommand{\instances}{\castpatternsection{Instances: \nocc{} (\pocc\%)}
+We found \noccsrc{} in application code, \nocctest{} in test code, and \noccgen{} in generated code.}
+\newcommand{\discussion}{\castpatternsection{Discussion}}
+\newcommand{\thisp}{\textsc{#1}}
+\subsection{\pname{#1}}
+\label{pat:#1}
+\desc
 }{}
 
 

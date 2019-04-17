@@ -1,53 +1,38 @@
 \begin{pattern}{Deserialization}
-This pattern is used to deserialize an object at run-time.
+This pattern is used to deserialize an object at run time.
+This pattern is characterized for a cast to the \code{readObject} method on a \code{ObjectInputStream} object.
 
 \instances{}
 The following example%
 \footnote{\url{http://bit.ly/internetarchive_heritrix3_2SF4j7k}}
-shows how the \thisp{} pattern is used to create objects from a file system (line 19).
+shows how the \thisp{} pattern is used to create objects from a file system (line 9).
 
 %https://lgtm.com/projects/g/internetarchive/heritrix3/snapshot/dist-12140105-1524814812150/files/engine/src/test/java/org/archive/crawler/datamodel/CrawlURITest.java?sort=name&dir=ASC&mode=heatmap#L83
-\begin{minted}[highlightlines=19]{java}
-final public void testSerialization()
-        throws IOException, ClassNotFoundException {
-    File serialize = new File(getTmpDir(),
-            this.getClass().getName() + ".serialize");
-    try {
-        FileOutputStream fos = new FileOutputStream(serialize);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(this.seed);
-        oos.reset();
-        oos.writeObject(this.seed);
-        oos.reset();
-        oos.writeObject(this.seed);
-        oos.close();
-        // Read in the object.
-        FileInputStream fis = new FileInputStream(serialize);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        CrawlURI deserializedCuri = (CrawlURI)ois.readObject();
-        deserializedCuri = (CrawlURI)ois.readObject();
-        deserializedCuri = (CrawlURI)ois.readObject();
-        assertEquals("Deserialized not equal to original",
-                this.seed.toString(), deserializedCuri.toString());
-        String host = this.seed.getUURI().getHost();
-        assertTrue("Deserialized host not null",
-                host != null && host.length() >= 0);
-    } finally {
-        serialize.delete();
-    }
-}
+\begin{minted}[highlightlines=5]{java}
+FileInputStream fis = new FileInputStream(serialize);
+ObjectInputStream ois = new ObjectInputStream(fis);
+CrawlURI deserializedCuri = (CrawlURI)ois.readObject();
+deserializedCuri = (CrawlURI)ois.readObject();
+deserializedCuri = (CrawlURI)ois.readObject();
+assertEquals("...", this.seed.toString(), deserializedCuri.toString());
 \end{minted}
 
-\detection{}
-This pattern is characterized for a cast to the \code{readObject} method on a \code{ObjectInputStream} object.
-
 \discussion{}
-From a language design perspective,
-the \thisp{} pattern is one of the most difficult patterns to avoid.
-It is difficult to avoid because a compiler cannot verify at compile-time that a certain byte stream can be deserialized into an object of a given type.
+  The serialization API dates back to \java{} 1.1 in 1997.
+  Since then, newer serialization APIs have been developed.
+  For instance Apache Avro%
+  \footnote{\url{https://avro.apache.org/docs/current/}}
+  uses generics and class literals to specify the expected type of an object
+  read. 
+  In some languages, type-safe serialization and deserialization 
+  boilerplate code can be automatically generated, for instance
+  in \rust{}, the Serde library\footnote{\url{https://serde.rs/}}
+  can generate code to serialize most data types
+  in a variety of formats.
 
-\related{}
 Both this pattern and the \nameref{pat:NewDynamicInstance} pattern create objects by using reflection.
-\nameref{pat:StaticResource}
-
+While it might be considered a special case of \nameref{pat:KnownReturnType}, \thisp{} differs
+  in that the run-time result type of the \code{readObject} depends on
+  the state of the input stream and can change depending on context.
+ 
 \end{pattern}
