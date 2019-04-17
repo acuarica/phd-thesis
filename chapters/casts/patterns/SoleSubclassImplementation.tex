@@ -1,6 +1,17 @@
 \begin{pattern}{SoleSubclassImplementation}
+The \thisp{} occurs when an interface or abstract class has only one implementing subclass.
+Casting the interface to this class must succeed because it cannot possibly be an instance of another class.
 
 \instances{}
+In the following example%
+\footnote{\url{http://bit.ly/ow2-proactive_scheduling_2Ulcjfs}}
+the \code{jobId} variable is cast to the sole implementation (\code{JobIdImpl}).
+
+%https://lgtm.com/projects/g/ow2-proactive/scheduling/snapshot/dist-6910096-1524814812150/files/scheduler/scheduler-api/src/main/java/org/ow2/proactive/scheduler/job/JobIdImpl.java?sort=name&dir=ASC&mode=heatmap#L118
+\begin{minted}[highlightlines=1,linenos=false]{java}
+    return Longs.compare(id, ((JobIdImpl) jobId).id);
+\end{minted}
+
 The following example%
 \footnote{\url{http://bit.ly/immutables_immutables_2S4BoJs}}
 
@@ -12,10 +23,13 @@ public final EncodedElement.Builder addAllThrown( Iterable<? extends Type> eleme
 }
 \end{minted}
 
-\detection{}
 
 \discussion{}
-
-\related{}
+This pattern occurs when there is high cohesion between super and subclass.
+In some cases, the cast instance appear in a generated class.
+This mechanism allows the developer to extend this class to add custom code.
+Therefore this high cohesion is acceptable.
+The developer assumes that there is no other implementation of the base class,
+otherwise the cast instance fails.
 
 \end{pattern}

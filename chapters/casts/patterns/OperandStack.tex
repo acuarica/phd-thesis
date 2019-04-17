@@ -1,11 +1,18 @@
-\begin{pattern}{StackSymbol}
-The \thisp{} pattern is a guarded cast whose target type depends on a tag is a stack-like collection.
+\begin{pattern}{OperandStack}
+The \thisp{} pattern consists of
+multiple cases, dispatched depending on some application-specific control state, with
+  casts of the top elements of stack-like collection in each case.
+An application invariant ensures that if the application is in a given state
+then the 
+  top elements of the stack should be of known run-time types.
 
 \instances{}
 The following example,%
 \footnote{\url{http://bit.ly/fabioz_Pydev_2HF6nrF}}
-shows a cast instance whose value is the top of a stack (line 2).
-The cast is only valid when the guard succeeds.
+shows a cast whose value is on top of a stack (line 2).
+In this case, the code is transforming a parse tree into an abstract syntax
+tree. The casts in the switch case are guarded by the parse tree node type and
+its arity. 
 
 %https://lgtm.com/projects/g/fabioz/Pydev/snapshot/dist-20832102-1524814812150/files/plugins/org.python.pydev.parser/src/org/python/pydev/parser/grammar27/TreeBuilder27.java?sort=name&dir=ASC&mode=heatmap#L231
 \begin{minted}[highlightlines=2]{java}
@@ -15,10 +22,14 @@ case JJTASSERT_STMT:
     return new Assert(test, msg);
 \end{minted}
 
-Similar to the previous example,%
+Similar to the previous example,
+in this case%
 \footnote{\url{http://bit.ly/Sable_soot_2MZLZ3m}}
-in this case a guarded cast is performed using the value of an array,
-in a stack-like fashion.
+a guarded cast is performed on a stack of grammar symbols.
+The code was generated using an LR parser
+generator. The guard 
+ensures that the parser has already matched a given prefix of the
+input and so the top of the stack should contain the expected symbols.
 
 %https://lgtm.com/projects/g/Sable/soot/snapshot/dist-1791462132-1524814812150/files/src/main/generated/jastadd/soot/JastAddJ/JastAddJavaParser.java?sort=name&dir=ASC&mode=heatmap#L1036
 \begin{minted}[highlightlines=4]{java}
@@ -32,36 +43,17 @@ case 40: // qualified_name_decl = name_decl.n DOT.DOT IDENTIFIER.i
 }
 \end{minted}
 
-In the following case,%
-\footnote{\url{http://bit.ly/datanucleus_datanucleus-mongodb_2HvBMMc}}
-a cast is performed to the \code{left} variable (line 7)
-whether the guard condition succeeds (line 3).
-The value of the \code{left} variable is taken from the top of a stack (line 2).
-
-%https://lgtm.com/projects/g/datanucleus/datanucleus-mongodb/snapshot/dist-1985910491-1524814812150/files/src/main/java/org/datanucleus/store/mongodb/query/QueryToMongoDBMapper.java?sort=name&dir=ASC&mode=heatmap#L487
-\begin{minted}[highlightlines=7]{java}
-Object right = stack.pop();
-Object left = stack.pop();
-if (left instanceof MongoFieldExpression && right instanceof MongoLiteral)
-{
-    // [...]
-    MongoBooleanExpression mongoExpr = new MongoBooleanExpression(
-            (MongoFieldExpression) left, elemLit, MongoOperator.OP_EQ);
-}
-\end{minted}
-
-
-\detection{}
-The detection of this pattern is similar to \nameref{pat:TypeTag}.
-There should be a guard, \eg, a \code{switch} or \code{if} statement,
-that determines that type to cast to.
-
 \discussion{}
 This pattern is usually seen when implementing grammar-related operations,
-such as tokenization, parsing or evaluators.
+such as parsers or interpreters.
 
-\related{}
-This pattern can be seen as a more specific case of \nameref{pat:TypeTag}.
-In this case, the ``type tag'' is provided by a symbol on a stack-like collection.
+  Similar to \nameref{pat:Typecase}, multiple cases are evaluated
+  with casts to different types, depending on application-specific guards.
+  However, unlike 
+  \nameref{pat:Typecase}, 
+  the success of the casts is ensured not 
+  by a type-tag-like value, but by application-specific state
+  (\eg, the current parser state or the state of an evaluator)
+  and proper use of the stack.
 
 \end{pattern}

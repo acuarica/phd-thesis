@@ -1,17 +1,25 @@
 \begin{pattern}{RemoveWildcard}
+A cast is in the \thisp{} pattern when a \emph{wildcard type} is used rather than a generic type.
+
 
 \instances{}
+In the following example,%
+\footnote{\url{http://bit.ly/eclipse_jetty_project_2WMI0Ld}}
+\code{unit} is declared as \code{Unit<?>},
+but to actually be able to use it a cast to a concrete type is needed.
 
-\footnote{\url{}}
-
-\begin{minted}[highlightlines=1]{java}
-
+%https://lgtm.com/projects/g/eclipse/jetty.project/snapshot/dist-1793550978-1524814812150/files/jetty-util/src/main/java/org/eclipse/jetty/util/PathWatcher.java?sort=name&dir=ASC&mode=heatmap#L752
+\begin{minted}[highlightlines=1,linenos=false]{java}
+copy.setUnitOfMeasure( (Unit<Length>) unit );
 \end{minted}
 
-\detection{}
 
 \discussion{}
+Wildcard types are a form of existential type and consequently can limit
+access to members of a generic type.
+Casts are used to restore access at a particular type.
 
-\related{}
+Since \thisp{} is an unchecked cast,
+the discussion about compiler-inserted casts and \emph{blame} is similar to the \nameref{pat:UseRawType} pattern.
 
 \end{pattern}
