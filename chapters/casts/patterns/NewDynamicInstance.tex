@@ -1,8 +1,9 @@
 \begin{pattern}{NewDynamicInstance}
-%
-\done{Nate: Why not Creational?}
-%
-Dynamically creates an object or array by means of reflection.
+In the \thisp{} pattern, a new 
+object or array is created by means of reflection.
+The type of the object being created is determined at run time,
+and the new object is cast to some statically known supertype of the run time type.
+
 The \code{newInstance} method family declared in the \code{Class},
 % \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html\#newInstance--}}
 \code{Array}
@@ -17,11 +18,11 @@ This pattern consists of casting the result of these methods to the appropriate 
 \instances{}
 The following example%
 \footnote{\url{http://bit.ly/apache_hadoop_2HC3IPg}}
-shows a cast to the \code{Class.newInstance()}
+shows a cast of the result of the \code{Class.newInstance()}
 method.
 
 %https://lgtm.com/projects/g/apache/hadoop/snapshot/6bedbef6c5f2d937a6cbc268300ce2a39609d06c/files/hadoop-hdfs-project/hadoop-hdfs/src/main/java/org/apache/hadoop/hdfs/server/namenode/FSNamesystem.java?sort=name\&dir=ASC\&mode=heatmap\&showExcluded=false#L1039
-\begin{minted}[highlightlines=1]{java}
+\begin{minted}[highlightlines=1,linenos=false]{java}
 logger = (AuditLogger) Class.forName(className).newInstance();
 \end{minted}
 
@@ -90,23 +91,24 @@ final ConfigFactory factory = clazz.newInstance();
 \end{minted}
 
 
-\detection{}
-This detection query looks for casts,
-where the expression being cast is a call site to methods mentioned above.
 
 \discussion{}
-The cast here is needed because of the dynamic essence of reflection.
-This pattern is mostly unguarded, that is,
-the application programmer knows what target type is being created.
+The cast here is needed because of the dynamic nature of reflection.
+This pattern is usually unguarded; that is,
+the programmer knows what target type is being created.
 
-The following two code snippets:
+Generics could be used to avoid the cast on \code{newInstance}, assuming the \code{Class} instance is 
+not a raw type or a \code{Class<?>}.
+However, the usual API for getting a class instance \code{Class.forName}
+returns such a type.
+Indeed, the following two snippets:
 
-\begin{minted}{java}
+\begin{minted}[highlightlines=2,linenos=false]{java}
 Class<?> c = Class.forName("java.lang.String");
 String pf = (String) c.newInstance();
 \end{minted}
 
-\begin{minted}{java}
+\begin{minted}[highlightlines=1,linenos=false]{java}
 Class<String> c = (Class<String>) Class.forName("java.lang.String");
 String pf = c.newInstance();
 \end{minted}
@@ -122,7 +124,11 @@ invokevirtual #32    // Method java/lang/Class.newInstance
 checkcast     #36    // class java/lang/String
 \end{lstlisting}
 
-\related{}
+
+In the first case, the cast is on the \code{newInstance}, an instance of the
+\thisp{} pattern. In the second case, the cast is on the call to
+\code{Class.forName}, an instance of the \nameref{pat:Factory} pattern.
+
 This pattern is related to \nameref{pat:Deserialization},
 since both create an object dynamically.
 It is also related to \nameref{pat:ReflectiveAccessibility},

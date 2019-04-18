@@ -1,8 +1,9 @@
 \begin{pattern}{LookupById}
-This pattern is used to extract stashed values from a generic container.
-It looks up for an object by ID, tag or name and cast the result to an appropriate type.
+This pattern is used to extract values from a heterogenous container.
+It looks up an object by a compile-time constant identifier, tag, or name and casts the result to an appropriate type.
 It accesses a collection that holds values of different types
 (usually implemented as \code{Collection<Object>} or as \code{Map<K, Object>}).
+The actual run-time type returned from the lookup is determined by the value of the identifier.
 
 \instances{}
 In the example shown below,%
@@ -12,9 +13,8 @@ The variable \texttt{context} is of type \code{BasicHttpContext},
 which is implemented with \code{HashMap}.
 
 %https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1518514025554/files/library/src/main/java/com/loopj/android/http/AsyncHttpClient.java?sort=name&dir=ASC&mode=heatmap&excluded=false#L258
-\begin{minted}[highlightlines=2]{java}
-AuthState authState =
-        (AuthState) context.getAttribute(ClientContext.TARGET_AUTH_STATE);
+\begin{minted}[highlightlines=1,linenos=false]{java}
+AuthState authState = (AuthState) context.getAttribute(ClientContext.TARGET_AUTH_STATE);
 \end{minted}
 
 The next snippet%
@@ -44,23 +44,42 @@ public void newProperties(PropertySheet ps) throws PropertyException {
 }
 \end{minted}
 
+A common version of this pattern is to retrieve a value instantiated from
+static resource file, \eg,
+an XML, HTML or \java{} properties file.
+The file contents are (in theory) known at compile-time and the file is included in the binary distribution
+of the application. These files are often built using tools such as GUI
+builders.
 
-\detection{}
-This pattern is characterized by a cast applied to a \code{get}-like method invocation on a heterogenous collection or map.
-Usually, the \code{get}-like method has a compile-time argument (literal or constant).
-The actual run-time type returned by the \code{get}-like method is determined by the value of this argument.
+In the following example from an Android application,%
+\footnote{\url{http://bit.ly/pwittchen_NetworkEvents_2HGbrMq}}
+a cast is applied to the \code{findViewById} method invocation.
+View classes are instantiated by the application framework using an XML resource file.
+The \code{findViewById} method looks up the view by its ID.
+
+%https://lgtm.com/projects/g/pwittchen/NetworkEvents/snapshot/dist-2032650416-1524814812150/files/example/src/main/java/com/github/pwittchen/networkevents/app/MainActivity.java?sort=name&dir=ASC&mode=heatmap#L65
+\begin{minted}[highlightlines=1,linenos=false]{java}
+mobileNetworkType = (TextView) findViewById(R.id.mobile_network_type);
+\end{minted}
 
 \discussion{}
-%
-\done{Cut/Move to future work.}
-%
-This pattern suggests an heterogeneous dictionary.
-Given our manual inspection,
-we believe that all dictionary keys and resulting types are known at
-compile-time, \ie, by the programmer.
-%
-\done{Nate: Replace "restriction" for "inexpressiveness"}
-%
+This pattern suggests a heterogeneous dictionary.
+In our manual inspection,
+all dictionary keys and the resulting types are known at
+compile time, however
+a cast is needed because the dictionary type does not encode the
+relationship between key values and the result type.
+Casts in this pattern are typically not guarded indicating that the programmer
+knows the source of the cast based on the value of the key.
+
+This pattern is often seen in Android applications.
+The Butter Knife framework%
+\footnote{\url{http://jakewharton.github.io/butterknife/}}
+uses annotations to avoid the ``manual'' casting.
+Instead, code is generated that casts the result of \code{findViewById} to the
+appropriate type.
+
+
 But in any case a cast is needed given the inexpressiveness of the type system.
 As a complementary analysis,
 it would be interesting to check whether all call sites to
@@ -78,7 +97,6 @@ This raises the following questions:
 \item \emph{Could generative programming a.k.a. templates solve this problem?}
 \end{itemize}
 
-\related{}
 This pattern retrieves a stashed a value from an heterogeneous collection (or dictionary).
 A cast is needed because the return type depends on the ID to be retrieved.
 This scenario is similar to the \nameref{pat:Tag} pattern,
