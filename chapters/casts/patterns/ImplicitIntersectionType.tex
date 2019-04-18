@@ -1,16 +1,21 @@
 \begin{pattern}{ImplicitIntersectionType}
-Cast a reference $v$ of type --- class or interface --- $T$ to an
-interface type $I$ whether $T$ does not implement $I$.
-The cast succeeds at runtime because all possible runtime types of $v$
-actually implement the interface $I$.
-For instance, in \code{(Comparable)(Number)4}, \code{Number} does not
-implement the \code{Comparable} interface, but class \code{Integer} does.
+This pattern occurs when there is a downcast of reference $v$ of type $T$ to a
+target
+interface type $I$.
+Although $T$ does not implement $I$, 
+the cast succeeds because all possible run-time types of $v$
+do implement $I$.
 
 \instances{}
-
+For instance, in the following example%
 \footnote{\url{http://bit.ly/senbox-org_snap-desktop_2FQOt4v}}
+the method call returns a \code{Number}, which does not implement
+\code{Comparable}; however,
+all values that could be returned by the method
+are subclasses of \code{Number} in \code{java.lang}
+that do implement \code{Comparable}.
 
-\begin{minted}[highlightlines=1]{java}
+\begin{minted}[highlightlines=1,linenos=false]{java}
 final Comparable max = (Comparable) properties.getMaxValue();
 \end{minted}
 
@@ -25,10 +30,14 @@ PyObjectValue pyObjectValue = (PyObjectValue) proxyClass.getConstructor()
 ((Proxy) pyObjectValue).setHandler(new PyObjectValueMethodHandler(content, sensitive, pyObject));
 \end{minted}
 
-\detection{}
-
 \discussion{}
-
-\related{}
+The cast could avoided by having the operand type implement the target type
+  interface or by introducing a more precise interface.
+  In the above example, one could imagine an interface
+  \code{ComparableNumber} that extends both \code{Number} and
+  \code{Comparable}. \scala{} supports
+  interface types, allowing 
+  the type \code{Number with Comparable}
+  to be used directly.
 
 \end{pattern}
