@@ -6,18 +6,13 @@ A cast is applied to a constant array slot, \eg, \code{(String) array[1]}.
 The following example%
 \footnote{\url{http://bit.ly/datanucleus_datanucleus-core_2S1L5Zf}}
 shows an instance of the \thisp{} pattern.
-A cast is performed to a constant array slot: \code{(BitSet)currentState[3]} in line 11.
-Nevertheless, the \code{currentState} parameter is accessed in lines 7 and 15 with constant indices, denoting an untyped object.
-Looking further, in the \code{else} branch (line 17) is where the array is being created matching the usage mentioned above.
+The variable \code{currentState} contains an \code{Object[]} with a fixed
+schema.%
+\footnote{\url{http://www.datanucleus.org/javadocs/core/5.0/org/datanucleus/enhancement/Detachable.html}}
+A cast is performed of a constant array slot, \code{(BitSet) currentState[3]} on line 5.
 
 %https://lgtm.com/projects/g/datanucleus/datanucleus-core/snapshot/dist-14100061-1524814812150/files/src/main/java/org/datanucleus/state/StateManagerImpl.java?sort=name&dir=ASC&mode=heatmap#L3324
-\begin{minted}[highlightlines=11]{java}
-public Object[] replacingDetachedState(Detachable pc, Object[] currentState) {
-    if ((flags&FLAG_RESETTING_DETACHED_STATE) != 0) {
-        return null;
-    } else if ((flags&FLAG_RETRIEVING_DETACHED_STATE) != 0) {
-        // Retrieving the detached state from the detached object
-        // Don't need the id or version since they can't change
+\begin{minted}[highlightlines=5]{java}
         BitSet theLoadedFields = (BitSet)currentState[2];
         for (int i = 0; i < this.loadedFields.length; i++) {
             this.loadedFields[i] = theLoadedFields.get(i);
@@ -27,45 +22,10 @@ public Object[] replacingDetachedState(Detachable pc, Object[] currentState) {
             dirtyFields[i] = theModifiedFields.get(i);
         }
         setVersion(currentState[1]);
-        return currentState;
-    } else {
-        // Updating the detached state in the detached object with our state
-        Object[] state = new Object[4];
-        state[0] = myID;
-        state[1] = getVersion(myPC);
-        // Loaded fields
-        BitSet loadedState = new BitSet();
-        for (int i = 0; i < loadedFields.length; i++) {
-            if (loadedFields[i]) {
-                loadedState.set(i);
-            } else {
-                loadedState.clear(i);
-            }
-        }
-        state[2] = loadedState;
-        // Modified fields
-        BitSet modifiedState = new BitSet();
-        for (int i = 0; i < dirtyFields.length; i++) {
-            if (dirtyFields[i]) {
-                modifiedState.set(i);
-            } else {
-                modifiedState.clear(i);
-            }
-        }
-        state[3] = modifiedState;
-        return state;
-    }
-}
 \end{minted}
 
-\detection{}
-
 \discussion{}
-%
-\todo{Nate: Code Smell?}
-%
 This pattern usually suggests an abuse of the type system.
-
-\related{}
+Using an object with statically typed fields might be a better alternative.
 
 \end{pattern}
