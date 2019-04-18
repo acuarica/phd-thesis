@@ -303,7 +303,7 @@ for (p in names(tb[order(tb, decreasing = TRUE)])) {
   input.patterns.def <- append(input.patterns.def, sprintf("\\input{chapters/casts/patterns/%s}", p))
   
   a <- declared.categories %in% taxonomy[[p]]$categories
-  r <- paste(sapply(a, function(b) if (b) 'X' else ''), collapse=' & ', sep=' & ')
+  r <- paste(sapply(a, function(b) if (b) '\\cmark' else '\\xmark'), collapse=' & ', sep=' & ')
   table.categories.def <- append(table.categories.def, sprintf("%s & \\nameref{pat:%s} & %s \\\\", i, p, r))
   
   i = i+1
