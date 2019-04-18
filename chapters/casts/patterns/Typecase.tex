@@ -380,7 +380,7 @@ There is an exploratory document%
 by Brian Goetz --- \java{} Language Architect --- addressing these issues from a more general perspective.
 It is definitely a starting point towards improving the \java{} language.
 
-This pattern can be seen as a special instance of the \nameref{pat:PatternMatching} pattern when the guard is an \code{instanceof} test.
+This pattern can be seen as a special instance of the \nameref{pat:Typecase} pattern when the guard is an \code{instanceof} test.
 
 
 
@@ -503,15 +503,13 @@ public Object convertToNumber(Number value, Class toType) throws Exception {
 }
 \end{minted}
 
-This pattern may be used instead of \nameref{pat:PatternMatching} when the developer wants to match exactly the runtime class.
+This pattern may be used instead of \nameref{pat:Typecase} when the developer wants to match exactly the runtime class.
 The \code{instanceof} operator%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.20.2}}
 returns \code{true} if the expression could be cast to the specified type,
 whereas using a class literal comparison returns \code{true} if the expression is exactly the runtime class.
 
-This pattern can be seen as a particular instance of the \nameref{pat:TypeTag} pattern,
-where the tag is given by the class literal.
-As discussed above, it is related to \nameref{pat:PatternMatching} but this pattern uses an exact match of the runtime class.
+As discussed above, it is related to \nameref{pat:Typecase} but this pattern uses an exact match of the runtime class.
 
 
 
@@ -570,7 +568,7 @@ In the next case%
 a type test is performed --- through a method call --- before actually applying the cast to the variable \code{props} (line 3).
 Note that the type test is internally using the \code{instanceof} operator (line 8).
 Although in this case the type test is using an \code{instanceof} operator,
-it is not considered \nameref{pat:PatternMatching} because the \code{instanceof} is located in a method call.
+it is not considered \nameref{pat:Typecase} because the \code{instanceof} is located in a method call.
 
 %https://lgtm.com/projects/g/apache/poi/snapshot/dist-1790760597-1524814812150/files/src/ooxml/java/org/apache/poi/xslf/usermodel/XSLFPropertiesDelegate.java?sort=name&dir=ASC&mode=heatmap#L1367
 \begin{minted}[highlightlines=3]{java}
@@ -660,14 +658,13 @@ public Object invokeMethod(String name, Object args) {
 }
 \end{minted}
 
-In some cases, the \thisp{} pattern can be replaced by \nameref{pat:PatternMatching}.
+In some cases, the \thisp{} pattern can be replaced by \nameref{pat:Typecase}.
 However, if the application-specific tag is a numeric value,
-the \thisp{} could perform better than the \nameref{pat:PatternMatching} using \code{instanceof}.
+the \thisp{} could perform better than the \nameref{pat:Typecase} using \code{instanceof}.
 Moreover, there are situation where the \thisp{} can not be avoid since the types to be cast are the same.
 
-This pattern is related to \nameref{pat:PatternMatching} since both denoted guarded casts.
+This pattern is related to \nameref{pat:Typecase} since both denoted guarded casts.
 The difference is that \thisp{} uses an application-specific test.
-\nameref{pat:GetByClassLiteral} could be seen as a special case of \thisp{} where the tag is a class literal.
 
 
 

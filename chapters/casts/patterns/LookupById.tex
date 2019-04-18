@@ -99,8 +99,6 @@ This raises the following questions:
 
 This pattern retrieves a stashed a value from an heterogeneous collection (or dictionary).
 A cast is needed because the return type depends on the ID to be retrieved.
-This scenario is similar to the \nameref{pat:Tag} pattern,
-where usually the developer retrieves a stashed value from a superclass field.
 Since this pattern casts a value to a known type from a method invocation,
 it can be seen as a kind of \nameref{pat:KnownReturnType} pattern.
 
@@ -301,7 +299,7 @@ That is, in the \thisp{} pattern the cast value is set ``locally'', \ie,
 in the same method or class,
 whereas the cast value in the \nameref{pat:LookupById} pattern is usually set in another class.
 
-The \nameref{pat:VariableLessSpecificType} pattern resembles this pattern,
+The \nameref{pat:VariableSupertype} pattern resembles this pattern,
 since a value is stashed using a less specific type.
 
 
