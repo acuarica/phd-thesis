@@ -1,10 +1,11 @@
-
 \begin{pattern}{ReflectiveAccessibility}
-
 This pattern accesses a field of an object by means of reflection.
-It uses reflection because at compile time the field is unaccessible.
-Usually the method \code{setAccessible(true)} is invoked on the field
-before actually getting the value from an object.
+Typically reflection is used because the field is private and therefore
+inaccessible at compile time and the developer cannot change the field
+declaration itself.
+In this case, the method \code{Field::setAccessible(true)} is invoked on the field
+before getting the value of the field.
+The cast is needed because \code{Field::get} returns an \code{Object}.
 
 \instances{}
 The following cast%
@@ -12,13 +13,11 @@ The following cast%
 uses this pattern:
 
 %https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1529316783166/files/library/src/main/java/com/loopj/android/http/AsyncHttpClient.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L445
-\begin{listing}
-\caption{Using \code{Field::get} to gain access to a field.}
 \begin{minted}[highlightlines=2]{java}
 f.setAccessible(true);
 HttpEntity wrapped = (HttpEntity) f.get(entity);
 \end{minted}
-\end{listing}
+
 
 \footnote{\url{http://bit.ly/joel-costigliola_assertj-db_2Ip1Rho}}
 
@@ -31,6 +30,15 @@ PositionWithChanges<ChangesAssert, ChangeAssert> positionBis =
             (PositionWithChanges) fieldPosition.get(changesDisplayBis);
 \end{minted}
 
+
+\discussion{}
+Using reflection to access a field is a common workaround to tight access
+  control restrictions. However, it should generally be regarded as a code
+  smell.
+
+As with \nameref{pat:Deserialization}, this pattern is necessary because
+a library method can return values of many different types at run time,
+and so is declared to return \code{Object}.
 
 
 \end{pattern}
