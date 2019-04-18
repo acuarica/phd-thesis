@@ -50,41 +50,38 @@
 
 \begin{document}
 
-\maketitle %generates the titlepage, this is FIXED
+\if11
 
+\maketitle %generates the titlepage, this is FIXED
 \frontmatter %generates the frontmatter, this is FIXED
 
 \input{abstract}
+\input{acks}
 
-\begin{acknowledgements}
-
-acknowledgements
-
-\end{acknowledgements}
-
-% \tableofcontents 
-% \listoffigures %optional
-% \listoftables %optional
+\tableofcontents 
+\listoffigures %optional
+\listoftables %optional
 
 \mainmatter
 
-% \input{cha-introduction}
-% \input{cha-literaturereview}
-% \input{cha-unsafe}
+\input{cha-introduction}
+\input{cha-literaturereview}
+\input{cha-unsafe}
 \input{cha-casts}
-% \input{cha-conclusions}
+\input{cha-conclusions}
 
-% \appendix %optional, use only if you have an appendix
+\appendix %optional, use only if you have an appendix
 
-% \input{cha-ap-jnif}
-% \input{cha-ap-qlstats}
+\input{cha-ap-jnif}
 
 \backmatter
 
-% \chapter{Glossary} %optional
+\chapter{Glossary} %optional
 
-%\bibliographystyle{alpha}
-%\bibliographystyle{dcu}
+\else
+\input{cha-casts}
+\fi
+
 \bibliographystyle{plainnat}
 \bibliography{pubs-zotero,pubs-manual}
 

@@ -9,8 +9,9 @@
 \end{mdframed}
 }
 
-\newcommand{\discuss}[1]{\todo[color=yellow]{\textbf{[DISCUSS]} #1}}
+% \newcommand{\discuss}[1]{\todo[color=yellow]{\textbf{[DISCUSS]} #1}}
 % \newcommand{\done}[1]{\todo[color=cyan]{\footnotesize \textbf{[DONE]} #1}}
+\newcommand{\discuss}[1]{}
 \newcommand{\done}[1]{}
 
 \newcommand{\rquestion}[1]{\hlbox{#1}{yellow}{Research Question}}
@@ -188,14 +189,13 @@
 	morecomment=[f][\color{diffrem}]{-\ },
 }
 
-
-% DONE: Changed "why" question.
 \newcommand{\urqA}{To what extent does the Unsafe API impact common application code?}
 \newcommand{\urqB}{How and when are Unsafe features used?}
 
-% DONE: Is casting used in common application code? Yes. Change question.
-% \todo{To what extent is}
-% CRQ2: How and \underline{why} casts are used?
 \newcommand{\crqA}{How frequently is casting used in common application code?}
 \newcommand{\crqB}{How and when casts are used?}
 \newcommand{\crqC}{How recurrent are the patterns for which casts are used?}
+
+\newcommand{\crqAdesc}{We want to understand to what extent application code actually uses casting operations.}
+\newcommand{\crqBdesc}{If casts are actually used in application code, we want to know how and when developers need to escape the type system.}
+\newcommand{\crqCdesc}{In addition to understand how and when casts are used, we want to measure how often developers need to resort to certain idioms to solve a particular problem.}

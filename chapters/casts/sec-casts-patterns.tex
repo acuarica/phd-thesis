@@ -2,25 +2,6 @@
 
 \newcommand{\castpatternsection}[1]{\noindent\textbf{#1.}}
 \newcommand{\pname}[1]{\textsc{#1}}
-\newcommand{\group}[1]{
-
-\
-
-\
-
-{\noindent\Large Patterns for \textsc{#1}}
-
-\
-
-% \begin{figure}[ht!]
-% \centering
-% \includegraphics[width=\textwidth]{"analysis/table-patterns-5000-by-group-#1"}
-% \caption{#1 Cast Pattern Occurrences}
-% \label{fig:group-patterns:#1}
-% \end{figure}
-
-}
-
 
 \newenvironment{pattern}[1]{
 \newcommand{\nocc}{\csname n#1Pattern\endcsname{}}
@@ -28,13 +9,10 @@
 \newcommand{\noccgen}{\csname n#1PatternGen\endcsname{}}
 \newcommand{\nocctest}{\csname n#1PatternTest\endcsname{}}
 \newcommand{\pocc}{\csname p#1Pattern\endcsname{}}
-
 \newcommand{\desc}{\castpatternsection{Description}}
 \newcommand{\instances}{\castpatternsection{Instances: \nocc{} (\pocc\%)}
 We found \noccsrc{} in application code, \nocctest{} in test code, and \noccgen{} in generated code.}
 \newcommand{\discussion}{\castpatternsection{Discussion}}
-\newcommand{\detection}{\castpatternsection{Detection}}
-\newcommand{\related}{\castpatternsection{Related}}
 \newcommand{\thisp}{\textsc{#1}}
 \subsection{\pname{#1}}
 \label{pat:#1}
@@ -118,15 +96,9 @@ Describes briefly how this pattern was detected in terms of the tags introduced 
 \item \textbf{Discussion.}
 Presents suggestions, flaws, or comments about the pattern.
 \item \textbf{Related Patterns.}
-%
-\done{Nate: Remove "?"}
-%
 How the pattern being described relates to other patterns.
 \end{itemize}
 
-\group{Language Designers}
-
-\done{Matthias: Say what it means to be guarded.}
 The patterns in this category are guarded casts.
 A guarded cast is a cast such that before the cast is applied,
 some condition --- the \emph{guard} -- needs to be verified.
@@ -135,13 +107,7 @@ the cast will not throw a \code{ClassCastException}.
 Some kind of guards ensure that the cast will not fail at the language-level,
 while others only can guarantee it at the application-level.
 
-\group{Tool Builders1}
-
-\done{Matthias: In these paragraphs, can you also enumerate the patterns by name, so readers see what's coming?}
-\done{Matthias: ???}
 Creational patterns are cast instances that are determined by how the value being cast is created.
-
-\group{Developers}
 
 These patterns can be avoidable either directly (by removing them)
 or through some minor refactor.
