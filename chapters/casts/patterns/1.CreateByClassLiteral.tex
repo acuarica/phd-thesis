@@ -1,4 +1,3 @@
-\begin{pattern}{CreateByClassLiteral}
 A cast applied to a method invocation where one of its arguments is a class literal.
 The target type of the cast is determined by this class literal.
 
@@ -19,12 +18,4 @@ final ILiferayServerBehavior liferayServerBehavior =
 %https://lgtm.com/projects/g/robovm/robovm/snapshot/dist-39650108-1524814812150/files/cocoatouch/src/main/java/org/robovm/apple/corevideo/CVBufferMovieTime.java?sort=name&dir=ASC&mode=heatmap#L66
 \begin{minted}[highlightlines=1]{java}
 CFArray o = (CFArray) CFType.Marshaler.toObject(CFArray.class, handle, flags);
-\end{minted}
-
-\detection{}
-
-\discussion{}
-
-\related{}
-
-\end{pattern}
+\end{minted} 
