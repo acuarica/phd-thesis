@@ -1,17 +1,17 @@
 \begin{pattern}{KnownReturnType}
 There are cases when a method's return type is less specific than the
 actual return type value.
-This is usually to hide implementation details.
-Nevertheless, sometimes it is convenient for the developer to work
-directly on the actual return type.
-%
-\done{Nate: KnownReturnType?}
-%
+This is often to hide implementation details, but may also be because the
+  method overrides another method with a less-specific type
+  and the return type is not changed covariantly.
+
 This pattern is used to cast from the method's return type to
 the \emph{known} actual return type.
+This pattern is characterized by a method that always returns a
+value of the same type, a subtype of the declared return type,
+regardless of the context or the arguments to the method call.
 
 \instances{}
-
 \footnote{\url{http://bit.ly/apache_kylin_2SIjooO}}
 
 
@@ -76,11 +76,17 @@ Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 \end{minted}
 
 
-
-\detection{}
-
 \discussion{}
+This pattern usually indicates an abstraction violation: the caller 
+needs to know the method implementation to know the correct target type.
 
-\related{}
+  \nameref{pat:CovariantReturnType} can be considered a special case of this
+  pattern where the return type is known to vary with the receiver type.
+  Like that pattern, associated types~\cite{chakravartyAssociatedTypeSynonyms2005}
+  in languages like \haskell{} or \rust{} 
+  could be used to avoid the cast.
 
 \end{pattern}
+
+
+
