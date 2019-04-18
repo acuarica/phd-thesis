@@ -1,34 +1,28 @@
-\begin{pattern}{PatternMatching}
-This pattern is composed of a guard (\code{instanceof}) followed by a cast to known subtypes of the static type.
-Often there is just one case and the default case, \ie, \code{instanceof} fails, does a no-op or reports an error.
-Another common approach is to have several cases,
-usually one \emph{per} subtype.
+\begin{pattern}{Typecase}
+The \thisp{} pattern consists of dispatching to different cases
+depending on the run-time type of the source value.
+The run-time type is tested against known subtypes of the operand type,
+with each test followed by a cast to that type.
+The guard may be implemented in one of three ways: an \code{instanceof} operator,
+a comparison of the runtime class against a class literal,
+or an application-specific type tag.
+
+When implementing the pattern,
+care must be taken with complex operands that the value of the operand is
+not changed between the guard and the cast, possibly even by another thread.
+For instance, in some situations the operand expression is a method invocation.
+The value returned by the method should be the same for both the
+\code{instanceof} and the cast, thus the method should be a pure method.
+Typically, this problem is avoided by using an effectively final local variable in both the guard and the
+cast operand.
 
 \instances{}
+\thisp{} is by far the most common pattern.
 The following listing shows an example of the \thisp{} pattern.%
-\footnote{\url{http://bit.ly/OpenMods_OpenBlocks_2FzYYHq}}
-%
-\done{Nate: Highlightlines color difficult to read}
-%
-In this example, there is only a single case (line 3).
-After the cast is done, a specific operation is performed on the cast type,
-\ie, invoking the \code{checkBlock} method.
-
-%https://lgtm.com/projects/g/OpenMods/OpenBlocks/snapshot/dist-2040060754-1524814812150/files/build/sources/java/openblocks/common/tileentity/TileEntityImaginary.java?sort=name&dir=ASC&mode=heatmap#L268
-\begin{minted}[highlightlines=3]{java}
-Item item = helmet.getItem();
-if (item instanceof ItemImaginationGlasses)
-	return ((ItemImaginationGlasses)item).checkBlock(what, helmet, this);
-\end{minted}
-
-In the next case,%
 \footnote{\url{http://bit.ly/PenguinSquad_Enchiridion_2HnNwB7}}
-more than one type test are performed.
-Each cast corresponds to a type test.
 
 %https://lgtm.com/projects/g/PenguinSquad/Enchiridion/snapshot/dist-19218583-1524814812150/files/build/sources/main/java/joshie/enchiridion/helpers/StackHelper.java?sort=name&dir=ASC&mode=heatmap#L27
-\begin{minted}[highlightlines=7]{java}
-public static String getStringFromObject(Object object) {
+\begin{minted}[highlightlines=6]{java}
 	if (object instanceof Item) {
 		return getStringFromStack(new ItemStack((Item) object));
 	} else if (object instanceof Block) {
@@ -40,58 +34,16 @@ public static String getStringFromObject(Object object) {
 	} else if (object instanceof List) {
 		return getStringFromStack((ItemStack) ((List) object).get(0));
 	} else return "";
-}
 \end{minted}
 
-There are situations when the type test is applied to more than one variable.
-In the following example%
-\footnote{\url{http://bit.ly/bbossgroups_bboss_2FDN9Rd}}
-a double type test is performed on the parameters \code{o1} and \code{o2}.
+Often there is just one case and the default case, \ie, when the guard
+fails, performs a no-op or reports an error.
 
-%https://lgtm.com/projects/g/bbossgroups/bboss/snapshot/dist-2025970729-1524814812150/files/bboss-util/src/org/frameworkset/util/ObjectUtils.java?sort=name&dir=ASC&mode=heatmap#L228
-\begin{minted}[highlightlines=25]{java}
-public static boolean nullSafeEquals(Object o1, Object o2) {
-	if (o1 == o2) {
-		return true;
-	}
-	if (o1 == null || o2 == null) {
-		return false;
-	}
-	if (o1.equals(o2)) {
-		return true;
-	}
-	if (o1.getClass().isArray() && o2.getClass().isArray()) {
-		if (o1 instanceof Object[] && o2 instanceof Object[]) {
-			return Arrays.equals((Object[]) o1, (Object[]) o2);
-		}
-		if (o1 instanceof boolean[] && o2 instanceof boolean[]) {
-			return Arrays.equals((boolean[]) o1, (boolean[]) o2);
-		}
-		if (o1 instanceof byte[] && o2 instanceof byte[]) {
-			return Arrays.equals((byte[]) o1, (byte[]) o2);
-		}
-		if (o1 instanceof char[] && o2 instanceof char[]) {
-			return Arrays.equals((char[]) o1, (char[]) o2);
-		}
-		if (o1 instanceof double[] && o2 instanceof double[]) {
-			return Arrays.equals((double[]) o1, (double[]) o2);
-		}
-		if (o1 instanceof float[] && o2 instanceof float[]) {
-			return Arrays.equals((float[]) o1, (float[]) o2);
-		}
-		if (o1 instanceof int[] && o2 instanceof int[]) {
-			return Arrays.equals((int[]) o1, (int[]) o2);
-		}
-		if (o1 instanceof long[] && o2 instanceof long[]) {
-			return Arrays.equals((long[]) o1, (long[]) o2);
-		}
-		if (o1 instanceof short[] && o2 instanceof short[]) {
-			return Arrays.equals((short[]) o1, (short[]) o2);
-		}
-	}
-	return false;
-}
-\end{minted}
+A particularly common instance of \thisp{} (usually with just one case) is in \code{equals} methods (223
+instances out of 1,296, or 17\%).%
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\#equals-java.lang.Object-}}
+Here the pattern is used to check if the argument (of type \code{Object}) has the same type as \code{this}
+in order to compare the fields of the argument with the receiver.
 
 Another common scenario%
 \footnote{\url{http://bit.ly/codefollower_Tomcat-Research_2SGDUG5}}
@@ -132,44 +84,87 @@ protected Object wrapDataSource(
 
 The next example%
 \footnote{\url{http://bit.ly/kiegroup_jbpm_2ENCL8a}}
-shows how \thisp{} can be used to filter elements by type within a stream.
-The cast instance is applied to stream operations (line 3) over the \code{caseAssignments} collection.
-The filter operation by type is performed in line 4.
+shows that
+\thisp{} can also be used to filter elements by type within a stream.
+The cast is applied to stream operations (line 1) over the \code{caseAssignments} collection.
+The \code{instanceof} is performed in line 1 as well.
 
 %https://lgtm.com/projects/g/kiegroup/jbpm/snapshot/dist-1810050-1524814812150/files/jbpm-case-mgmt/jbpm-case-mgmt-impl/src/main/java/org/jbpm/casemgmt/impl/wih/StartCaseWorkItemHandler.java?sort=name&dir=ASC&mode=heatmap#L212
-\begin{minted}[highlightlines=3]{java}
-Collection<OrganizationalEntity> caseAssignments = 
-		((CaseAssignment)caseFile).getAssignments(name);
-user = (User) caseAssignments.stream()
-		.filter(oe -> oe instanceof User)
-		.findFirst()
-		.orElseThrow(() -> new IllegalArgumentException());
-
-public interface User extends OrganizationalEntity {}
-public interface OrganizationalEntity {}
+\begin{minted}[highlightlines=1]{java}
+user = (User) caseAssignments.stream().filter(oe -> oe instanceof User)
+                                      .findFirst()
+                                      .orElseThrow(() -> new IllegalArgumentException());
 \end{minted}
 
+Rather than using an \code{instanceof},
+in the following example%
+\footnote{\url{http://bit.ly/JesusFreke_smali_2Ho8bVL}}
+the target type of the parameter \code{reference} is determined by the value
+of the parameter \code{referenceType},
+which acts as a \emph{type tag} for \code{reference}.
 
-\detection{}
-To detect this pattern,
-a cast needs to be guarded by an \code{instanceof} expression.
-The operand expression to both the cast and the \code{instanceof} needs to be the same.
-In the case the operand expression is a variable, we also check that there is no assignment between the \code{instanceof} guard and the cast to that variable.
+%https://lgtm.com/projects/b/JesusFreke/smali/snapshot/dist-1306230039-1524814812150/files/dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java?sort=name&dir=ASC&mode=heatmap#L492
+\begin{minted}[highlightlines=4]{java}
+switch (referenceType) {
+    case ReferenceType.FIELD: return fieldSection.getItemIndex((FieldRefKey) reference);
+    case ReferenceType.METHOD: return methodSection.getItemIndex((MethodRefKey) reference);
+    case ReferenceType.STRING: return stringSection.getItemIndex((StringRef) reference);
+    case ReferenceType.TYPE: return typeSection.getItemIndex((TypeRef) reference);
+    case ReferenceType.METHOD_PROTO: return protoSection.getItemIndex((ProtoRefKey) reference);
+    default: throw new ExceptionWithContext("Unknown reference type: %d",  referenceType);
+}
+\end{minted}
 
-In some situations, the operand expression is a method invocation.
-%
-\done{Nate: Avoid "we"}
-%
-To be an instance of the \thisp{} pattern,
-the value returned by the method needs to be the same for both the \code{instanceof} and the cast, \ie, it is a pure method.
+In some cases, the target types of the casts are the same in every branch.
+In the following snippet,%
+\footnote{\url{http://bit.ly/loopj_android-async-http_2IpIULk}}
+the cast is applied to the \code{message.obj} field to (line 11),
+according to the value of the tag \code{message.what} field (line 1).
+However, a similar cast is applied in the first branch (line 3).
+In both branches \code{message.obj} is of type \code{Object[]},
+  but with different lengths.
+  The casts in the calls to \code{onSuccess} and
+  \code{onFailure} (lines 5, 13--14) are instances of the
+  \nameref{pat:ObjectAsArray} pattern.
+
+%https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1549372228293/files/library/src/main/java/com/loopj/android/http/AsyncHttpResponseHandler.java?sort=name&dir=ASC&mode=heatmap#L359
+\begin{minted}[highlightlines=9]{java}
+switch (message.what) {
+    case SUCCESS_MESSAGE:
+        response = (Object[]) message.obj;
+        if (response != null && response.length >= 3) {
+            onSuccess((Integer) response[0], (Header[]) response[1], (byte[]) response[2]);
+        } else { ... }
+        break;
+    case FAILURE_MESSAGE:
+        response = (Object[]) message.obj;
+        if (response != null && response.length >= 4) {
+            onFailure((Integer) response[0], (Header[]) response[1],
+                    (byte[]) response[2], (Throwable) response[3]);
+        } else { ... }
+        break;
+    ...
+}
+\end{minted}
+
+% There is an exploratory document%
+% \footnote{\url{http://cr.openjdk.java.net/\~briangoetz/amber/datum.html}}
+% by \java{} Language Architect Brian Goetz addressing these issues from a more general perspective.
+% It is definitely a starting point towards improving the \java{} language.
 
 \discussion{}
-The \thisp{} pattern consists of testing the runtime type of a variable against several related types.
-It is a technique that allows a developer to take different actions according to the runtime type of an object.
-Depending on the --- runtime --- type of an object, different cases, usually one for each type will follow.
+Having only a single case---that is, a single guard and cast---is common.
+In the 742 instances of \thisp{} that used \code{instanceof}, 511
+(69\%) had only one case.
 
-The \thisp{} pattern can be seen as an \adhoc{} alternative to pattern matching as a language construct~\citep{lavilleLazyPatternMatching1987}.
-This construct can be seen in several other languages, \eg, \scala{}, \csharp{}, and \haskell{}.
+The \thisp{} pattern can be seen as an \adhoc{} alternative to a
+\code{typecase} or pattern matching~\citep{milnerProposalStandardML1984} as a
+language construct.
+In \kotlin{}, flow-sensitive typing is used so that immutable values can be
+used at a subtype when a type guard on the value is successful.%
+\footnote{\url{https://kotlinlang.org/docs/reference/typecasts.html\#smart-casts}}
+This feature eliminates much of the need for the guarded casts.
+Pattern matching can be seen in several other languages, \eg, \ml{}, \scala{}, \csharp{}, and \haskell{}.
 For instance, in \scala{} the pattern matching construct is achieved using the \code{match} keyword.
 In this example,%
 \footnote{Adapted from \url{https://docs.scala-lang.org/tour/pattern-matching.html}}
@@ -204,22 +199,37 @@ def showNotification(notification: Notification): String = {
 	println(showNotification(someVoiceRecording))
 \end{minted}
 
-As a workaround, alternatives to the \thisp{} pattern can be the visitor pattern or polymorphism.
-But in some cases, the chain of \code{instanceof}s is of boxed types.
-Thus no polymorphism can be used.
+Alternatives to the \thisp{} pattern would be to use the visitor pattern or to
+use virtual dispatch on the match scrutinee.
+However, both of these
+alternatives might be difficult to implement when the scrutinee is defined in
+a library or in third-party code.
 There is an ongoing proposal%
 \footnote{\url{http://openjdk.java.net/jeps/305}}$^{,}$%
 \footnote{\url{https://cr.openjdk.java.net/~briangoetz/amber/pattern-match.html}}
 to add pattern matching to the \java{} language.
-The proposal explores how to change the \code{instanceof} operator in order to support pattern matching.
+The proposal explores changing the \code{instanceof} operator in order to support pattern matching.
 %
 \done{Java 12 will (maybe) add matching.}
 %
-\java{} 12 already extends the \code{switch} statement to be used as either a statement or an expression.%
+\java{} 12 extends the \code{switch} statement to be used as either a statement or an expression.%
 \footnote{\url{https://openjdk.java.net/jeps/325}}
 This enhancement aims to ease the transition to a \code{switch} expression that supports pattern matching.
 
-\related{}
-The \nameref{pat:Equals} pattern can be seen as a special case of the \thisp{} pattern,
-because often the parameter to the \code{equals} method is guarded by an \code{instanceof} expression.
+The pattern for an \code{equals} method implementation is well-known.
+Most \code{equals} methods in our sample are implemented with the same
+boilerplate structure:
+that is, first checking if the parameter is another reference to \code{this},
+then checking if the argument is not null,
+and finally, checking if the argument is of the right class
+(with either an \code{instanceof} test or a \code{getClass} comparison).
+Once all checks are performed, a cast follows, and a field-by-field comparison is made.
+
+To avoid this boilerplate, other languages bake in deep equality comparisons, at least for some types
+(\eg, \scala{} case classes),
+or provide mechanisms to generate the boilerplate code (\eg, \code{deriving Eq}
+in \haskell{} or \code{\#[derive(Eq)]} in \rust{}).
+\cite{vaziriDeclarativeObjectIdentity2007} propose a declarative approach to avoid boilerplate code when implementing
+both the \code{equals} and \code{hashCode} methods.
+
 \end{pattern}
