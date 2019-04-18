@@ -1,9 +1,12 @@
 \begin{pattern}{Factory}
-Creates an object based on some arguments either to the method call or constructor.
-Since the arguments are known at compile-time,
-cast to the specific type.
-\done{Nate: Create with type descriptor "Tag"}
-In this pattern, the arguments resembles a type ``tag'' descriptor.
+Creates an object based on some arguments to a method call.
+Since the arguments are known at compile-time, cast to the specific type.
+In this pattern, the arguments resemble a ``type tag'' descriptor (cf.
+\nameref{pat:Typecase}).
+
+This pattern is characterized by a cast to a method call passing one or more arguments.
+The method call needs to create an object based on those arguments.
+Usually the arguments that determine the run-time type to be returned are known at compile-time.
 
 \instances{}
 The following snippet%
@@ -73,13 +76,12 @@ X509CRL crl = (X509CRL)cf.generateCRL(new ByteArrayInputStream(directCRL));
 
 In our last example%
 \footnote{\url{http://bit.ly/JSQLParser_JSqlParser_2TecMyB}}
-the cast instance (line 2) is applied to the \code{parse} method.
-The \code{parse} method (defined in line 10) returns a value of type \code{Statement}.
-The method is using the argument \code{statement},
-assigned in line 1.
-Since the statement is a \code{SELECT} statement,
-the value returned by the \code{parse} method is of type \code{Select}
-(declared in line 4).
+the cast instance (line 2) is applied to the result of \code{parse} method.
+The return type of \code{parse} is of type \code{Statement}, but,
+since the 
+the statement is a \code{SELECT} statement,
+the value returned by the \code{parse} method is known to be of type \code{Select}
+and the cast should succeed.
 
 %https://lgtm.com/projects/g/JSQLParser/JSqlParser/snapshot/dist-43250114-1524814812150/files/src/test/java/net/sf/jsqlparser/test/select/SelectTest.java?sort=name&dir=ASC&mode=heatmap#L437
 \begin{minted}[highlightlines=2]{java}
@@ -99,22 +101,22 @@ public class CCJSqlParserManager implements JSqlParser {
 \end{minted}
 
 
-\detection{}
-This pattern is characterized by a cast to a method call passing one or more arguments.
-The method call needs to create an object based on those arguments.
-Usually the arguments that determine the run-time type to be returned are known at compile-time.
+Another example is when using the \c{openConnection} method
+of the standard library class \code{java.net.URL}.%
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/net/URL.html\#openConnection--}}
+In the method returns a \code{URLConnection}, but depending on the URL scheme
+(\eg, \code{http}), the method will return a particular subclass 
+of \code{URLConnection} (\eg, \code{HttpURLConnection})
+that must then be downcast to be used.
 
 \discussion{}
 In some situations, the use of this pattern can be seen as breaking the contract \api{} between the caller and the callee.
 This happens because the caller needs to know how the method is implemented in order to determine the run-time return type.
-
-\related{}
-\done{Nate: Move to "Related Patterns"}
-The \thisp{} pattern cast a method call result to a subtype of the declared return type.
-This can be seen as a special case of \nameref{pat:Family} polymorphism pattern,
-where several subclasses are meant to work together.
-
-The \nameref{pat:KnownReturnType} pattern is similar to the \thisp{} pattern,
-since both depends on the knowledge that a method returns a more specific type.
+  In \thisp{}, there is a known type hierarchy 
+  below the return type and the caller casts to a known subtype
+  in that hierarchy based on the arguments passed into the factory method.
+%
+The \nameref{pat:KnownReturnType} pattern is similar to \thisp{},
+since both depend on the knowledge that a method returns a more specific type.
 
 \end{pattern}
