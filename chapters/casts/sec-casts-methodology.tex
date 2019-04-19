@@ -1,76 +1,67 @@
-\section{Finding Casts Usage Patterns}
+\section{Finding Cast Usage Patterns}
 \label{sec:casts:methodology}
 
-Similarly to Section~\ref{sec:casts:stats},
-%
-\done{Matthias: And again, in-line an enumeration of those elements into this sentence. [DISCUSS] Luis: I would prefer to have them as an enumeration.}
-%
-to answer both research questions \ref{casts:rq2} (\emph{\crqB}) and \ref{casts:rq3} (\emph{\crqC}) several elements are needed.
+To answer our research questions,
+\ref{casts:rq2} (\emph{\crqB}) and \ref{casts:rq3} (\emph{\crqC}) several elements are needed,
+we need a corpus of representative ``real world'' code and we need to perform
+source code analysis to identify cast operations and to help classify these
+operations.
 
-\textbf{Source Code Analysis.}
-Given the complexity of meaningfully categorizing cast usages into patterns,
-we have opted to manually analyze code snippets to devise cast usage patterns.
-We used the \ql{} query language within the \lgtm{} service to fetch all cast operator instances.
+\subsection{Corpus Analysis}
 
-\textbf{Projects.}
-As for the project selection, we have used the Semmle project database.
-We argue this database provides a close approximation to ``real world'' applications, since teams that want their code to be analyzed push their projects onto \href{https://lgtm.com}{lgtm.com} to run queries against them.
-This filters out uninteresting projects, \eg, student projects.
-There are also popular projects, \eg,
+We gathered cast usage data using the \ql{} query language,
+``a declarative, object-oriented logic programming language for querying
+complex, potentially recursive data structures encoded in a relational data
+model''~\citep{avgustinovQLObjectorientedQueries2016}.
+\ql{} allows us to analyze programs at the source code level.
+\ql{} extracts the source code of a project into a Datalog model.
+Besides providing structural data for programs, \ie{}, ASTs,
+\ql{} has the ability to query static types and perform data-flow analysis.
+To run our \ql{} queries,
+we have used the \lgtm{} service provided by Semmle,%
+\footnote{\url{https://lgtm.com/}}
+the developers of \ql{}.
+
+The \lgtm{} project database includes---at the time of writing---7,559 \java{} projects imported from
+open-source projects hosted in \github{}.
+The \lgtm{} database was constructed by importing popular open-source projects, \eg,
 Apache Maven,\footnote{\url{https://lgtm.com/projects/g/apache/maven}}
-Neo4j,\footnote{\url{https://lgtm.com/projects/g/neo4j/neo4j/}}
-Hibernate,\footnote{\url{https://lgtm.com/projects/g/hibernate/hibernate-orm/}}
-that were pulled in by Semmle itself as demo projects.
+Neo4j,\footnote{\url{https://lgtm.com/projects/g/neo4j/neo4j/}},
+and Hibernate\footnote{\url{https://lgtm.com/projects/g/hibernate/hibernate-orm/}}.
+Additionlly it includes projects exported by developers
+to \lgtm{} to query them for bug finding, smell detection, and
+other analyses.
+We argue that this project selection provides a wide coverage over realistic
+\java{} applications, excluding
+uninteresting projects, \eg, student projects.
 
-% For each cast, I have the path within the project.
-% But to manually analyze them, I need to get the lgtm.com link.
-% This is necessary to actually see the code snippet in which the cast appear.
+\subsection{Methodology}
 
-At the time of writing, there is a total of 7.559 projects in the Semmle project database, with a total 10,193,435 casts.
-%
-\done{Matthias: Why?}
-%
-There are 215 projects for which we could not get the source code to be analyzed.
-This happens since the project links to analyze source code could not be reconstructed from the data provided by Semmle.
-In total, these 215 projects represents 1,162,583 casts.
+To identify patterns of cast usage, we analyzed all \java{} projects in the \lgtm{} database, 7,559 projects
+with a total 10,193,435 casts, at the time of writing.
+There are 215 projects in the database for which we could not retrieve the source code.
+In total, these 215 projects contain 1,162,583 casts.
 Moreover, there are also 516 projects that do not contain any cast.
-Therefore the total cast population to be analyzed consists of 9,030,852 casts spread over 6,840 projects.
+Therefore the total cast population to be analyzed consists of 9,030,852 casts in 6,840 projects.
 
-\done{Matthias: What is the point of this sentence? {\scriptsize "We assume that all cast instances can be categorized in several patterns."}}
-%
-Since the amount of cast instances is quite large, it is not feasible to \emph{manually} analyze all of them.
-Therefore we have opted to perform random sampling to get a subset of cast instances to manually analyze.
-Now comes the question: \emph{What is an appropriate sample size?}
-We want to pick a sample size such that the probability of missing the least frequent pattern is extremely low.
+Because the number of cast instances is large, it is not feasible to \emph{manually} analyze all of them.
+Therefore we have opted to perform random sampling to get a subset of cast instances to analyze.
+To choose a sample size such that the
+the probability of missing the least frequent pattern is extremely low, we assume a
+hypergeometric distribution of the data.
+The hypergeometric distribution is a discrete probability distribution used with a finite population of $N$ subjects.
+It is used to calculate the probability of drawing $k$ subjects with a given feature---provided that there are $K$ subjects with that feature in the population---in $n$ draws, without replacement.
 
-\done{Matthias: Insert paragraph break here, and improve the clarity of the subsequent text.}
-%
-This kind of question is exactly answered by the \textbf{Hypergeometric Distribution}.
-The Hypergeometric Distribution is a discrete probability distribution used with a finite population of $N$ subjects
-%
-\done{Matthias: Who has two distinct features? The distribution? The subjects?}
-%
-which exhibit two distinct features.
-It is used to calculate the probability of obtaining $k$ successes of getting one feature --- provided that there are $K$ subjects with that feature in the population --- in $n$ draws.
+Returning to our problem of finding an appropriate sample size, we model our question as follows:
+We assume there are $K$ casts that are members of the least frequently occurring pattern.
+We want to know the probability of not finding this pattern, \ie, sampling exactly $k = 0$.
+Our population consists of $N = 9,030,852$ cast instances.
+For our study, we assume that a pattern is irrelevant if it represents less than $0.1\%$ of the population, or $K = 9,031$ cast instances.
+Plugging-in these parameters using the hypergeometric distribution formula,%
+\footnote{The reader can use any hypergeometric distribution calculator, \eg, \url{https://keisan.casio.com/exec/system/1180573201}}
+we found that with a sample size of $n = 5,000$ the probability of not sampling the
+least frequently occurring pattern is $0.67\%$.
 
-Returning to our problem of finding an appropriate sample size, we can model our question as follows:
-The two distinct features are either finding a cast of the least frequent pattern or not.
-Therefore we want to know what is the probability of not finding this pattern, \ie, $k = 0$.
-Our finite population consists of $N = 9,030,852$ cast instances.
-%
-\done{Nate: Remove "then"}
-%
-For our study, we assume that a pattern is irrelevant if it represents less than $0.1\%$ of the population, thus $K = 9,000$ cast instances.
-Plugging-in these parameters using the Hypergeometric Distribution formula,%
-\footnote{The reader can use any available online Hypergeometric Distribution calculator to plug-in these parameters, \eg, \url{https://keisan.casio.com/exec/system/1180573201}}
-with different sample sizes,
-%
-\discuss{Matthias: Wrong, no?}
-%
-we found that with a sample size of $n = 5000$ the probability is $0.0068$,
-\ie, less than $0.1 \%$, of not finding the least frequent pattern.
-
-\done{Matthias: Put your raw results {\scriptsize (the file with the 5000 cast instances and your tags)} into some repository and say here that it's available there.}
 %
 The manual categorization file can be found online.% 
 \footnote{\url{https://gitlab.com/acuarica/phd-thesis/blob/master/analysis/casts-5000.csv}}
