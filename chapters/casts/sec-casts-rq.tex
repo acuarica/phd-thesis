@@ -4,30 +4,17 @@ The examples in the previous section indicate that type casts represent a source
 Therefore we want to understand why developers need to use type casts.
 To this end, we propose to answer the following question:
 \emph{How and when do developers need to escape the type system?}
-%
-\done{Nate: Should be specific to casts?}
-%
 The cast operator in \java{} provides the means to view a reference as a different type to how it was declared.
-%
-\done{Nate: Define upcasts}
-%
 Upcasts are done automatically by the compiler.
 Nevertheless, as we shall see later, in some situations a developer is forced to insert upcasts.
 In the case of downcasts,
 a check is inserted at run-time to verify that the conversion is sound,
-%
-\done{Nate: Remove "thus escaping the static type system."}
-%
 thus turning a static type test into a dynamic test.
 
 Therefore, we believe we should care about how the casting operations are used in the wild.
 Specifically, we want to answer the following research questions:
 
-\begin{enumerate}[label=$RQ/C\arabic*:$,ref=$RQ/C\arabic*$,leftmargin=3.4\parindent]
-\item\label{casts:rq1}{\bf \crqA} \crqAdesc
-\item\label{casts:rq2}{\bf \crqB} \crqBdesc
-\item\label{casts:rq3}{\bf \crqC} \crqCdesc
-\end{enumerate}
+
 
 To answer the above questions, we need to determine whether and how cast operations are actually used in real-world \java{} applications.
 In Section~\ref{sec:casts:stats} we first give an estimation of how often the cast operator is used in real-world applications to answer~\ref{casts:rq1}.
