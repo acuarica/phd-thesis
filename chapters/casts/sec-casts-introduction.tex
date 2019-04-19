@@ -18,7 +18,6 @@ To that end, programming languages often provide mechanisms
 to make the typing constraints less strict, allowing
 more valid programs
 at the expense of more errors at run time.
-% Within a type system,
 
 A common mechanism for relaxing static typing in object-oriented languages is \emph{casting}.
 In programming languages with subtyping such as \java{} or \cpp{}, casting
@@ -212,16 +211,12 @@ It is this cast that fails at run time and that is reported at run time.
 The fix for this bug is to change the default value argument from \code{5L}
 to just \code{5}. This causes the call's return type is inferred to be
 \code{Integer}, and the compiler-inserted cast succeeds.
-%
 As this example shows, problems with casts are not always obvious.
 In this paper we aim to uncover the many different ways in which developers use casts
 by manually analyzing a large sample of cast usages in open source software.
 
 \subsection*{Outline}
 
-In Section~\ref{sec:casts:methodology} we introduce the methodology we
-used to analyze casts and to devise cast usage patterns.
-Sections~\ref{sec:casts:overview} and \ref{sec:casts:patterns}
-present the cast usage patterns and answers our research questions.
-Section~\ref{sec:casts:related-work} discusses related work
-and Section~\ref{sec:casts:conclusions} concludes.
+In Section~\ref{sec:casts:methodology} we introduce the methodology we used to analyze casts and to devise cast usage patterns.
+Sections~\ref{sec:casts:overview} and \ref{sec:casts:patterns} present the cast usage patterns and answers our research questions,
+while Section~\ref{sec:casts:conclusions} concludes.
