@@ -1,0 +1,66 @@
+
+\section{Overview of the Sampled Casts}
+\label{sec:casts:overview}
+
+\begin{wraptable}{r}{0.41\textwidth}
+\scriptsize
+\centering
+\caption{Statistics on Sampled Casts}
+\label{table:casts:guarded}
+\begin{tabular}{|l|r|r|}
+  \hline
+  All sampled casts & \nSize{} & 100\% \\
+  \hline
+  Reference casts & \nReference{} & \pReference\% \\
+  Primitive casts & \nPrimitivePattern{} & \pPrimitivePattern\% \\
+%  Bug & \nBug{} & \pBug\% \\
+%  Source code inaccessible & \nBrokenLink{} & \pBrokenLink\% \\
+  \hline
+  Upcasts & \nUpcast{} & \pUpcast\% \\
+  Downcasts & \nDowncast{} & \pDowncast\% \\
+  \hline
+  Boxing casts & \nToRemoveBoxingSubpattern{} & \pToRemoveBoxingSubpattern\% \\
+  Unboxing casts & \nToRemoveUnboxingSubpattern{} & \pToRemoveUnboxingSubpattern\% \\
+  \hline
+  Guarded by \code{instanceof} & \nTypecaseGuardByInstanceOfSubpattern{} & \pTypecaseGuardByInstanceOfSubpattern\% \\
+  Guarded by \code{getClass} & \nTypecaseGuardByClassLiteralSubpattern{} & \pTypecaseGuardByClassLiteralSubpattern\% \\
+  Guarded by type tag & \nTypecaseGuardByTypeTagSubpattern{} & \pTypecaseGuardByTypeTagSubpattern\% \\
+  Unguarded or possibly unguarded & \nUnguarded{} & \pUnguarded\% \\
+  \hline
+\end{tabular}
+\end{wraptable}
+
+The casts we sampled
+are summarized in Table~\ref{table:casts:guarded}.
+In our sample of \nSize{} casts,
+we found \nPrimitivePattern{} primitive conversions.
+Moreover, we found \nBrokenLink{} links that were not accessible during our
+analysis, making manual code inspection impossible.
+We also found one cast that was clearly a bug, a downcast using the wrong cast
+operand.
+The remaining \nReference{} casts are either reference upcasts, downcasts, boxing
+casts, or unboxing casts.
+
+Casts can be classified as either \emph{guarded} or \emph{unguarded} casts.
+A guard is a conditional expression on which the cast is control dependent,
+which, if successful, ensures the cast will not fail.
+Guards are typically implemented using the \code{instanceof} operator or using
+a test of the source value's class (retrieved using the
+\code{Object::getClass} method) against a subtype of the cast target type.
+Guards can also be implemented in an application-specific manner, for instance
+by associating a ``type tag'' with the source value that can be used to
+distinguish the run-time type.
+
+Of the \nReference{} analyzed reference casts,
+we found that \nGuarded{} (\pGuarded\%) were guarded by a
+guard in the same method as the cast and \nUnguarded{} (\pUnguarded\%)
+were either unguarded or had a guard in another method.
+In the latter case, which we refer to as \emph{possibly unguarded},
+determining by manual inspection if a guard is actually
+present is often infeasible. The possibly unguarded casts are cases where the application developer
+has some reason for believing the cast will succeed, but it is not immediately
+apparent in the source code.
+
+As we describe in the next section, nearly all guarded casts fit into just a
+few patterns. Unguarded or possibly unguarded casts account for most of the
+patterns.
