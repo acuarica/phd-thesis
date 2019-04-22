@@ -104,14 +104,20 @@ of the parameter \code{referenceType},
 which acts as a \emph{type tag} for \code{reference}.
 
 %https://lgtm.com/projects/b/JesusFreke/smali/snapshot/dist-1306230039-1524814812150/files/dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java?sort=name&dir=ASC&mode=heatmap#L492
-\begin{minted}[highlightlines=4]{java}
+\begin{minted}[highlightlines=7]{java}
 switch (referenceType) {
-    case ReferenceType.FIELD: return fieldSection.getItemIndex((FieldRefKey) reference);
-    case ReferenceType.METHOD: return methodSection.getItemIndex((MethodRefKey) reference);
-    case ReferenceType.STRING: return stringSection.getItemIndex((StringRef) reference);
-    case ReferenceType.TYPE: return typeSection.getItemIndex((TypeRef) reference);
-    case ReferenceType.METHOD_PROTO: return protoSection.getItemIndex((ProtoRefKey) reference);
-    default: throw new ExceptionWithContext("Unknown reference type: %d",  referenceType);
+    case ReferenceType.FIELD:
+        return fieldSection.getItemIndex((FieldRefKey) reference);
+    case ReferenceType.METHOD:
+        return methodSection.getItemIndex((MethodRefKey) reference);
+    case ReferenceType.STRING:
+        return stringSection.getItemIndex((StringRef) reference);
+    case ReferenceType.TYPE:
+        return typeSection.getItemIndex((TypeRef) reference);
+    case ReferenceType.METHOD_PROTO:
+        return protoSection.getItemIndex((ProtoRefKey) reference);
+    default:
+        throw new ExceptionWithContext("Unknown reference type: %d",  referenceType);
 }
 \end{minted}
 
@@ -168,7 +174,7 @@ Pattern matching can be seen in several other languages, \eg, \ml{}, \scala{}, \
 For instance, in \scala{} the pattern matching construct is achieved using the \code{match} keyword.
 In this example,%
 \footnote{Adapted from \url{https://docs.scala-lang.org/tour/pattern-matching.html}}
-a different action is taken according to the runtime type of the parameter \code{notification} (line 9).
+a different action is taken according to the runtime type of the parameter \code{notification} (line 10).
 
 \begin{minted}[highlightlines=10]{scala}
 abstract class Notification
