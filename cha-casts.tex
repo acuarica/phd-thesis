@@ -4,8 +4,291 @@
 \chapter{Casting about in the Dark}
 \label{cha:casts}
 
-\input{chapters/casts/sec-casts-introduction}
+The main goal of a \emph{static} type system
+is to prevent certain kinds of errors from happening at run time.
+A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
+Any program not satisfying the constraints specified by the type system is
+simply rejected by the compiler.
+
+Nevertheless, often a static type system is insufficiently precise.
+The type checker is necessarily conservative:
+it must not accept invalid programs,
+but it may reject programs that are valid but whose validity cannot be ensured at compile time.
+However, there are situations when the developer has more information
+about the program than can be encoded---or encoded easily---into the types.
+To that end, programming languages often provide mechanisms to make the typing constraints less strict,
+allowing more valid programs at the expense of more errors at run time.
+
+One common extension of type systems is \emph{subtyping} --- or \emph{subtype polymorphism} --- usually seen in \emph{object-oriented} programming languages.
+The subtype mechanism allows the interoperability of two different related types.
+As~\cite{pierceTypesProgrammingLanguages2002} states, "[\ldots] $S$ is a subtype of $T$, written $S <: T$, to mean that any term of type $S$ can safely be used in a context where a term of type $T$ is expected.
+This view of subtyping is often called the \emph{principle of safe substitution}."
+
+A common mechanism for relaxing static typing in object-oriented languages is \emph{casting}.
+In programming languages with subtyping such as \java{} or \cpp{}, casting
+allows
+an expression to be viewed at a different type than the one at which it was defined.
+Casts are checked dynamically to ensure that the object
+being cast is an instance of the desired type.
+
+We aim to understand why developers use casts.
+Why is the static type system insufficient,
+requiring an escape hatch into dynamic type checking?
+Specifically, we attempt to answer the following three research questions:
+
+\begin{enumerate}[label=$RQ/C\arabic*:$,ref=$RQ/C\arabic*$,leftmargin=3.4\parindent]
+\item\label{casts:rq1}{\bf \crqA} \crqAdesc
+\item\label{casts:rq2}{\bf \crqB} \crqBdesc
+\item\label{casts:rq3}{\bf \crqC} \crqCdesc
+\end{enumerate}
+
+To answer these research questions, we devise
+\emph{usage patterns}.
+Usage patterns are \emph{recurrent programming idioms} used by developers to solve a specific issue.
+Usage patterns enable the categorization of different kinds of cast usages and
+thus provide insights into how the language is being used by developers in real-world applications.
+Our cast usage patterns can be:
+\begin{inparaenum}[(1)]
+\item a reference for current and future language designers
+to make more informed decisions about programming languages,
+\eg{},
+the addition of \emph{smart casts} in \lang{Kotlin},\footnote{\url{https://kotlinlang.org/docs/reference/typecasts.html\#smart-casts}}
+\item a reference for tool builders, \eg{}, by providing more precise or new
+  refactoring or code smell analyses,
+\item a guide for researchers to test new language features, \eg{}, \cite{wintherGuardedTypePromotion2011} or to carry out controlled
+  experiments about programming, \eg{}, \cite{stuchlikStaticVsDynamic2011}, and
+\item a guide for developers for best or better practices.
+\end{inparaenum}
+To answer our research questions,
+we empirically study how casts
+are used by developers.
+We focus on \java{} given its wide usage and relevance for both
+research and industry.\footnote{\url{https://www.tiobe.com/tiobe-index/}}
+
+\subsection*{Casts in Java}
+
+While casts should be familiar to most programmers of object-oriented languages, 
+because casts have different semantics in different programming languages,
+we briefly summarize the meaning of casts in \java{} and the terminology used in rest of this paper.
+
+A cast operation, written \code{(T)}~\code{e} in \java{}
+consists of a \emph{target type} \code{T} and an \emph{operand} \code{e}.
+The operand evaluates to a \emph{source value} which has a run-time
+\emph{source type}.
+In \java{}, a source reference type is always a class type.
+For a particular cast evaluated at run time, 
+the \emph{source} of the cast is the expression in the program that
+created the source value.
+For reference casts, the source is an object allocation.
+The source may or may not be known statically.
+
+An \emph{upcast} occurs when the cast is from a source reference type $S$ to a target reference type $T$,
+where $T$ is a supertype of $S$.
+In our terminology, upcasts include identity casts where the target type
+is the same as the type of the operand.
+An upcast does not require a run-time check.
+
+A \emph{downcast}, on the other hand,
+occurs when converting from a source reference type $S$ to a target reference
+type $T$, where $T$ is a proper subtype of $S$.
+Listing~\ref{lst:casts:simple} shows how to use the cast operator (line 2) to treat a reference (the variable \code{o}) as a different type (\code{String}) as it was defined (\code{Object}).
+
+\begin{listing}
+\caption{Variable \code{o} (defined as \code{Object}) is cast to \code{String}.}
+\label{lst:casts:simple}
+\begin{minted}{java}
+Object o = "foo"; 
+String s = (String)o;
+\end{minted}
+\end{listing}
+
+In type-safe OO languages, downcasts require
+a run-time check to ensure that the source value is an instance of the target type.
+The above snippet is compiled into the following \java{} bytecode.
+The \code{aload\_1} instruction (line 3) pushes the local variable \code{o} into the operand stack.
+The \code{checkcast} instruction (line 4) then checks at run-time that the top of the stack has the specified type (\code{java.lang.String} in this example).
+
+\begin{lstlisting}[style=bytecode]
+ldc           #2     // String foo
+astore_1
+aload_1
+checkcast     #3     // class java/lang/String
+astore_2
+\end{lstlisting}
+
+
+This run-time check can either \emph{succeed} or \emph{fail}.
+A \code{ClassCastException} is thrown when a downcast fails.
+This exception is an unchecked exception, \ie,
+the programmer is required neither to handle it
+nor to specify the exception in the method signature.
+Listing~\ref{lst:catchcce} shows how to detect whether a cast failed by catching this exception.
+
+\begin{listing}
+\caption{Catching \code{ClassCastException}}
+\label{lst:catchcce}
+\begin{minted}{java}	
+try {
+	Object x = new Integer(0);
+	System.out.println((String)x); 
+} catch (ClassCastException e) { 
+	System.out.println(""); 
+}
+\end{minted}
+\end{listing}
+
+
+A \emph{guard} is a conditional expression
+on which a (down)cast is control-dependent and that ensures that the cast
+is evaluated only if it will succeed.
+
+Guards are often implemented using the \code{instanceof} operator, which tests
+if an expression is an instance of a given reference type.
+If an \code{instanceof} guard returns true, the guarded cast should not throw
+a \code{ClassCastException}.
+Listing~\ref{lst:instanceoftest} shows a usage of the \code{instanceof} operator together with a cast expression.
+
+\begin{listing}
+\caption{Runtime type test using \code{instanceof} before applying a cast.}
+\label{lst:instanceoftest}
+\begin{minted}{java}
+if (x instanceof Foo) {
+	((Foo)x).doFoo();
+}
+\end{minted}
+\end{listing}
+
+In \java{}, an object's type can also be checked using reflection:
+the \code{getClass} method%
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\#getClass--}}
+returns the run-time class of an object.
+This \code{Class} object can be then compared against a class literal, \eg,
+\code{x.getClass()}~\code{==}~\code{C.class}.
+This test is more precise than an \code{x}~\code{instanceof}~\code{C} test since it succeeds only when the operand's class is exactly \code{C},
+rather than any subclass of \code{C}.
+Listing~\ref{lst:getclasstest} shows how to use the \code{getClass} method to test for an object's type.
+
+\begin{listing}
+\caption{Runtime type test using \code{getClass} before applying a cast.}
+\label{lst:getclasstest}
+\begin{minted}{java}
+if (x.getClass() == Foo.class) {
+	((Foo)x).doFoo(); 
+}
+\end{minted}
+\end{listing}
+
+Because they can fail,
+downcasts pose potential threats.
+Unguarded downcasts in particular are
+worrisome because the developer is essentially telling the compiler
+\emph{``Trust me, I know what I'm doing.''}
+Because downcasts are an escape-hatch from the static type system---they
+permit dynamic type errors---a cast is often seen as a design flaw or code
+smell in an object-oriented system~\citep{tufanoWhenWhyYour2015}.
+
+A cast can also fail at compile time if the cast operand and the target type are incompatible.
+For instance, in the expression \code{(String) new Integer(1)} a value of type
+\code{Integer} can \emph{never} be converted to \code{String}, so the compiler
+rejects the cast expression.
+
+Another form of casts in \java{} are \emph{primitive conversions}, or more specifically
+\emph{numeric conversions}. These are conversions from
+one primitive (non-reference) type, usually a numeric type, to another. These conversions can result
+in loss of precision of the numeric value, although they do not fail with a
+run-time exception.
+
+\emph{Boxing} and \emph{unboxing} occur when casting from a primitive type to
+a reference type or vice versa, \eg, \code{(Integer) 3} converts the primitive
+\code{int} 3 into a boxed \code{java.lang.Integer}.
+Like downcasts, unboxing casts can fail at
+run time if the source value cannot be converted to the target type.
+\java{} supports \emph{autoboxing} and \emph{autounboxing} between primitives and their corresponding
+boxed type in the \code{java.lang} package.
+
+Generics were introduced into \java{} to provide more static type safety.
+For instance, the type \code{List<T>} contains only elements of type \code{T}.
+The underlying implementation of generics, however, erases the actual type
+arguments when compiling to bytecode. To ensure type safety in the generated
+bytecode, the compiler inserts cast instructions into the generated code.
+Improper use of generic types or mixing of generic and raw types can lead
+to dynamic type errors---\ie, \code{ClassClassException}.
+Our study, however, does not consider these compiler-inserted casts. We are only concerned with
+programmer-inserted casts in the source code, not in the generated bytecode.
+
+\subsection*{Issues Developers have Applying the Cast Operator}
+
+Several studies~\citep{kechagiaUndocumentedUncheckedExceptions2014,coelhoUnveilingExceptionHandling2015,zhitnitskyTop10Exception2016}
+suggest that in \java{},
+the \code{ClassCastException} is in the top ten of exceptions being thrown when analysing stack traces.
+%These studies have analyzed the exceptions thrown in stack traces.
+%The exceptions come from third-party libraries \api{}s and the Android \api{},
+%indicating a misuse of such \api{}s.
+%\code{ClassCastException} is in the top 10 of exceptions thrown,
+%thus it represents a problem for developers.
+%
+To illustrate the sort of problems developers have when applying casting conversions,
+we performed a search for commits and issues including the term
+\code{ClassCastException} within projects marked as using the \java{} language
+on \github{},
+the largest host of source code in the world~\citep{gousiosLeanGHTorrentGitHub2014}.
+Our searches returned about 171K commits%
+\footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Commits}}
+and 73K issues,%
+\footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Issues}}
+respectively, at the time of this writing.
+At first glance, these results indicate that \code{ClassCastException} indeed
+represents a source for problems for developers.
+
+Typical classes of bugs
+encountered when using a cast are using the wrong cast target type, or using
+the wrong operand, or failing to guard a cast.
+More subtle, however, is the interaction between casting and generics.
+For example, the following call,%
+\footnote{\url{https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382}}
+throws a \code{ClassCastException}.
+\begin{minted}[linenos=false]{java}
+config.getProperty("peer.p2p.pingInterval", 5L)
+\end{minted}
+The method has the following signature:%
+\footnote{\url{https://github.com/ethereum/ethereumj/blob/224e65b9b4ddcb46198a6f8faf69edc65d34d382/ethereumj-core/src/main/java/org/ethereum/config/SystemProperties.java\#L312}}
+\begin{minted}[linenos=false]{java}
+public <T> T getProperty(String propName, T defaultValue)
+\end{minted}
+The first argument to the method is the name of a property, used to lookup a
+value in a table. The second argument is a default value to use if the
+property is not in the table. If the lookup is successful, the method casts
+the value found to type \code{T}.
+%
+In the call, the given property
+\code{"peer.p2p.pingInterval"} is in the table and mapped to an \code{Integer}.
+However, \java{} uses the type of the \code{defaultValue} argument, in this
+case \code{Long}, to instantiate the type parameter \code{T}.
+
+Note, however, that the cast inside \code{getProperty}, which in this context
+should cast from \code{Integer} to \code{Long}, \emph{does not fail}.
+This is because the \java{} compiler erases the type
+parameters like \code{T} and so dynamic type tests are not performed on them.
+Instead, the compiler inserts a cast where the return value
+of \code{getProperty} is used later with type \code{Long}.
+It is this cast that fails at run time and that is reported at run time.
+
+The fix for this bug is to change the default value argument from \code{5L}
+to just \code{5}. This causes the call's return type is inferred to be
+\code{Integer}, and the compiler-inserted cast succeeds.
+As this example shows, problems with casts are not always obvious.
+In this thesis we aim to uncover the many different ways in which developers use casts
+by manually analyzing a large sample of cast usages in open source software.
+
+\subsection*{Outline}
+
+In Section~\ref{sec:casts:methodology} we introduce the methodology we used to analyze casts and to devise cast usage patterns.
+Sections~\ref{sec:casts:overview} and \ref{sec:casts:patterns} present the cast usage patterns and answers our research questions,
+while Section~\ref{sec:casts:conclusions} concludes.
+
+
 \input{chapters/casts/sec-casts-issues}
+
 \input{chapters/casts/sec-casts-methodology}
 \input{chapters/casts/sec-casts-overview}
 \input{chapters/casts/sec-casts-patterns}
