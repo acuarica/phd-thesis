@@ -1,29 +1,34 @@
 
-\newcommand{\castpatternsection}[1]{\noindent\textbf{#1.}}
-\newcommand{\pname}[1]{\textsc{#1}}
-
-\newenvironment{pattern}[1]{
-\newcommand{\nocc}{\csname n#1Pattern\endcsname{}}
-\newcommand{\noccsrc}{\csname n#1PatternSrc\endcsname{}}
-\newcommand{\noccgen}{\csname n#1PatternGen\endcsname{}}
-\newcommand{\nocctest}{\csname n#1PatternTest\endcsname{}}
-\newcommand{\pocc}{\csname p#1Pattern\endcsname{}}
-\newcommand{\desc}{\castpatternsection{Description}}
-\newcommand{\instances}{\castpatternsection{Instances: \nocc{} (\pocc\%)}
-We found \noccsrc{} in application code, \nocctest{} in test code, and \noccgen{} in generated code.}
-\newcommand{\discussion}{\castpatternsection{Discussion}}
-\newcommand{\thisp}{\textsc{#1}}
-\subsection{\pname{#1}}
-\label{pat:#1}
-\desc
-}{}
-
-
 \section{Cast Usage Patterns}
 \label{sec:casts:patterns}
 
-\done{Describe where patterns come from. Sample -> Invent patterns -> repeat.?}
+From our manual inspection,
+we have devised \nPattern{} cast usage patterns.
+Table~\ref{table:casts:patterns} presents our patterns and their occurrences sorted by frequency.
+The figure also shows whether the analyzed cast occurred in
+application/library source code, test code, or in generated code.
+
+The patterns were arrived at by an iterative process. Each sampled cast was
+assigned a pattern. If no pattern fit the given cast, a new pattern was
+invented and described.
+The authors then discussed the patterns and their instances, refining,
+merging, or splitting them into new patterns. This was repeated until
+consensus among the authors was reached.
+The particular categorization here is therefore subjective.
 %
+We initially sought to describe patterns precisely as QL queries so that
+detection and categorization was repeatable, but we found
+this was infeasible because of the complexity of the reasoning involved in
+identifying a pattern. Often determining to which pattern a cast belongs
+requires reasoning about the runtime source of the cast, which might be
+non-local and might depend on external application frameworks or generated
+code.
+%
+We do not claim that our list of patterns is exhaustive, although our
+methodology should ensure that any pattern that occurs more than 0.1\% of the
+time has a small probability of being excluded.
+
+
 Using the methodology described in the above section,
 we have devised \nPattern{} cast usage patterns.
 We have excluded casts that represent primitive numeric type conversions,
@@ -33,18 +38,10 @@ Moreover, we found \nBrokenLink{} links that were not accessible during our anal
 
 In this section we present the cast usage patterns we found.
 To ease the patterns presentation,
-%
-\done{Nate: Overview of categories.}
-\done{Nate: Explain why each pattern belongs to a certain category.}
-\done{Nate: Try to lump together patterns into fewer categories.}
-%
 we have organized them into ngroup{} categories according to their purpose.
 Table~\ref{table:casts:patterns} presents each pattern and the groups they belong to.
 Moreover, we are interested in the scope of the cast instance,
 \ie, \emph{does it appear in application source code, test code, or generated code?}
-%
-\done{Matthias: Add a paragraph describing and analyzing what one sees in that figure.}
-%
 Figure~\ref{fig:patterns} shows our patterns and their occurrences sorted by frequency.
 The column on the right corresponds to the group the pattern belongs to.
 
@@ -55,9 +52,9 @@ The column on the right corresponds to the group the pattern belongs to.
 \centering
 \caption{Categorization of Cast Patterns}
 \label{table:casts:patterns}
-\begin{tabularx}{\linewidth}{|r|l|X|r|r|}
-\hline
-    & \multicolumn{1}{|c|}{\textbf{Pattern}}
+\begin{tabularx}{\linewidth}{|l|X|r|r|}
+\hdr \hline
+      \multicolumn{1}{|c|}{\textbf{Pattern}}
     & \multicolumn{1}{|c|}{\textbf{Description}}
     & \multicolumn{1}{|c|}{\textbf{\# Casts}}
     & \multicolumn{1}{|c|}{\textbf{\%}}
@@ -84,7 +81,7 @@ The column on the right corresponds to the group the pattern belongs to.
     % & \multicolumn{1}{|c|}{\textbf{\# Casts}}
     % & \multicolumn{1}{|c|}{\textbf{\%}}
     % \\ \hline
-\input{analysis/table-categories.def}
+\input{analysis/table-casts-categories.def}
 \hline
 \end{tabularx}
 \end{table*}
@@ -96,42 +93,29 @@ The column on the right corresponds to the group the pattern belongs to.
 \caption{Cast Pattern Occurrences} \label{fig:patterns}
 \end{figure}
 
-\discuss{Matthias: Start a new subsection here.}
-\done{Matthias: When describing each pattern, you may want to repeat the number of occurrences within the description {\scriptsize (maybe as part of the section title, or just below)}}
 Each pattern is described using the following template:
 
 \begin{itemize}
 \item \textbf{Description.}
-Tells what the pattern is about.
-It gives a general overview of the structure of the pattern.
+Tells what the pattern is about and gives a general overview of its structure.
 \item \textbf{Instances.}
 Gives one or more concrete examples found in real code.
-%
-\done{Nate: What's the orange (hightlight color) mean? The line with the cast being inspected. Explain here}
-%
+The code snippets presented here were modified for formatting purposes.
 Each example contains a highlighted line which shows the cast instance being inspected.
-Please notice that the snippets presented here were slightly
-modified for formatting purposes.
 Moreover, to facilitate some snippet presentations,
 we remove irrelevant code and replace it with the
-comment \code{// [...]}.
+comment \code{/* [...] */}.
 For each instance presented here, we provide the link to the source code repository in \lgtm{}.
-We provide the link in case the reader wants to do further inspection
-of the presented snippet.
-%
-\done{Nate: List project name too.}
-%
-Instead of presenting \lgtm{} long URLs,
-we have used the URL shortening service
+We provide the link in case the reader wants to do further inspection of the presented snippet.
+Instead of presenting long \lgtm{} URLs, we have used the URL shortening service
 \href{https://bitly.com/}{\bitly} for easier reading.
-%
-\done{Luis: Links were customized to include the project names.}
-%
 Each \bitly{} link was customized to include the project name.
+Because projects can be removed from the \lgtm{} service,
+some links may not work.
 \item \textbf{Detection.}
 Describes briefly how this pattern was detected in terms of the tags introduced in the previous section.
 \item \textbf{Discussion.}
-Presents suggestions, flaws, or comments about the pattern.
+Discusses the reasons for the pattern, flaws, and alternatives that achieve the same goal without casting.
 \item \textbf{Related Patterns.}
 How the pattern being described relates to other patterns.
 \end{itemize}
@@ -152,64 +136,20 @@ Some of these patterns in this category also are
 These are code smells.
 
 
-
-
-
-
-
-
-From our manual inspection,
-we have devised \nPattern{} cast usage patterns.
-Table~\ref{table:casts:patterns} presents our patterns and their occurrences sorted by frequency.
-%The figure also shows whether the analyzed cast occurred in
-%application/library source code, test code, or in generated code.
-%
-%
-The patterns were arrived at by an iterative process. Each sampled cast was
-assigned a pattern. If no pattern fit the given cast, a new pattern was
-invented and described.
-The authors then discussed the patterns and their instances, refining,
-merging, or splitting them into new patterns. This was repeated until
-consensus among the authors was reached.
-The particular categorization here is therefore subjective.
-%
-We initially sought to describe patterns precisely as QL queries so that
-detection and categorization was repeatable, but we found
-this was infeasible because of the complexity of the reasoning involved in
-identifying a pattern. Often determining to which pattern a cast belongs
-requires reasoning about the runtime source of the cast, which might be
-non-local and might depend on external application frameworks or generated
-code.
-%
-We do not claim that our list of patterns is exhaustive, although our
-methodology should ensure that any pattern that occurs more than 0.1\% of the
-time has a small probability of being excluded.
-
-Each pattern is described using the following template:
-
-\begin{itemize}
-\item \textit{Description.}
-Tells what the pattern is about and gives a general overview of its structure.
-
-\item \textit{Instances.}
-Gives one or more concrete examples found in real code.
-The code snippets presented here were modified for formatting purposes.
-Each example contains a highlighted line which shows the cast instance being inspected.
-For each instance presented here, we provide the link to the source code repository in \lgtm{}.
-We provide the link in case the reader wants to do further inspection
-of the presented snippet.
-Instead of presenting long \lgtm{} URLs,
-we have used the URL shortening service
-\href{https://bitly.com/}{\bitly} for easier reading.
-Each \bitly{} link was customized to include the project name.
-Because projects can be removed from the \lgtm{} service,
-some links may not work.
-
-\item \textit{Discussion.}
-  Discusses the reasons for the pattern, flaws, and alternatives
-    that achieve the same goal without casting.
-
-\end{itemize}
-
+\newcommand{\castpatternsection}[1]{\noindent\textbf{#1.}}
+\newenvironment{pattern}[1]{
+    \newcommand{\nocc}{\csname n#1Pattern\endcsname{}}
+    \newcommand{\noccsrc}{\csname n#1PatternSrc\endcsname{}}
+    \newcommand{\noccgen}{\csname n#1PatternGen\endcsname{}}
+    \newcommand{\nocctest}{\csname n#1PatternTest\endcsname{}}
+    \newcommand{\pocc}{\csname p#1Pattern\endcsname{}}
+    \newcommand{\instances}{\castpatternsection{Instances: \nocc{} (\pocc\%)}
+    We found \noccsrc{} in application code, \nocctest{} in test code, and \noccgen{} in generated code.}
+    \newcommand{\discussion}{\castpatternsection{Discussion}}
+    \newcommand{\thisp}{\textsc{#1}}
+    \subsection{\textsc{#1}}
+    \label{pat:#1}
+    \castpatternsection{Description}
+}{}
 
 \input{analysis/input-patterns.def}

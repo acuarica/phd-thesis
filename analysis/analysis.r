@@ -299,7 +299,7 @@ table.categories.def <- c()
 i <- 1 
 #for (p in levels(df$pattern)) {
 for (p in names(tb[order(tb, decreasing = TRUE)])) {
-  table.def <- append(table.def, sprintf("%s & \\nameref{pat:%s} & \\%sDesc & \\n%sPattern & \\p%sPattern \\%% \\\\", i, p, p, p, p))
+  table.def <- append(table.def, sprintf("\\nameref{pat:%s} & \\%sDesc & \\n%sPattern & \\p%sPattern \\%% \\\\", p, p, p, p))
   input.patterns.def <- append(input.patterns.def, sprintf("\\input{chapters/casts/patterns/%s}", p))
   
   a <- declared.categories %in% taxonomy[[p]]$categories
@@ -310,7 +310,7 @@ for (p in names(tb[order(tb, decreasing = TRUE)])) {
 }
 write(table.def, 'table-casts-patterns.def')
 write(input.patterns.def, 'input-patterns.def')
-write(table.categories.def, 'table-categories.def')
+write(table.categories.def, 'table-casts-categories.def')
 
 pp <- ggplot(df, aes(x=pattern))+
   geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
