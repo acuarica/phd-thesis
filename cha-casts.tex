@@ -17,11 +17,12 @@ about the program than can be encoded---or encoded easily---into the types.
 To that end, programming languages often provide mechanisms to make the typing constraints less strict,
 allowing more valid programs at the expense of more errors at run time.
 
-A common mechanism for relaxing static typing in object-oriented languages is \emph{casting}.
-In programming languages with subtyping such as \java{} or \cpp{}, casting
-allows
-an expression to be viewed at a different type than the one at which it was defined.
-Casts are checked dynamically to ensure that the object
+A common mechanism for relaxing the static typing constraints in object-oriented languages is \emph{casting}.
+In programming languages with subtyping%
+---or \emph{subtype polymorphism}~\citep{cardelliUnderstandingTypesData1985}---
+such as \java{}, \csharp{} or \cpp{},
+casting allows an expression to be viewed at a different type than the one at which it was defined.
+Casts are checked dynamically, \ie, at run-time, to ensure that the object
 being cast is an instance of the desired type.
 
 We aim to understand why developers use casts.
