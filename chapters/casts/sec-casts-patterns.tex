@@ -41,28 +41,6 @@ Figure~\ref{fig:patterns} shows our patterns and their occurrences grouped by sc
 \caption{Cast Pattern Occurrences} \label{fig:patterns}
 \end{figure}
 
-% \input{chapters/casts/table-casts-categories}
-% The column on the right corresponds to the group the pattern belongs to.
-% \newcommand{\gh}[1]{\textbf{#1 Group}}
-% In this section we present the cast usage patterns we found.
-% To ease the patterns presentation,
-% we have organized them into ngroup{} categories according to their purpose.
-% \alt \gh{Language Designers} & These casts could be removed if there is enough language support. \\
-% \alt \gh{Tool Builders} & The casts in this group could be checked with new analysis tools. \\
-% \alt \gh{Developers} & These casts can be avoidable with no or little refactoring, or suggest a code smell in the source code.  \\
-% The patterns in this category are guarded casts.
-% A guarded cast is a cast such that before the cast is applied,
-% some condition --- the \emph{guard} -- needs to be verified.
-% The condition to be verified guarantees that the cast will not fail at runtime (unless there is a bug in the application), \ie,
-% the cast will not throw a \code{ClassCastException}.
-% Some kind of guards ensure that the cast will not fail at the language-level,
-% while others only can guarantee it at the application-level.
-% Creational patterns are cast instances that are determined by how the value being cast is created.
-% These patterns can be avoidable either directly (by removing them)
-% or through some minor refactor.
-% Some of these patterns in this category also are 
-% These are code smells.
-
 Each pattern is described using the following template:
 
 \begin{itemize}
@@ -74,7 +52,7 @@ The code snippets presented here were modified for formatting purposes.
 Each example contains a highlighted line which shows the cast instance being inspected.
 Moreover, to facilitate some snippet presentations,
 we remove irrelevant code and replace it with the
-comment \code{/* [...] */}.
+comment \code{// [...]} or \code{/* [...] */}.
 For each instance presented here, we provide the link to the source code repository in \lgtm{}.
 We provide the link in case the reader wants to do further inspection of the presented snippet.
 Instead of presenting long \lgtm{} URLs, we have used the URL shortening service
@@ -82,12 +60,12 @@ Instead of presenting long \lgtm{} URLs, we have used the URL shortening service
 Each \bitly{} link was customized to include the project name.
 As we mentioned above, projects can be removed from the \lgtm{} service,
 thus some links may not work.
-\item \textit{Detection.}
-Describes briefly how this pattern was detected in terms of the tags introduced in the previous section.
+% \item \textit{Detection.}
+% Describes briefly how this pattern was detected in terms of the tags introduced in the previous section.
 \item \textit{Discussion.}
 Discusses the reasons for the pattern, flaws, and alternatives that achieve the same goal without casting.
-\item \textit{Related Patterns.}
-How the pattern being described relates to other patterns.
+% \item \textit{Related Patterns.}
+% How the pattern being described relates to other patterns.
 \end{itemize}
 
 \newcommand{\castpatternsection}[1]{\paragraph{#1.}}
