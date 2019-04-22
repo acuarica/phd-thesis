@@ -65,6 +65,15 @@ Plugging-in these parameters using the hypergeometric distribution formula,%
 we found that with a sample size of $n = 5,000$ the probability of not sampling the
 least frequently occurring pattern is $0.67\%$.
 
+During our manual 
+Moreover, we found \nBrokenLink{} links that were not accessible during our
+analysis, making manual code inspection impossible.
+
+We also found one cast that was clearly a bug,
+a downcast using the wrong cast operand.
+\nBug{}
+\nDuplicated{}
+
 \newcommand\col[1]{\textsf{#1}}
 The manual categorization file can be found online.%
 \footnote{\url{https://gitlab.com/acuarica/phd-thesis/blob/master/analysis/casts.csv}}
@@ -76,3 +85,5 @@ The \col{target} and \col{source} columns indicate the source and target types u
 The last two columns---\col{link} and \col{value}---are the link to the source code file in \lgtm{} and the result of the manual inspection.
 The script to process the results of the manual inspection is available online as well.%
 \footnote{\url{https://gitlab.com/acuarica/phd-thesis/blob/master/analysis/analysis.r}}
+
+
