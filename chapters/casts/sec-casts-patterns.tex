@@ -48,9 +48,47 @@ Moreover, we are interested in the scope of the cast instance,
 Figure~\ref{fig:patterns} shows our patterns and their occurrences sorted by frequency.
 The column on the right corresponds to the group the pattern belongs to.
 
-\input{chapters/casts/table-casts-patterns}
+\input{chapters/casts/table-casts-patterns-desc}
 
-\input{chapters/casts/table-casts-categories}
+\begin{table*}[t!]
+\scriptsize
+\centering
+\caption{Categorization of Cast Patterns}
+\label{table:casts:patterns}
+\begin{tabularx}{\linewidth}{|r|l|X|r|r|}
+\hline
+    & \multicolumn{1}{|c|}{\textbf{Pattern}}
+    & \multicolumn{1}{|c|}{\textbf{Description}}
+    & \multicolumn{1}{|c|}{\textbf{\# Casts}}
+    & \multicolumn{1}{|c|}{\textbf{\%}}
+    \\ \hline
+\input{analysis/table-casts-patterns.def}
+\hline
+\end{tabularx}
+\end{table*}
+
+% \newcommand{\gh}[1]{\textbf{#1 Group}}
+% \alt \gh{Language Designers} & These casts could be removed if there is enough language support. \\
+% \alt \gh{Tool Builders} & The casts in this group could be checked with new analysis tools. \\
+% \alt \gh{Developers} & These casts can be avoidable with no or little refactoring, or suggest a code smell in the source code.  \\
+
+\begin{table*}[t!]
+\scriptsize
+\centering
+\caption{Categorization of Cast Patterns}
+\label{table:casts:categories}
+\begin{tabularx}{\linewidth}{|r|l|X|r|r|r|}
+% \hline
+    % & \multicolumn{1}{|c|}{\textbf{Pattern}}
+    % & \multicolumn{1}{|c|}{\textbf{Description}}
+    % & \multicolumn{1}{|c|}{\textbf{\# Casts}}
+    % & \multicolumn{1}{|c|}{\textbf{\%}}
+    % \\ \hline
+\input{analysis/table-categories.def}
+\hline
+\end{tabularx}
+\end{table*}
+
 
 \begin{figure}[ht!]
 \centering
