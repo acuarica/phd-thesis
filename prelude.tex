@@ -122,43 +122,6 @@
 	linenos
 }
 
-\lstdefinestyle{java}{
-	language=java,
-	tabsize=4,
-	basicstyle=\scriptsize\ttfamily,
-	numbers=left,
-	numberstyle=\tiny\color{gray},
-	numbersep=4pt,
-	xleftmargin=0.2cm,
-	% mathescape=true,
-	keywordstyle=\color{blue}\textbf,
-	stringstyle=\textcolor{magenta},
-	captionpos=b,
-	emph={Object, String, Integer, System, ClassCastException, Foo},
-	emphstyle={\color{lightblue}},
-    morecomment=[f][\color{diffstart}]{@@},
-    morecomment=[f][\color{diffincl}]{+\ },
-	morecomment=[f][\color{diffrem}]{-\ },
-}
-
-\lstdefinestyle{ql}{
-	language=sql,
-	tabsize=2,
-	basicstyle=\scriptsize\ttfamily,
-	numbers=left,
-	numberstyle=\tiny\color{gray},
-	numbersep=4pt,
-	xleftmargin=0.2cm,
-	mathescape=true,
-	keywordstyle=\color{blue}\textbf,
-	stringstyle=\color{magenta},
-	captionpos=b,
-	showstringspaces=false,
-	keywords=[2]{import, predicate, java, instanceof},
-	emph={CastExpr, PrimitiveType},
-	emphstyle={\color{lightblue}}
-}
-
 \lstdefinestyle{bytecode}{
 	language=java,
 	tabsize=4,
@@ -167,15 +130,11 @@
 	numberstyle=\tiny\color{gray},
 	numbersep=4pt,
 	xleftmargin=0.2cm,
-	% mathescape=true,
 	keywordstyle=\color{blue}\textbf,
 	stringstyle=\textcolor{magenta},
 	captionpos=b,
 	emph={ldc,invokestatic,astore_1,aload_1,invokevirtual,checkcast,astore_2},
-	emphstyle={\color{blue}},
-    morecomment=[f][\color{diffstart}]{@@},
-    morecomment=[f][\color{diffincl}]{+\ },
-	morecomment=[f][\color{diffrem}]{-\ },
+	emphstyle={\color{blue}}
 }
 
 \newcommand{\urqA}{To what extent does the Unsafe API impact common application code?}

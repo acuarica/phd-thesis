@@ -1,6 +1,4 @@
 
-\input{analysis/casts.def}
-
 \chapter{Casting about in the Dark}
 \label{cha:casts}
 
@@ -18,11 +16,6 @@ However, there are situations when the developer has more information
 about the program than can be encoded---or encoded easily---into the types.
 To that end, programming languages often provide mechanisms to make the typing constraints less strict,
 allowing more valid programs at the expense of more errors at run time.
-
-One common extension of type systems is \emph{subtyping} --- or \emph{subtype polymorphism} --- usually seen in \emph{object-oriented} programming languages.
-The subtype mechanism allows the interoperability of two different related types.
-As~\cite{pierceTypesProgrammingLanguages2002} states, "[\ldots] $S$ is a subtype of $T$, written $S <: T$, to mean that any term of type $S$ can safely be used in a context where a term of type $T$ is expected.
-This view of subtyping is often called the \emph{principle of safe substitution}."
 
 A common mechanism for relaxing static typing in object-oriented languages is \emph{casting}.
 In programming languages with subtyping such as \java{} or \cpp{}, casting
@@ -69,7 +62,15 @@ research and industry.\footnote{\url{https://www.tiobe.com/tiobe-index/}}
 
 While casts should be familiar to most programmers of object-oriented languages, 
 because casts have different semantics in different programming languages,
-we briefly summarize the meaning of casts in \java{} and the terminology used in rest of this paper.
+we briefly summarize the meaning of casts in \java{} and the terminology used in rest of this chapter.
+
+One common extension of type systems is \emph{subtyping} ---or \emph{subtype polymorphism}--- usually seen in \emph{object-oriented} programming languages like \java{}.
+The subtype mechanism allows the interoperability of two different but related types.
+As~\cite{pierceTypesProgrammingLanguages2002} states,
+"[\ldots] $S$ is a subtype of $T$, written $S <: T$,
+to mean that any term of type $S$ can safely be used in a context where a term of type $T$ is expected.
+This view of subtyping is often called the \emph{principle of safe substitution}."
+Conversely, if $S$ is a subtype of $T$, we say that $T$ is a supertype of $S$.
 
 A cast operation, written \code{(T)}~\code{e} in \java{}
 consists of a \emph{target type} \code{T} and an \emph{operand} \code{e}.
@@ -93,7 +94,7 @@ occurs when converting from a source reference type $S$ to a target reference
 type $T$, where $T$ is a proper subtype of $S$.
 Listing~\ref{lst:casts:simple} shows how to use the cast operator (line 2) to treat a reference (the variable \code{o}) as a different type (\code{String}) as it was defined (\code{Object}).
 
-\begin{listing}
+\begin{listing}[H]
 \caption{Variable \code{o} (defined as \code{Object}) is cast to \code{String}.}
 \label{lst:casts:simple}
 \begin{minted}{java}
@@ -124,7 +125,7 @@ the programmer is required neither to handle it
 nor to specify the exception in the method signature.
 Listing~\ref{lst:catchcce} shows how to detect whether a cast failed by catching this exception.
 
-\begin{listing}
+\begin{listing}[H]
 \caption{Catching \code{ClassCastException}}
 \label{lst:catchcce}
 \begin{minted}{java}	
@@ -148,7 +149,7 @@ If an \code{instanceof} guard returns true, the guarded cast should not throw
 a \code{ClassCastException}.
 Listing~\ref{lst:instanceoftest} shows a usage of the \code{instanceof} operator together with a cast expression.
 
-\begin{listing}
+\begin{listing}[H]
 \caption{Runtime type test using \code{instanceof} before applying a cast.}
 \label{lst:instanceoftest}
 \begin{minted}{java}
@@ -168,7 +169,7 @@ This test is more precise than an \code{x}~\code{instanceof}~\code{C} test since
 rather than any subclass of \code{C}.
 Listing~\ref{lst:getclasstest} shows how to use the \code{getClass} method to test for an object's type.
 
-\begin{listing}
+\begin{listing}[H]
 \caption{Runtime type test using \code{getClass} before applying a cast.}
 \label{lst:getclasstest}
 \begin{minted}{java}
@@ -227,6 +228,7 @@ The exceptions come from third-party libraries \api{}s and the Android \api{},
 indicating a misuse of such \api{}s.
 \code{ClassCastException} is in the top 10 of exceptions thrown,
 thus it represents a problem for developers.
+
 To illustrate the sort of problems developers have when applying casting conversions,
 we performed a search for commits and issues including the term
 \code{ClassCastException} within projects marked as using the \java{} language
@@ -242,58 +244,45 @@ represents a source for problems for developers.
 
 Typical classes of bugs encountered when using a cast are using the wrong cast target type,
 or using the wrong operand, or failing to guard a cast.
-
-
-
-% \textbf{Forgotten Guard.}
-The following diff%
+The following snippet%
 \footnote{\url{https://github.com/jenkinsci/extra-columns-plugin/commit/02d10bd1fcbb2e656da9b1b4ec54208b0cc1cbb2}}
-shows a cast applied to the variable \code{job} (in line 6) that throws \code{ClassCastException} because the developer forgot to include a guard.
-In this case, the developer fixed the error by introducing an \code{instanceof} guard to the cast.
+shows a cast applied to the variable \code{job} (in line 3) that throws \code{ClassCastException} because the developer forgot to include a guard.
+In this case, the developer fixed the error by introducing an \code{instanceof} guard to the cast (lines 1 and 2).
 
-\begin{lstlisting}[style=java]
-@@ -41,6 +41,8 @@ public SCMTypeColumn() {
-   }
-       public String getScmType(@SuppressWarnings("rawtypes") Job job) {
-+        if(!(job instanceof AbstractProject<?, ?>))
-+            return "";
-       AbstractProject<?, ?> project = (AbstractProject<?, ?>) job;
-       return project.getScm().getDescriptor().getDisplayName();
-   }
-\end{lstlisting}
+\begin{minted}[highlightlines=3]{java}
+if(!(job instanceof AbstractProject<?, ?>))
+  return "";
+AbstractProject<?, ?> project = (AbstractProject<?, ?>) job;
+\end{minted}
 
-
-
-% \textbf{Wrong Cast Target.}
 In the next example%
 \footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}}
-%
-\done{Nate: use the wrong class name}
-%
 the developer made a mistake by choosing a wrong class for the cast target,
-\ie, \code{JCustomFileChooser} instead of \code{CustomFileFilter}.
+\ie, \code{JCustomFileChooser} instead of \code{CustomFileFilter} (line 9).
 The \code{CustomFileFilter} is an inner static class inside the \code{JCustomFileFilter} class.
 There is no subclass relationship between these two classes.
 The cast happens inside an \code{equals} method
---- where this idiom is well known ---
+---where this idiom is well known---
 within the \code{CustomFileFilter} class.
 But the developer made a typo, using the outer class (\code{JCustomFileFilter}), instead of the inner class (\code{CustomFileFilter}).
 
-\begin{lstlisting}[style=java]
-@@ -156,7 +156,7 @@ public boolean equals(Object obj) {
-  if (getClass() != obj.getClass()) {
-      return false;
+\begin{minted}[highlightlines=9]{java}
+public final class JCustomFileChooser extends JFileChooser {
+  /* [...] */
+  public static class CustomFileFilter extends FileFilter {
+    /* [...] */
+    public boolean equals(Object obj) {
+      if (getClass() != obj.getClass()) {
+          return false;
+      }
+      final JCustomFileChooser other = (JCustomFileChooser) obj;
+      if (!Objects.equals(this.extensions, other.extensions)) {
+          return false;
+      }
+    }
   }
-- final JCustomFileChooser other = (JCustomFileChooser) obj;
-+ final CustomFileFilter other = (CustomFileFilter) obj;
-  if (!Objects.equals(this.extensions, other.extensions)) {
-      return false;
-  }
-\end{lstlisting}
-
-
-
-
+}
+\end{minted} 
 
 More subtle, however, is the interaction between casting and generics.
 For example, the following call,%
@@ -304,7 +293,7 @@ throws a \code{ClassCastException}.
 config.getProperty("peer.p2p.pingInterval", 5L)
 \end{minted}
 
-The method has the following signature:%
+The method has the following definition:%
 \footnote{\url{https://github.com/ethereum/ethereumj/blob/224e65b9b4ddcb46198a6f8faf69edc65d34d382/ethereumj-core/src/main/java/org/ethereum/config/SystemProperties.java\#L312}}
 \begin{minted}[linenos=false]{java}
 public <T> T getProperty(String propName, T defaultValue) {
@@ -343,6 +332,8 @@ by manually analyzing a large sample of cast usages in open source software.
 In Section~\ref{sec:casts:methodology} we introduce the methodology we used to analyze casts and to devise cast usage patterns.
 Sections~\ref{sec:casts:overview} and \ref{sec:casts:patterns} present the cast usage patterns and answers our research questions,
 while Section~\ref{sec:casts:conclusions} concludes.
+
+\input{analysis/casts.def}
 
 \input{chapters/casts/sec-casts-methodology}
 \input{chapters/casts/sec-casts-overview}
