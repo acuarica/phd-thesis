@@ -119,3 +119,66 @@ n = Sample size to select
 k = Times we saw the least used cast from the sample: 0 meaning we do not see it in our sample
 
 https://keisan.casio.com/exec/system/1180573201
+
+
+
+
+
+
+* Cite Unsafe in Related Work.
+* TODO: Cite Pierce in the introduction of the paper
+* TODO: Tagging for casts
+* DONE: Thanks Max for the contributions
+* TODO: Test/Gen/App
+* TODO: Grouping/Tagging/Patterns+Subpatterns
+* TODO: Autodetection of patterns
+* TODO: Split UseRawType/RemoveWildcard
+* TODO: Statistics/Broken links: More casts until we reach 5000
+*** More examples/Longer (not cut)
+** Venn Diagram/Groups/UpSet plot
+** Tags
+*** Type system changes
+*** Guarded/Unguarded
+*** Audiences: Developers/Designers/Tool Builders
+*** Languages Features: Generics/Autobxing/Primitives/Unchecked/Throws
+*** More prevalent in: App/Test/Gen
+*** Android/API related
+*** Need to talk about the approach to analysis. Some very local, some very similar to others. Others require very local analysis. Some even require looking at the project history.
+
+
+
+
+*** Type Erasure
+*** "Java Type System hacking/kludge"
+** Boxing/Unboxing
+*** Cast to force autobox at particular type
+*** Narrowing cast from int literal to char/short/byte for call
+** Tie "unchecked" casts with blame/gradual typing
+
+** AccessPrivateField: Special mention in SelectOverload
+** SoleClassImplementation: Use a better example, ClassImpl implements Inteface
+
+** Example CreateByClassLiteral to GetByClassLiteral
+
+** Typesafe stack for discussion for =StackSymbol= pattern
+*** Happy (Haskell parser) unsafe stack easier and faster
+*** Implementation w/HList?
+*** Second example it is correct because of grammar construction
+** TypeTag pattern
+*** Last example, check if ~args~ is always ~Object[]~.
+*** TypeTag think about reclassifiyng into ?LikelyBug.
+** Code Smell into Avoidable?
+** Type erasure, Erased category
+
+** Typecase on rethrow because of =throws= declaration
+** Logger is a redundant cast
+
+* Threats of validity
+** How to handle bias?
+* Future Work
+QL queries, what queries could be expresses in QL
+Patterns as training set and then use ML, code equility
+
+* Levels of locality
+** Go beyond the aplication to detect a pattern
+** Class/Method
