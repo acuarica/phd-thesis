@@ -7,15 +7,6 @@ The guard may be implemented in one of three ways: an \code{instanceof} operator
 a comparison of the runtime class against a class literal,
 or an application-specific type tag.
 
-When implementing the pattern,
-care must be taken with complex operands that the value of the operand is
-not changed between the guard and the cast, possibly even by another thread.
-For instance, in some situations the operand expression is a method invocation.
-The value returned by the method should be the same for both the
-\code{instanceof} and the cast, thus the method should be a pure method.
-Typically, this problem is avoided by using an effectively final local variable in both the guard and the
-cast operand.
-
 \instances{}
 \thisp{} is by far the most common pattern.
 The following listing shows an example of the \thisp{} pattern.%
@@ -153,10 +144,16 @@ switch (message.what) {
 }
 \end{minted}
 
-% There is an exploratory document%
-% \footnote{\url{http://cr.openjdk.java.net/\~briangoetz/amber/datum.html}}
-% by \java{} Language Architect Brian Goetz addressing these issues from a more general perspective.
-% It is definitely a starting point towards improving the \java{} language.
+
+\detection{}
+When implementing the pattern,
+care must be taken with complex operands that the value of the operand is
+not changed between the guard and the cast, possibly even by another thread.
+For instance, in some situations the operand expression is a method invocation.
+The value returned by the method should be the same for both the
+\code{instanceof} and the cast, thus the method should be a pure method.
+Typically, this problem is avoided by using an effectively final local variable in both the guard and the
+cast operand.
 
 \discussion{}
 Having only a single case---that is, a single guard and cast---is common.
@@ -222,23 +219,8 @@ The proposal explores changing the \code{instanceof} operator in order to suppor
 \footnote{\url{https://openjdk.java.net/jeps/325}}
 This enhancement aims to ease the transition to a \code{switch} expression that supports pattern matching.
 
-The pattern for an \code{equals} method implementation is well-known.
-Most \code{equals} methods in our sample are implemented with the same
-boilerplate structure:
-that is, first checking if the parameter is another reference to \code{this},
-then checking if the argument is not null,
-and finally, checking if the argument is of the right class
-(with either an \code{instanceof} test or a \code{getClass} comparison).
-Once all checks are performed, a cast follows, and a field-by-field comparison is made.
 
-To avoid this boilerplate, other languages bake in deep equality comparisons, at least for some types
-(\eg, \scala{} case classes),
-or provide mechanisms to generate the boilerplate code (\eg, \code{deriving Eq}
-in \haskell{} or \code{\#[derive(Eq)]} in \rust{}).
-\cite{vaziriDeclarativeObjectIdentity2007} propose a declarative approach to avoid boilerplate code when implementing
-both the \code{equals} and \code{hashCode} methods.
-
-
+\related{}
 
 
 

@@ -9,6 +9,8 @@ This is done to check if the argument has same type as the receiver
 Notice that a cast in an \code{equals} method is needed because it
 receives an \code{Object} as a parameter.
 
+
+\instances{}
 The following listing%
 \footnote{\url{http://bit.ly/neo4j_neo4j_2vJw94J}}
 shows an example of the \thisp{} pattern.
@@ -116,33 +118,38 @@ class CapReq {
 }
 \end{minted}
 
+\detection{}
+To detect this pattern,
+a cast must be applied to the parameter of the \code{equals} method.
+The result value of the cast must be then used in an equality comparison.
+
+We relax the constraint that the target type of the cast must the enclosing class.
 
 \discussion{}
 The pattern for an \code{equals} method implementation is well-known.
-We found out that most \code{equals} methods are implemented with the same structure.
-That is, first checking if the parameter is another reference to the receiver object;
-then checking if the argument is not null;
-and at last, checking if the argument is of the right class
+Most \code{equals} methods in our sample are implemented with the same boilerplate structure:
+that is, first checking if the parameter is another reference to \code{this},
+then checking if the argument is not null,
+and finally, checking if the argument is of the right class
 (with either an \code{instanceof} test or a \code{getClass} comparison).
 Once all checks are performed, a cast follows, and a field-by-field comparison is made.
-Usually this leads to boilerplate code.
-\done{Matthias: This sentence needs to be expanded (add something before)}
-\java{} could provide a mechanism to avoid boilerplate code by providing code generation,
-%
-\done{Nate: \rust{} traits too. \code{\#[derive(Eq)]} }
-%
-like in \haskell{} with \code{deriving},
-\scala{} (with case classes), or
-\rust{} (with \code{derive(Eq)}).
 
-\cite{vaziriDeclarativeObjectIdentity2007} propose a declarative approach to avoid boilerplate code when implementing both the \code{equals} and \code{hashCode} methods.
+To avoid this boilerplate, other languages bake in deep equality comparisons,
+at least for some types (\eg, \scala{} case classes),
+or provide mechanisms to generate the boilerplate code (\eg, \code{deriving Eq}
+in \haskell{} or \code{\#[derive(Eq)]} in \rust{}).
+\cite{vaziriDeclarativeObjectIdentity2007} propose a declarative approach to avoid boilerplate code when implementing
+both the \code{equals} and \code{hashCode} methods.
 They manually analyzed several applications, and found there are many issues while implementing \code{equals()} and \code{hashCode()} methods.
 It would be interesting to check whether these issues happen in real application code.
 
 There is an exploratory document%
 \footnote{\url{http://cr.openjdk.java.net/\~briangoetz/amber/datum.html}}
-by Brian Goetz --- \java{} Language Architect --- addressing these issues from a more general perspective.
+by Brian Goetz---\java{} Language Architect---addressing these issues from a more general perspective.
 It is definitely a starting point towards improving the \java{} language.
 
-This pattern can be seen as a special instance of the \nameref{pat:Typecase} pattern when the guard is an \code{instanceof} test.
+
+\related{}
+This pattern can be seen as a special instance of the \nameref{pat:Typecase} pattern when the guard is an \code{instanceof} test or a \code{getClass} comparison.
+
 \end{pattern}
