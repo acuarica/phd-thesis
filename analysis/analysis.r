@@ -264,7 +264,7 @@ for (pname in levels(as.factor(df$pattern))) {
     theme(legend.position="top")+
     labs(x=sprintf('%s Pattern Arguments', pname), y = "# Instances")+
     scale_fill_discrete(name="Scope")
-  #write.plot(pp, sprintf('patterns/table-pattern-%s.pdf', pname))
+  write.plot(pp, sprintf('patterns/table-pattern-%s.pdf', pname))
 
   casts.def[sprintf("%sPattern", pname)] <- nrow(x)
   casts.def[sprintf("%sPatternSrc", pname)] <- nrow(x[which(x$scope=='src'),])
@@ -281,7 +281,7 @@ for (pname in levels(as.factor(df$pattern))) {
       theme(legend.position="top")+
       labs(x=sprintf('%s/%s Features Arguments', pname, subp), y = "# Instances")+
       scale_fill_discrete(name="Scope")
-    #write.plot(pp, sprintf('patterns/table-pattern-%s-%s.pdf', pname, subp))
+    write.plot(pp, sprintf('patterns/table-pattern-%s-%s.pdf', pname, subp))
   }
 }
 
