@@ -96,9 +96,9 @@ The column on the right corresponds to the group the pattern belongs to.
 Each pattern is described using the following template:
 
 \begin{itemize}
-\item \textbf{Description.}
+\item \textit{Description.}
 Tells what the pattern is about and gives a general overview of its structure.
-\item \textbf{Instances.}
+\item \textit{Instances.}
 Gives one or more concrete examples found in real code.
 The code snippets presented here were modified for formatting purposes.
 Each example contains a highlighted line which shows the cast instance being inspected.
@@ -112,11 +112,11 @@ Instead of presenting long \lgtm{} URLs, we have used the URL shortening service
 Each \bitly{} link was customized to include the project name.
 Because projects can be removed from the \lgtm{} service,
 some links may not work.
-\item \textbf{Detection.}
+\item \textit{Detection.}
 Describes briefly how this pattern was detected in terms of the tags introduced in the previous section.
-\item \textbf{Discussion.}
+\item \textit{Discussion.}
 Discusses the reasons for the pattern, flaws, and alternatives that achieve the same goal without casting.
-\item \textbf{Related Patterns.}
+\item \textit{Related Patterns.}
 How the pattern being described relates to other patterns.
 \end{itemize}
 
@@ -136,7 +136,7 @@ Some of these patterns in this category also are
 These are code smells.
 
 
-\newcommand{\castpatternsection}[1]{\noindent\textbf{#1.}}
+\newcommand{\castpatternsection}[1]{\paragraph{#1.}}
 \newenvironment{pattern}[1]{
     \newcommand{\nocc}{\csname n#1Pattern\endcsname{}}
     \newcommand{\noccsrc}{\csname n#1PatternSrc\endcsname{}}
