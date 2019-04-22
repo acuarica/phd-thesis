@@ -2,24 +2,25 @@
 \section{Cast Usage Patterns}
 \label{sec:casts:patterns}
 
-From our manual inspection,
-we have devised \nPattern{} cast usage patterns.
+From our manual inspection, we have devised \nPattern{} cast usage patterns.
 Table~\ref{table:casts:patterns} presents our patterns and their occurrences sorted by frequency.
 The figure also shows whether the analyzed cast occurred in
 application/library source code, test code, or in generated code.
 
-The patterns were arrived at by an iterative process. Each sampled cast was
-assigned a pattern. If no pattern fit the given cast, a new pattern was
-invented and described.
-The authors then discussed the patterns and their instances, refining,
-merging, or splitting them into new patterns. This was repeated until
-consensus among the authors was reached.
+The patterns were arrived at by an iterative process.
+Each sampled cast was assigned a pattern.
+If no pattern fit the given cast,
+a new pattern was invented and described.
+The authors then discussed the patterns and their instances,
+refining, merging, or splitting them into new patterns.
+This was repeated until consensus among the authors was reached.
 The particular categorization here is therefore subjective.
 %
 We initially sought to describe patterns precisely as QL queries so that
-detection and categorization was repeatable, but we found
-this was infeasible because of the complexity of the reasoning involved in
-identifying a pattern. Often determining to which pattern a cast belongs
+detection and categorization was repeatable,
+but we found this was infeasible because of the complexity of the reasoning 
+involved in identifying a pattern.
+Often determining to which pattern a cast belongs
 requires reasoning about the runtime source of the cast, which might be
 non-local and might depend on external application frameworks or generated
 code.
@@ -27,7 +28,6 @@ code.
 We do not claim that our list of patterns is exhaustive, although our
 methodology should ensure that any pattern that occurs more than 0.1\% of the
 time has a small probability of being excluded.
-
 
 Using the methodology described in the above section,
 we have devised \nPattern{} cast usage patterns.
