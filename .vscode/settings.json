@@ -41,6 +41,8 @@
         "proto",
         "rawtypes",
         "renewer",
+        "resample",
+        "resampling",
         "saml",
         "semmle",
         "subtyping",
