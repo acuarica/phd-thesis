@@ -2,10 +2,12 @@
 \section{Cast Usage Patterns}
 \label{sec:casts:patterns}
 
-From our manual inspection, we have devised \nPattern{} cast usage patterns.
+Using the methodology described in the above section,
+we have devised \nPattern{} cast usage patterns.
 Table~\ref{table:casts:patterns} presents our patterns and their occurrences sorted by frequency.
-The figure also shows whether the analyzed cast occurred in
-application/library source code, test code, or in generated code.
+
+\input{chapters/casts/table-casts-patterns-desc}
+\input{chapters/casts/table-casts-patterns}
 
 The patterns were arrived at by an iterative process.
 Each sampled cast was assigned a pattern.
@@ -15,8 +17,8 @@ The authors then discussed the patterns and their instances,
 refining, merging, or splitting them into new patterns.
 This was repeated until consensus among the authors was reached.
 The particular categorization here is therefore subjective.
-%
-We initially sought to describe patterns precisely as QL queries so that
+
+We initially sought to describe patterns precisely as \ql{} queries so that
 detection and categorization was repeatable,
 but we found this was infeasible because of the complexity of the reasoning 
 involved in identifying a pattern.
@@ -24,41 +26,42 @@ Often determining to which pattern a cast belongs
 requires reasoning about the runtime source of the cast, which might be
 non-local and might depend on external application frameworks or generated
 code.
-%
+
 We do not claim that our list of patterns is exhaustive, although our
 methodology should ensure that any pattern that occurs more than 0.1\% of the
 time has a small probability of being excluded.
 
-Using the methodology described in the above section,
-we have devised \nPattern{} cast usage patterns.
-We have excluded casts that represent primitive numeric type conversions,
-as they do not represent any pattern.
-However, during our manual analysis we found nprim{} primitive conversions.
-
-In this section we present the cast usage patterns we found.
-To ease the patterns presentation,
-we have organized them into ngroup{} categories according to their purpose.
-Table~\ref{table:casts:patterns} presents each pattern and the groups they belong to.
 Moreover, we are interested in the scope of the cast instance,
-\ie, \emph{does it appear in application source code, test code, or generated code?}
-Figure~\ref{fig:patterns} shows our patterns and their occurrences sorted by frequency.
-The column on the right corresponds to the group the pattern belongs to.
-
-\input{chapters/casts/table-casts-patterns-desc}
-\input{chapters/casts/table-casts-patterns}
-
-% \newcommand{\gh}[1]{\textbf{#1 Group}}
-% \alt \gh{Language Designers} & These casts could be removed if there is enough language support. \\
-% \alt \gh{Tool Builders} & The casts in this group could be checked with new analysis tools. \\
-% \alt \gh{Developers} & These casts can be avoidable with no or little refactoring, or suggest a code smell in the source code.  \\
-
-\input{chapters/casts/table-casts-categories}
+\ie, \emph{does it appear in application/library code, test code, or generated code?}
+Figure~\ref{fig:patterns} shows our patterns and their occurrences grouped by scope and sorted by frequency.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{analysis/table-patterns.pdf}
 \caption{Cast Pattern Occurrences} \label{fig:patterns}
 \end{figure}
+
+% \input{chapters/casts/table-casts-categories}
+% The column on the right corresponds to the group the pattern belongs to.
+% \newcommand{\gh}[1]{\textbf{#1 Group}}
+% In this section we present the cast usage patterns we found.
+% To ease the patterns presentation,
+% we have organized them into ngroup{} categories according to their purpose.
+% \alt \gh{Language Designers} & These casts could be removed if there is enough language support. \\
+% \alt \gh{Tool Builders} & The casts in this group could be checked with new analysis tools. \\
+% \alt \gh{Developers} & These casts can be avoidable with no or little refactoring, or suggest a code smell in the source code.  \\
+% The patterns in this category are guarded casts.
+% A guarded cast is a cast such that before the cast is applied,
+% some condition --- the \emph{guard} -- needs to be verified.
+% The condition to be verified guarantees that the cast will not fail at runtime (unless there is a bug in the application), \ie,
+% the cast will not throw a \code{ClassCastException}.
+% Some kind of guards ensure that the cast will not fail at the language-level,
+% while others only can guarantee it at the application-level.
+% Creational patterns are cast instances that are determined by how the value being cast is created.
+% These patterns can be avoidable either directly (by removing them)
+% or through some minor refactor.
+% Some of these patterns in this category also are 
+% These are code smells.
 
 Each pattern is described using the following template:
 
@@ -77,8 +80,8 @@ We provide the link in case the reader wants to do further inspection of the pre
 Instead of presenting long \lgtm{} URLs, we have used the URL shortening service
 \href{https://bitly.com/}{\bitly} for easier reading.
 Each \bitly{} link was customized to include the project name.
-Because projects can be removed from the \lgtm{} service,
-some links may not work.
+As we mentioned above, projects can be removed from the \lgtm{} service,
+thus some links may not work.
 \item \textit{Detection.}
 Describes briefly how this pattern was detected in terms of the tags introduced in the previous section.
 \item \textit{Discussion.}
@@ -86,22 +89,6 @@ Discusses the reasons for the pattern, flaws, and alternatives that achieve the 
 \item \textit{Related Patterns.}
 How the pattern being described relates to other patterns.
 \end{itemize}
-
-The patterns in this category are guarded casts.
-A guarded cast is a cast such that before the cast is applied,
-some condition --- the \emph{guard} -- needs to be verified.
-The condition to be verified guarantees that the cast will not fail at runtime (unless there is a bug in the application), \ie,
-the cast will not throw a \code{ClassCastException}.
-Some kind of guards ensure that the cast will not fail at the language-level,
-while others only can guarantee it at the application-level.
-
-Creational patterns are cast instances that are determined by how the value being cast is created.
-
-These patterns can be avoidable either directly (by removing them)
-or through some minor refactor.
-Some of these patterns in this category also are 
-These are code smells.
-
 
 \newcommand{\castpatternsection}[1]{\paragraph{#1.}}
 \newenvironment{pattern}[1]{

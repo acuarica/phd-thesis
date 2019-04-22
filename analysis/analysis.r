@@ -246,7 +246,6 @@ check.auto(df)
 df$scope <- substring(df$scope, 2)
 df$scope <- factor(df$scope, levels=c('src', 'test', 'gen'))
 stopifnot(empty(df[is.na(df$scope),]))
-df$scope <- revalue(df$scope, c('src'='Sources', 'test'='Test', 'gen'='Generated'))
 
 df$features <- substring(df$features, 2)
 df <- separate_rows(df, features, sep='#')
@@ -275,9 +274,9 @@ for (pname in levels(as.factor(df$pattern))) {
   write.plot(pp, sprintf('patterns/table-pattern-%s.pdf', pname))
 
   casts.def[sprintf("%sPattern", pname)] <- nrow(x)
-  casts.def[sprintf("%sPatternSrc", pname)] <- nrow(x[which(x$scope=='Sources'),])
-  casts.def[sprintf("%sPatternTest", pname)] <- nrow(x[which(x$scope=='Test'),])
-  casts.def[sprintf("%sPatternGen", pname)] <- nrow(x[which(x$scope=='Generated'),])
+  casts.def[sprintf("%sPatternSrc", pname)] <- nrow(x[which(x$scope=='src'),])
+  casts.def[sprintf("%sPatternTest", pname)] <- nrow(x[which(x$scope=='test'),])
+  casts.def[sprintf("%sPatternGen", pname)] <- nrow(x[which(x$scope=='gen'),])
   
   for (subp in levels(as.factor(x$features))) {
     casts.def[sprintf("%s%sSubpattern", pname, subp)] <- nrow(x[which(x$features==subp),])
@@ -322,7 +321,11 @@ pp <- ggplot(df, aes(x=pattern))+
   coord_flip()+
   theme(strip.text.y=element_text(angle = 0), legend.position="top")+
   labs(x="Cast Usage Patterns", y = "# Instances")+
-  scale_fill_discrete(name="Scope")
+  scale_fill_discrete(
+    name="Scope",
+    breaks=c("src", "test", "gen"),
+    labels=c("Application/Library code", "Test code", "Generated code")
+    )
 write.plot(pp, 'table-patterns.pdf')
 
 patterns.def = list()
