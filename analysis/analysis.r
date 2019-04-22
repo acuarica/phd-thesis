@@ -8,11 +8,11 @@ library(UpSetR)
 taxonomy = list(
   'Typecase' = list(
     'features' = c('GuardByInstanceOf', 'GuardByTypeTag', 'GuardByClassLiteral', 'Equals'),
-    'categories' = c('lang')
+    'categories' = c('guarded', 'lang', 'tools')
   ),
   'OperandStack' = list(
     'features' = c('OperandStack'),
-    'categories' = c('lang')
+    'categories' = c('guarded', 'lang')
   ),
   'Family' = list(
     'features' = c('Family'),
@@ -52,7 +52,7 @@ taxonomy = list(
   ),
   'UseRawType' = list(
     'features' = c('UseRawType'),
-    'categories' = c('dev')
+    'categories' = c('dev', 'generic')
   ),
   'RemoveWildcard' = list(
     'features' = c('RemoveWildcard'),
@@ -88,7 +88,7 @@ taxonomy = list(
   ),
   'FluentAPI' = list(
     'features' = c('FluentAPI'),
-    'categories' = c('lang')
+    'categories' = c('lang', 'generic')
   ),
   'ImplicitIntersectionType' = list(
     'features' = c('ImplicitIntersectionType'),
@@ -112,23 +112,9 @@ taxonomy = list(
   )
   )
 
-groups = list(
-  'Language' = c(
-    'Typecase', 'SelectOverload', 'Family', 'StaticResource', 'GenericArray', 'Composite',
-    'UnoccupiedTypeParameter', 'RemoveWildcard', 'CovariantGeneric'
-  ),
-  'Tools' = c(
-    'PatternMatching', 'OperandStack', 'LookupById', 'Factory',
-    'Tag', 'Deserialization', 'NewDynamicInstance', 'ReflectiveAccessibility',
-    'CreateByClassLiteral', 'FluentAPI', 'ImplicitIntersectionType'
-  ),
-  'Developers' = c(
-    'Redundant', 'VariableSupertype', 'UseRawType', 'KnownReturnType',
-    'ObjectAsArray', 'AccessPrivateField', 'SoleSubclassImplementation'
-  ))
-
 declared.features <-  unlist(lapply(taxonomy, `[[`, 'features'), use.names=FALSE)
-declared.categories <- unique(unlist(lapply(taxonomy, `[[`, 'categories'), use.names=FALSE))
+#declared.categories <- unique(unlist(lapply(taxonomy, `[[`, 'categories'), use.names=FALSE))
+declared.categories <- c('guarded', 'lang', 'tools', 'dev', 'generic')
 declared.omitted <- c('BrokenLink', 'Bug', 'Duplicated')
 
 read.sample <- function(size) {
@@ -271,7 +257,7 @@ for (pname in levels(as.factor(df$pattern))) {
     theme(legend.position="top")+
     labs(x=sprintf('%s Pattern Arguments', pname), y = "# Instances")+
     scale_fill_discrete(name="Scope")
-  write.plot(pp, sprintf('patterns/table-pattern-%s.pdf', pname))
+  #write.plot(pp, sprintf('patterns/table-pattern-%s.pdf', pname))
 
   casts.def[sprintf("%sPattern", pname)] <- nrow(x)
   casts.def[sprintf("%sPatternSrc", pname)] <- nrow(x[which(x$scope=='src'),])
@@ -288,7 +274,7 @@ for (pname in levels(as.factor(df$pattern))) {
       theme(legend.position="top")+
       labs(x=sprintf('%s/%s Features Arguments', pname, subp), y = "# Instances")+
       scale_fill_discrete(name="Scope")
-    write.plot(pp, sprintf('patterns/table-pattern-%s-%s.pdf', pname, subp))
+    #write.plot(pp, sprintf('patterns/table-pattern-%s-%s.pdf', pname, subp))
   }
 }
 
@@ -302,12 +288,13 @@ table.categories.def <- c()
 i <- 1 
 #for (p in levels(df$pattern)) {
 for (p in names(tb[order(tb, decreasing = TRUE)])) {
-  table.def <- append(table.def, sprintf("\\nameref{pat:%s} & \\%sDesc & \\n%sPattern & \\p%sPattern \\%% \\\\", p, p, p, p))
+  row.color <- if (i %% 2 == 0) '\\alt' else '\\row'
+  table.def <- append(table.def, sprintf("%s \\nameref{pat:%s} & \\%sDesc & \\n%sPattern & \\p%sPattern \\%% \\\\", row.color, p, p, p, p))
   input.patterns.def <- append(input.patterns.def, sprintf("\\input{chapters/casts/patterns/%s}", p))
   
   a <- declared.categories %in% taxonomy[[p]]$categories
-  r <- paste(sapply(a, function(b) if (b) '\\cmark' else '\\xmark'), collapse=' & ', sep=' & ')
-  table.categories.def <- append(table.categories.def, sprintf("%s & \\nameref{pat:%s} & %s \\\\", i, p, r))
+  r <- paste(sapply(a, function(b) if (b) '\\cmark' else ''), collapse=' & ', sep=' & ')
+  table.categories.def <- append(table.categories.def, sprintf("%s %s & \\nameref{pat:%s} & %s \\\\", row.color, i, p, r))
   
   i = i+1
 }
