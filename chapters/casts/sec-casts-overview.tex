@@ -12,7 +12,33 @@ a downcast using the wrong cast operand.
 The remaining \nReference{} casts are either reference upcasts, downcasts, boxing
 casts, or unboxing casts.
 
-\input{chapters/casts/table-casts-demographics}
+\begin{table*}[ht]
+\scriptsize
+\centering
+\caption{Statistics on Sampled Casts}
+\label{table:casts:guarded}
+\begin{tabular}{|l|r|r|}
+    \hline
+    All sampled casts & \nSize{} & 100\% \\
+    \hline
+    Reference casts & \nReference{} & \pReference\% \\
+    Primitive casts & \nPrimitivePattern{} & \pPrimitivePattern\% \\
+%  Bug & \nBug{} & \pBug\% \\
+%  Source code inaccessible & \nBrokenLink{} & \pBrokenLink\% \\
+    \hline
+    Upcasts & \nUpcast{} & \pUpcast\% \\
+    Downcasts & \nDowncast{} & \pDowncast\% \\
+    \hline
+    Boxing casts & \nToRemoveBoxingSubpattern{} & \pToRemoveBoxingSubpattern\% \\
+    Unboxing casts & \nToRemoveUnboxingSubpattern{} & \pToRemoveUnboxingSubpattern\% \\
+    \hline
+    Guarded by \code{instanceof} & \nTypecaseGuardByInstanceOfSubpattern{} & \pTypecaseGuardByInstanceOfSubpattern\% \\
+    Guarded by \code{getClass} & \nTypecaseGuardByClassLiteralSubpattern{} & \pTypecaseGuardByClassLiteralSubpattern\% \\
+    Guarded by type tag & \nTypecaseGuardByTypeTagSubpattern{} & \pTypecaseGuardByTypeTagSubpattern\% \\
+    Unguarded or possibly unguarded & \nUnguarded{} & \pUnguarded\% \\
+    \hline
+\end{tabular}
+\end{table*}
 
 Casts can be classified as either \emph{guarded} or \emph{unguarded} casts.
 A guard is a conditional expression on which the cast is control dependent,
