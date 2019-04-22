@@ -1,6 +1,4 @@
 
-\section{Introduction}
-
 The main goal of a \emph{static} type system
 is to prevent certain kinds of errors from happening at run time.
 A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
@@ -10,14 +8,16 @@ simply rejected by the compiler.
 Nevertheless, often a static type system is insufficiently precise.
 The type checker is necessarily conservative:
 it must not accept invalid programs,
-but it may reject programs that are valid
-but whose validity cannot be ensured at compile time.
+but it may reject programs that are valid but whose validity cannot be ensured at compile time.
 However, there are situations when the developer has more information
 about the program than can be encoded---or encoded easily---into the types.
-To that end, programming languages often provide mechanisms 
-to make the typing constraints less strict, allowing
-more valid programs
-at the expense of more errors at run time.
+To that end, programming languages often provide mechanisms to make the typing constraints less strict,
+allowing more valid programs at the expense of more errors at run time.
+
+One common extension of type systems is \emph{subtyping} --- or \emph{subtype polymorphism} --- usually seen in \emph{object-oriented} programming languages.
+The subtype mechanism allows the interoperability of two different related types.
+As~\cite{pierceTypesProgrammingLanguages2002} states, "[\ldots] $S$ is a subtype of $T$, written $S <: T$, to mean that any term of type $S$ can safely be used in a context where a term of type $T$ is expected.
+This view of subtyping is often called the \emph{principle of safe substitution}."
 
 A common mechanism for relaxing static typing in object-oriented languages is \emph{casting}.
 In programming languages with subtyping such as \java{} or \cpp{}, casting
@@ -26,8 +26,9 @@ an expression to be viewed at a different type than the one at which it was defi
 Casts are checked dynamically to ensure that the object
 being cast is an instance of the desired type.
 
-We aim to understand why developers use casts. Why is the static type system
-insufficient, requiring an escape hatch into dynamic type checking?
+We aim to understand why developers use casts.
+Why is the static type system insufficient,
+requiring an escape hatch into dynamic type checking?
 Specifically, we attempt to answer the following three research questions:
 
 \begin{enumerate}[label=$RQ/C\arabic*:$,ref=$RQ/C\arabic*$,leftmargin=3.4\parindent]
@@ -76,25 +77,61 @@ created the source value.
 For reference casts, the source is an object allocation.
 The source may or may not be known statically.
 
-An \emph{upcast}
-occurs when the cast is from a source reference type $S$ to a target reference type $T$,
+An \emph{upcast} occurs when the cast is from a source reference type $S$ to a target reference type $T$,
 where $T$ is a supertype of $S$.
 In our terminology, upcasts include identity casts where the target type
 is the same as the type of the operand.
 An upcast does not require a run-time check.
 
-A \emph{downcast}, on the
-other hand, occurs when converting from a source reference type $S$ to a
-target reference
+A \emph{downcast}, on the other hand,
+occurs when converting from a source reference type $S$ to a target reference
 type $T$, where $T$ is a proper subtype of $S$.
+Listing~\ref{lst:casts:simple} shows how to use the cast operator (line 2) to treat a reference (the variable \code{o}) as a different type (\code{String}) as it was defined (\code{Object}).
+
+\begin{listing}
+\caption{Variable \code{o} (defined as \code{Object}) is cast to \code{String}.}
+\label{lst:casts:simple}
+\begin{minted}{java}
+Object o = "foo"; 
+String s = (String)o;
+\end{minted}
+\end{listing}
+
 In type-safe OO languages, downcasts require
-a run-time check to ensure that the source value is an instance of the
-target type.
+a run-time check to ensure that the source value is an instance of the target type.
+The above snippet is compiled into the following \java{} bytecode.
+The \code{aload\_1} instruction (line 3) pushes the local variable \code{o} into the operand stack.
+The \code{checkcast} instruction (line 4) then checks at run-time that the top of the stack has the specified type (\code{java.lang.String} in this example).
+
+\begin{lstlisting}[style=bytecode]
+ldc           #2     // String foo
+astore_1
+aload_1
+checkcast     #3     // class java/lang/String
+astore_2
+\end{lstlisting}
+
+
 This run-time check can either \emph{succeed} or \emph{fail}.
 A \code{ClassCastException} is thrown when a downcast fails.
 This exception is an unchecked exception, \ie,
 the programmer is required neither to handle it
 nor to specify the exception in the method signature.
+Listing~\ref{lst:catchcce} shows how to detect whether a cast failed by catching this exception.
+
+\begin{listing}
+\caption{Catching \code{ClassCastException}}
+\label{lst:catchcce}
+\begin{minted}{java}	
+try {
+	Object x = new Integer(0);
+	System.out.println((String)x); 
+} catch (ClassCastException e) { 
+	System.out.println(""); 
+}
+\end{minted}
+\end{listing}
+
 
 A \emph{guard} is a conditional expression
 on which a (down)cast is control-dependent and that ensures that the cast
@@ -104,18 +141,41 @@ Guards are often implemented using the \code{instanceof} operator, which tests
 if an expression is an instance of a given reference type.
 If an \code{instanceof} guard returns true, the guarded cast should not throw
 a \code{ClassCastException}.
+Listing~\ref{lst:instanceoftest} shows a usage of the \code{instanceof} operator together with a cast expression.
+
+\begin{listing}
+\caption{Runtime type test using \code{instanceof} before applying a cast.}
+\label{lst:instanceoftest}
+\begin{minted}{java}
+if (x instanceof Foo) {
+	((Foo)x).doFoo();
+}
+\end{minted}
+\end{listing}
 
 In \java{}, an object's type can also be checked using reflection:
 the \code{getClass} method%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\#getClass--}}
-returns the run-time class of an object. This \code{Class} object can be then
-compared against
-a class literal, \eg, \code{x.getClass()}~\code{==}~\code{C.class}.
-This test is more precise than an \code{x}~\code{instanceof}~\code{C} test since it succeeds
-only when the operand's class is exactly \code{C}, rather than any subclass of \code{C}.
+returns the run-time class of an object.
+This \code{Class} object can be then compared against a class literal, \eg,
+\code{x.getClass()}~\code{==}~\code{C.class}.
+This test is more precise than an \code{x}~\code{instanceof}~\code{C} test since it succeeds only when the operand's class is exactly \code{C},
+rather than any subclass of \code{C}.
+Listing~\ref{lst:getclasstest} shows how to use the \code{getClass} method to test for an object's type.
+
+\begin{listing}
+\caption{Runtime type test using \code{getClass} before applying a cast.}
+\label{lst:getclasstest}
+\begin{minted}{java}
+if (x.getClass() == Foo.class) {
+	((Foo)x).doFoo(); 
+}
+\end{minted}
+\end{listing}
 
 Because they can fail,
-downcasts pose potential threats. Unguarded downcasts in particular are
+downcasts pose potential threats.
+Unguarded downcasts in particular are
 worrisome because the developer is essentially telling the compiler
 \emph{``Trust me, I know what I'm doing.''}
 Because downcasts are an escape-hatch from the static type system---they
@@ -212,7 +272,7 @@ The fix for this bug is to change the default value argument from \code{5L}
 to just \code{5}. This causes the call's return type is inferred to be
 \code{Integer}, and the compiler-inserted cast succeeds.
 As this example shows, problems with casts are not always obvious.
-In this paper we aim to uncover the many different ways in which developers use casts
+In this thesis we aim to uncover the many different ways in which developers use casts
 by manually analyzing a large sample of cast usages in open source software.
 
 \subsection*{Outline}

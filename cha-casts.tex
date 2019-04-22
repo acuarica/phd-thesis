@@ -1,102 +1,11 @@
 
 \input{analysis/casts.def}
 
-\chapter{Cast Operations in the Wild}
+\chapter{Casting about in the Dark}
 \label{cha:casts}
-
-In programming language design, the goal of a type system is to prevent certain kind of errors at runtime.
-Thus, a type system is formulated as a collections of constraints that gives any expression in a program a well defined type.
-
-One common extension of type systems is \emph{subtyping} --- or \emph{subtype polymorphism} --- usually seen in \emph{object-oriented} programming languages.
-The subtype mechanism allows the interoperability of two different related types.
-As~\cite{pierceTypesProgrammingLanguages2002} states, "[\ldots] $S$ is a subtype of $T$, written $S <: T$, to mean that any term of type $S$ can safely be used in a context where a term of type $T$ is expected.
-This view of subtyping is often called the \emph{principle of safe substitution}."
-
-Programming languages with subtyping such as \java{} or \cpp{} provide a mechanism to \emph{view} an expression as a different type as it was defined.
-This mechanism is often called \emph{casting} and takes the form \code{(T)t}.
-Casting can be in two directions: \emph{upcast} and \emph{downcast}.
-
-An upcast conversion happens when converting from a reference type $S$ to a reference type $T$, provided that $T$ is a \emph{supertype} of $S$.
-An upcast does not require any explicit casting operation nor compiler check.
-However, as we shall see later on, there are situations where an upcast requires an explicit casting operation.
-
-On the other hand, a downcast happens when converting from a reference type $S$ to a reference type $T$, provided that $T$ is a \emph{subtype} of $S$.
-Unlike upcasts, downcasts require a run-time check to verify that the conversion is indeed valid.
-This implies that downcasts provide the means to bypass the type system.
-By avoiding the type system, downcasts can pose potential threats, because it is like the developer saying to the compiler: \emph{``Trust me here, I know what I'm doing''}.
-Being a escape-hatch to the type system, a cast is often seen as a design flaw or code smell~\citep{tufanoWhenWhyYour2015} in an object-oriented system.
-
-A cast operation can fail at compile-time if the cast operand and the target type are incompatible,
-\eg, in the expression \code{(String) new Integer(1)} a value of type \code{Integer} can \emph{never} be converted to \code{String}.
-Whenever a cast operation fails at run-time, it throws a \code{ClassCastException}.
-This exception is unchecked, \ie,
-it is not enforced by the compiler to either handle it, or
-specify the exception in the \code{throws}%
-\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-8.html\#jls-8.4.6}}
-declaration of a method.
-
-Listing~\ref{lst:casts:simple} shows how to use the cast operator (line 2) to treat a reference (the variable \code{o}) as a different type (\code{String}) as it was defined (\code{Object}).
-
-\begin{lstlisting}[style=java,label=lst:casts:simple,caption=Variable \code{o} (defined as \code{Object}) is cast to \code{String}.]
-Object o = "foo"; 
-String s = (String)o;
-\end{lstlisting}
-
-The above snippet is compiled into the following \java{} bytecode.
-The \code{aload\_1} instruction (line 3) pushes the local variable \code{o} into the operand stack.
-The \code{checkcast} instruction (line 4) then checks at run-time that the top of the stack has the specified type (\code{java.lang.String} in this example).
-
-\begin{lstlisting}[style=bytecode]
-ldc           #2     // String foo
-astore_1
-aload_1
-checkcast     #3     // class java/lang/String
-astore_2
-\end{lstlisting}
-
-As we have mentioned above, a downcast operation can fail at runtime.
-Whenever it fails, a \code{ClassCastException} is thrown.
-Listing~\ref{lst:catchcce} shows how to detect whether a cast failed by catching this exception.
-
-\begin{lstlisting}[style=java,label=lst:catchcce,caption={Catching \code{ClassCastException}}]
-try {
-	Object x = new Integer(0);
-	System.out.println((String)x); 
-} catch (ClassCastException e) { 
-	System.out.println(""); 
-} 
-\end{lstlisting}
-
-Sometimes it is not desired to catch an exception to test whether a cast would fail otherwise. 
-Thus, in addition to the cast operator, the \code{instanceof} operator tests whether an expression can be casted to a desired type without throwing a \code{ClassCastException}.
-Listing~\ref{lst:instanceoftest} shows a usage of the \code{instanceof} operator together with a cast expression.
-
-\begin{lstlisting}[style=java,label=lst:instanceoftest,caption=Runtime type test using \code{instanceof} before applying a cast.]
-if (x instanceof Foo) {
-	((Foo)x).doFoo();
-}
-\end{lstlisting}
-
-% \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\#getClass--}}
-\java{} provides another method to test for an \code{Object}'s type by means of reflection.
-The \code{getClass} method returns the runtime class of the \code{Object}.
-Listing~\ref{lst:getclasstest} shows how to use the \code{getClass} method to test for an object's type.
-
-\begin{lstlisting}[style=java,label=lst:getclasstest,caption={Runtime type test using \code{getClass} before applying a cast.}]
-if (x.getClass() == Foo.class) {
-	((Foo)x).doFoo(); 
-}
-\end{lstlisting}
-
-The cast operation provides flexibility at expense of the type system.
-But why developers needs to resort to cast?
-In the next sections we present a study to determine whether and how 
-casts are used in real-world \java{} applications.
 
 \input{chapters/casts/sec-casts-introduction}
 \input{chapters/casts/sec-casts-issues}
-\input{chapters/casts/sec-casts-rq}
-% \input{chapters/casts/sec-casts-stats}
 \input{chapters/casts/sec-casts-methodology}
 \input{chapters/casts/sec-casts-overview}
 \input{chapters/casts/sec-casts-patterns}
