@@ -7,8 +7,12 @@ library(UpSetR)
 
 taxonomy = list(
   'Typecase' = list(
-    'features' = c('GuardByInstanceOf', 'GuardByTypeTag', 'GuardByClassLiteral', 'Equals'),
+    'features' = c('GuardByInstanceOf', 'GuardByTypeTag', 'GuardByClassLiteral'),
     'categories' = c('guarded', 'lang', 'tools')
+  ),
+  'Equals' = list(
+    'features' = c('Equals'),
+    'categories' = c('guarded', 'gen')
   ),
   'OperandStack' = list(
     'features' = c('OperandStack'),
@@ -113,9 +117,17 @@ taxonomy = list(
   )
 
 declared.features <-  unlist(lapply(taxonomy, `[[`, 'features'), use.names=FALSE)
-#declared.categories <- unique(unlist(lapply(taxonomy, `[[`, 'categories'), use.names=FALSE))
-declared.categories <- c('guarded', 'lang', 'tools', 'dev', 'generic')
+declared.categories <- c('guarded', 'lang', 'tools', 'dev', 'generic', 'gen')
 declared.omitted <- c('BrokenLink', 'Bug', 'Duplicated')
+
+check.diff <- function(x, y) {
+  d <- setdiff(x, y)
+  if (length(d) != 0) stop("x: ", x, " < y: ", y)
+  d <- setdiff(y, x)
+  if (length(d) != 0) stop("x: ", x, " < y: ", y)
+}
+
+check.diff(declared.categories, unique(unlist(lapply(taxonomy, `[[`, 'categories'), use.names=FALSE)) )
 
 read.sample <- function(size) {
   df <- read.csv(sprintf('casts-%s.csv', size))
@@ -241,12 +253,7 @@ for (p in names(taxonomy)) {
   df[df$features %in% taxonomy[[p]]$features,]$pattern <- p
 }
 stopifnot(empty(subset(df, is.na(pattern))))
-(function() {
-  x <- setdiff(declared.features, unique(df$features))
-  stopifnot(length(x) == 0)
-  x <- setdiff(unique(df$features), declared.features)
-  stopifnot(length(x) == 0)
-})()
+check.diff(declared.features, unique(df$features))
 
 for (pname in levels(as.factor(df$pattern))) {
   x <- df[df$pattern==pname,]
@@ -319,7 +326,7 @@ patterns.def = list()
 lpatterns <- levels(as.factor(df$pattern))
 patterns.def['Pattern'] = length(lpatterns)
 
-df.guarded <- df[which(df$pattern %in% c('Typecase', 'OperandStack')),]
+df.guarded <- df[which(df$pattern %in% c('Typecase', 'Equals', 'OperandStack')),]
 df.upcast <- rbind(
   df[which(df$pattern=='SelectOverload'),],
   df[which(df$pattern=='CovariantGeneric' & df$args=='Upcast'),],

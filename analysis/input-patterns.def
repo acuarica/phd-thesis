@@ -3,6 +3,7 @@
 \input{chapters/casts/patterns/Factory}
 \input{chapters/casts/patterns/Family}
 \input{chapters/casts/patterns/UseRawType}
+\input{chapters/casts/patterns/Equals}
 \input{chapters/casts/patterns/KnownReturnType}
 \input{chapters/casts/patterns/Redundant}
 \input{chapters/casts/patterns/SelectOverload}
