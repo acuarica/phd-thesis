@@ -64,7 +64,8 @@ While casts should be familiar to most programmers of object-oriented languages,
 because casts have different semantics in different programming languages,
 we briefly summarize the meaning of casts in \java{} and the terminology used in rest of this chapter.
 
-One common extension of type systems is \emph{subtyping} ---or \emph{subtype polymorphism}--- usually seen in \emph{object-oriented} programming languages like \java{}.
+One common extension of type systems is
+\emph{subtyping}---or \emph{subtype polymorphism}~\citep{cardelliUnderstandingTypesData1985}---usually seen in \emph{object-oriented} programming languages like \java{}.
 The subtype mechanism allows the interoperability of two different but related types.
 As~\cite{pierceTypesProgrammingLanguages2002} states,
 "[\ldots] $S$ is a subtype of $T$, written $S <: T$,
@@ -138,10 +139,7 @@ try {
 \end{minted}
 \end{listing}
 
-
-A \emph{guard} is a conditional expression
-on which a (down)cast is control-dependent and that ensures that the cast
-is evaluated only if it will succeed.
+A \emph{guard} is a conditional expression on which a (down)cast is control-dependent and that ensures that the cast is evaluated only if it will succeed.
 
 Guards are often implemented using the \code{instanceof} operator, which tests
 if an expression is an instance of a given reference type.
@@ -323,7 +321,8 @@ It is this cast that fails at run time and that is reported at run time.
 The fix for this bug is to change the default value argument from \code{5L}
 to just \code{5}. This causes the call's return type is inferred to be
 \code{Integer}, and the compiler-inserted cast succeeds.
-As this example shows, problems with casts are not always obvious.
+
+As these examples show, problems with casts are not always obvious.
 In this thesis we aim to uncover the many different ways in which developers use casts
 by manually analyzing a large sample of cast usages in open source software.
 
