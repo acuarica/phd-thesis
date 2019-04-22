@@ -223,6 +223,10 @@ check.auto <- function(df) {
 
 
 df <- read.samples(5000, 480, 47, 3)
+df.out <- df
+df.out$qltag <- NULL
+df.out$batch <- NULL
+write.csv(df.out, 'casts.csv', row.names=FALSE)
 casts.def <- list()
 casts.def['Seen'] <- nrow(df)
 cat("[Links seen: ", casts.def$Seen, "]", sep='', fill=TRUE)
