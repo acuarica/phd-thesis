@@ -22,7 +22,7 @@ A family is distinguished by a covariant usage of a field or parameter in an ove
 
 \instances{}
 The following example%
-\footnote{\url{http://bit.ly/pentaho_pentaho-kettle_2FN59J8}}
+\def\urlvar{http://bit.ly/pentaho_pentaho_kettle_2FN59J8}
 shows an instance of the \thisp{} pattern.
 %
   In this case, the interfaces \code{StepInterface}, \code{StepMetaInterface},
@@ -61,7 +61,7 @@ public class DynamicSQLRow extends BaseStep implements StepInterface {
 \end{minted}
 
 The next example%
-\footnote{\url{http://bit.ly/apache_orc_2SE4C2m}}
+\def\urlvar{http://bit.ly/apache_orc_2SE4C2m}
 is similar to the previous one.
 The \code{masked} parameter is cast to \code{DoubleColumnVector} (line 5).
 It is so because the \code{masked} variable is expected to hold an instance of \code{DoubleColumnVector} when the \code{maskData} method is applied to an object of type \code{DoubleIdentity}.
@@ -89,7 +89,7 @@ public interface DataMask {
 In both previous examples,
 cast instances were applied to a parameter in a overriding method.
 In the next example,%
-\footnote{\url{http://bit.ly/knowm_XChange_2UPPDj9}}
+\def\urlvar{http://bit.ly/knowm_XChange_2UPPDj9}
 the cast instance is applied to super class field (line 12).
 The field is declared in the \code{BaseExchange} class (line 20).
 However, the field is initialized with a \code{BitflyerMarketDataService} value in line~5.

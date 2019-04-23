@@ -20,11 +20,9 @@ In this case,
 the compiler cannot determine which method implementation to select.
 
 
-
-
 \instances{}
 The following listing%
-\footnote{\url{http://bit.ly/loopj_android-async-http_2FENovD}}
+\def\urlvar{http://bit.ly/loopj_android_async_http_2FENovD}
 shows an example of the \thisp{} pattern.
 In this example, there are three versions of the \code{onSuccess} method,
 The cast \code{(String) null} is used to select the appropriate version
@@ -49,7 +47,7 @@ public void onSuccess(
 \end{minted}
 
 In the following example%
-\footnote{\url{http://bit.ly/spullara_redis-protocol_2FC9Llb}}
+\def\urlvar{http://bit.ly/spullara_redis_protocol_2FC9Llb}
 \code{actual.data()} returns a boxed \code{Long}
 Because implicit upcasts have precedence over implicit unboxing conversions,
 the call is needed to invoke the method that takes a \code{long}
@@ -65,7 +63,7 @@ public static void assertEquals(long expected, long actual) { ... }
 
 
 Similar%
-\footnote{\url{http://bit.ly/apache_poi_2StrlOn}}
+\def\urlvar{http://bit.ly/apache_poi_2StrlOn}
 
 %https://lgtm.com/projects/g/apache/poi/snapshot/dist-1790760597-1524814812150/files/src/testcases/org/apache/poi/hssf/record/chart/TestLegendRecord.java#L50
 \begin{minted}[highlightlines=1]{java}
@@ -73,7 +71,7 @@ assertEquals((byte) 0x1, record.getSpacing());
 \end{minted}
 
 Upcast generic%
-\footnote{\url{http://bit.ly/groovy_groovy-core_2HDAkbF}}
+\def\urlvar{http://bit.ly/groovy_groovy_core_2HDAkbF}
 
 %https://lgtm.com/projects/g/groovy/groovy-core/snapshot/dist-45390050-1524814812150/files/src/main/org/codehaus/groovy/runtime/DefaultGroovyMethods.java?sort=name&dir=ASC&mode=heatmap#L6715
 \begin{minted}[highlightlines=2]{java}

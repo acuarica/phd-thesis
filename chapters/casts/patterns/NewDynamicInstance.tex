@@ -17,7 +17,7 @@ This pattern consists of casting the result of these methods to the appropriate 
 
 \instances{}
 The following example%
-\footnote{\url{http://bit.ly/apache_hadoop_2HC3IPg}}
+\def\urlvar{http://bit.ly/apache_hadoop_2HC3IPg}
 shows a cast of the result of the \code{Class.newInstance()}
 method.
 
@@ -27,7 +27,7 @@ logger = (AuditLogger) Class.forName(className).newInstance();
 \end{minted}
 
 The following example%
-\footnote{\url{http://bit.ly/neo4j_neo4j_2Hp5Hqc}}
+\def\urlvar{http://bit.ly/neo4j_neo4j_2Hp5Hqc}
 shows how to dynamically create an array, using the \texttt{Array} class.
 
 %https://lgtm.com/projects/g/neo4j/neo4j/snapshot/27aaa67633e4d26446e38125d04fbbd27f938b75/files/community/collections/src/main/java/org/neo4j/helpers/collection/Iterables.java?sort=name\&dir=ASC\&mode=heatmap\&showExcluded=false#L403
@@ -39,7 +39,7 @@ Whenever a constructor other than the default constructor is needed,
 the \code{newInstance} method declared in the \code{Constructor} class
 should be used to select the appropriate constructor,
 as shown in the following example.%
-\footnote{\url{http://bit.ly/gradle_gradle_2HsUgOo}}
+\def\urlvar{http://bit.ly/gradle_gradle_2HsUgOo}
 
 %https://lgtm.com/projects/g/gradle/gradle/snapshot/209c3175e75af6ac30cb66c02eda15b0f8b6a616/files/subprojects/internal-integ-testing/src/main/groovy/org/gradle/integtests/fixtures/executer/OutputScrapingExecutionFailure.java?sort=name\&dir=ASC\&mode=heatmap\&showExcluded=false#L174
 \begin{minted}[highlightlines=1]{java}
@@ -50,7 +50,7 @@ return (Exception) Class
 \end{minted}
 
 The following example%
-\footnote{\url{http://bit.ly/alibaba_LuaViewSDK_2HC33xg}}
+\def\urlvar{http://bit.ly/alibaba_LuaViewSDK_2HC33xg}
 shows a guarded instance of the \thisp{} pattern.
 This seems rather unusual, as this pattern is not guarded.
 
@@ -73,7 +73,7 @@ private static List<String> getMapperMethodNames(final Class clazz) {
 
 There are cases when the cast is not directly applied to the result of the \code{newInstance} method.
 The following snippet shows such a case.%
-\footnote{\url{http://bit.ly/pac4j_pac4j_2HJtXUn}}
+\def\urlvar{http://bit.ly/pac4j_pac4j_2HJtXUn}
 The cast is used to convert from \code{Class<?>} to \code{Class<ConfigFactory>} (line 4).
 The invocation to the \code{newInstance} method then does not need a direct cast (line 8) given the definition of the \code{clazz} variable (line 2).
 Nevertheless, the cast is unchecked, and a \code{checkcast} instruction is going to be emitted anyway for the result of the \code{newInstance} invocation.

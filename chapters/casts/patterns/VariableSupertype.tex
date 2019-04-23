@@ -13,7 +13,7 @@ the enclosing method or class.
 
 \instances{}
 The following snippet%
-\footnote{\url{http://bit.ly/apache_cxf_2SNoUXj}}
+\def\urlvar{http://bit.ly/apache_cxf_2SNoUXj}
 shows an example of the \thisp{} pattern (line 4).
 The \code{samlTokenRenewer} variable is being cast to the \code{SAMLTokenRenewer} class.
 The variable is declared with type \code{TokenRenewer} (superclass of \code{SAMLTokenRenewer}) in line 1.
@@ -29,7 +29,7 @@ samlTokenRenewer.setAllowRenewalAfterExpiry(true);
 \end{minted}
 
 The following listing%
-\footnote{\url{http://bit.ly/facebookarchive_hadoop-20_2FuDeO7}}
+\def\urlvar{http://bit.ly/facebookarchive_hadoop_20_2FuDeO7}
 shows an example of the \thisp{} pattern.
 We can see that the field \code{uncompressedDirectBuf} is being cast to the \code{java.nio.ByteBuffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
 Nevertheless, the field is assigned only once in the constructor (line $7$)
@@ -66,7 +66,7 @@ public class SnappyCompressor implements Compressor {
 \end{minted}
 
 In the next cast instance,%
-\footnote{\url{http://bit.ly/oblac_jodd_2UKxm6H}}
+\def\urlvar{http://bit.ly/oblac_jodd_2UKxm6H}
 the parameter \code{k1} is cast to the \code{Comparable} class (line 7).
 \code{k1} is declared as \code{E} (line 5), an unbounded type parameter (line 1).
 The developer likely designed the class so that
@@ -89,7 +89,7 @@ public class SortedArrayList<E> extends ArrayList<E> {
 \end{minted}
 
 In the next example,%
-\footnote{\url{http://bit.ly/tarzanek_luke_2OhDT6O}}
+\def\urlvar{http://bit.ly/tarzanek_luke_2OhDT6O}
 the \code{ir} field is cast to \code{DirectoryReader} (line 11).
 The \code{ir} field is declared as \code{IndexReader} (superclass of \code{DirectoryReader}) in line 1.
 The cast to \code{ir} is performed using the value of the expression \code{readers.get(0)} (line 10).

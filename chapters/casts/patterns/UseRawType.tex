@@ -4,7 +4,7 @@ Methods of raw types typically return \code{Object} rather than a more specific 
 
 \instances{}
 For example, in the following code,%
-\footnote{\url{http://bit.ly/bcgit_bc-java_2SD2HLm}}
+\def\urlvar{http://bit.ly/bcgit_bc_java_2SD2HLm}
 the collection \code{c} and iterator \c{it} are declared to be of the raw types \code{Collection} and \code{Iterator} rather than as parameterized types.
 The call to \c{next} on line 4 must be cast to a more specific type because static type information was lost by the use of raw types.
 
@@ -19,7 +19,7 @@ verifyRecipient((RecipientInformation)it.next(), privKey);
 \done{Nate: Cast of Object because of AccessController. PrivAct<T>}
 \done{Luis: Not necessarily mistakes, maybe requirement is jdk 1.2}
 The following snippet%
-\footnote{\url{http://bit.ly/robovm_robovm_2FAI5x5}}
+\def\urlvar{http://bit.ly/robovm_robovm_2FAI5x5}
 
 %https://lgtm.com/projects/g/robovm/robovm/snapshot/dist-39650108-1524814812150/files/rt/external/apache-xml/src/main/java/org/apache/xml/dtm/SecuritySupport12.java#L59
 \begin{minted}[highlightlines=3]{java}
@@ -45,7 +45,7 @@ public final class AccessController {
 \end{minted}
 
 The following example%
-\footnote{\url{http://bit.ly/fangjie008_tiexue-mcp-parent_2FSZKzm}}
+\def\urlvar{http://bit.ly/fangjie008_tiexue_mcp_parent_2FSZKzm}
 uses the raw type of the \code{Comparable} ---generic--- interface.%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html}}
 

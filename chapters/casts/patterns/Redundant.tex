@@ -8,7 +8,7 @@ the expression being cast needs to be of the same type as the type being cast to
 \instances{}
 %
 The following listing%
-\footnote{\url{http://bit.ly/vladmihalcea_high-performance-java-persistence_2FWXw2e}}
+\def\urlvar{http://bit.ly/vladmihalcea_high_performance_java_persistence_2FWXw2e}
 exhibits an instance of the \thisp{} pattern.
 A redundant cast is applied to a lambda expression (line 8).
 This cast is not needed a \java{} compiler can infer that the lambda expression is of type \code{TransactionCallback<Void>} (defined in line 22).
@@ -48,7 +48,7 @@ public class TransactionTemplate {
 \end{minted}
 
 The next cast instance%
-\footnote{\url{http://bit.ly/sigmoidanalytics_spork_2SIqWYq}}
+\def\urlvar{http://bit.ly/sigmoidanalytics_spork_2SIqWYq}
 is trivially redundant: both the target type and the static type of the
   operand \code{count(b)},
   are \code{BigDecimal}.
@@ -68,7 +68,7 @@ static protected BigDecimal count(Tuple input) throws ExecException {
 \end{minted}
 
 In the following cast instance,%
-\footnote{\url{http://bit.ly/phishman3579_java-algorithms-implementation_2SGcH6w}}
+\def\urlvar{http://bit.ly/phishman3579_java_algorithms_implementation_2SGcH6w}
 a cast is applied to the \code{node.right} field (line 12).
 Nevertheless, the \code{right} field of the \code{Node} class is already defined as \code{Node<T>},
 rendering the cast redundant.
@@ -105,7 +105,7 @@ public class ImplicitKeyTreap<T> implements IList<T> {
 
 There are cases when code generators insert superfluous casts to \code{null}.
 The following cast instance%
-\footnote{\url{http://bit.ly/togglz_togglz_2SGncXB}}
+\def\urlvar{http://bit.ly/togglz_togglz_2SGncXB}
 could be removed since in this case the cast to \code{null} is not needed.
 
 %https://lgtm.com/projects/g/togglz/togglz/snapshot/dist-44910020-1524814812150/files/slack/target/generated-sources/groovy-stubs/test/org/togglz/slack/sender/AsyncNotifierSpecIT.java?sort=name&dir=ASC&mode=heatmap#L17

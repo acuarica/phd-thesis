@@ -10,7 +10,7 @@ Usually the arguments that determine the run-time type to be returned are known 
 
 \instances{}
 The following snippet%
-\footnote{\url{http://bit.ly/connect2id_oauth-2-0-sdk-with-_2HvRlUX}}
+\def\urlvar{http://bit.ly/connect2id_oauth_2_0_sdk_with_2HvRlUX}
 shows an instance of the \thisp{} pattern.
 The cast is applied to the result of invoking \code{keyPair.getPrivate}
 (line 10).
@@ -44,7 +44,7 @@ RSAKey rsaJWK2 = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
 \done{We should generalize this pattern.}
 \done{Also URLOpenConnection.}
 Similar to the above snippet, the next example%
-\footnote{\url{http://bit.ly/apache_hadoop_2E6KY6T}}
+\def\urlvar{http://bit.ly/apache_hadoop_2E6KY6T}
 shows an instance of the \thisp{} pattern where a cast is performed on the result of the \code{openConnection} method%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/net/URL.html\#openConnection--}}
 (line 2).
@@ -61,7 +61,7 @@ HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 \end{minted}
 
 The following example%
-\footnote{\url{http://bit.ly/bcgit_bc-java_2TEVScM}}
+\def\urlvar{http://bit.ly/bcgit_bc_java_2TEVScM}
 \done{Luis: Get bitly link}
 shows how a cast (line 3) is being determined by the argument to the \code{CertificateFactory.getInstance} method (line 1).
 The argument is the string \code{"X.509"},
@@ -75,7 +75,7 @@ X509CRL crl = (X509CRL)cf.generateCRL(new ByteArrayInputStream(directCRL));
 \end{minted}
 
 In our last example%
-\footnote{\url{http://bit.ly/JSQLParser_JSqlParser_2TecMyB}}
+\def\urlvar{http://bit.ly/JSQLParser_JSqlParser_2TecMyB}
 the cast instance (line 2) is applied to the result of \code{parse} method.
 The return type of \code{parse} is of type \code{Statement}, but,
 since the 
@@ -117,7 +117,7 @@ The target type of the cast is determined by this class literal.
 
 \instances{}
 The following example 
-\footnote{\url{http://bit.ly/liferay_liferay-ide_2FMG0f6}}
+\def\urlvar{http://bit.ly/liferay_liferay_ide_2FMG0f6}
 
 %https://lgtm.com/projects/g/liferay/liferay-ide/snapshot/dist-2980259-1524814812150/files/tools/plugins/com.liferay.ide.server.ui/src/com/liferay/ide/server/ui/handlers/RedeployHandler.java?sort=name&dir=ASC&mode=heatmap#L64
 \begin{minted}[highlightlines=2-3]{java}
@@ -127,7 +127,7 @@ final ILiferayServerBehavior liferayServerBehavior =
 \end{minted}
 
 
-\footnote{\url{http://bit.ly/robovm_robovm_2FMFWvS}}
+\def\urlvar{http://bit.ly/robovm_robovm_2FMFWvS}
 
 %https://lgtm.com/projects/g/robovm/robovm/snapshot/dist-39650108-1524814812150/files/cocoatouch/src/main/java/org/robovm/apple/corevideo/CVBufferMovieTime.java?sort=name&dir=ASC&mode=heatmap#L66
 \begin{minted}[highlightlines=1]{java}
