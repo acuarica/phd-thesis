@@ -1,20 +1,28 @@
 \begin{pattern}{Stash}
-This pattern is used to extract values from a heterogenous container.
-It looks up an object by a compile-time constant identifier, tag, or name and casts the result to an appropriate type.
-It accesses a collection that holds values of different types
+This pattern is used to stash an application-specific value.
+It has three variants.
+The \variant{LookupById} and \variant{StaticResource} variants are used to extract values from a heterogenous container,
+They look up an object by a compile-time constant identifier, tag, or name and casts the result to an appropriate type.
+They access a collection that holds values of different types
 (usually implemented as \code{Collection<Object>} or as \code{Map<K, Object>}).
 The actual run-time type returned from the lookup is determined by the value of the identifier.
 
-This pattern is used to stash an application-specific value,
-typically a ``tag'' value in a GUI object or message payload.
+The \variant{StaticResource} variant of is more specific,
+it is used to retrieve a value instantiated from static resource file,
+\eg, an XML, HTML or \java{} properties file.
+The file contents are (in theory) known at compile-time and the file is included in the binary distribution of the application.
+These files are often built using tools such as GUI builders.
+
+The \variant{Tag} variant is used to extract a ``tag'' value, 
+typically in a GUI object or message payload.
 
 \instances{}
-Figure~\ref{fig:casts:stash} shows the different variants of the pattern.
+Figure~\ref{fig:casts:stash} shows different variants of the pattern.
 The \variant{LookupById} is the most used variant.
 
 \plot{patterns/table-pattern-Stash-features}{fig:casts:stash}{\thisp{} Variants Occurrences}
 
-In the example shown below,
+In the \variant{LookupById} variant example shown below,
 the \code{getAttribute} method returns \code{Object}.
 The variable \texttt{context} is of type \code{BasicHttpContext},
 which is implemented with \code{HashMap}.
@@ -79,13 +87,9 @@ public <U extends AssignmentContext> U getAssignmentContext(
 } #\urlbox#
 \end{minted}
 
-The \variant{StaticResource} variant of this pattern is to retrieve a value instantiated from
-static resource file, \eg, an XML, HTML or \java{} properties file.
-The file contents are (in theory) known at compile-time and the file is included in the binary distribution of the application.
-These files are often built using tools such as GUI builders.
 
-In the following example from an Android application,
-a cast is applied to the \code{findViewById} method invocation.
+The following \variant{StaticResource} example is from an Android application.
+A cast is applied to the \code{findViewById} method invocation.
 View classes are instantiated by the application framework using an XML resource file.
 The \code{findViewById} method looks up the view by its ID.
 
@@ -210,10 +214,6 @@ public final class MatchPanel extends JPanel implements Observer {
 \end{minted}
 
 
-
-
-
-
 \discussion{}
 This pattern suggests a heterogeneous dictionary.
 In our manual inspection,
@@ -229,54 +229,19 @@ The Butter Knife framework%
 uses annotations to avoid the ``manual'' casting.
 Instead, code is generated that casts the result of \code{findViewById} to the
 appropriate type.
-
-
-
-
-But in any case a cast is needed given the inexpressiveness of the type system.
-As a complementary analysis,
-it would be interesting to check whether all call sites to
-\code{getAttribute} receives a constant (\code{final static} field).
-
-Notice that this pattern is not guarded by an \code{instanceof}.
-However, the cast involved does not fail at runtime.
-This means that the source of the cast is known to the programmer.
-This raises the following questions:
-\begin{itemize}
-\item \emph{What kind of analysis is needed to detect the source of the cast?}
-\item \emph{Is worth to have it?}
-\item \emph{Is better to change API?}
-\item \emph{How other --- statically typed --- languages support this kind of idiom?}
-\item \emph{Could generative programming a.k.a. templates solve this problem?}
-\end{itemize} 
-
-
 These casts could be solved by using code generation,
 or partial classes like in \csharp{}.
 Since the contents of the resource file are known at compile-time,
 code generation could be used to generate the corresponding \java{} code.
 
-This pattern is similar to \nameref{pat:LookupById},
-since both use a key or ID to look up in a collection and cast the result.
-However, the difference is how the content value was generated.
-In the \nameref{pat:LookupById} pattern,
-the developer ensures in another class the return value,
-whereas in the \thisp{} pattern the content is given by a static resource file.
-
-Usually, the client application knows at compile-time the kind of values that the \thisp{} will use.
-The \thisp{} pattern can also be used to fetch a value from a collection (as in \nameref{pat:LookupById}).
+The \variant{Tag} variant can also be used to fetch a value from a collection
+(as in \variant{LookupById}).
 The main difference is ``locality''.
-That is, in the \thisp{} pattern the cast value is set ``locally'', \ie,
+That is, in the \variant{Tag} variant the cast value is set ``locally'', \ie,
 in the same method or class,
-whereas the cast value in the \nameref{pat:LookupById} pattern is usually set in another class.
+whereas the cast value in the \variant{LookupById} variant is usually set in another class.
 
-\related{}
-This pattern retrieves a stashed a value from an heterogeneous collection (or dictionary).
-A cast is needed because the return type depends on the ID to be retrieved.
 Since this pattern casts a value to a known type from a method invocation,
 it can be seen as a kind of \nameref{pat:KnownReturnType} pattern.
-
-The \nameref{pat:VariableSupertype} pattern resembles this pattern,
-since a value is stashed using a less specific type.
 
 \end{pattern}
