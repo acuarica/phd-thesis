@@ -19,13 +19,13 @@ AuthState authState = (AuthState) context.getAttribute(ClientContext.TARGET_AUTH
 
 The next snippet%
 \footnote{\url{http://bit.ly/skerit_cmusphinx_2HGgL1D}}
-shows a call site to the \code{getComponent} method cast to the \code{ActiveListManager} class (line 15).
+shows a call site to the \code{getComponent} method cast to the \code{ActiveListManager} class (line 14).
 The \code{getComponent} method in this cast instance uses as argument the \code{PROP\_ACTIVE\_LIST\_MANAGER} constant.
 Looking at the definition of this constant (line 3),
 we can see there is a companion attribute (\code{@S4Component}) whose argument is the \code{ActiveListManager} class, the target of the cast instance.
 
 % https://lgtm.com/projects/g/skerit/cmusphinx/snapshot/dist-1506204046584-1524814812150/files/sphinx4/src/sphinx4/edu/cmu/sphinx/decoder/search/WordPruningBreadthFirstSearchManager.java?sort=name&dir=ASC&mode=heatmap#L207
-\begin{minted}[highlightlines=15]{java}
+\begin{minted}[highlightlines=14]{java}
 /** The property that defines the type of active list to use */
 @S4Component(type = ActiveListManager.class)
 public final static String PROP_ACTIVE_LIST_MANAGER = "activeListManager";
@@ -45,11 +45,9 @@ public void newProperties(PropertySheet ps) throws PropertyException {
 \end{minted}
 
 A common version of this pattern is to retrieve a value instantiated from
-static resource file, \eg,
-an XML, HTML or \java{} properties file.
-The file contents are (in theory) known at compile-time and the file is included in the binary distribution
-of the application. These files are often built using tools such as GUI
-builders.
+static resource file, \eg, an XML, HTML or \java{} properties file.
+The file contents are (in theory) known at compile-time and the file is included in the binary distribution of the application.
+These files are often built using tools such as GUI builders.
 
 In the following example from an Android application,%
 \footnote{\url{http://bit.ly/pwittchen_NetworkEvents_2HGbrMq}}
@@ -80,107 +78,31 @@ Instead, code is generated that casts the result of \code{findViewById} to the
 appropriate type.
 
 
-But in any case a cast is needed given the inexpressiveness of the type system.
-As a complementary analysis,
-it would be interesting to check whether all call sites to
-\code{getAttribute} receives a constant (\code{final static} field).
-
-Notice that this pattern is not guarded by an \code{instanceof}.
-However, the cast involved does not fail at runtime.
-This means that the source of the cast is known to the programmer.
-This raises the following questions:
-\begin{itemize}
-\item \emph{What kind of analysis is needed to detect the source of the cast?}
-\item \emph{Is worth to have it?}
-\item \emph{Is better to change API?}
-\item \emph{How other --- statically typed --- languages support this kind of idiom?}
-\item \emph{Could generative programming a.k.a. templates solve this problem?}
-\end{itemize}
-
-This pattern retrieves a stashed a value from an heterogeneous collection (or dictionary).
-A cast is needed because the return type depends on the ID to be retrieved.
-Since this pattern casts a value to a known type from a method invocation,
-it can be seen as a kind of \nameref{pat:KnownReturnType} pattern.
 
 
 
 
+% But in any case a cast is needed given the inexpressiveness of the type system.
+% As a complementary analysis,
+% it would be interesting to check whether all call sites to
+% \code{getAttribute} receives a constant (\code{final static} field).
 
+% Notice that this pattern is not guarded by an \code{instanceof}.
+% However, the cast involved does not fail at runtime.
+% This means that the source of the cast is known to the programmer.
+% This raises the following questions:
+% \begin{itemize}
+% \item \emph{What kind of analysis is needed to detect the source of the cast?}
+% \item \emph{Is worth to have it?}
+% \item \emph{Is better to change API?}
+% \item \emph{How other --- statically typed --- languages support this kind of idiom?}
+% \item \emph{Could generative programming a.k.a. templates solve this problem?}
+% \end{itemize}
 
-A cast to a method access to that reads a static resource file, \eg,
-XML, HTML or \java{} properties file.
-The file is static since its contents are known at compile-time.
-Usually this file is build with a third-party tool, like a GUI designer.
-
-In the following example,%
-\footnote{\url{http://bit.ly/pwittchen_NetworkEvents_2HGbrMq}}
-a cast is applied to a \code{findViewById} method invocation.
-The \code{findViewById} method looks up for the given ID in a XML resource file to retrieve the specified view. 
-
-%https://lgtm.com/projects/g/pwittchen/NetworkEvents/snapshot/dist-2032650416-1524814812150/files/example/src/main/java/com/github/pwittchen/networkevents/app/MainActivity.java?sort=name&dir=ASC&mode=heatmap#L65
-\begin{minted}[highlightlines=6]{java}
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    connectivityStatus = (TextView) findViewById(R.id.connectivity_status);
-    mobileNetworkType = (TextView) findViewById(R.id.mobile_network_type);
-    accessPoints = (ListView) findViewById(R.id.access_points);
-    busWrapper = getOttoBusWrapper(new Bus());
-    networkEvents = new NetworkEvents(getApplicationContext(), busWrapper)
-        .enableInternetCheck()
-        .enableWifiScan();
-}
-\end{minted}
-
-The next listing,%
-\footnote{\url{http://bit.ly/pentaho_pentaho-kettle_2TswNSf}}
-shows a cast to a GUI component (\code{XulListbox}) using the \code{getElementById} method (lines 12 and 13).
-In this case the developer is using the XUL language.%
-\footnote{\url{https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XUL}}
-
-%https://lgtm.com/projects/g/pentaho/pentaho-kettle/snapshot/dist-1815472020-1524814812150/files/ui/src/main/java/org/pentaho/di/ui/repository/controllers/RepositoriesController.java?sort=name&dir=ASC&mode=heatmap#L115
-\begin{minted}[highlightlines=12-13]{java}
-private void createBindings() {
-    loginDialog = (XulDialog) document
-                    .getElementById( "repository-login-dialog" );
-    repositoryEditButton = (XulButton) document
-                    .getElementById( "repository-edit" );
-    repositoryRemoveButton = (XulButton) document
-                    .getElementById( "repository-remove" );
-    username = (XulTextbox) document
-                    .getElementById( "user-name" );
-    userPassword = (XulTextbox) document
-                    .getElementById( "user-password" );
-    availableRepositories = (XulListbox) document
-                    .getElementById( "available-repository-list" );
-    showAtStartup = (XulCheckbox) document
-                    .getElementById( "show-login-dialog-at-startup" );
-    okButton = (XulButton) document
-                    .getElementById( "repository-login-dialog_accept" );
-    cancelButton = (XulButton) document
-                    .getElementById( "repository-login-dialog_cancel" );
-    // [...]
-}
-\end{minted}
-
-These casts could be solved by using code generation,
-or partial classes like in \csharp{}.
-Since the contents of the resource file are known at compile-time,
-code generation could be used to generate the corresponding \java{} code.
-
-This is a pattern most often seen when using the Android platform.
-The Butter Knife framework%
-\footnote{\url{http://jakewharton.github.io/butterknife/}}
-make use of annotations to avoid the ``manual'' casting.
-Instead, code is generated the cast the result of \code{findViewById}.
-
-This pattern is similar to \nameref{pat:LookupById},
-since both use a key or ID to look up in a collection and cast the result.
-However, the difference is how the content value was generated.
-In the \nameref{pat:LookupById} pattern,
-the developer ensures in another class the return value,
-whereas in the \thisp{} pattern the content is given by a static resource file.
+% This pattern retrieves a stashed a value from an heterogeneous collection (or dictionary).
+% A cast is needed because the return type depends on the ID to be retrieved.
+% Since this pattern casts a value to a known type from a method invocation,
+% it can be seen as a kind of \nameref{pat:KnownReturnType} pattern.
 
 
 
@@ -188,119 +110,195 @@ whereas in the \thisp{} pattern the content is given by a static resource file.
 
 
 
+% In the following example,%
+% \footnote{\url{http://bit.ly/pwittchen_NetworkEvents_2HGbrMq}}
+% a cast is applied to a \code{findViewById} method invocation.
+% The \code{findViewById} method looks up for the given ID in a XML resource file to retrieve the specified view. 
 
-This pattern is used to stash an application-specific value,
-typically a ``tag'' value in a GUI object or message payload.
+% %https://lgtm.com/projects/g/pwittchen/NetworkEvents/snapshot/dist-2032650416-1524814812150/files/example/src/main/java/com/github/pwittchen/networkevents/app/MainActivity.java?sort=name&dir=ASC&mode=heatmap#L65
+% \begin{minted}[highlightlines=6]{java}
+% @Override
+% protected void onCreate(Bundle savedInstanceState) {
+%     super.onCreate(savedInstanceState);
+%     setContentView(R.layout.activity_main);
+%     connectivityStatus = (TextView) findViewById(R.id.connectivity_status);
+%     mobileNetworkType = (TextView) findViewById(R.id.mobile_network_type);
+%     accessPoints = (ListView) findViewById(R.id.access_points);
+%     busWrapper = getOttoBusWrapper(new Bus());
+%     networkEvents = new NetworkEvents(getApplicationContext(), busWrapper)
+%         .enableInternetCheck()
+%         .enableWifiScan();
+% }
+% \end{minted}
 
-In the following snippet,%
-\footnote{\url{http://bit.ly/proninyaroslav_libretorrent_2TxpZCM}}
-a cast is applied to a \code{getSerializable} invocation (lines 15 and 16).
-This method gets a \code{Serializable} value given the specified key, \code{TAG\_CUR\_DIR} in this case.
-To set a value with a specified key, the \code{putSerializable} method is used.
-The mentioned cast succeeds because a value of the appropriate type is set in line 28 using the \code{putSerializable} method.
+% The next listing,%
+% \footnote{\url{http://bit.ly/pentaho_pentaho-kettle_2TswNSf}}
+% shows a cast to a GUI component (\code{XulListbox}) using the \code{getElementById} method (lines 12 and 13).
+% In this case the developer is using the XUL language.%
+% \footnote{\url{https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XUL}}
 
-%https://lgtm.com/projects/g/proninyaroslav/libretorrent/snapshot/dist-1506096326216-1524814812150/files/app/src/main/java/org/proninyaroslav/libretorrent/fragments/DetailTorrentFilesFragment.java?sort=name&dir=ASC&mode=heatmap#L166
-\begin{minted}[highlightlines=15-16]{java}
-private TorrentContentFileTree curDir;
+% %https://lgtm.com/projects/g/pentaho/pentaho-kettle/snapshot/dist-1815472020-1524814812150/files/ui/src/main/java/org/pentaho/di/ui/repository/controllers/RepositoriesController.java?sort=name&dir=ASC&mode=heatmap#L115
+% \begin{minted}[highlightlines=12-13]{java}
+% private void createBindings() {
+%     loginDialog = (XulDialog) document
+%                     .getElementById( "repository-login-dialog" );
+%     repositoryEditButton = (XulButton) document
+%                     .getElementById( "repository-edit" );
+%     repositoryRemoveButton = (XulButton) document
+%                     .getElementById( "repository-remove" );
+%     username = (XulTextbox) document
+%                     .getElementById( "user-name" );
+%     userPassword = (XulTextbox) document
+%                     .getElementById( "user-password" );
+%     availableRepositories = (XulListbox) document
+%                     .getElementById( "available-repository-list" );
+%     showAtStartup = (XulCheckbox) document
+%                     .getElementById( "show-login-dialog-at-startup" );
+%     okButton = (XulButton) document
+%                     .getElementById( "repository-login-dialog_accept" );
+%     cancelButton = (XulButton) document
+%                     .getElementById( "repository-login-dialog_cancel" );
+%     // [...]
+% }
+% \end{minted}
 
-@Override
-public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
-    if (activity == null)
-        activity = (AppCompatActivity) getActivity();
-    if (savedInstanceState != null) {
-        files = (ArrayList<BencodeFileItem>) savedInstanceState
-                                .getSerializable(TAG_FILES);
-        priorities = (ArrayList<FilePriority>) savedInstanceState
-                                .getSerializable(TAG_PRIORITIES);
-        fileTree = (TorrentContentFileTree) savedInstanceState
-                                .getSerializable(TAG_FILE_TREE);
-        curDir = (TorrentContentFileTree) savedInstanceState
-                                .getSerializable(TAG_CUR_DIR);
-    } else {
-        makeFileTree();
-    }
-    // [...]
-}
+% These casts could be solved by using code generation,
+% or partial classes like in \csharp{}.
+% Since the contents of the resource file are known at compile-time,
+% code generation could be used to generate the corresponding \java{} code.
 
-@Override
-public void onSaveInstanceState(Bundle outState) {
-    outState.putSerializable(TAG_FILES, files);
-    outState.putSerializable(TAG_PRIORITIES, priorities);
-    outState.putSerializable(TAG_FILE_TREE, fileTree);
-    outState.putSerializable(TAG_CUR_DIR, curDir);
-}
-\end{minted}
+% This is a pattern most often seen when using the Android platform.
+% The Butter Knife framework%
+% \footnote{\url{http://jakewharton.github.io/butterknife/}}
+% make use of annotations to avoid the ``manual'' casting.
+% Instead, code is generated the cast the result of \code{findViewById}.
 
-In the following example,%
-\footnote{\url{http://bit.ly/UniTime_cpsolver_2HUmGki}}
-a cast is applied to the result of looking up by index in the \code{iContexts} map (line 9).
-In case there is no value for the given index,
-a value of the corresponding type is stored using the same index (line 13),
-thus guaranteeing the success of the cast.
+% This pattern is similar to \nameref{pat:LookupById},
+% since both use a key or ID to look up in a collection and cast the result.
+% However, the difference is how the content value was generated.
+% In the \nameref{pat:LookupById} pattern,
+% the developer ensures in another class the return value,
+% whereas in the \thisp{} pattern the content is given by a static resource file.
 
-%https://lgtm.com/projects/g/UniTime/cpsolver/snapshot/dist-4860376-1524814812150/files/src/org/cpsolver/ifs/assignment/context/AssignmentContextHolderMap.java?sort=name&dir=ASC&mode=heatmap#L47
-\begin{minted}[highlightlines=9]{java}
-protected Map<Integer,AssignmentContext> iContexts =
-                new HashMap<Integer, AssignmentContext>();
 
-@Override
-@SuppressWarnings("unchecked")
-public <U extends AssignmentContext> U getAssignmentContext(
-                Assignment<V, T> assignment,
-                AssignmentContextReference<V, T, U> reference) {
-    U context = (U) iContexts.get(reference.getIndex());
-    if (context != null) return context;
+
+
+
+
+
+
+% This pattern is used to stash an application-specific value,
+% typically a ``tag'' value in a GUI object or message payload.
+
+% In the following snippet,%
+% \footnote{\url{http://bit.ly/proninyaroslav_libretorrent_2TxpZCM}}
+% a cast is applied to a \code{getSerializable} invocation (lines 15 and 16).
+% This method gets a \code{Serializable} value given the specified key, \code{TAG\_CUR\_DIR} in this case.
+% To set a value with a specified key, the \code{putSerializable} method is used.
+% The mentioned cast succeeds because a value of the appropriate type is set in line 28 using the \code{putSerializable} method.
+
+% %https://lgtm.com/projects/g/proninyaroslav/libretorrent/snapshot/dist-1506096326216-1524814812150/files/app/src/main/java/org/proninyaroslav/libretorrent/fragments/DetailTorrentFilesFragment.java?sort=name&dir=ASC&mode=heatmap#L166
+% \begin{minted}[highlightlines=15-16]{java}
+% private TorrentContentFileTree curDir;
+
+% @Override
+% public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+%     super.onActivityCreated(savedInstanceState);
+%     if (activity == null)
+%         activity = (AppCompatActivity) getActivity();
+%     if (savedInstanceState != null) {
+%         files = (ArrayList<BencodeFileItem>) savedInstanceState
+%                                 .getSerializable(TAG_FILES);
+%         priorities = (ArrayList<FilePriority>) savedInstanceState
+%                                 .getSerializable(TAG_PRIORITIES);
+%         fileTree = (TorrentContentFileTree) savedInstanceState
+%                                 .getSerializable(TAG_FILE_TREE);
+%         curDir = (TorrentContentFileTree) savedInstanceState
+%                                 .getSerializable(TAG_CUR_DIR);
+%     } else {
+%         makeFileTree();
+%     }
+%     // [...]
+% }
+
+% @Override
+% public void onSaveInstanceState(Bundle outState) {
+%     outState.putSerializable(TAG_FILES, files);
+%     outState.putSerializable(TAG_PRIORITIES, priorities);
+%     outState.putSerializable(TAG_FILE_TREE, fileTree);
+%     outState.putSerializable(TAG_CUR_DIR, curDir);
+% }
+% \end{minted}
+
+% In the following example,%
+% \footnote{\url{http://bit.ly/UniTime_cpsolver_2HUmGki}}
+% a cast is applied to the result of looking up by index in the \code{iContexts} map (line 9).
+% In case there is no value for the given index,
+% a value of the corresponding type is stored using the same index (line 13),
+% thus guaranteeing the success of the cast.
+
+% %https://lgtm.com/projects/g/UniTime/cpsolver/snapshot/dist-4860376-1524814812150/files/src/org/cpsolver/ifs/assignment/context/AssignmentContextHolderMap.java?sort=name&dir=ASC&mode=heatmap#L47
+% \begin{minted}[highlightlines=9]{java}
+% protected Map<Integer,AssignmentContext> iContexts =
+%                 new HashMap<Integer, AssignmentContext>();
+
+% @Override
+% @SuppressWarnings("unchecked")
+% public <U extends AssignmentContext> U getAssignmentContext(
+%                 Assignment<V, T> assignment,
+%                 AssignmentContextReference<V, T, U> reference) {
+%     U context = (U) iContexts.get(reference.getIndex());
+%     if (context != null) return context;
     
-    context = reference.getParent().createAssignmentContext(assignment);
-    iContexts.put(reference.getIndex(), context);
-    return context;
-}
-\end{minted}
+%     context = reference.getParent().createAssignmentContext(assignment);
+%     iContexts.put(reference.getIndex(), context);
+%     return context;
+% }
+% \end{minted}
 
-In the last example,%
-\footnote{\url{http://bit.ly/ggp-org_ggp-base_2SAEXHu}}
-the cast is applied to a \code{getModel} invocation on the \code{matchTable} field (line 16).
-Looking how \code{matchTable} is initialized (line 7),
-the \code{model} variable (line 5) is used as an argument to the constructor.
-This argument is the value returned by \code{getModel},
-and since they are both of the same type,
-the mentioned cast is guaranteed to succeed.
+% In the last example,%
+% \footnote{\url{http://bit.ly/ggp-org_ggp-base_2SAEXHu}}
+% the cast is applied to a \code{getModel} invocation on the \code{matchTable} field (line 16).
+% Looking how \code{matchTable} is initialized (line 7),
+% the \code{model} variable (line 5) is used as an argument to the constructor.
+% This argument is the value returned by \code{getModel},
+% and since they are both of the same type,
+% the mentioned cast is guaranteed to succeed.
 
-%https://lgtm.com/projects/g/ggp-org/ggp-base/snapshot/dist-59800051-1524814812150/files/src/main/java/org/ggp/base/apps/player/match/MatchPanel.java?sort=name&dir=ASC&mode=heatmap#L66
-\begin{minted}[highlightlines=16]{java}
-public final class MatchPanel extends JPanel implements Observer {
-    private final JZebraTable matchTable;
-    public MatchPanel() {
-        super(new GridBagLayout());
-        DefaultTableModel model = new DefaultTableModel();
-        // [...]
-        matchTable = new JZebraTable(model) {
-            @Override
-            public boolean isCellEditable(int rowIndex, int colIndex) {
-                return false;
-            }
-        };
-    }
-    // [...]
-    private void observe(GamerCompletedMatchEvent event) {
-        DefaultTableModel model = (DefaultTableModel) matchTable.getModel();
-        model.setValueAt("Inactive", model.getRowCount() - 1, 4);
-    }
-}
-\end{minted}
+% %https://lgtm.com/projects/g/ggp-org/ggp-base/snapshot/dist-59800051-1524814812150/files/src/main/java/org/ggp/base/apps/player/match/MatchPanel.java?sort=name&dir=ASC&mode=heatmap#L66
+% \begin{minted}[highlightlines=16]{java}
+% public final class MatchPanel extends JPanel implements Observer {
+%     private final JZebraTable matchTable;
+%     public MatchPanel() {
+%         super(new GridBagLayout());
+%         DefaultTableModel model = new DefaultTableModel();
+%         // [...]
+%         matchTable = new JZebraTable(model) {
+%             @Override
+%             public boolean isCellEditable(int rowIndex, int colIndex) {
+%                 return false;
+%             }
+%         };
+%     }
+%     // [...]
+%     private void observe(GamerCompletedMatchEvent event) {
+%         DefaultTableModel model = (DefaultTableModel) matchTable.getModel();
+%         model.setValueAt("Inactive", model.getRowCount() - 1, 4);
+%     }
+% }
+% \end{minted}
 
-Usually, the client application knows at compile-time the kind of values that the \thisp{} will use.
+% Usually, the client application knows at compile-time the kind of values that the \thisp{} will use.
 
-This pattern is closely related to the \nameref{pat:LookupById} pattern.
-The \thisp{} pattern can also be used to fetch a value from a collection (as in \nameref{pat:LookupById}).
-The main difference is ``locality''.
-That is, in the \thisp{} pattern the cast value is set ``locally'', \ie,
-in the same method or class,
-whereas the cast value in the \nameref{pat:LookupById} pattern is usually set in another class.
+% This pattern is closely related to the \nameref{pat:LookupById} pattern.
+% The \thisp{} pattern can also be used to fetch a value from a collection (as in \nameref{pat:LookupById}).
+% The main difference is ``locality''.
+% That is, in the \thisp{} pattern the cast value is set ``locally'', \ie,
+% in the same method or class,
+% whereas the cast value in the \nameref{pat:LookupById} pattern is usually set in another class.
 
-The \nameref{pat:VariableSupertype} pattern resembles this pattern,
-since a value is stashed using a less specific type.
+% The \nameref{pat:VariableSupertype} pattern resembles this pattern,
+% since a value is stashed using a less specific type.
 
 
 

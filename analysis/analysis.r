@@ -361,7 +361,7 @@ write.def(patterns.def, casts.def, 'casts.def')
 # df.wide <- dcast(df, castid~features, length)
 # #upset(df.wide,nsets=ncol(df.wide),nintersects=NA,mb.ratio = c(0.3, 0.7))
 # upset(df.wide,nsets=ncol(df.wide) )
-# upset(df.wide)
+#upset(df.wide)
 # df.repo <- dcast(df, repoid+features~'ads', length, value.var="features")
 # df.repo0 <- dcast(df.repo, repoid~'x', length, value.var="features")
 # a<-df.repo0[order(df.repo0$x,decreasing=TRUE),]
