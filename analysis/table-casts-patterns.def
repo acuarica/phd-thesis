@@ -1,5 +1,5 @@
 \row \nameref{pat:Typecase} & \TypecaseDesc & \nTypecasePattern & \pTypecasePattern \% \\
-\alt \nameref{pat:LookupById} & \LookupByIdDesc & \nLookupByIdPattern & \pLookupByIdPattern \% \\
+\alt \nameref{pat:Stash} & \StashDesc & \nStashPattern & \pStashPattern \% \\
 \row \nameref{pat:Factory} & \FactoryDesc & \nFactoryPattern & \pFactoryPattern \% \\
 \alt \nameref{pat:Family} & \FamilyDesc & \nFamilyPattern & \pFamilyPattern \% \\
 \row \nameref{pat:UseRawType} & \UseRawTypeDesc & \nUseRawTypePattern & \pUseRawTypePattern \% \\

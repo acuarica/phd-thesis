@@ -8,6 +8,14 @@ an \code{instanceof} operator (\variant{GuardByInstanceOf}),
 a comparison of the runtime class against a class literal (\variant{GuardByClassLiteral}),
 or an application-specific type tag (\variant{GuardByTypeTag}).
 
+When implementing the pattern,
+care must be taken with complex operands that the value of the operand is
+not changed between the guard and the cast, possibly even by another thread.
+For instance, in some situations the operand expression is a method invocation.
+The value returned by the method should be the same for both the
+\code{instanceof} and the cast, thus the method should be a pure method.
+Typically, this problem is avoided by using an effectively final local variable in both the guard and the cast operand.
+
 \instances{}
 \thisp{} is by far the most common pattern.
 Figure~\ref{fig:casts:typecase} shows the different variants of the pattern.
@@ -318,16 +326,6 @@ public Object convertToNumber(Number value, Class toType) throws Exception {
 } #\urlbox#
 \end{minted}
 
-
-\detection{}
-When implementing the pattern,
-care must be taken with complex operands that the value of the operand is
-not changed between the guard and the cast, possibly even by another thread.
-For instance, in some situations the operand expression is a method invocation.
-The value returned by the method should be the same for both the
-\code{instanceof} and the cast, thus the method should be a pure method.
-Typically, this problem is avoided by using an effectively final local variable in both the guard and the
-cast operand.
 
 \discussion{}
 Having only a single case---that is, a single guard and cast---is common.

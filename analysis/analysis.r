@@ -1,4 +1,3 @@
-
 library(tidyr)
 library(plyr)
 library(reshape2)
@@ -38,7 +37,7 @@ taxonomy = list(
     'features' = c('NewDynamicInstance'),
     'categories' = c('tools')
   ),
-  'LookupById' = list(
+  'Stash' = list(
     'features' = c('LookupById', 'Tag', 'StaticResource'),
     'categories' = c('tools')
   ),
@@ -188,7 +187,7 @@ write.plot <- function(pp, path, height=7) {
 }
 
 plot.height <- function(n) {
-  0.472441+0.629921+n*0.235909
+  0.472441+0.629921+n*0.25
 }
 
 plot.height.col <- function(c) {
@@ -227,7 +226,6 @@ check.auto <- function(df) {
   check.diff(df.unboxing.auto, df.unboxing.manual, 'unboxing')
 }
 
-
 df <- read.samples(5000, 480, 47, 3)
 df.out <- df
 df.out$qltag <- NULL
@@ -236,6 +234,7 @@ write.csv(df.out, 'casts.csv', row.names=FALSE)
 casts.def <- list()
 casts.def['Seen'] <- nrow(df)
 cat("[Links seen: ", casts.def$Seen, "]", sep='', fill=TRUE)
+
 for (key in declared.omitted) {
   make.key <- paste('?', key, sep='')
   df.omitted <- df[df$value == make.key, ]
@@ -243,6 +242,7 @@ for (key in declared.omitted) {
   casts.def[key] <- nrow(df.omitted)
   df <- df[df$value != make.key, ]
 }
+
 casts.def['Size'] <- nrow(df)
 cat("[Accoutable cast instances (sample size): ", casts.def$Size, "]", sep='', fill=TRUE)
 df <- separate(df, value, c('features', 'scope'), sep=',')
@@ -263,6 +263,7 @@ for (p in names(taxonomy)) {
 stopifnot(empty(subset(df, is.na(pattern))))
 check.diff(declared.features, unique(df$features))
 
+labs.instances <- labs(x=NULL, y = "# Instances")
 scale.scope <- scale_fill_discrete(
     name="Scope",
     breaks=c("src", "test", "gen"),
@@ -276,8 +277,7 @@ for (pname in levels(as.factor(df$pattern))) {
     geom_text(stat='count', aes(label=..count..,y=..count..+3))+
     coord_flip()+
     theme(legend.position="top")+
-    labs(x=sprintf('%s Variants', pname), y = "# Instances")+
-    scale.scope
+    labs.instances+scale.scope
   write.plot(pp, sprintf('patterns/table-pattern-%s-features.pdf', pname), plot.height.col(x$features))
   
   casts.def[sprintf("%sPattern", pname)] <- nrow(x)
@@ -293,8 +293,7 @@ for (pname in levels(as.factor(df$pattern))) {
       geom_text(stat='count', aes(label=..count..,y=..count..+3))+
       coord_flip()+
       theme(legend.position="top")+
-      labs(x=sprintf('%s/%s Features Arguments', pname, subp), y = "# Instances")+
-      scale.scope
+      labs.instances+scale.scope
     write.plot(pp, sprintf('patterns/table-pattern-%s-%s-args.pdf', pname, subp), plot.height.col(y$args))
   }
 }
@@ -328,8 +327,7 @@ pp <- ggplot(df, aes(x=pattern))+
   geom_text(stat='count', aes(label=..count..,y=..count..+3))+
   coord_flip()+
   theme(strip.text.y=element_text(angle = 0), legend.position="top")+
-  labs(x="Cast Usage Patterns", y = "# Instances")+
-  scale.scope
+  labs.instances+scale.scope
 write.plot(pp, 'table-patterns.pdf', plot.height.col(df$pattern))
 
 patterns.def = list()

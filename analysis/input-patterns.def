@@ -1,5 +1,5 @@
 \input{chapters/casts/patterns/Typecase}
-\input{chapters/casts/patterns/LookupById}
+\input{chapters/casts/patterns/Stash}
 \input{chapters/casts/patterns/Factory}
 \input{chapters/casts/patterns/Family}
 \input{chapters/casts/patterns/UseRawType}

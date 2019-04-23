@@ -19,6 +19,14 @@ Notice that a cast in an \code{equals} method is needed because it
 receives an \code{Object} as a parameter.
 
 
+
+
+To detect this pattern,
+a cast must be applied to the parameter of the \code{equals} method.
+The result value of the cast must be then used in an equality comparison.
+
+We relax the constraint that the target type of the cast must the enclosing class.
+
 \instances{}
 The following listing%
 \def\urlvar{http://bit.ly/neo4j_neo4j_2vJw94J}
@@ -127,12 +135,6 @@ class CapReq {
 }
 \end{minted}
 
-\detection{}
-To detect this pattern,
-a cast must be applied to the parameter of the \code{equals} method.
-The result value of the cast must be then used in an equality comparison.
-
-We relax the constraint that the target type of the cast must the enclosing class.
 
 \discussion{}
 The pattern for an \code{equals} method implementation is well-known.
