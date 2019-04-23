@@ -117,7 +117,7 @@ taxonomy = list(
   )
 
 declared.features <-  unlist(lapply(taxonomy, `[[`, 'features'), use.names=FALSE)
-declared.categories <- c('guarded', 'lang', 'tools', 'dev', 'generic', 'gen')
+declared.categories <- c('guarded', 'lang', 'tools', 'gen', 'dev', 'generic')
 declared.omitted <- c('BrokenLink', 'Bug', 'Duplicated')
 
 check.diff <- function(x, y) {
@@ -180,11 +180,19 @@ write.def <- function(patterns.def, casts.def, file='casts.def') {
   write(values, file)
 }
 
-write.plot <- function(pp, path) {
+write.plot <- function(pp, path, height=7) {
   cat("[Writing plot '", path, "']\n", sep='')
-  pdf(path)
+  pdf(path, height=height)
   print(pp)
   dev.off()
+}
+
+plot.height <- function(n) {
+  0.472441+0.629921+n*0.235909
+}
+
+plot.height.col <- function(c) {
+  plot.height(length(unique(c)))
 }
 
 check.consistency <- function(castids, casts.def) {
@@ -255,33 +263,39 @@ for (p in names(taxonomy)) {
 stopifnot(empty(subset(df, is.na(pattern))))
 check.diff(declared.features, unique(df$features))
 
+scale.scope <- scale_fill_discrete(
+    name="Scope",
+    breaks=c("src", "test", "gen"),
+    labels=c("Application/Library code", "Test code", "Generated code")
+    )
+
 for (pname in levels(as.factor(df$pattern))) {
   x <- df[df$pattern==pname,]
-  pp <- ggplot(x, aes(x=args))+
+  pp <- ggplot(x, aes(x=features))+
     geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
     geom_text(stat='count', aes(label=..count..,y=..count..+3))+
     coord_flip()+
     theme(legend.position="top")+
-    labs(x=sprintf('%s Pattern Arguments', pname), y = "# Instances")+
-    scale_fill_discrete(name="Scope")
-  write.plot(pp, sprintf('patterns/table-pattern-%s.pdf', pname))
-
+    labs(x=sprintf('%s Variants', pname), y = "# Instances")+
+    scale.scope
+  write.plot(pp, sprintf('patterns/table-pattern-%s-features.pdf', pname), plot.height.col(x$features))
+  
   casts.def[sprintf("%sPattern", pname)] <- nrow(x)
   casts.def[sprintf("%sPatternSrc", pname)] <- nrow(x[which(x$scope=='src'),])
   casts.def[sprintf("%sPatternTest", pname)] <- nrow(x[which(x$scope=='test'),])
   casts.def[sprintf("%sPatternGen", pname)] <- nrow(x[which(x$scope=='gen'),])
   
   for (subp in levels(as.factor(x$features))) {
-    casts.def[sprintf("%s%sSubpattern", pname, subp)] <- nrow(x[which(x$features==subp),])
-    
-    pp <- ggplot(x[which(x$features==subp),], aes(x=args))+
+    y <- x[which(x$features==subp),]
+    casts.def[sprintf("%s%sSubpattern", pname, subp)] <- nrow(y)
+    pp <- ggplot(y, aes(x=args))+
       geom_bar(aes(fill=scope), position=position_stack(reverse = TRUE))+
       geom_text(stat='count', aes(label=..count..,y=..count..+3))+
       coord_flip()+
       theme(legend.position="top")+
       labs(x=sprintf('%s/%s Features Arguments', pname, subp), y = "# Instances")+
-      scale_fill_discrete(name="Scope")
-    write.plot(pp, sprintf('patterns/table-pattern-%s-%s.pdf', pname, subp))
+      scale.scope
+    write.plot(pp, sprintf('patterns/table-pattern-%s-%s-args.pdf', pname, subp), plot.height.col(y$args))
   }
 }
 
@@ -315,12 +329,8 @@ pp <- ggplot(df, aes(x=pattern))+
   coord_flip()+
   theme(strip.text.y=element_text(angle = 0), legend.position="top")+
   labs(x="Cast Usage Patterns", y = "# Instances")+
-  scale_fill_discrete(
-    name="Scope",
-    breaks=c("src", "test", "gen"),
-    labels=c("Application/Library code", "Test code", "Generated code")
-    )
-write.plot(pp, 'table-patterns.pdf')
+  scale.scope
+write.plot(pp, 'table-patterns.pdf', plot.height.col(df$pattern))
 
 patterns.def = list()
 lpatterns <- levels(as.factor(df$pattern))

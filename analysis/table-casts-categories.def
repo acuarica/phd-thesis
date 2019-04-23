@@ -2,24 +2,24 @@
 \alt 2 & \nameref{pat:LookupById} &  &  & \cmark &  &  &  \\
 \row 3 & \nameref{pat:Factory} &  &  & \cmark &  &  &  \\
 \alt 4 & \nameref{pat:Family} &  & \cmark &  &  &  &  \\
-\row 5 & \nameref{pat:UseRawType} &  &  &  & \cmark & \cmark &  \\
-\alt 6 & \nameref{pat:Equals} & \cmark &  &  &  &  & \cmark \\
-\row 7 & \nameref{pat:KnownReturnType} &  &  & \cmark & \cmark &  &  \\
-\alt 8 & \nameref{pat:Redundant} &  &  &  & \cmark &  &  \\
+\row 5 & \nameref{pat:UseRawType} &  &  &  &  & \cmark & \cmark \\
+\alt 6 & \nameref{pat:Equals} & \cmark &  &  & \cmark &  &  \\
+\row 7 & \nameref{pat:KnownReturnType} &  &  & \cmark &  & \cmark &  \\
+\alt 8 & \nameref{pat:Redundant} &  &  &  &  & \cmark &  \\
 \row 9 & \nameref{pat:SelectOverload} &  & \cmark &  &  &  &  \\
 \alt 10 & \nameref{pat:Deserialization} &  &  & \cmark &  &  &  \\
-\row 11 & \nameref{pat:VariableSupertype} &  &  &  & \cmark &  &  \\
+\row 11 & \nameref{pat:VariableSupertype} &  &  &  &  & \cmark &  \\
 \alt 12 & \nameref{pat:SoleSubclassImplementation} &  & \cmark &  &  &  &  \\
 \row 13 & \nameref{pat:NewDynamicInstance} &  &  & \cmark &  &  &  \\
-\alt 14 & \nameref{pat:ObjectAsArray} &  &  &  & \cmark &  &  \\
+\alt 14 & \nameref{pat:ObjectAsArray} &  &  &  &  & \cmark &  \\
 \row 15 & \nameref{pat:ImplicitIntersectionType} &  & \cmark &  &  &  &  \\
 \alt 16 & \nameref{pat:CovariantReturnType} &  & \cmark &  &  &  &  \\
-\row 17 & \nameref{pat:RemoveWildcard} &  & \cmark &  &  & \cmark &  \\
+\row 17 & \nameref{pat:RemoveWildcard} &  & \cmark &  &  &  & \cmark \\
 \alt 18 & \nameref{pat:OperandStack} & \cmark & \cmark &  &  &  &  \\
 \row 19 & \nameref{pat:ReflectiveAccessibility} &  & \cmark &  &  &  &  \\
-\alt 20 & \nameref{pat:FluentAPI} &  & \cmark &  &  & \cmark &  \\
-\row 21 & \nameref{pat:CovariantGeneric} &  & \cmark &  &  & \cmark &  \\
+\alt 20 & \nameref{pat:FluentAPI} &  & \cmark &  &  &  & \cmark \\
+\row 21 & \nameref{pat:CovariantGeneric} &  & \cmark &  &  &  & \cmark \\
 \alt 22 & \nameref{pat:Composite} &  & \cmark &  &  &  &  \\
-\row 23 & \nameref{pat:GenericArray} &  & \cmark &  &  & \cmark &  \\
-\alt 24 & \nameref{pat:AccessSuperclassField} &  &  &  & \cmark &  &  \\
-\row 25 & \nameref{pat:UnoccupiedTypeParameter} &  & \cmark &  &  & \cmark &  \\
+\row 23 & \nameref{pat:GenericArray} &  & \cmark &  &  &  & \cmark \\
+\alt 24 & \nameref{pat:AccessSuperclassField} &  &  &  &  & \cmark &  \\
+\row 25 & \nameref{pat:UnoccupiedTypeParameter} &  & \cmark &  &  &  & \cmark \\
