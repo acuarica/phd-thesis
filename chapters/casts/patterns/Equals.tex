@@ -6,6 +6,15 @@ in an \code{equals}%
 This is done to check if the argument has same type as the receiver
 (\code{this} argument).
 
+
+A particularly common instance of \thisp{} (usually with just one case) is in \code{equals} methods (223
+instances out of 1,296, or 17\%).%
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\#equals-java.lang.Object-}}
+Here the pattern is used to check if the argument (of type \code{Object}) has the same type as \code{this}
+in order to compare the fields of the argument with the receiver.
+
+
+
 Notice that a cast in an \code{equals} method is needed because it
 receives an \code{Object} as a parameter.
 
