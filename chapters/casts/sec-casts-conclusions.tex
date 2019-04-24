@@ -9,38 +9,7 @@ the type system to ensure the absense of run-time type errors.
 Our study provides insight on the boundary between static and dynamic typing, which may inform
 research on both static and dynamic, as well as gradual type systems~\cite{Siek06gradualtyping}.
 Conversely, this research can inform the design of extensions of the \java{} type system to reduce the need for casting.
-Many programming languages provide features to ameliorate the more common use cases of casts.
-For instance,
-\kotlin{}'s smart casts couple together \code{instanceof} and cast operation on value, 
-providing direct support for the \nameref{pat:Typecase} pattern.
-More generally, ML-style pattern matching subsumes this pattern.
-Other language features that might at least partially obviate the need for some of the patterns are
-intersection types (cf. \nameref{pat:ImplicitIntersectionType}),
-and
-self types or associated types (cf. 
-\nameref{pat:Factory},
-\nameref{pat:KnownReturnType},
-\nameref{pat:Deserialization},
-\nameref{pat:CovariantReturnType},
-\nameref{pat:FluentAPI}).
-Virtual classes~\cite{gbeta, scalaIndependentlyExtensible} and languages that support
-family polymorphism~\cite{ernstFamilyPolymorphism2001}
-would help with casts in the \nameref{pat:Family} pattern.
 
-Many cast patterns (\eg, 
-\nameref{pat:RemoveWildcard},
-\nameref{pat:GenericArray},
-\nameref{pat:CovariantGeneric},
-\nameref{pat:UnoccupiedTypeParameter})
-are used either to 
-workaround---or to take advantage of---the erasure of generic type parameters in \java{}.
-Reified generics or definition-site, rather than use-site, variance annotations~\cite{altidorTamingWildcardsCombining2011}
-would reduce the need for these patterns.
-
-Our study also suggests analyses could be performed 
-to improve code quality and eliminate some cast usages, for instance removing redundant casts,
-finding opportunities to use generics instead,
-or locating code smells (cf. \nameref{pat:UseRawType}, \nameref{pat:KnownReturnType}, \nameref{pat:VariableSupertype}).
 We are currently working to define static analyses to detect some of these patterns automatically.
-With these analyses, tools can be developed to identify instances of the pattern and to
-ensure that they are being implemented properly.
+With these analyses,
+tools can be developed to identify instances of the pattern and to ensure that they are being implemented properly.

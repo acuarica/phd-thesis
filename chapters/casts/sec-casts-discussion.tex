@@ -1,25 +1,62 @@
 \section{Discussion}
 \label{sec:casts:discussion}
 
-
-\newcommand{\gh}[1]{\emph{\textbf{#1}}}
+A summary of the patterns is shown in Table~\ref{table:casts:categories}.
 % The column on the right corresponds to the group the pattern belongs to.
 % In this section we present the cast usage patterns we found.
 % To ease the patterns presentation,
 % we have organized them into ngroup{} categories according to their purpose.
-Table~\ref{table:casts:categories} 
-The table consists of the following columns: The \gh{Pattern} column indicates the name of the pattern.
+The table consists of the following columns:
+\newcommand{\gh}[1]{\emph{\textbf{#1}}}
+The \gh{Pattern} column indicates the name of the pattern.
 \gh{Guarded?} The patterns in this category are guarded casts.
 A guarded cast is a cast such that before the cast is applied,
-some condition --- the \emph{guard} -- needs to be verified.
+some condition---the \emph{guard}---needs to be verified.
 The condition to be verified guarantees that the cast will not fail at runtime (unless there is a bug in the application), \ie,
 the cast will not throw a \code{ClassCastException}.
 Some kind of guards ensure that the cast will not fail at the language-level,
 while others only can guarantee it at the application-level.
 \gh{Lang} These casts could be removed if there is enough language support.
-\gh{Tool} The casts in this group could be checked with new analysis tools.
-\gh{Dev} These casts can be avoidable with no or little refactoring,
+\gh{Tools} The casts in this group could be checked with new analysis or refactoring tools.
+\gh{Gen} These casts are related to generated or boilerplate code.
+\gh{Dev} These casts can be removed by the developer with no or little refactoring.
 or suggest a code smell in the source code.
-\gh{Generic}
+\gh{Generic} The casts in this category are related to generic or reified generics.
 
 \input{chapters/casts/table-casts-categories}
+
+Many programming languages provide features to ameliorate the more common use cases of casts.
+For instance,
+\kotlin{}'s smart casts couple together \code{instanceof} and cast operation on value, 
+providing direct support for the \nameref{pat:Typecase} pattern.
+More generally, ML-style pattern matching subsumes this pattern.
+Other language features that might at least partially obviate the need for some of the patterns are
+intersection types (cf. \nameref{pat:ImplicitIntersectionType}),
+and
+self types or associated types (cf. 
+\nameref{pat:Factory},
+\nameref{pat:KnownReturnType},
+\nameref{pat:Deserialization},
+\nameref{pat:CovariantReturnType},
+\nameref{pat:FluentAPI}).
+Virtual classes~\cite{gbeta, scalaIndependentlyExtensible} and languages that support
+family polymorphism~\cite{ernstFamilyPolymorphism2001}
+would help with casts in the \nameref{pat:Family} pattern.
+
+Many cast patterns (\eg, 
+\nameref{pat:RemoveWildcard},
+\nameref{pat:GenericArray},
+\nameref{pat:CovariantGeneric},
+\nameref{pat:UnoccupiedTypeParameter})
+are used either to 
+workaround---or to take advantage of---the erasure of generic type parameters in \java{}.
+Reified generics or definition-site, rather than use-site, variance annotations~\cite{altidorTamingWildcardsCombining2011}
+would reduce the need for these patterns.
+
+Our study also suggests analyses could be performed to improve code quality and eliminate some cast usages,
+for instance removing redundant casts,
+finding opportunities to use generics instead,
+or locating code smells (cf.
+\nameref{pat:UseRawType},
+\nameref{pat:KnownReturnType},
+\nameref{pat:VariableSupertype}).
