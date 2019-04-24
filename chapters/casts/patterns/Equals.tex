@@ -1,40 +1,28 @@
 \begin{pattern}{Equals}
-This pattern is a common pattern to implement the \code{equals} method (declared in \code{java.lang.Object}).
+This pattern is a common pattern to implement the well-known \code{equals} method (declared in \code{java.lang.Object}).
 A cast expression is guarded by either an \code{instanceof} test or a \code{getClass} comparison (usually to the same target type as the cast);
 in an \code{equals}%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\#equals-java.lang.Object-}} method implementation.
 This is done to check if the argument has same type as the receiver
 (\code{this} argument).
-
-
-A particularly common instance of \thisp{} (usually with just one case) is in \code{equals} methods (223
-instances out of 1,296, or 17\%).%
-\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\#equals-java.lang.Object-}}
-Here the pattern is used to check if the argument (of type \code{Object}) has the same type as \code{this}
-in order to compare the fields of the argument with the receiver.
-
-
-
 Notice that a cast in an \code{equals} method is needed because it
 receives an \code{Object} as a parameter.
-
-
-
 
 To detect this pattern,
 a cast must be applied to the parameter of the \code{equals} method.
 The result value of the cast must be then used in an equality comparison.
-
 We relax the constraint that the target type of the cast must the enclosing class.
 
 \instances{}
-The following listing%
-\def\urlvar{http://bit.ly/neo4j_neo4j_2vJw94J}
-shows an example of the \thisp{} pattern.
+% TODO: Check numbers of equals instances out of guarded casts.
+A particularly instance of guarded casts is in \code{equals} methods (223
+instances out of 1,296, or 17\%).
+The following listing shows an example of the \thisp{} pattern.
 In this case,
 \code{instanceof} is used to guard for the same type as the receiver.
 
 %https://lgtm.com/projects/g/neo4j/neo4j/snapshot/dist-15760049-1519892555006/files/community/kernel/src/main/java/org/neo4j/kernel/impl/api/CountsRecordState.java?sort=name&dir=ASC&mode=heatmap&excluded=false#L182
+\def\urlvar{http://bit.ly/neo4j_neo4j_2vJw94J}
 \begin{minted}[highlightlines=7]{java}
 @Override
 public boolean equals(Object obj) {
@@ -53,13 +41,12 @@ public boolean equals(Object obj) {
 } #\urlbox#
 \end{minted}
 
-Alternatively, the following listing%
-\def\urlvar{http://bit.ly/neo4j_neo4j_2vKP0MW}
-shows another example of the \thisp{} pattern.
+Alternatively, the following listing shows another example of the \thisp{} pattern.
 But in this case,
 a \code{getClass} comparison is used to guard for the same type as the receiver (line 4).
 
 %https://lgtm.com/projects/g/neo4j/neo4j/snapshot/dist-15760049-1519892555006/files/community/bolt/src/main/java/org/neo4j/bolt/v1/messaging/infrastructure/ValuePath.java?sort=name&dir=ASC&mode=heatmap&excluded=false#L278
+\def\urlvar{http://bit.ly/neo4j_neo4j_2vKP0MW}
 \begin{minted}[highlightlines=7]{java}
 @Override
 public boolean equals( Object o ) {
@@ -75,15 +62,14 @@ public boolean equals( Object o ) {
 
 In some situations, the type cast is not the same as the enclosing class.
 Instead, the type cast is the super class of the enclosing class.
-The following example%
-\def\urlvar{http://bit.ly/square_sqlbrite_2HmHMYE}
-shows this scenario.
+The following example shows this scenario.
 This happens, for example, when the Google AutoValue library%
 \footnote{\url{https://github.com/google/auto/tree/master/value}}
 is used.
 AutoValue is a code generator for value classes.
 
 %https://lgtm.com/projects/g/square/sqlbrite/snapshot/3a9916985485ba5922097fe59a18230500f02df4/files/sample/build/generated/source/apt/debug/com/example/sqlbrite/todo/ui/$AutoValue_ListsItem.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L52
+\def\urlvar{http://bit.ly/square_sqlbrite_2HmHMYE}
 \begin{minted}[highlightlines=13]{java}
 @AutoValue
 abstract class ListsItem implements Parcelable {
@@ -107,15 +93,14 @@ abstract class $AutoValue_ListsItem extends ListsItem {
 } #\urlbox#
 \end{minted}
 
-The following snippet%
-\def\urlvar{http://bit.ly/bndtools_bnd_2SM5pOw}
-shows a non-trivial implementation of \code{equals}.
+The following snippet shows a non-trivial implementation of \code{equals}.
 The enclosing class of the \code{equals} method is \code{CapReq} (line 1).
 However, the cast instance (line 13) is not against the enclosing class,
 it is against to the \code{Requirement} class.
 Note that the cast using the enclosing class as target type is in line 9.
 
 %https://lgtm.com/projects/g/bndtools/bnd/snapshot/dist-930051-1524814812150/files/biz.aQute.bndlib/src/aQute/bnd/osgi/resource/CapReq.java?sort=name&dir=ASC&mode=heatmap#L73
+\def\urlvar{http://bit.ly/bndtools_bnd_2SM5pOw}
 \begin{minted}[highlightlines=13]{java}
 class CapReq {
     @Override
