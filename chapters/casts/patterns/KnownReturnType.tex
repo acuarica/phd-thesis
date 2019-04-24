@@ -1,14 +1,11 @@
 \begin{pattern}{KnownReturnType}
-There are cases when a method's return type is less specific than the
-actual return type value.
-This is often to hide implementation details, but may also be because the
-  method overrides another method with a less-specific type
-  and the return type is not changed covariantly.
+There are cases when a method's return type is less specific than the actual return type value.
+This is often to hide implementation details,
+but may also be because the method overrides another method with a less-specific type and the return type is not changed covariantly.
 
-This pattern is used to cast from the method's return type to
-the \emph{known} actual return type.
-This pattern is characterized by a method that always returns a
-value of the same type, a subtype of the declared return type,
+This pattern is used to cast from the method's return type to the \emph{known} actual return type.
+This pattern is characterized by a method that always returns a value of the same type,
+a subtype of the declared return type,
 regardless of the context or the arguments to the method call.
 
 \instances{}
@@ -35,33 +32,20 @@ public class CubeInstance
 } #\urlbox#
 \end{minted}
 
-% TODO: Include example.
-%https://lgtm.com/projects/g/eclipse/pdt/snapshot/dist-19313119-1524814812150/files/plugins/org.eclipse.php.debug.core/src/org/eclipse/php/internal/debug/core/zend/communication/DebugConnection.java?sort=name&dir=ASC&mode=heatmap#L795
-% \def\urlvar{http://bit.ly/eclipse_pdt_2Ekeu9v}
-% \begin{minted}[highlightlines=1]{java}
-% debugTarget = (PHPDebugTarget) createDebugTarget(this, launch, URL,
-%         requestPort, process, runWithDebug, stopAtFirstLine, project);
-% protected IDebugTarget createDebugTarget(DebugConnection thread,
-%         ILaunch launch, String url, int requestPort, PHPProcess process,
-%         boolean runWithDebug, boolean stopAtFirstLine, IProject project)
-%         throws CoreException {
-%     return new PHPDebugTarget(thread, launch, url, requestPort, process,
-%             runWithDebug, stopAtFirstLine, project);
-% }
-% public class PHPDebugTarget extends PHPDebugElement
-%         implements IPHPDebugTarget, IBreakpointManagerListener, IStepFilters {
-% } #\urlbox#
-% \end{minted}
+In the following example,
+a cast is applied to the result of an invocation to the \code{createDebugTarget} method.
+This method is known to return a value of type \code{PHPDebugTarget},
+which implements \code{IPHPDebugTarget}.
 
-% TODO: Include example.
-%https://lgtm.com/projects/g/apache/activemq/snapshot/dist-11730660-1524814812150/files/activemq-client/src/main/java/org/apache/activemq/ActiveMQConnectionFactory.java?sort=name&dir=ASC&mode=heatmap#L235
-% \def\urlvar{http://bit.ly/apache_activemq_2EnSivc}
-% \begin{minted}[highlightlines=1]{java}
-% throw (IllegalArgumentException)
-%         new IllegalArgumentException("Invalid broker URI: " + brokerURL)
-%         .initCause(e);
-% #\urlbox#
-% \end{minted}
+%https://lgtm.com/projects/g/eclipse/pdt/snapshot/dist-19313119-1524814812150/files/plugins/org.eclipse.php.debug.core/src/org/eclipse/php/internal/debug/core/zend/communication/DebugConnection.java?sort=name&dir=ASC&mode=heatmap#L795
+\def\urlvar{http://bit.ly/eclipse_pdt_2Ekeu9v}
+\begin{minted}[highlightlines=1]{java}
+debugTarget = (PHPDebugTarget) createDebugTarget(/* [...] */);
+
+protected IDebugTarget createDebugTarget(/* [...] */) throws CoreException {
+    return new PHPDebugTarget(/* [...] */);
+} #\urlbox#
+\end{minted}
 
 
 % TODO: Also include Logger example.
@@ -73,9 +57,19 @@ public class CubeInstance
 % \end{minted}
 
 
+% TODO: Include example.
+%https://lgtm.com/projects/g/apache/activemq/snapshot/dist-11730660-1524814812150/files/activemq-client/src/main/java/org/apache/activemq/ActiveMQConnectionFactory.java?sort=name&dir=ASC&mode=heatmap#L235
+% \def\urlvar{http://bit.ly/apache_activemq_2EnSivc}
+% \begin{minted}[highlightlines=1]{java}
+% throw (IllegalArgumentException)
+%         new IllegalArgumentException("Invalid broker URI: " + brokerURL)
+%         .initCause(e);
+% #\urlbox#
+% \end{minted}
+
 \issues{}
-This pattern usually indicates an abstraction violation: the caller 
-needs to know the method implementation to know the correct target type.
+This pattern usually indicates an abstraction violation:
+the caller needs to know the method implementation to know the correct target type.
 
 \nameref{pat:CovariantReturnType} can be considered a special case of this
 pattern where the return type is known to vary with the receiver type.
