@@ -6,14 +6,12 @@ To detect the \thisp{} pattern,
 the expression being cast needs to be of the same type as the type being cast to.
 
 \instances{}
-%
-The following listing%
-\def\urlvar{http://bit.ly/vladmihalcea_high_performance_java_persistence_2FWXw2e}
-exhibits an instance of the \thisp{} pattern.
+The following listing exhibits an instance of the \thisp{} pattern.
 A redundant cast is applied to a lambda expression (line 8).
 This cast is not needed a \java{} compiler can infer that the lambda expression is of type \code{TransactionCallback<Void>} (defined in line 22).
 
 %https://lgtm.com/projects/g/vladmihalcea/high-performance-java-persistence/snapshot/dist-1813180502-1524814812150/files/core/src/test/java/com/vladmihalcea/book/hpjp/hibernate/schema/flyway/FlywayTest.java#L40
+\def\urlvar{http://bit.ly/vladmihalcea_high_performance_java_persistence_2FWXw2e}
 \begin{minted}[highlightlines=8]{java}
 public class FlywayTest {
     // [...]
@@ -30,30 +28,22 @@ public class FlywayTest {
         // [...]
     }
 }
-
-public interface TransactionStatus {
-    // [...]
-}
-
+public interface TransactionStatus { /* [...] */ }
 @FunctionalInterface
 public interface TransactionCallback<T> {	
 	T doInTransaction(TransactionStatus status);
 }
-
 public class TransactionTemplate {
-	<T> T execute(TransactionCallback<T> action) {
-        // [...]
-	}
+	<T> T execute(TransactionCallback<T> action) { /* [...] */ }
 } #\urlbox#
 \end{minted}
 
-The next cast instance%
-\def\urlvar{http://bit.ly/sigmoidanalytics_spork_2SIqWYq}
-is trivially redundant: both the target type and the static type of the
-  operand \code{count(b)},
-  are \code{BigDecimal}.
+The next cast instance is trivially redundant:
+both the target type and the static type of the operand \code{count(b)},
+are \code{BigDecimal}.
 
 %https://lgtm.com/projects/g/sigmoidanalytics/spork/snapshot/dist-1794190395-1524814812150/files/src/org/apache/pig/builtin/BigDecimalAvg.java?sort=name&dir=ASC&mode=heatmap#L258
+\def\urlvar{http://bit.ly/sigmoidanalytics_spork_2SIqWYq}
 \begin{minted}[highlightlines=4]{java}
 @Override
 public void accumulate(Tuple b) throws IOException {
@@ -61,7 +51,6 @@ public void accumulate(Tuple b) throws IOException {
     BigDecimal count = (BigDecimal)count(b);
     // [...]
 }
-
 static protected BigDecimal count(Tuple input) throws ExecException {
     // [...]
 } #\urlbox#

@@ -1,10 +1,10 @@
 \begin{pattern}{Deserialization}
-This pattern is used to deserialize an object at run time.
-This pattern is characterized for a cast to the \code{readObject} method on a \code{ObjectInputStream} object.
+This pattern is used to deserialize an object at run-time.
+In its more common form,
+this pattern is characterized for a cast to the \code{readObject} method on a \code{ObjectInputStream} object.
 
 \instances{}
-The following example
-shows how the \thisp{} pattern is used to create objects from a file system (line 9).
+The following example shows how the \thisp{} pattern is used to create objects from a file system (line 9).
 
 %https://lgtm.com/projects/g/internetarchive/heritrix3/snapshot/dist-12140105-1524814812150/files/engine/src/test/java/org/archive/crawler/datamodel/CrawlURITest.java?sort=name&dir=ASC&mode=heatmap#L83
 \def\urlvar{http://bit.ly/internetarchive_heritrix3_2SF4j7k}
@@ -19,21 +19,20 @@ assertEquals("...", this.seed.toString(), deserializedCuri.toString());
 \end{minted}
 
 \issues{}
-  The serialization API dates back to \java{} 1.1 in 1997.
-  Since then, newer serialization APIs have been developed.
-  For instance Apache Avro%
-  \footnote{\url{https://avro.apache.org/docs/current/}}
-  uses generics and class literals to specify the expected type of an object
-  read. 
-  In some languages, type-safe serialization and deserialization 
-  boilerplate code can be automatically generated, for instance
-  in \rust{}, the Serde library\footnote{\url{https://serde.rs/}}
-  can generate code to serialize most data types
-  in a variety of formats.
+The serialization API dates back to \java{} 1.1 in 1997.
+Since then, newer serialization APIs have been developed.
+For instance Apache Avro%
+\footnote{\url{https://avro.apache.org/docs/current/}}
+uses generics and class literals to specify the expected type of an object read. 
+In some languages,
+type-safe serialization and deserialization boilerplate code can be automatically generated,
+for instance in \rust{},
+the Serde library\footnote{\url{https://serde.rs/}}
+can generate code to serialize most data types
+in a variety of formats.
 
 Both this pattern and the \nameref{pat:NewDynamicInstance} pattern create objects by using reflection.
-While it might be considered a special case of \nameref{pat:KnownReturnType}, \thisp{} differs
-  in that the run-time result type of the \code{readObject} depends on
-  the state of the input stream and can change depending on context.
+While it might be considered a special case of \nameref{pat:KnownReturnType}, 
+\thisp{} differs in that the run-time result type of the \code{readObject} depends on the state of the input stream and can change depending on context.
  
 \end{pattern}
