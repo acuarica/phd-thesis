@@ -8,23 +8,20 @@ before getting the value of the field.
 The cast is needed because \code{Field::get} returns an \code{Object}.
 
 \instances{}
-The following cast%
-\def\urlvar{http://bit.ly/loopj_android_async_http_2SOISRr}
-uses this pattern:
+The following two snippets show how this pattern is used:
 
 %https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1529316783166/files/library/src/main/java/com/loopj/android/http/AsyncHttpClient.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L445
+\def\urlvar{http://bit.ly/loopj_android_async_http_2SOISRr}
 \begin{minted}[highlightlines=2]{java}
 f.setAccessible(true);
 HttpEntity wrapped = (HttpEntity) f.get(entity);
 #\urlbox#
 \end{minted}
 
-
-\def\urlvar{http://bit.ly/joel_costigliola_assertj_db_2Ip1Rho}
-
 %https://lgtm.com/projects/g/joel-costigliola/assertj-db/snapshot/dist-890344-1524814812150/files/src/test/java/org/assertj/db/navigation/ToChange_ChangeOfModification_Integer_Test.java?sort=name&dir=ASC&mode=heatmap#L199
-\begin{minted}[highlightlines=4]{java}
-Field fieldPosition = ChangesOutputter.class.getDeclaredField("changesPosition");
+\def\urlvar{http://bit.ly/joel_costigliola_assertj_db_2Ip1Rho}
+\begin{minted}[highlightlines=5]{java}
+Field fieldPosition=ChangesOutputter.class.getDeclaredField("changesPosition");
 fieldPosition.setAccessible(true);
 ChangesOutputter changesDisplayBis = output(changes);
 PositionWithChanges<ChangesAssert, ChangeAssert> positionBis = 
