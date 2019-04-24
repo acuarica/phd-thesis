@@ -44,7 +44,8 @@
 
 \begin{document}
 
-\if1
+\def\thesis{}
+\ifdefined\thesis
 
 \maketitle %generates the titlepage, this is FIXED
 \frontmatter %generates the frontmatter, this is FIXED
@@ -69,8 +70,6 @@
 \input{cha-ap-jnif}
 
 \backmatter
-
-\chapter{Glossary} %optional
 
 \else
 \input{cha-casts}
