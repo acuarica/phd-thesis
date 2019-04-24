@@ -1,6 +1,6 @@
 
 pages:
-  image: dsferruzza/latex
+  image: alpine:3.7
   script:
     - echo "Nothing to do"
   artifacts:
