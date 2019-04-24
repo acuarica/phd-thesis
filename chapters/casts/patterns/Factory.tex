@@ -9,23 +9,20 @@ The method call needs to create an object based on those arguments.
 Usually the arguments that determine the run-time type to be returned are known at compile-time.
 
 \instances{}
-The following snippet%
-\def\urlvar{http://bit.ly/connect2id_oauth_2_0_sdk_with_2HvRlUX}
+The following snippet
 shows an instance of the \thisp{} pattern.
 The cast is applied to the result of invoking \code{keyPair.getPrivate}
 (line 10).
 The variable \code{keyPair} is assigned the result of \code{pairGen.generateKeyPair} (line 3).
 At the same time, the \code{pairGen} variable is assigned the value returned by \code{KeyPairGenerator.getInstance("RSA")}.
 The argument \code{"RSA"} indicates the algorithm to use.
-%
-\done{Describe}
-%
 The method%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/security/KeyPair.html\#getPrivate()}}
 will return a reference to the private key component,
 and this is determined by the algorithm argument described above.
 
 %https://lgtm.com/projects/b/connect2id/oauth-2.0-sdk-with-openid-connect-extensions/snapshot/dist-1311020143-1524814812150/files/src/test/java/com/nimbusds/oauth2/sdk/jose/jwk/RemoteJWKSetTest.java?sort=name&dir=ASC&mode=heatmap#L242
+\def\urlvar{http://bit.ly/connect2id_oauth_2_0_sdk_with_2HvRlUX}
 \begin{minted}[highlightlines=10]{java}
 KeyPairGenerator pairGen = KeyPairGenerator.getInstance("RSA");
 pairGen.initialize(1024);
@@ -38,14 +35,11 @@ keyPair = pairGen.generateKeyPair();
 RSAKey rsaJWK2 = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
         .privateKey((RSAPrivateKey) keyPair.getPrivate())
         .keyID("2")
-        .build();
+        .build(); #\urlbox#
 \end{minted}
 
-\done{We should generalize this pattern.}
-\done{Also URLOpenConnection.}
-Similar to the above snippet, the next example%
-\def\urlvar{http://bit.ly/apache_hadoop_2E6KY6T}
-shows an instance of the \thisp{} pattern where a cast is performed on the result of the \code{openConnection} method%
+Similar to the above snippet,
+the next example shows an instance of the \thisp{} pattern where a cast is performed on the result of the \code{openConnection} method%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/net/URL.html\#openConnection--}}
 (line 2).
 The method is declared to return \code{URLConnection} but can return a more specific type based on the URL string.
@@ -53,98 +47,74 @@ The \code{openConnection} method is applied to the \code{url} variable,
 which is assigned in line 1 using the \code{URL} constructor.
 The argument to the constructor is an \code{http} URL,
 thus the result is cast to \code{HttpURLConnection}.
-
 %https://lgtm.com/projects/g/apache/hadoop/snapshot/dist-956730001-1524814812150/files/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/webapp/TestRMWebServicesHttpStaticUserPermissions.java?sort=name&dir=ASC&mode=heatmap#L138
+\def\urlvar{http://bit.ly/apache_hadoop_2E6KY6T}
 \begin{minted}[highlightlines=2]{java}
 URL url = new URL("http://localhost:8088/ws/v1/cluster/apps");
 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+#\urlbox#
 \end{minted}
 
-The following example%
-\def\urlvar{http://bit.ly/bcgit_bc_java_2TEVScM}
-\done{Luis: Get bitly link}
-shows how a cast (line 3) is being determined by the argument to the \code{CertificateFactory.getInstance} method (line 1).
+The following example shows how a cast (line 3) is being determined by the argument to the \code{CertificateFactory.getInstance} method (line 1).
 The argument is the string \code{"X.509"},
 therefore the method \code{generateCRL} will return a value of type \code{X509CRL}.
-
 %https://lgtm.com/projects/g/bcgit/bc-java/snapshot/dist-20740003-1524814812150/files/prov/src/test/java/org/bouncycastle/jce/provider/test/X509LDAPCertStoreTest.java?sort=name&dir=ASC&mode=heatmap#L241
+\def\urlvar{http://bit.ly/bcgit_bc_java_2TEVScM}
 \begin{minted}[highlightlines=1]{java}
 CertificateFactory cf = CertificateFactory.getInstance("X.509", "BC");
 // [...]
 X509CRL crl = (X509CRL)cf.generateCRL(new ByteArrayInputStream(directCRL));
+#\urlbox#
 \end{minted}
 
-In our last example%
-\def\urlvar{http://bit.ly/JSQLParser_JSqlParser_2TecMyB}
-the cast instance (line 2) is applied to the result of \code{parse} method.
+In our last example the cast instance (line 2) is applied to the result of \code{parse} method.
 The return type of \code{parse} is of type \code{Statement}, but,
-since the 
-the statement is a \code{SELECT} statement,
+since the the statement is a \code{SELECT} statement,
 the value returned by the \code{parse} method is known to be of type \code{Select}
 and the cast should succeed.
-
 %https://lgtm.com/projects/g/JSQLParser/JSqlParser/snapshot/dist-43250114-1524814812150/files/src/test/java/net/sf/jsqlparser/test/select/SelectTest.java?sort=name&dir=ASC&mode=heatmap#L437
+\def\urlvar{http://bit.ly/JSQLParser_JSqlParser_2TecMyB}
 \begin{minted}[highlightlines=2]{java}
 statement = "SELECT * FROM mytable WHERE mytable.col = 9 LIMIT :param_name";
 select = (Select) parserManager.parse(new StringReader(statement));
-
 public class Select implements Statement {
         // [...]
 }
-
 public class CCJSqlParserManager implements JSqlParser {
     @Override
     public Statement parse(Reader statementReader) throws JSQLParserException {
         // [...]
     }
-}
+} #\urlbox#
 \end{minted}
 
-
-Another example is when using the \c{openConnection} method
-of the standard library class \code{java.net.URL}.%
-\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/net/URL.html\#openConnection--}}
-In the method returns a \code{URLConnection}, but depending on the URL scheme
-(\eg, \code{http}), the method will return a particular subclass 
-of \code{URLConnection} (\eg, \code{HttpURLConnection})
-that must then be downcast to be used.
-
-
-
-\textbf{CreateByClassLiteral}
-A cast applied to a method invocation where one of its arguments is a class literal.
-The target type of the cast is determined by this class literal.
-
-\instances{}
-The following example 
-\def\urlvar{http://bit.ly/liferay_liferay_ide_2FMG0f6}
-
+In some cases of this pattern, a cast is applied to a method invocation where one of its arguments is a class literal.
+The target type of the cast is determined by this class literal,
+like in the following snippets.
 %https://lgtm.com/projects/g/liferay/liferay-ide/snapshot/dist-2980259-1524814812150/files/tools/plugins/com.liferay.ide.server.ui/src/com/liferay/ide/server/ui/handlers/RedeployHandler.java?sort=name&dir=ASC&mode=heatmap#L64
+\def\urlvar{http://bit.ly/liferay_liferay_ide_2FMG0f6}
 \begin{minted}[highlightlines=2-3]{java}
 final ILiferayServerBehavior liferayServerBehavior =
                 (ILiferayServerBehavior) moduleServer.getServer()
                         .loadAdapter( ILiferayServerBehavior.class, null );
+#\urlbox#
 \end{minted}
 
-
-\def\urlvar{http://bit.ly/robovm_robovm_2FMFWvS}
-
 %https://lgtm.com/projects/g/robovm/robovm/snapshot/dist-39650108-1524814812150/files/cocoatouch/src/main/java/org/robovm/apple/corevideo/CVBufferMovieTime.java?sort=name&dir=ASC&mode=heatmap#L66
+\def\urlvar{http://bit.ly/robovm_robovm_2FMFWvS}
 \begin{minted}[highlightlines=1]{java}
 CFArray o = (CFArray) CFType.Marshaler.toObject(CFArray.class, handle, flags);
+#\urlbox#
 \end{minted} 
-
-
-
 
 
 \discussion{}
 In some situations, the use of this pattern can be seen as breaking the contract \api{} between the caller and the callee.
 This happens because the caller needs to know how the method is implemented in order to determine the run-time return type.
-  In \thisp{}, there is a known type hierarchy 
-  below the return type and the caller casts to a known subtype
-  in that hierarchy based on the arguments passed into the factory method.
-%
+In \thisp{}, there is a known type hierarchy 
+below the return type and the caller casts to a known subtype
+in that hierarchy based on the arguments passed into the factory method.
+
 The \nameref{pat:KnownReturnType} pattern is similar to \thisp{},
 since both depend on the knowledge that a method returns a more specific type.
 
