@@ -109,7 +109,7 @@ CFArray o = (CFArray) CFType.Marshaler.toObject(CFArray.class, handle, flags);
 \end{minted} 
 
 
-\discussion{}
+\issues{}
 In some situations, the use of this pattern can be seen as breaking the contract \api{} between the caller and the callee.
 This happens because the caller needs to know how the method is implemented in order to determine the run-time return type.
 In \thisp{}, there is a known type hierarchy 
