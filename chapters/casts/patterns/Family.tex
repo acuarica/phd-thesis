@@ -1,72 +1,61 @@
 \begin{pattern}{Family}
-  The \thisp{} pattern implements casts
-  to provide a sort of
-  \emph{family
-polymorphism}~\citep{ernstFamilyPolymorphism2001}.
-A ``family'' consists of
-multiple mutually-dependent types designed to collaborate with each other.
+The \thisp{} pattern implements casts to provide a sort of
+\emph{family polymorphism}~\citep{ernstFamilyPolymorphism2001}.
+A ``family'' consists of multiple mutually-dependent types designed to
+collaborate with each other.
 Each type has a role in the family.
-  Deriving from a base family to form another
-  family requires subclassing all the members of the base family, with the
-  subclasses in the new family retaining their roles in the new family.
-  Because method parameter types are invariant in \java{} and because
-  covariant parameter types are unsound in general, the
-  method parameter types in the
-  derived family are the same as in the base family.
-  Casts are therefore necessary for one member of a derived family to access
-  another member using its derived family type rather that its base family
-  type.
+Deriving from a base family to form another family requires subclassing all the members of the base family,
+with the subclasses in the new family retaining their roles in the new family.
+Because method parameter types are invariant in \java{} and because covariant parameter types are unsound in general,
+the method parameter types in the derived family are the same as in the base family.
+Casts are therefore necessary for one member of a derived family to access
+another member using its derived family type rather that its base family
+type.
 
 To detect this pattern, the cast needs to be applied to a family.
 A family is distinguished by a covariant usage of a field or parameter in an overriding method.
 
 \instances{}
-The following example%
-\def\urlvar{http://bit.ly/pentaho_pentaho_kettle_2FN59J8}
-shows an instance of the \thisp{} pattern.
-%
-  In this case, the interfaces \code{StepInterface}, \code{StepMetaInterface},
-  and \code{StepDataInterface} are part of a base family and the
-  \code{stopRunning} method has parameters of these types.
-  In the derived family the roles of these three interfaces are
-  implemented by the classes
-  \code{DynamicSQLRow},
-  \code{DynamicSQLRowMeta}, and
-  \code{DynamicSQLRowData}.
-
+The following example shows an instance of the \thisp{} pattern.
+In this case, the interfaces \code{StepInterface}, \code{StepMetaInterface},
+and \code{StepDataInterface} are part of a base family and the
+\code{stopRunning} method has parameters of these types.
+In the derived family the roles of these three interfaces are
+implemented by the classes
+\code{DynamicSQLRow},
+\code{DynamicSQLRowMeta}, and
+\code{DynamicSQLRowData}.
 A cast is applied to the parameter \code{smi} of \code{stopRunning} in
-\code{DynamicSQLRow} (line 12). This cast is necessary to convert the
-method parameter, of the base
-family type \code{StepDataInterface}, into the derived family type with the
-same role.
-
+\code{DynamicSQLRow} (line 12).
+This cast is necessary to convert the method parameter,
+of the base family type \code{StepDataInterface},
+into the derived family type with the same role.
 %https://lgtm.com/projects/g/pentaho/pentaho-kettle/snapshot/dist-1815472020-1524814812150/files/engine/src/main/java/org/pentaho/di/trans/steps/dynamicsqlrow/DynamicSQLRow.java?sort=name&dir=ASC&mode=heatmap#L281
+\def\urlvar{http://bit.ly/pentaho_pentaho_kettle_2FN59J8}
 \begin{minted}[highlightlines=12]{java}
 public interface StepInterface extends VariableSpace, HasLogChannelInterface {
   // [...]
   public void stopRunning( StepMetaInterface stepMetaInterface,
           StepDataInterface stepDataInterface ) throws KettleException;
 }
-
 public class DynamicSQLRow extends BaseStep implements StepInterface {
   private DynamicSQLRowMeta meta;
   private DynamicSQLRowData data;
   // [...]
-  public void stopRunning( StepMetaInterface smi, StepDataInterface sdi ) throws KettleException {
+  public void stopRunning( StepMetaInterface smi, StepDataInterface sdi )
+          throws KettleException {
     meta = (DynamicSQLRowMeta) smi;
     data = (DynamicSQLRowData) sdi;
     // [...]
   }
-}
+} #\urlbox#
 \end{minted}
 
-The next example%
-\def\urlvar{http://bit.ly/apache_orc_2SE4C2m}
-is similar to the previous one.
+The next example is similar to the previous one.
 The \code{masked} parameter is cast to \code{DoubleColumnVector} (line 5).
 It is so because the \code{masked} variable is expected to hold an instance of \code{DoubleColumnVector} when the \code{maskData} method is applied to an object of type \code{DoubleIdentity}.
-
 %https://lgtm.com/projects/g/apache/orc/snapshot/dist-1506201906740-1524814812150/files/java/core/src/java/org/apache/orc/impl/mask/DoubleIdentity.java?sort=name&dir=ASC&mode=heatmap#L32
+\def\urlvar{http://bit.ly/apache_orc_2SE4C2m}
 \begin{minted}[highlightlines=5]{java}
 public class DoubleIdentity implements DataMask {
   @Override
@@ -77,24 +66,21 @@ public class DoubleIdentity implements DataMask {
     // [...]
   }
 }
-
 public interface DataMask {
   // [...]
   void maskData(ColumnVector original, ColumnVector masked,
                 int start, int length);
-}
-
+} #\urlbox#
 \end{minted}
 
 In both previous examples,
 cast instances were applied to a parameter in a overriding method.
-In the next example,%
-\def\urlvar{http://bit.ly/knowm_XChange_2UPPDj9}
-the cast instance is applied to super class field (line 12).
+In the next example, the cast instance is applied to super class field (line 12).
 The field is declared in the \code{BaseExchange} class (line 20).
 However, the field is initialized with a \code{BitflyerMarketDataService} value in line~5.
 
 %https://lgtm.com/projects/g/knowm/XChange/snapshot/dist-4990076-1524814812150/files/xchange-bitflyer/src/main/java/org/knowm/xchange/bitflyer/BitflyerExchange.java?sort=name&dir=ASC&mode=heatmap#L52
+\def\urlvar{http://bit.ly/knowm_XChange_2UPPDj9}
 \begin{minted}[highlightlines=12]{java}
 public class BitflyerExchange extends BaseExchange implements Exchange {
   // [...]
@@ -112,12 +98,11 @@ public class BitflyerExchange extends BaseExchange implements Exchange {
     exchangeMetaData = BitflyerAdapters.adaptMetaData(markets);
   }
 }
-
 public abstract class BaseExchange implements Exchange {
   // [...]
   protected MarketDataService marketDataService;
   // [...]
-}
+} #\urlbox#
 \end{minted}
 
 \discussion{}
