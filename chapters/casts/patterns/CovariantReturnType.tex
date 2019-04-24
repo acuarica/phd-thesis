@@ -1,21 +1,30 @@
 \begin{pattern}{CovariantReturnType}
-
 The \thisp{} pattern is used to cast a call to a method that returns
-an instance of a type that is covariant with the 
-receiver type.
+an instance of a type that is covariant with the receiver type.
 Commonly the method returns a instance of the receiver type itself.
 
 \instances{}
-A common instance of this pattern is for calls to the 
-\code{clone} method of \code{java.lang.Object}, which returns an object of the same type as the
-receiver, but whose static type is \code{Object}.
+A common instance of this pattern is for calls to the \code{clone} method of \code{java.lang.Object} (\nCovariantReturnTypeCloneSubpattern{} instances),
+which returns an object of the same type as the receiver,
+but whose static type is \code{Object}.
+The following snippet shows a cast to the \code{clone} method.
 
-% TODO: Add clone example 
+%https://lgtm.com/projects/g/aws/aws-sdk-java/snapshot/dist-6950065-1524814812150/files/aws-java-sdk-elasticache/src/main/java/com/amazonaws/services/elasticache/model/ListTagsForResourceResult.java?sort=name&dir=ASC&mode=heatmap#L156
+\def\urlvar{http://bit.ly/aws_aws_sdk_java_2GvHhYt}
+\begin{minted}[highlightlines=4]{java}
+@Override
+public ListTagsForResourceResult clone() {
+    try {
+        return (ListTagsForResourceResult) super.clone();
+    } catch (CloneNotSupportedException e) {
+        throw new IllegalStateException(/* [...] */);
+    }
+} #\urlbox#
+\end{minted}
 
 In the following example,
 the \code{unmarshall} method overrides a superclass method with a covariant return type.
-A cast is used on the call to the superclass method 
-to change the type of the return value to match the more precise return type.
+A cast is used on the call to the superclass method to change the type of the return value to match the more precise return type.
 
 %https://lgtm.com/projects/g/aws-amplify/aws-sdk-android/snapshot/dist-2970378-1524814812150/files/aws-android-sdk-autoscaling/src/main/java/com/amazonaws/services/autoscaling/model/transform/ResourceContentionExceptionUnmarshaller.java?sort=name&dir=ASC&mode=heatmap#L39
 \def\urlvar{http://bit.ly/aws_amplify_aws_sdk_android_2FVWl13}
@@ -36,13 +45,25 @@ public class ResourceContentionExceptionUnmarshaller extends StandardErrorUnmars
 } #\urlbox#
 \end{minted}
 
+The \code{initCause} method ---from the \code{java.lang.Throwable} class---has return type \code{Throwable}.
+Nevertheless, this method returns the receiver (after setting the cause exception).
+Therefore a cast is needed to recover the original exception type,
+as shown in the following example.
+This use case resembles the \nameref{pat:FluentAPI} pattern.
+
+%https://lgtm.com/projects/g/apache/activemq/snapshot/dist-11730660-1524814812150/files/activemq-client/src/main/java/org/apache/activemq/ActiveMQConnectionFactory.java?sort=name&dir=ASC&mode=heatmap#L235
+\def\urlvar{http://bit.ly/apache_activemq_2EnSivc}
+\begin{minted}[highlightlines=1]{java}
+throw (IllegalArgumentException)
+        new IllegalArgumentException("Invalid broker URI: " + brokerURL)
+        .initCause(e);
+#\urlbox#
+\end{minted}
+
+
 \issues{}
-  The case of returning \code{this} 
-                 could be avoided if \java{} supported self types~\cite{bruceChallengingTypingIssues2003}.
-  More generally, associated types~\cite{chakravartyAssociatedTypeSynonyms2005}
-  can provide a statically typed solution, for instance in the second example
-  above.
+The case of returning \code{this} could be avoided if \java{} supported self types~\cite{bruceChallengingTypingIssues2003}.
+More generally, associated types~\cite{chakravartyAssociatedTypeSynonyms2005} can provide a statically typed solution,
+for instance in the second example above.
 
 \end{pattern}
-
-
