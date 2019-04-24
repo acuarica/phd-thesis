@@ -3,25 +3,28 @@ The \thisp{} occurs when an interface or abstract class has only one implementin
 Casting the interface to this class must succeed because it cannot possibly be an instance of another class.
 
 \instances{}
-In the following example%
-\def\urlvar{http://bit.ly/ow2_proactive_scheduling_2Ulcjfs}
-the \code{jobId} variable is cast to the sole implementation (\code{JobIdImpl}).
+In the following example the \code{jobId}
+variable is cast to the sole implementation (\code{JobIdImpl}).
 
 %https://lgtm.com/projects/g/ow2-proactive/scheduling/snapshot/dist-6910096-1524814812150/files/scheduler/scheduler-api/src/main/java/org/ow2/proactive/scheduler/job/JobIdImpl.java?sort=name&dir=ASC&mode=heatmap#L118
+\def\urlvar{http://bit.ly/ow2_proactive_scheduling_2Ulcjfs}
 \begin{minted}[highlightlines=1,linenos=false]{java}
-    return Longs.compare(id, ((JobIdImpl) jobId).id);
+return Longs.compare(id, ((JobIdImpl) jobId).id);
 #\urlbox#
 \end{minted}
 
-% TODO: Include example.
-%https://lgtm.com/projects/g/immutables/immutables/snapshot/dist-43930039-1524814812150/files/value-processor/target/generated-sources/annotations/org/immutables/value/processor/encode/ImmutableEncodedElement.java?sort=name&dir=ASC&mode=heatmap#L1734
-% \def\urlvar{http://bit.ly/immutables_immutables_2S4BoJs}
-% \begin{minted}{java}
-% public final EncodedElement.Builder addAllThrown( Iterable<? extends Type> elements) {
-%     this.thrown.addAll(elements);
-%     return (EncodedElement.Builder) this;
-% } #\urlbox#
-% \end{minted}
+Similar to the previous example,
+the variable \code{user} is cast to the known implementation (\code{UserImpl}).
+
+%https://lgtm.com/projects/g/Javacord/Javacord/snapshot/dist-1791982360-1524814812150/files/src/main/java/de/btobastian/javacord/entities/message/impl/ImplMessage.java?sort=name&dir=ASC&mode=heatmap#L681
+\def\urlvar{http://bit.ly/Javacord_Javacord_2GwGjuV}
+\begin{minted}[highlightlines=2]{java}
+for (User user : api.getUsers()) {
+    if (channelId.equals(((ImplUser) user).getUserChannelId())) {
+        return user;
+    }
+} #\urlbox#
+\end{minted}
 
 
 \issues{}
