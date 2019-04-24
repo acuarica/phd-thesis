@@ -3,15 +3,14 @@ In this pattern an array is used as an untyped object.
 A cast is applied to a constant array slot, \eg, \code{(String) array[1]}.
 
 \instances{}
-The following example%
-\def\urlvar{http://bit.ly/datanucleus_datanucleus_core_2S1L5Zf}
-shows an instance of the \thisp{} pattern.
-The variable \code{currentState} contains an \code{Object[]} with a fixed
-schema.%
+The following example shows an instance of the \thisp{} pattern.
+The variable \code{currentState} contains an \code{Object[]} with a fixed schema.%
 \footnote{\url{http://www.datanucleus.org/javadocs/core/5.0/org/datanucleus/enhancement/Detachable.html}}
-A cast is performed of a constant array slot, \code{(BitSet) currentState[3]} on line 5.
+A cast is performed of a constant array slot,
+\code{(BitSet) currentState[3]} on line 5.
 
 %https://lgtm.com/projects/g/datanucleus/datanucleus-core/snapshot/dist-14100061-1524814812150/files/src/main/java/org/datanucleus/state/StateManagerImpl.java?sort=name&dir=ASC&mode=heatmap#L3324
+\def\urlvar{http://bit.ly/datanucleus_datanucleus_core_2S1L5Zf}
 \begin{minted}[highlightlines=5]{java}
         BitSet theLoadedFields = (BitSet)currentState[2];
         for (int i = 0; i < this.loadedFields.length; i++) {
