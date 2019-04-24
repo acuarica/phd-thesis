@@ -1,9 +1,11 @@
 
+  # script:
+    # - latexmk -pdf -shell-escape -bibtex phd-thesis.tex
+    # - cp phd-thesis.pdf public/
+    # - echo "Nothing to do"
+
 pages:
   image: dsferruzza/latex
-  script:
-    - latexmk -pdf -shell-escape -bibtex phd-thesis.tex
-    - cp phd-thesis.pdf public/
   artifacts:
     paths:
       - public/phd-thesis.pdf

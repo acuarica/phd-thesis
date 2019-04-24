@@ -107,15 +107,15 @@ This test is more precise than an \code{x}~\code{instanceof}~\code{C} test since
 rather than any subclass of \code{C}.
 Listing~\ref{lst:getclasstest} shows how to use the \code{getClass} method to test for an object's type.
 
-% \begin{listing}
+\begin{listing}
 \begin{minted}{java}
 if (x.getClass() == Foo.class) {
 	((Foo)x).doFoo(); 
 }
 \end{minted}
-\captionof{listing}{Runtime type test using \code{getClass} before applying a cast.}
+\caption{Runtime type test using \code{getClass} before applying a cast.}
 \label{lst:getclasstest}
-% \end{listing}
+\end{listing}
 
 Because they can fail,
 downcasts pose potential threats.
