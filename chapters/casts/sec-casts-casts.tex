@@ -37,12 +37,12 @@ type $T$, where $T$ is a proper subtype of $S$.
 Listing~\ref{lst:casts:simple} shows how to use the cast operator (line 2) to treat a reference (the variable \code{o}) as a different type (\code{String}) as it was defined (\code{Object}).
 
 \begin{listing}[H]
-\caption{Variable \code{o} (defined as \code{Object}) is cast to \code{String}.}
-\label{lst:casts:simple}
 \begin{minted}{java}
 Object o = "foo"; 
 String s = (String)o;
 \end{minted}
+\caption{Variable \code{o} (defined as \code{Object}) is cast to \code{String}.}
+\label{lst:casts:simple}
 \end{listing}
 
 In type-safe OO languages, downcasts require
@@ -59,7 +59,6 @@ checkcast     #3     // class java/lang/String
 astore_2
 \end{lstlisting}
 
-
 This run-time check can either \emph{succeed} or \emph{fail}.
 A \code{ClassCastException} is thrown when a downcast fails.
 This exception is an unchecked exception, \ie,
@@ -68,8 +67,6 @@ nor to specify the exception in the method signature.
 Listing~\ref{lst:catchcce} shows how to detect whether a cast failed by catching this exception.
 
 \begin{listing}[H]
-\caption{Catching \code{ClassCastException}}
-\label{lst:catchcce}
 \begin{minted}{java}	
 try {
 	Object x = new Integer(0);
@@ -78,6 +75,8 @@ try {
 	System.out.println(""); 
 }
 \end{minted}
+\caption{Catching \code{ClassCastException}}
+\label{lst:catchcce}
 \end{listing}
 
 A \emph{guard} is a conditional expression on which a (down)cast is control-dependent and that ensures that the cast is evaluated only if it will succeed.
@@ -89,13 +88,13 @@ a \code{ClassCastException}.
 Listing~\ref{lst:instanceoftest} shows a usage of the \code{instanceof} operator together with a cast expression.
 
 \begin{listing}[H]
-\caption{Runtime type test using \code{instanceof} before applying a cast.}
-\label{lst:instanceoftest}
 \begin{minted}{java}
 if (x instanceof Foo) {
 	((Foo)x).doFoo();
 }
 \end{minted}
+\caption{Runtime type test using \code{instanceof} before applying a cast.}
+\label{lst:instanceoftest}
 \end{listing}
 
 In \java{}, an object's type can also be checked using reflection:
@@ -109,13 +108,13 @@ rather than any subclass of \code{C}.
 Listing~\ref{lst:getclasstest} shows how to use the \code{getClass} method to test for an object's type.
 
 \begin{listing}[H]
-\caption{Runtime type test using \code{getClass} before applying a cast.}
-\label{lst:getclasstest}
 \begin{minted}{java}
 if (x.getClass() == Foo.class) {
 	((Foo)x).doFoo(); 
 }
 \end{minted}
+\caption{Runtime type test using \code{getClass} before applying a cast.}
+\label{lst:getclasstest}
 \end{listing}
 
 Because they can fail,

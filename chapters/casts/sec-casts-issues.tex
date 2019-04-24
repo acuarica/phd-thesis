@@ -31,11 +31,14 @@ The following snippet%
 shows a cast applied to the variable \code{job} (in line 3) that throws \code{ClassCastException} because the developer forgot to include a guard.
 In this case, the developer fixed the error by introducing an \code{instanceof} guard to the cast (lines 1 and 2).
 
+\begin{listing}[H]
 \begin{minted}[highlightlines=3]{java}
 if(!(job instanceof AbstractProject<?, ?>))
   return "";
 AbstractProject<?, ?> project = (AbstractProject<?, ?>) job;
 \end{minted}
+\caption{Cast throws \code{ClassCastException} because of a forgotten guard.}
+\end{listing}
 
 In the next example%
 \footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}}
@@ -48,6 +51,7 @@ The cast happens inside an \code{equals} method
 within the \code{CustomFileFilter} class.
 But the developer made a typo, using the outer class (\code{JCustomFileFilter}), instead of the inner class (\code{CustomFileFilter}).
 
+\begin{listing}[H]
 \begin{minted}[highlightlines=9]{java}
 public final class JCustomFileChooser extends JFileChooser {
   /* [...] */
@@ -65,19 +69,20 @@ public final class JCustomFileChooser extends JFileChooser {
   }
 }
 \end{minted} 
+\caption{Cast throws \code{ClassCastException} because of wrong cast target.}
+\end{listing}
 
 More subtle, however, is the interaction between casting and generics.
-For example, the following call,%
+For example, the following call to the \code{getProperty} method (line 1),%
 \footnote{\url{https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382}}
 throws a \code{ClassCastException}.
-
-\begin{minted}[linenos=false]{java}
-config.getProperty("peer.p2p.pingInterval", 5L)
-\end{minted}
-
-The method has the following definition:%
+The method definition is shown in line 3.%
 \footnote{\url{https://github.com/ethereum/ethereumj/blob/224e65b9b4ddcb46198a6f8faf69edc65d34d382/ethereumj-core/src/main/java/org/ethereum/config/SystemProperties.java\#L312}}
-\begin{minted}[linenos=false]{java}
+
+\begin{listing}[H]
+\begin{minted}[highlightlines=1]{java}
+config.getProperty("peer.p2p.pingInterval", 5L)
+
 public <T> T getProperty(String propName, T defaultValue) {
     if (!config.hasPath(propName)) return defaultValue;
     String string = config.getString(propName);
@@ -85,10 +90,14 @@ public <T> T getProperty(String propName, T defaultValue) {
     return (T) config.getAnyRef(propName);
 }
 \end{minted}
-The first argument to the method is the name of a property, used to lookup a
-value in a table. The second argument is a default value to use if the
-property is not in the table. If the lookup is successful, the method casts
-the value found to type \code{T}.
+\caption{Cast throws \code{ClassCastException} because of generic inference.}
+\end{listing}
+
+The first argument to the method is the name of a property,
+used to lookup a value in a table.
+The second argument is a default value to use if the property is not in the table.
+If the lookup is successful,
+the method casts the value found to type \code{T}.
 In the call, the given property
 \code{"peer.p2p.pingInterval"} is in the table and mapped to an \code{Integer}.
 However, \java{} uses the type of the \code{defaultValue} argument, in this
@@ -103,7 +112,8 @@ of \code{getProperty} is used later with type \code{Long}.
 It is this cast that fails at run time and that is reported at run time.
 
 The fix for this bug is to change the default value argument from \code{5L}
-to just \code{5}. This causes the call's return type is inferred to be
+to just \code{5}.
+This causes the call's return type is inferred to be
 \code{Integer}, and the compiler-inserted cast succeeds.
 
 As these examples show, problems with casts are not always obvious.

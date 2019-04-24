@@ -10,7 +10,9 @@
 \usepackage{pifont}
 \usepackage{multirow}
 \usepackage{multicol}
-\usepackage{minted}
+\usepackage[newfloat]{minted}
+
+\SetupFloatingEnvironment{listing}{listname=Listings}
 
 \input{prelude}
 
@@ -47,15 +49,16 @@
 \def\thesis{}
 \ifdefined\thesis
 
-\maketitle %generates the titlepage, this is FIXED
-\frontmatter %generates the frontmatter, this is FIXED
+\maketitle
+\frontmatter
 
 \input{abstract}
 \input{acks}
 
 \tableofcontents 
-\listoffigures %optional
-\listoftables %optional
+\listoffigures
+\listoftables
+\listoflistings
 
 \mainmatter
 
@@ -65,7 +68,7 @@
 \input{cha-casts}
 \input{cha-conclusions}
 
-\appendix %optional, use only if you have an appendix
+\appendix
 
 \input{cha-ap-jnif}
 
