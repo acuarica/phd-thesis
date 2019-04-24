@@ -9,8 +9,8 @@
 \row 9 & \nameref{pat:SelectOverload} &  & \cmark &  &  &  &  \\
 \alt 10 & \nameref{pat:Deserialization} &  &  & \cmark &  &  &  \\
 \row 11 & \nameref{pat:VariableSupertype} &  &  &  &  & \cmark &  \\
-\alt 12 & \nameref{pat:SoleSubclassImplementation} &  & \cmark &  &  &  &  \\
-\row 13 & \nameref{pat:NewDynamicInstance} &  &  & \cmark &  &  &  \\
+\alt 12 & \nameref{pat:NewDynamicInstance} &  &  & \cmark &  &  &  \\
+\row 13 & \nameref{pat:SoleSubclassImplementation} &  & \cmark &  &  &  &  \\
 \alt 14 & \nameref{pat:ObjectAsArray} &  &  &  &  & \cmark &  \\
 \row 15 & \nameref{pat:ImplicitIntersectionType} &  & \cmark &  &  &  &  \\
 \alt 16 & \nameref{pat:CovariantReturnType} &  & \cmark &  &  &  &  \\

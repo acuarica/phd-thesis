@@ -9,8 +9,8 @@
 \row \nameref{pat:SelectOverload} & \SelectOverloadDesc & \nSelectOverloadPattern & \pSelectOverloadPattern \% \\
 \alt \nameref{pat:Deserialization} & \DeserializationDesc & \nDeserializationPattern & \pDeserializationPattern \% \\
 \row \nameref{pat:VariableSupertype} & \VariableSupertypeDesc & \nVariableSupertypePattern & \pVariableSupertypePattern \% \\
-\alt \nameref{pat:SoleSubclassImplementation} & \SoleSubclassImplementationDesc & \nSoleSubclassImplementationPattern & \pSoleSubclassImplementationPattern \% \\
-\row \nameref{pat:NewDynamicInstance} & \NewDynamicInstanceDesc & \nNewDynamicInstancePattern & \pNewDynamicInstancePattern \% \\
+\alt \nameref{pat:NewDynamicInstance} & \NewDynamicInstanceDesc & \nNewDynamicInstancePattern & \pNewDynamicInstancePattern \% \\
+\row \nameref{pat:SoleSubclassImplementation} & \SoleSubclassImplementationDesc & \nSoleSubclassImplementationPattern & \pSoleSubclassImplementationPattern \% \\
 \alt \nameref{pat:ObjectAsArray} & \ObjectAsArrayDesc & \nObjectAsArrayPattern & \pObjectAsArrayPattern \% \\
 \row \nameref{pat:ImplicitIntersectionType} & \ImplicitIntersectionTypeDesc & \nImplicitIntersectionTypePattern & \pImplicitIntersectionTypePattern \% \\
 \alt \nameref{pat:CovariantReturnType} & \CovariantReturnTypeDesc & \nCovariantReturnTypePattern & \pCovariantReturnTypePattern \% \\
