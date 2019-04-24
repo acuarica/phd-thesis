@@ -2,8 +2,7 @@
 The \thisp{} pattern occurs when an cast is used to use an invariant generic type as if it were covariant.
 
 \instances{}
-In the following snippet,%
-\def\urlvar{http://bit.ly/arpruss_raspberryjammod_2USL7Ai}
+In the following snippet,
 an upcast is performed to ensure that the inferred type of the call to \code{singletonList} is a supertype of the type that would be otherwise inferred.
 The \code{singletonList} method has the signature \code{<T> List<T> singletonList(T o)}.%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html}}
@@ -14,6 +13,7 @@ causing a compilation error.
 With the cast, the list type is inferred to be the same as the return type.
 
 %https://lgtm.com/projects/g/arpruss/raspberryjammod/snapshot/dist-1796220064-1524814812150/files/build/sources/java/org/java_websocket/drafts/Draft_10.java?sort=name&dir=ASC&mode=heatmap#L157
+\def\urlvar{http://bit.ly/arpruss_raspberryjammod_2USL7Ai}
 \begin{minted}[highlightlines=5]{java}
 @Override
 public List<Framedata> createFrames(String text, boolean mask) {
@@ -24,15 +24,15 @@ public List<Framedata> createFrames(String text, boolean mask) {
 public interface FrameBuilder extends Framedata { /* [...] */ }
 public class Collections {
     public static <T> List<T> singletonList(T o) { /* [...] */ }
-}
+} #\urlbox#
 \end{minted}
 
-Similar to the previous example,
-in the following case,%
-\def\urlvar{http://bit.ly/jfaster_mango_2EhXzUW}
-an upcast is performed to change the return type of the \code{Matcher<T> equalTo(T)} method.
+Similar to the previous example, in the following case,
+an upcast is performed to change the return type of the
+\code{Matcher<T> equalTo(T)} method.
 
 %https://lgtm.com/projects/g/jfaster/mango/snapshot/dist-1793930711-1524814812150/files/src/test/java/org/jfaster/mango/operator/UpdateOperatorTest.java?sort=name&dir=ASC&mode=heatmap#L125
+\def\urlvar{http://bit.ly/jfaster_mango_2EhXzUW}
 \begin{minted}[highlightlines=5]{java}
 @Test
 public void testUpdateReturnBoolean() throws Exception {
@@ -40,29 +40,37 @@ public void testUpdateReturnBoolean() throws Exception {
     List<Object> args = boundSql.getArgs();
     assertThat(args.get(0), equalTo((Object) "ash"));
 }
-public static <T> Matcher<T> equalTo(T operand) { /* [...] */ }
+public static <T> Matcher<T> equalTo(T operand) {
+    // [...]
+} #\urlbox#
 \end{minted}
 
-Another common version of this pattern%
-\footnote{For instance, \url{http://bit.ly/spockframework_spock_2UYEsF5}}
-for type \code{S} a subtype of \code{T},
+Instead of an upcast, in this example,
+a cast to \code{null} is performed to change the return type.
+This use case resembles the \nameref{pat:SelectOverload} pattern.
+
+%https://lgtm.com/projects/g/EngineHub/WorldGuard/snapshot/dist-1795351250-1524814812150/files/worldguard-legacy/src/test/java/com/sk89q/worldguard/protection/FlagValueCalculatorTest.java?sort=name&dir=ASC&mode=heatmap#L1024
+\def\urlvar{http://bit.ly/EngineHub_WorldGuard_2IVUOx1}
+\begin{minted}[highlightlines=2]{java}
+assertThat(result.queryValue(memberOne, DefaultFlag.BUILD), is((State) null));
+public static <T> Matcher<T> is(T value) {
+    // [...]
+} #\urlbox#
+\end{minted}
+
+Another common version of this pattern for type \code{S} a subtype of \code{T},
 is to cast a generic type like \code{List<S>} to a raw type (\code{List}),
 which can then be assigned to a variable of \code{List<T>}.
-
 %https://lgtm.com/projects/g/spockframework/spock/snapshot/dist-7950040-1524814812150/files/spock-core/src/main/java/org/spockframework/compiler/WhereBlockRewriter.java?sort=name&dir=ASC&mode=heatmap#L360
+\def\urlvar{http://bit.ly/spockframework_spock_2UYEsF5}
 \begin{minted}[highlightlines=2]{java}
 private final List<VariableExpression> dataProcessorVars = new ArrayList<>();
 new ArrayExpression(ClassHelper.OBJECT_TYPE, (List) dataProcessorVars);
-
 public class ArrayExpression extends Expression {
     public ArrayExpression(ClassNode elementType, List<Expression> exprs) {}
-}
+} #\urlbox#
 \end{minted}
 
-
-\def\urlvar{http://bit.ly/EngineHub_WorldGuard_2IVUOx1}
-
-%https://lgtm.com/projects/g/EngineHub/WorldGuard/snapshot/dist-1795351250-1524814812150/files/worldguard-legacy/src/test/java/com/sk89q/worldguard/protection/FlagValueCalculatorTest.java?sort=name&dir=ASC&mode=heatmap#L1024
 
 \discussion{}
 Avoided with

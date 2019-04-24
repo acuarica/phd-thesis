@@ -17,6 +17,7 @@ that do implement \code{Comparable}.
 
 \begin{minted}[highlightlines=1,linenos=false]{java}
 final Comparable max = (Comparable) properties.getMaxValue();
+#\urlbox#
 \end{minted}
 
 Dynamic Proxy implementation
@@ -28,6 +29,7 @@ PyObjectValueProxyClass proxyClass = getProxyClass(pyObject);
 PyObjectValue pyObjectValue = (PyObjectValue) proxyClass.getConstructor()
         .newInstance(proxyClass.getParams());
 ((Proxy) pyObjectValue).setHandler(new PyObjectValueMethodHandler(content, sensitive, pyObject));
+#\urlbox#
 \end{minted}
 
 \discussion{}

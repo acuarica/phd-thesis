@@ -44,7 +44,7 @@ public class TransactionTemplate {
 	<T> T execute(TransactionCallback<T> action) {
         // [...]
 	}
-}
+} #\urlbox#
 \end{minted}
 
 The next cast instance%
@@ -64,7 +64,7 @@ public void accumulate(Tuple b) throws IOException {
 
 static protected BigDecimal count(Tuple input) throws ExecException {
     // [...]
-}
+} #\urlbox#
 \end{minted}
 
 In the following cast instance,%
@@ -100,7 +100,7 @@ public class ImplicitKeyTreap<T> implements IList<T> {
         private Node<T> right = null;
         // [...]
     }
-}
+} #\urlbox#
 \end{minted}
 
 There are cases when code generators insert superfluous casts to \code{null}.
@@ -112,7 +112,7 @@ could be removed since in this case the cast to \code{null} is not needed.
 \begin{minted}[highlightlines=2]{java}
 public groovy.lang.MetaClass getMetaClass() {
     return (groovy.lang.MetaClass) null;
-}
+} #\urlbox#
 \end{minted}
 
 

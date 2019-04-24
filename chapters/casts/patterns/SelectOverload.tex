@@ -44,6 +44,7 @@ public void onSuccess(
 
 public void onSuccess(
       int statusCode, Header[] headers, String responseString) {...}
+#\urlbox#
 \end{minted}
 
 In the following example%
@@ -59,6 +60,7 @@ the call is needed to invoke the method that takes a \code{long}
 assertEquals(expected, (long) actual.data());
 public static void assertEquals(Object expected, Object actual) { ... }
 public static void assertEquals(long expected, long actual) { ... }
+#\urlbox#
 \end{minted}
 
 
@@ -77,7 +79,7 @@ Upcast generic%
 \begin{minted}[highlightlines=2]{java}
 public static <T> T max(Iterator<T> self, Comparator<T> comparator) {
       return max((Iterable<T>)toList(self), comparator);
-}
+} #\urlbox#
 \end{minted}
 
 \discussion{}

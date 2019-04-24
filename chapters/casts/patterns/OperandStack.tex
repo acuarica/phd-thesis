@@ -20,6 +20,7 @@ case JJTASSERT_STMT:
     exprType msg = arity == 2 ? ((exprType) stack.popNode()) : null;
     test = (exprType) stack.popNode();
     return new Assert(test, msg);
+#\urlbox#
 \end{minted}
 
 Similar to the previous example,
@@ -40,7 +41,7 @@ case 40: // qualified_name_decl = name_decl.n DOT.DOT IDENTIFIER.i
     final Symbol DOT = _symbols[offset + 2];
     final Symbol i = _symbols[offset + 3];
     return new IdUse(n.getID() + "." + ((String)i.value));
-}
+} #\urlbox#
 \end{minted}
 
 \discussion{}

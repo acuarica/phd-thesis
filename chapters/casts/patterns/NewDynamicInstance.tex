@@ -24,6 +24,7 @@ method.
 %https://lgtm.com/projects/g/apache/hadoop/snapshot/6bedbef6c5f2d937a6cbc268300ce2a39609d06c/files/hadoop-hdfs-project/hadoop-hdfs/src/main/java/org/apache/hadoop/hdfs/server/namenode/FSNamesystem.java?sort=name\&dir=ASC\&mode=heatmap\&showExcluded=false#L1039
 \begin{minted}[highlightlines=1,linenos=false]{java}
 logger = (AuditLogger) Class.forName(className).newInstance();
+#\urlbox#
 \end{minted}
 
 The following example%
@@ -33,6 +34,7 @@ shows how to dynamically create an array, using the \texttt{Array} class.
 %https://lgtm.com/projects/g/neo4j/neo4j/snapshot/27aaa67633e4d26446e38125d04fbbd27f938b75/files/community/collections/src/main/java/org/neo4j/helpers/collection/Iterables.java?sort=name\&dir=ASC\&mode=heatmap\&showExcluded=false#L403
 \begin{minted}[highlightlines=1]{java}
 return list.toArray( (T[]) Array.newInstance( componentType, list.size()));
+#\urlbox#
 \end{minted}
 
 Whenever a constructor other than the default constructor is needed,
@@ -47,6 +49,7 @@ return (Exception) Class
                        .forName(className)
                        .getConstructor(String.class)
                        .newInstance(message);
+#\urlbox#
 \end{minted}
 
 The following example%
@@ -68,7 +71,7 @@ private static List<String> getMapperMethodNames(final Class clazz) {
         e.printStackTrace();
     }
     return null;
-}
+} #\urlbox#
 \end{minted}
 
 There are cases when the cast is not directly applied to the result of the \code{newInstance} method.
@@ -88,6 +91,7 @@ if (tccl == null) {
     clazz = (Class<ConfigFactory>) Class.forName(factoryName, true, tccl);
 }
 final ConfigFactory factory = clazz.newInstance();
+#\urlbox#
 \end{minted}
 
 

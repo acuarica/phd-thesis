@@ -16,6 +16,7 @@ uses this pattern:
 \begin{minted}[highlightlines=2]{java}
 f.setAccessible(true);
 HttpEntity wrapped = (HttpEntity) f.get(entity);
+#\urlbox#
 \end{minted}
 
 
@@ -28,6 +29,7 @@ fieldPosition.setAccessible(true);
 ChangesOutputter changesDisplayBis = output(changes);
 PositionWithChanges<ChangesAssert, ChangeAssert> positionBis = 
             (PositionWithChanges) fieldPosition.get(changesDisplayBis);
+#\urlbox#
 \end{minted}
 
 

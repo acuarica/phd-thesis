@@ -19,7 +19,7 @@ List<?>[][] partialResults = new List[th][tw];
 for (...) {
     partialResults[ty][tx] = build(tx, ty, order, cCompatibility);
     layers.addAll((List<byte[]>) partialResults[y][x]);
-}
+} #\urlbox#
 \end{minted}
 % protected abstract List<byte[]> build(int tx, int ty, ByteOrder order, boolean cCompatibility);
 
@@ -31,6 +31,7 @@ shows a cast applied directly when the array is created.
 %https://lgtm.com/projects/g/seven332/Nimingban/snapshot/dist-1506180917302-1524814812150/files/yorozuya/src/main/java/com/hippo/yorozuya/ArrayUtils.java?sort=name&dir=ASC&mode=heatmap#L124
 \begin{minted}[highlightlines=1,linenos=false]{java}
 T[] newArray = (T[]) new Object[growSize(currentSize)];
+#\urlbox#
 \end{minted}
 
 

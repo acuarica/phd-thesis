@@ -10,6 +10,7 @@ the \code{jobId} variable is cast to the sole implementation (\code{JobIdImpl}).
 %https://lgtm.com/projects/g/ow2-proactive/scheduling/snapshot/dist-6910096-1524814812150/files/scheduler/scheduler-api/src/main/java/org/ow2/proactive/scheduler/job/JobIdImpl.java?sort=name&dir=ASC&mode=heatmap#L118
 \begin{minted}[highlightlines=1,linenos=false]{java}
     return Longs.compare(id, ((JobIdImpl) jobId).id);
+#\urlbox#
 \end{minted}
 
 The following example%
@@ -20,7 +21,7 @@ The following example%
 public final EncodedElement.Builder addAllThrown( Iterable<? extends Type> elements) {
     this.thrown.addAll(elements);
     return (EncodedElement.Builder) this;
-}
+} #\urlbox#
 \end{minted}
 
 

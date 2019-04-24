@@ -3,11 +3,11 @@ This pattern is used to deserialize an object at run time.
 This pattern is characterized for a cast to the \code{readObject} method on a \code{ObjectInputStream} object.
 
 \instances{}
-The following example%
-\def\urlvar{http://bit.ly/internetarchive_heritrix3_2SF4j7k}
+The following example
 shows how the \thisp{} pattern is used to create objects from a file system (line 9).
 
 %https://lgtm.com/projects/g/internetarchive/heritrix3/snapshot/dist-12140105-1524814812150/files/engine/src/test/java/org/archive/crawler/datamodel/CrawlURITest.java?sort=name&dir=ASC&mode=heatmap#L83
+\def\urlvar{http://bit.ly/internetarchive_heritrix3_2SF4j7k}
 \begin{minted}[highlightlines=5]{java}
 FileInputStream fis = new FileInputStream(serialize);
 ObjectInputStream ois = new ObjectInputStream(fis);
@@ -15,6 +15,7 @@ CrawlURI deserializedCuri = (CrawlURI)ois.readObject();
 deserializedCuri = (CrawlURI)ois.readObject();
 deserializedCuri = (CrawlURI)ois.readObject();
 assertEquals("...", this.seed.toString(), deserializedCuri.toString());
+#\urlbox#
 \end{minted}
 
 \discussion{}

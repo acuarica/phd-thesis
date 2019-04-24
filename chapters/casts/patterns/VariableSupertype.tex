@@ -26,6 +26,7 @@ TokenRenewer samlTokenRenewer = new SAMLTokenRenewer();
 samlTokenRenewer.setVerifyProofOfPossession(false);
 samlTokenRenewer.setAllowRenewalAfterExpiry(true);
 ((SAMLTokenRenewer)samlTokenRenewer).setMaxExpiry(1L);
+#\urlbox#
 \end{minted}
 
 The following listing%
@@ -62,7 +63,7 @@ public class SnappyCompressor implements Compressor {
         // [...]
     }
     // [...]
-}
+} #\urlbox#
 \end{minted}
 
 In the next cast instance,%
@@ -85,7 +86,7 @@ public class SortedArrayList<E> extends ArrayList<E> {
             }
             return comparator.compare(k1, k2);
     }
-}
+} #\urlbox#
 \end{minted}
 
 In the next example,%
@@ -112,7 +113,7 @@ if (readers.size() == 1) {
 } else {
     ir = new MultiReader(
             (IndexReader[])readers.toArray(new IndexReader[readers.size()]));
-}
+} #\urlbox#
 \end{minted}
 
 
