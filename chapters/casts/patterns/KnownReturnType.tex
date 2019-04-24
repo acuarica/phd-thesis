@@ -12,14 +12,15 @@ value of the same type, a subtype of the declared return type,
 regardless of the context or the arguments to the method call.
 
 \instances{}
-\def\urlvar{http://bit.ly/apache_kylin_2SIjooO}
-
+In the following example,
+a cast is performed to the \code{getRealization} method (line 1).
+Its implementation returns a value of type \code{CubeInstance} (line 9).
 
 %https://lgtm.com/projects/g/apache/kylin/snapshot/dist-45150010-1524814812150/files/storage-hbase/src/main/java/org/apache/kylin/storage/hbase/steps/HBaseMRSteps.java?sort=name&dir=ASC&mode=heatmap#L211
+\def\urlvar{http://bit.ly/apache_kylin_2SIjooO}
 \begin{minted}[highlightlines=1]{java}
 final List<CubeSegment> mergingSegments = ((CubeInstance) seg.getRealization())
             .getMergingSegments((CubeSegment) seg);
-
 public class CubeSegment implements IBuildable, ISegment, Serializable {
     // [...]
     private CubeInstance cubeInstance;
@@ -28,68 +29,58 @@ public class CubeSegment implements IBuildable, ISegment, Serializable {
         return cubeInstance;
     }
 }
-
 public class CubeInstance
             extends RootPersistentEntity implements IRealization, IBuildable {
     // [...]
 } #\urlbox#
 \end{minted}
 
-
-\def\urlvar{http://bit.ly/eclipse_pdt_2Ekeu9v}
-
+% TODO: Include example.
 %https://lgtm.com/projects/g/eclipse/pdt/snapshot/dist-19313119-1524814812150/files/plugins/org.eclipse.php.debug.core/src/org/eclipse/php/internal/debug/core/zend/communication/DebugConnection.java?sort=name&dir=ASC&mode=heatmap#L795
-\begin{minted}[highlightlines=1]{java}
-debugTarget = (PHPDebugTarget) createDebugTarget(this, launch, URL,
-        requestPort, process, runWithDebug, stopAtFirstLine, project);
+% \def\urlvar{http://bit.ly/eclipse_pdt_2Ekeu9v}
+% \begin{minted}[highlightlines=1]{java}
+% debugTarget = (PHPDebugTarget) createDebugTarget(this, launch, URL,
+%         requestPort, process, runWithDebug, stopAtFirstLine, project);
+% protected IDebugTarget createDebugTarget(DebugConnection thread,
+%         ILaunch launch, String url, int requestPort, PHPProcess process,
+%         boolean runWithDebug, boolean stopAtFirstLine, IProject project)
+%         throws CoreException {
+%     return new PHPDebugTarget(thread, launch, url, requestPort, process,
+%             runWithDebug, stopAtFirstLine, project);
+% }
+% public class PHPDebugTarget extends PHPDebugElement
+%         implements IPHPDebugTarget, IBreakpointManagerListener, IStepFilters {
+% } #\urlbox#
+% \end{minted}
 
-protected IDebugTarget createDebugTarget(DebugConnection thread,
-        ILaunch launch, String url, int requestPort, PHPProcess process,
-        boolean runWithDebug, boolean stopAtFirstLine, IProject project)
-        throws CoreException {
-    return new PHPDebugTarget(thread, launch, url, requestPort, process,
-            runWithDebug, stopAtFirstLine, project);
-}
-
-public class PHPDebugTarget extends PHPDebugElement
-        implements IPHPDebugTarget, IBreakpointManagerListener, IStepFilters {
-} #\urlbox#
-\end{minted}
-
-\def\urlvar{http://bit.ly/apache_activemq_2EnSivc}
-
+% TODO: Include example.
 %https://lgtm.com/projects/g/apache/activemq/snapshot/dist-11730660-1524814812150/files/activemq-client/src/main/java/org/apache/activemq/ActiveMQConnectionFactory.java?sort=name&dir=ASC&mode=heatmap#L235
-\begin{minted}[highlightlines=1]{java}
-throw (IllegalArgumentException)
-        new IllegalArgumentException("Invalid broker URI: " + brokerURL)
-        .initCause(e);
-#\urlbox#
-\end{minted}
+% \def\urlvar{http://bit.ly/apache_activemq_2EnSivc}
+% \begin{minted}[highlightlines=1]{java}
+% throw (IllegalArgumentException)
+%         new IllegalArgumentException("Invalid broker URI: " + brokerURL)
+%         .initCause(e);
+% #\urlbox#
+% \end{minted}
 
 
-TODO: Also Logger
-
-Logger here
-\def\urlvar{http://bit.ly/skylot_jadx_2HIoR9X}
-
+% TODO: Also include Logger example.
 %https://lgtm.com/projects/g/skylot/jadx/snapshot/dist-41240110-1524814812150/files/jadx-gui/src/main/java/jadx/gui/utils/LogCollector.java?sort=name&dir=ASC&mode=heatmap#L22
-\begin{minted}[highlightlines=1]{java}
-Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-#\urlbox#
-\end{minted}
+% \def\urlvar{http://bit.ly/skylot_jadx_2HIoR9X}
+% \begin{minted}[highlightlines=1]{java}
+% Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+% #\urlbox#
+% \end{minted}
 
 
 \discussion{}
 This pattern usually indicates an abstraction violation: the caller 
 needs to know the method implementation to know the correct target type.
 
-  \nameref{pat:CovariantReturnType} can be considered a special case of this
-  pattern where the return type is known to vary with the receiver type.
-  Like that pattern, associated types~\cite{chakravartyAssociatedTypeSynonyms2005}
-  in languages like \haskell{} or \rust{} 
-  could be used to avoid the cast.
+\nameref{pat:CovariantReturnType} can be considered a special case of this
+pattern where the return type is known to vary with the receiver type.
+Like that pattern,
+associated types~\cite{chakravartyAssociatedTypeSynonyms2005}
+in languages like \haskell{} or \rust{} could be used to avoid the cast.
 
 \end{pattern}
-
-
-

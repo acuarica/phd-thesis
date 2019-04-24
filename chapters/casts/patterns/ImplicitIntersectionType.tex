@@ -20,17 +20,18 @@ final Comparable max = (Comparable) properties.getMaxValue();
 #\urlbox#
 \end{minted}
 
-Dynamic Proxy implementation
-\def\urlvar{http://bit.ly/CloudSlang_cloud_slang_2EkgP4l}
+% TODO: Include example.
+% Dynamic Proxy implementation
 
 %https://lgtm.com/projects/g/CloudSlang/cloud-slang/snapshot/dist-13290023-1524814812150/files/cloudslang-entities/src/main/java/io/cloudslang/lang/entities/bindings/values/PyObjectValueProxyFactory.java?sort=name&dir=ASC&mode=heatmap#L51
-\begin{minted}[highlightlines=1]{java}
-PyObjectValueProxyClass proxyClass = getProxyClass(pyObject);
-PyObjectValue pyObjectValue = (PyObjectValue) proxyClass.getConstructor()
-        .newInstance(proxyClass.getParams());
-((Proxy) pyObjectValue).setHandler(new PyObjectValueMethodHandler(content, sensitive, pyObject));
-#\urlbox#
-\end{minted}
+% \def\urlvar{http://bit.ly/CloudSlang_cloud_slang_2EkgP4l}
+% \begin{minted}[highlightlines=1]{java}
+% PyObjectValueProxyClass proxyClass = getProxyClass(pyObject);
+% PyObjectValue pyObjectValue = (PyObjectValue) proxyClass.getConstructor()
+%         .newInstance(proxyClass.getParams());
+% ((Proxy) pyObjectValue).setHandler(new PyObjectValueMethodHandler(content, sensitive, pyObject));
+% #\urlbox#
+% \end{minted}
 
 \discussion{}
 The cast could avoided by having the operand type implement the target type

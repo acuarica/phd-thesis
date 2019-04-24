@@ -3,12 +3,12 @@ A cast is in the \thisp{} pattern when a \emph{raw type} is used rather than a g
 Methods of raw types typically return \code{Object} rather than a more specific type.
 
 \instances{}
-For example, in the following code,%
-\def\urlvar{http://bit.ly/bcgit_bc_java_2SD2HLm}
+For example, in the following code,
 the collection \code{c} and iterator \c{it} are declared to be of the raw types \code{Collection} and \code{Iterator} rather than as parameterized types.
-The call to \c{next} on line 4 must be cast to a more specific type because static type information was lost by the use of raw types.
+The call to \code{next} on line 4 must be cast to a more specific type because static type information was lost by the use of raw types.
 
 %https://lgtm.com/projects/g/bcgit/bc-java/snapshot/dist-20740003-1524814812150/files/pkix/src/test/java/org/bouncycastle/cms/test/Rfc4134Test.java?sort=name&dir=ASC&mode=heatmap#L268
+\def\urlvar{http://bit.ly/bcgit_bc_java_2SD2HLm}
 \begin{minted}[highlightlines=4]{java}
 Collection c = recipients.getRecipients();
 assertTrue(c.size() >= 1 && c.size() <= 2);
@@ -16,44 +16,46 @@ Iterator it = c.iterator();
 verifyRecipient((RecipientInformation)it.next(), privKey);
 \end{minted}
 
-\done{Nate: Cast of Object because of AccessController. PrivAct<T>}
-\done{Luis: Not necessarily mistakes, maybe requirement is jdk 1.2}
-The following snippet%
-\def\urlvar{http://bit.ly/robovm_robovm_2FAI5x5}
+% TODO: Add example.
+% TODO: Cast of Object because of AccessController. PrivAct<T>
+% TODO: Not necessarily mistakes, maybe requirement is jdk 1.2
+% The following snippet%
 
-%https://lgtm.com/projects/g/robovm/robovm/snapshot/dist-39650108-1524814812150/files/rt/external/apache-xml/src/main/java/org/apache/xml/dtm/SecuritySupport12.java#L59
-\begin{minted}[highlightlines=3]{java}
-class SecuritySupport12 extends SecuritySupport {
-    ClassLoader getSystemClassLoader() {
-        return (ClassLoader)
-            AccessController.doPrivileged(new PrivilegedAction() {
-                public Object run() {
-                    ClassLoader cl = null;
-                    try {
-                        cl = ClassLoader.getSystemClassLoader();
-                    } catch (SecurityException ex) {}
-                    return cl;
-                }
-            });
-    }
-}
-public final class AccessController {
-    public static <T> T doPrivileged(PrivilegedAction<T> action) {
-        return action.run();
-    }
-} #\urlbox#
-\end{minted}
+% %https://lgtm.com/projects/g/robovm/robovm/snapshot/dist-39650108-1524814812150/files/rt/external/apache-xml/src/main/java/org/apache/xml/dtm/SecuritySupport12.java#L59
+% \def\urlvar{http://bit.ly/robovm_robovm_2FAI5x5}
+% \begin{minted}[highlightlines=3]{java}
+% class SecuritySupport12 extends SecuritySupport {
+%     ClassLoader getSystemClassLoader() {
+%         return (ClassLoader)
+%             AccessController.doPrivileged(new PrivilegedAction() {
+%                 public Object run() {
+%                     ClassLoader cl = null;
+%                     try {
+%                         cl = ClassLoader.getSystemClassLoader();
+%                     } catch (SecurityException ex) {}
+%                     return cl;
+%                 }
+%             });
+%     }
+% }
+% public final class AccessController {
+%     public static <T> T doPrivileged(PrivilegedAction<T> action) {
+%         return action.run();
+%     }
+% } #\urlbox#
+% \end{minted}
 
-The following example%
-\def\urlvar{http://bit.ly/fangjie008_tiexue_mcp_parent_2FSZKzm}
-uses the raw type of the \code{Comparable} ---generic--- interface.%
+The following example uses the \code{Comparable} interface (line 1).
+This interface is generic,%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html}}
+but in this case the developer is using its raw type.
+Therefore a cast is needed in line 5.
 
 %https://lgtm.com/projects/g/fangjie008/tiexue-mcp-parent/snapshot/dist-1505957596672-1524814812150/files/mcp-core/src/main/java/com/tiexue/mcp/core/dto/McpSettlementDetailDto.java?sort=name&dir=ASC&mode=heatmap#L100
-\begin{minted}[highlightlines=6]{java}
+\def\urlvar{http://bit.ly/fangjie008_tiexue_mcp_parent_2FSZKzm}
+\begin{minted}[highlightlines=5]{java}
 public class McpSettlementDetailDto implements Comparable {
     // [...]
-
     @Override
     public int compareTo(Object o){
         McpSettlementDetailDto mcpSettlementDetailDto=(McpSettlementDetailDto)o;
