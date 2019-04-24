@@ -1,16 +1,13 @@
 \begin{pattern}{SelectOverload}
 This pattern is used to select the appropriate version of an overloaded method%
-%\footnote{Using ad-hoc polymorphism~\citep{stracheyFundamentalConceptsProgramming2000}.}
+\footnote{Using ad-hoc polymorphism~\citep{stracheyFundamentalConceptsProgramming2000}.}
 where two or more of its implementations differ \emph{only} in some argument type.
 
-A cast of the  \code{null} literal is often used to 
-  resolve method overloading ambiguity because the type of \code{null} 
-  is a subtype of any reference type.%
+A cast of the \code{null} literal is often used to resolve method overloading ambiguity because the type of \code{null} is a subtype of any reference type.%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html\#jls-4.1}}
 
-
-A cast to \code{null} is often used to select against different versions
-of a method, \ie{}, to resolve method overloading ambiguity.
+A cast to \code{null} is often used to select against different versions of a method,
+\ie{}, to resolve method overloading ambiguity.
 Whenever a \code{null} value needs to be an argument of an a cast is
 needed to select the appropriate implementation.
 This is because the type of \code{null} has the special type \emph{null}%
@@ -19,82 +16,84 @@ which can be treated as any reference type.
 In this case,
 the compiler cannot determine which method implementation to select.
 
+Another use case is to select the appropriate the right argument when calling a method with variable arguments.
 
 \instances{}
-The following listing%
-\def\urlvar{http://bit.ly/loopj_android_async_http_2FENovD}
-shows an example of the \thisp{} pattern.
+The following listing shows an example of the \thisp{} pattern.
 In this example, there are three versions of the \code{onSuccess} method,
 The cast \code{(String) null} is used to select the appropriate version
 (line 7), based on the third parameter.
 Overloaded methods that differ only in their argument type (the third one).
 
-Another use case is to select the appropriate the right argument when
-calling a method with variable arguments.
-
 % https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1518514025554/files/library/src/main/java/com/loopj/android/http/JsonHttpResponseHandler.java?sort=name\&dir=ASC\&mode=heatmap\&excluded=false#L150
+\def\urlvar{http://bit.ly/loopj_android_async_http_2FENovD}
 \begin{minted}[highlightlines=1]{java}
 onSuccess(statusCode, headers, (String) null);
-
 public void onSuccess(
-      int statusCode, Header[] headers, JSONObject response) {...}
-
+      int statusCode, Header[] headers, JSONObject response) { /* [...] */ }
 public void onSuccess(
-      int statusCode, Header[] headers, JSONArray response) {...}
-
+      int statusCode, Header[] headers, JSONArray response) { /* [...] */ }
 public void onSuccess(
-      int statusCode, Header[] headers, String responseString) {...}
+      int statusCode, Header[] headers, String responseString) { /* [...] */ }
 #\urlbox#
 \end{minted}
 
-In the following example%
-\def\urlvar{http://bit.ly/spullara_redis_protocol_2FC9Llb}
-\code{actual.data()} returns a boxed \code{Long}
+In the following example \code{actual.data()} returns a boxed \code{Long}.
 Because implicit upcasts have precedence over implicit unboxing conversions,
-the call is needed to invoke the method that takes a \code{long}
-  (line 3)
-  rather than the method that takes an \code{Object} (line 2).
-%
-% https://lgtm.com/projects/g/spullara/redis-protocol/snapshot/dist-41940059-1524814812150/files/client/src/test/java/redis/client/AllCommandsTest.java?sort=name&dir=ASC&mode=heatmap#L366
+the call is needed to invoke the method that takes a \code{long} (line 3) rather than the method that takes an \code{Object} (line 2).
+
+%https://lgtm.com/projects/g/spullara/redis-protocol/snapshot/dist-41940059-1524814812150/files/client/src/test/java/redis/client/AllCommandsTest.java?sort=name&dir=ASC&mode=heatmap#L366
+\def\urlvar{http://bit.ly/spullara_redis_protocol_2FC9Llb}
 \begin{minted}[highlightlines=1]{java}
 assertEquals(expected, (long) actual.data());
-public static void assertEquals(Object expected, Object actual) { ... }
-public static void assertEquals(long expected, long actual) { ... }
+public static void assertEquals(Object expected, Object actual) { /* [...] */ }
+public static void assertEquals(long expected, long actual) { /* [...] */ }
 #\urlbox#
 \end{minted}
 
-
-Similar%
-\def\urlvar{http://bit.ly/apache_poi_2StrlOn}
+The following snippet is similar to the previous example,
+but notice how that the cast is applied to a
+primitive---\emph{non-reference}---type.
 
 %https://lgtm.com/projects/g/apache/poi/snapshot/dist-1790760597-1524814812150/files/src/testcases/org/apache/poi/hssf/record/chart/TestLegendRecord.java#L50
-\begin{minted}[highlightlines=1]{java}
+\def\urlvar{http://bit.ly/apache_poi_2StrlOn}
+\begin{minted}[highlightlines=1,linenos=false]{java}
 assertEquals((byte) 0x1, record.getSpacing());
+#\urlbox#
 \end{minted}
 
-Upcast generic%
-\def\urlvar{http://bit.ly/groovy_groovy_core_2HDAkbF}
+In the last example of \thisp,
+an upcast of a generic type is performed to select the appropriate overload of the \code{max} method.
 
 %https://lgtm.com/projects/g/groovy/groovy-core/snapshot/dist-45390050-1524814812150/files/src/main/org/codehaus/groovy/runtime/DefaultGroovyMethods.java?sort=name&dir=ASC&mode=heatmap#L6715
+\def\urlvar{http://bit.ly/groovy_groovy_core_2HDAkbF}
 \begin{minted}[highlightlines=2]{java}
 public static <T> T max(Iterator<T> self, Comparator<T> comparator) {
       return max((Iterable<T>)toList(self), comparator);
+}
+public static <T> List<T> toList(Iterator<T> self) {
+      // [...]
+}
+@Deprecated
+public static <T> T max(Collection<T> self, Comparator<T> comparator) {
+      // [...]
+}
+public static <T> T max(Iterable<T> self, Comparator<T> comparator) {
+      // [...]
 } #\urlbox#
 \end{minted}
 
 \discussion{}
-  Passing \code{null} to a method might better be handled by using overloading
-  with fewer parameters or by using default parameters.
-  In addition, a pure object-oriented language would not distinguish between primitives and 
-  objects, avoiding the need for autoboxing to be visible at the type level.
-
 Casting the \code{null} constant seems rather artificial.
-This pattern shows either a lack of expressiveness in \java{} or
-a bad \api{} design.
-Several other languages support default parameters, \eg{},
-\scala{}, \csharp{} and \cpp{}.
+This pattern shows either a lack of expressiveness in \java{} or a bad \api{} design.
+Passing \code{null} to a method might better be handled by using overloading with fewer parameters or by using default parameters.
+Several other languages support default parameters,
+\eg, \scala{}, \csharp{} and \cpp{}.
 Adding default parameters might be a partial solution.
 
-Luis: Relate null as theorical point of view in the TAPL book.
+In addition, a pure object-oriented language would not distinguish between primitives and objects,
+avoiding the need for autoboxing to be visible at the type level.
+
+% TODO: Relate null as theorical point of view in the TAPL book.
 
 \end{pattern}
