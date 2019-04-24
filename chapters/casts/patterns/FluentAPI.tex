@@ -1,17 +1,16 @@
 \begin{pattern}{FluentAPI}
 A fluent \api{} is an \api{} that allows the developer to operate on the same
 object using method chaining.
-This pattern is exhibited when the receiver (\code{this} reference) is cast to a type parameter
-  which is itself bounded by the self type.
+This pattern is exhibited when the receiver (\code{this} reference) is cast to a type parameter which is itself bounded by the self type.
 
 
 \instances{}
-In the following snippet,%
-\def\urlvar{http://bit.ly/HanSolo_Medusa_2TyBObH}
+In the following snippet,
 the receiver (\code{this}) is cast to a type parameter (\code{B}) (line 5).
 This allows subclasses to reuse the methods in the base class without overriding them just to change the return type.
 
 %https://lgtm.com/projects/g/HanSolo/Medusa/snapshot/dist-1798710811-1524814812150/files/src/main/java/eu/hansolo/medusa/ClockBuilder.java?sort=name&dir=ASC&mode=heatmap#L293
+\def\urlvar{http://bit.ly/HanSolo_Medusa_2TyBObH}
 \begin{minted}[highlightlines=5]{java}
 public class ClockBuilder <B extends ClockBuilder<B>> {
     // [...]
@@ -22,11 +21,24 @@ public class ClockBuilder <B extends ClockBuilder<B>> {
 } #\urlbox#
 \end{minted}
 
+The following example implements \thisp{} by directly casting the receiver (\code{this}).
+Similarly to the \code{addAllThrown} method, the rest of methods in the enclosing class cast \code{this}.
+
+% https://lgtm.com/projects/g/immutables/immutables/snapshot/dist-43930039-1524814812150/files/value-processor/target/generated-sources/annotations/org/immutables/value/processor/encode/ImmutableEncodedElement.java?sort=name&dir=ASC&mode=heatmap#L1734
+\def\urlvar{http://bit.ly/immutables_immutables_2S4BoJs}
+\begin{minted}[highlightlines=3]{java}
+public final EncodedElement.Builder addAllThrown(
+            Iterable<? extends Type> elements) {
+    this.thrown.addAll(elements);
+    return (EncodedElement.Builder) this;
+} #\urlbox#
+\end{minted}
+
+
 \issues{}
-  This pattern is concerned with a particular implementation of fluent \api{}s
-  where recursive generics are used to mimic self
-  types~\cite{bruceChallengingTypingIssues2003}.
-  Other implementations of fluent \api{}s simply return \code{this} without a
-  cast, but these are less extensible.
+In most cases,
+this pattern is concerned with a particular implementation of fluent \api{}s
+where recursive generics are used to mimic self types~\cite{bruceChallengingTypingIssues2003}.
+Other implementations of fluent \api{}s simply return \code{this} without a cast, but these are less extensible.
 
 \end{pattern}
