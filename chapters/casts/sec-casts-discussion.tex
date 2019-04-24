@@ -1,0 +1,25 @@
+\section{Discussion}
+\label{sec:casts:discussion}
+
+
+\newcommand{\gh}[1]{\emph{\textbf{#1}}}
+% The column on the right corresponds to the group the pattern belongs to.
+% In this section we present the cast usage patterns we found.
+% To ease the patterns presentation,
+% we have organized them into ngroup{} categories according to their purpose.
+Table~\ref{table:casts:categories} 
+The table consists of the following columns: The \gh{Pattern} column indicates the name of the pattern.
+\gh{Guarded?} The patterns in this category are guarded casts.
+A guarded cast is a cast such that before the cast is applied,
+some condition --- the \emph{guard} -- needs to be verified.
+The condition to be verified guarantees that the cast will not fail at runtime (unless there is a bug in the application), \ie,
+the cast will not throw a \code{ClassCastException}.
+Some kind of guards ensure that the cast will not fail at the language-level,
+while others only can guarantee it at the application-level.
+\gh{Lang} These casts could be removed if there is enough language support.
+\gh{Tool} The casts in this group could be checked with new analysis tools.
+\gh{Dev} These casts can be avoidable with no or little refactoring,
+or suggest a code smell in the source code.
+\gh{Generic}
+
+\input{chapters/casts/table-casts-categories}
