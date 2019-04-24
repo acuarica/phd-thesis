@@ -374,11 +374,8 @@ def showNotification(notification: Notification): String = {
 	println(showNotification(someVoiceRecording))
 \end{minted}
 
-Alternatives to the \thisp{} pattern would be to use the visitor pattern or to
-use virtual dispatch on the match scrutinee.
-However, both of these
-alternatives might be difficult to implement when the scrutinee is defined in
-a library or in third-party code.
+Alternatives to the \thisp{} pattern would be to use the visitor pattern or to use virtual dispatch on the match scrutinee.
+However, both of these alternatives might be difficult to implement when the scrutinee is defined in a library or in third-party code.
 There is an ongoing proposal%
 \footnote{\url{http://openjdk.java.net/jeps/305}}$^{,}$%
 \footnote{\url{https://cr.openjdk.java.net/~briangoetz/amber/pattern-match.html}}
