@@ -7,40 +7,41 @@ the cast succeeds because all possible run-time types of $v$
 do implement $I$.
 
 \instances{}
-For instance, in the following example%
-\def\urlvar{http://bit.ly/senbox_org_snap_desktop_2FQOt4v}
-the method call returns a \code{Number}, which does not implement
-\code{Comparable}; however,
-all values that could be returned by the method
-are subclasses of \code{Number} in \code{java.lang}
-that do implement \code{Comparable}.
+For instance, in the following example the method call returns a \code{Number},
+which does not implement \code{Comparable}; however,
+all values that could be returned by the method are subclasses of \code{Number}
+in \code{java.lang} that do implement \code{Comparable}.
 
+%https://lgtm.com/projects/g/senbox-org/snap-desktop/snapshot/dist-5990318-1524814812150/files/snap-ui/src/main/java/org/esa/snap/ui/UIUtils.java?sort=name&dir=ASC&mode=heatmap#L379
+\def\urlvar{http://bit.ly/senbox_org_snap_desktop_2FQOt4v}
 \begin{minted}[highlightlines=1,linenos=false]{java}
 final Comparable max = (Comparable) properties.getMaxValue();
 #\urlbox#
 \end{minted}
 
-% TODO: Include example.
-% Dynamic Proxy implementation
+This pattern can be used to implement a dynamic proxy.
+In the following example,
+\code{pyObjectValue} is a proxy to \code{PyObjectValue}.
+Nevertheless, a cast to \code{Proxy} is needed to invoke the \code{setHandler}.
 
 %https://lgtm.com/projects/g/CloudSlang/cloud-slang/snapshot/dist-13290023-1524814812150/files/cloudslang-entities/src/main/java/io/cloudslang/lang/entities/bindings/values/PyObjectValueProxyFactory.java?sort=name&dir=ASC&mode=heatmap#L51
-% \def\urlvar{http://bit.ly/CloudSlang_cloud_slang_2EkgP4l}
-% \begin{minted}[highlightlines=1]{java}
-% PyObjectValueProxyClass proxyClass = getProxyClass(pyObject);
-% PyObjectValue pyObjectValue = (PyObjectValue) proxyClass.getConstructor()
-%         .newInstance(proxyClass.getParams());
-% ((Proxy) pyObjectValue).setHandler(new PyObjectValueMethodHandler(content, sensitive, pyObject));
-% #\urlbox#
-% \end{minted}
+\def\urlvar{http://bit.ly/CloudSlang_cloud_slang_2EkgP4l}
+\begin{minted}[highlightlines=4]{java}
+PyObjectValueProxyClass proxyClass = getProxyClass(pyObject);
+PyObjectValue pyObjectValue = (PyObjectValue) proxyClass.getConstructor()
+            .newInstance(proxyClass.getParams());
+((Proxy) pyObjectValue).setHandler(
+            new PyObjectValueMethodHandler(content, sensitive, pyObject));
+#\urlbox#
+\end{minted}
 
 \issues{}
 The cast could avoided by having the operand type implement the target type
-  interface or by introducing a more precise interface.
-  In the above example, one could imagine an interface
-  \code{ComparableNumber} that extends both \code{Number} and
-  \code{Comparable}. \scala{} supports
-  interface types, allowing 
-  the type \code{Number with Comparable}
-  to be used directly.
+interface or by introducing a more precise interface.
+In the first example,
+one could imagine an interface \code{ComparableNumber} that extends both
+\code{Number} and \code{Comparable}.
+\scala{} supports interface types,
+allowing the type \code{Number with Comparable} to be used directly.
 
 \end{pattern}
