@@ -34,7 +34,6 @@ a reference type.
 it can be used to store a value of any type in a field or array element.
 
 \begin{listing}
-\caption{\smu{} can violate type safety}
 \begin{minted}{java}
 class C {
   private Object f = new Object();
@@ -44,6 +43,7 @@ long fieldOffset = unsafe.objectFieldOffset(
 C o = new C();
 unsafe.putInt(o, fieldOffset, 1234567890);      // f now points to nirvana
 \end{minted}
+\caption{\smu{} can violate type safety}
 \end{listing}
 
 \subsection*{Crashing the Virtual Machine}
@@ -52,10 +52,10 @@ A quick way to crash the VM is to free memory that is in a protected
 address range, for example by calling \code{freeMemory} as follows.
 
 \begin{listing}
-\caption{\smu{} can crash the VM}
 \begin{minted}[linenos=false]{java}
 unsafe.freeMemory(1);
 \end{minted}
+\caption{\smu{} can crash the VM}
 \end{listing}
 
 In \java{}, the normal behavior of a method to deal with such situations
@@ -72,12 +72,12 @@ it can be used to throw a checked exception that the surrounding method
 does not declare or catch.
 
 \begin{listing}
-\caption{\smu{} can violate a method contract}
 \begin{minted}{java}
 void m() {
   unsafe.throwException(new Exception());
 }
 \end{minted}
+\caption{\smu{} can violate a method contract}
 \end{listing}
 
 \subsection*{Uninitialized Objects}
@@ -91,7 +91,6 @@ This can lead to objects in states that the objects' classes would
 not seem to admit.
 
 \begin{listing}
-\caption{\smu{} can lead to uninitialized objects}
 \begin{minted}{java}
 class C {
   private int f;
@@ -102,6 +101,7 @@ class C {
 C c = (C)unsafe.allocateInstance(C.class);
 assert c.getF()==5; // violated
 \end{minted}
+\caption{\smu{} can lead to uninitialized objects}
 \end{listing}
 
 \subsection*{Monitor Deadlock}
@@ -114,7 +114,6 @@ it can be used to asymmetrically enter or exit a monitor,
 and that asymmetry might be not immediately obvious.
 
 \begin{listing}
-\caption{\smu{} can lead to monitor deadlocks}
 \begin{minted}{java}
 void m() {
   unsafe.monitorEnter(o);
@@ -122,6 +121,7 @@ void m() {
   unsafe.monitorExit(o);
 }
 \end{minted}
+\caption{\smu{} can lead to monitor deadlocks}
 \end{listing}
 
 The above examples are just the most straightforward violations of
