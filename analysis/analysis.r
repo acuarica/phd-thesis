@@ -42,7 +42,7 @@ taxonomy = list(
     'categories' = c('tools')
   ),
   'CovariantReturnType' = list(
-    'features' = c('CovariantReturnType'),
+    'features' = c('CovariantReturnType', 'Clone'),
     'categories' = c('lang')
   ),
   'Redundant' = list(
@@ -62,7 +62,7 @@ taxonomy = list(
     'categories' = c('lang', 'generic')
   ),
   'KnownReturnType' = list(
-    'features' = c('KnownReturnType', 'Clone'),
+    'features' = c('KnownReturnType'),
     'categories' = c('tools', 'dev')
   ),
   'ObjectAsArray' = list(
