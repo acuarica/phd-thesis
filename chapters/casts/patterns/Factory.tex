@@ -58,9 +58,10 @@ HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 The following example shows how a cast (line 3) is being determined by the argument to the \code{CertificateFactory.getInstance} method (line 1).
 The argument is the string \code{"X.509"},
 therefore the method \code{generateCRL} will return a value of type \code{X509CRL}.
+
 %https://lgtm.com/projects/g/bcgit/bc-java/snapshot/dist-20740003-1524814812150/files/prov/src/test/java/org/bouncycastle/jce/provider/test/X509LDAPCertStoreTest.java?sort=name&dir=ASC&mode=heatmap#L241
 \def\urlvar{http://bit.ly/bcgit_bc_java_2TEVScM}
-\begin{minted}[highlightlines=1]{java}
+\begin{minted}[highlightlines=3]{java}
 CertificateFactory cf = CertificateFactory.getInstance("X.509", "BC");
 // [...]
 X509CRL crl = (X509CRL)cf.generateCRL(new ByteArrayInputStream(directCRL));
