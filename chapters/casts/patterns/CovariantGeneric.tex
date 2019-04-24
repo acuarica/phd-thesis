@@ -73,11 +73,11 @@ public class ArrayExpression extends Expression {
 
 
 \discussion{}
-Avoided with
-\code{Collections.<Framedata>singletonList(curframe)}
-From \java{} 8 this cast is unnecessary due to better type inference.
+In some cases, this pattern could be avoided using explicit type parameter,
+\eg, \code{Collections.<Framedata>singletonList(curframe)}.
+From \java{} 8 this cast is unnecessary due to better type inference.%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-18.html\#jls-18.5}}
 
-reference \cite{altidorTamingWildcardsCombining2011}
+% TODO: Check/reference \cite{altidorTamingWildcardsCombining2011}
 
 \end{pattern}
