@@ -31,7 +31,7 @@ The following snippet%
 shows a cast applied to the variable \code{job} (in line 3) that throws \code{ClassCastException} because the developer forgot to include a guard.
 In this case, the developer fixed the error by introducing an \code{instanceof} guard to the cast (lines 1 and 2).
 
-\begin{listing}[H]
+\begin{listing}
 \begin{minted}[highlightlines=3]{java}
 if(!(job instanceof AbstractProject<?, ?>))
   return "";
@@ -51,7 +51,7 @@ The cast happens inside an \code{equals} method
 within the \code{CustomFileFilter} class.
 But the developer made a typo, using the outer class (\code{JCustomFileFilter}), instead of the inner class (\code{CustomFileFilter}).
 
-\begin{listing}[H]
+\begin{listing}
 \begin{minted}[highlightlines=9]{java}
 public final class JCustomFileChooser extends JFileChooser {
   /* [...] */
@@ -79,7 +79,7 @@ throws a \code{ClassCastException}.
 The method definition is shown in line 3.%
 \footnote{\url{https://github.com/ethereum/ethereumj/blob/224e65b9b4ddcb46198a6f8faf69edc65d34d382/ethereumj-core/src/main/java/org/ethereum/config/SystemProperties.java\#L312}}
 
-\begin{listing}[H]
+\begin{listing}
 \begin{minted}[highlightlines=1]{java}
 config.getProperty("peer.p2p.pingInterval", 5L)
 

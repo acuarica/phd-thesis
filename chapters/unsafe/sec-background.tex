@@ -13,13 +13,13 @@ For example, one can invoke the private constructor via reflection.
 This is not the only way to get hold of an unsafe object,
 but it is the most portable.
 
-\begin{listing}[H]
-\caption{Instantiating an Unsafe object}
+\begin{listing}
 \begin{minted}{java}
 Constructor<Unsafe> c = Unsafe.class.getDeclaredConstructor();
 c.setAccessible(true);
 Unsafe unsafe = c.newInstance();
 \end{minted}
+\caption{Instantiating an Unsafe object}
 \end{listing}
  
 Given the unsafe object, one can now simply invoke any of its methods to
@@ -33,7 +33,7 @@ a reference type.
 \unsafe{} can violate that guarantee:
 it can be used to store a value of any type in a field or array element.
 
-\begin{listing}[H]
+\begin{listing}
 \caption{\smu{} can violate type safety}
 \begin{minted}{java}
 class C {
@@ -51,7 +51,7 @@ unsafe.putInt(o, fieldOffset, 1234567890);      // f now points to nirvana
 A quick way to crash the VM is to free memory that is in a protected
 address range, for example by calling \code{freeMemory} as follows.
 
-\begin{listing}[H]
+\begin{listing}
 \caption{\smu{} can crash the VM}
 \begin{minted}[linenos=false]{java}
 unsafe.freeMemory(1);
@@ -71,7 +71,7 @@ checked exceptions.
 it can be used to throw a checked exception that the surrounding method
 does not declare or catch.
 
-\begin{listing}[H]
+\begin{listing}
 \caption{\smu{} can violate a method contract}
 \begin{minted}{java}
 void m() {
@@ -90,7 +90,7 @@ constructor.
 This can lead to objects in states that the objects' classes would
 not seem to admit.
 
-\begin{listing}[H]
+\begin{listing}
 \caption{\smu{} can lead to uninitialized objects}
 \begin{minted}{java}
 class C {
@@ -113,7 +113,7 @@ of a section of code are exited at the end.
 it can be used to asymmetrically enter or exit a monitor,
 and that asymmetry might be not immediately obvious.
 
-\begin{listing}[H]
+\begin{listing}
 \caption{\smu{} can lead to monitor deadlocks}
 \begin{minted}{java}
 void m() {

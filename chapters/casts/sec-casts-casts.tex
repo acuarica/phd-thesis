@@ -36,12 +36,12 @@ occurs when converting from a source reference type $S$ to a target reference
 type $T$, where $T$ is a proper subtype of $S$.
 Listing~\ref{lst:casts:simple} shows how to use the cast operator (line 2) to treat a reference (the variable \code{o}) as a different type (\code{String}) as it was defined (\code{Object}).
 
-\begin{listing}[H]
+\begin{listing}
 \begin{minted}{java}
 Object o = "foo"; 
 String s = (String)o;
 \end{minted}
-\caption{Variable \code{o} (defined as \code{Object}) is cast to \code{String}.}
+\caption{Variable \code{o} (defined as \code{Object}) cast to \code{String}.}
 \label{lst:casts:simple}
 \end{listing}
 
@@ -66,7 +66,7 @@ the programmer is required neither to handle it
 nor to specify the exception in the method signature.
 Listing~\ref{lst:catchcce} shows how to detect whether a cast failed by catching this exception.
 
-\begin{listing}[H]
+\begin{listing}
 \begin{minted}{java}	
 try {
 	Object x = new Integer(0);
@@ -75,7 +75,7 @@ try {
 	System.out.println(""); 
 }
 \end{minted}
-\caption{Catching \code{ClassCastException}}
+\caption{Catch \code{ClassCastException} when a cast fails.}
 \label{lst:catchcce}
 \end{listing}
 
@@ -87,7 +87,7 @@ If an \code{instanceof} guard returns true, the guarded cast should not throw
 a \code{ClassCastException}.
 Listing~\ref{lst:instanceoftest} shows a usage of the \code{instanceof} operator together with a cast expression.
 
-\begin{listing}[H]
+\begin{listing}
 \begin{minted}{java}
 if (x instanceof Foo) {
 	((Foo)x).doFoo();
@@ -107,15 +107,15 @@ This test is more precise than an \code{x}~\code{instanceof}~\code{C} test since
 rather than any subclass of \code{C}.
 Listing~\ref{lst:getclasstest} shows how to use the \code{getClass} method to test for an object's type.
 
-\begin{listing}[H]
+% \begin{listing}
 \begin{minted}{java}
 if (x.getClass() == Foo.class) {
 	((Foo)x).doFoo(); 
 }
 \end{minted}
-\caption{Runtime type test using \code{getClass} before applying a cast.}
+\captionof{listing}{Runtime type test using \code{getClass} before applying a cast.}
 \label{lst:getclasstest}
-\end{listing}
+% \end{listing}
 
 Because they can fail,
 downcasts pose potential threats.
