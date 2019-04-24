@@ -1,17 +1,5 @@
 \newcommand{\USI}{Universit\`a della Svizzera Italiana}
 
-\newcommand{\hlbox}[3]{
-\begin{mdframed}[backgroundcolor=#2!00]
-\rightline{ \footnotesize \emph{MRQ} }
-% \ 
-
-\centering
-#1
-\end{mdframed}
-}
-
-\newcommand{\rquestion}[1]{\hlbox{#1}{yellow}{Research Question}}
-
 \newcommand{\eg}{\textit{e.g.}}
 \newcommand{\ie}{\textit{i.e.}}
 \newcommand{\etc}{\textit{etc.}}
@@ -102,7 +90,7 @@
 \definecolor{diffrem}{named}{OrangeRed}
 \definecolor{hl}{named}{OrangeRed}
 
-\setminted[java]{
+\setminted{
 	baselinestretch=1,
 	bgcolor=lightgray,
 	fontsize=\footnotesize,
@@ -110,15 +98,6 @@
 	tabsize=4,
 	linenos,
 	escapeinside=\#\#
-}
-
-\setminted[scala]{
-	baselinestretch=1,
-	bgcolor=lightgray,
-	fontsize=\footnotesize,
-	highlightcolor=lightblue,
-	tabsize=4,
-	linenos
 }
 
 \lstdefinestyle{bytecode}{

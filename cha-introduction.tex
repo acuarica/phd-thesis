@@ -1,4 +1,3 @@
-
 \chapter{Introduction}
 
 In programming language design, the main goal of a \emph{static} type system is to prevent certain kind of errors from happening at run-time.
@@ -76,7 +75,12 @@ Are these mechanisms actually used in real-world code?
 If yes, then how so?
 This triggers our \textbf{main research question}:
 
-\rquestion{For what purpose do developers circumvent static type systems?}
+\begin{mdframed}
+\rightline{\footnotesize \emph{MRQ}}
+
+\centering
+For what purpose do developers circumvent static type systems?
+\end{mdframed}
 
 We have confidence that this knowledge can be:
 \begin{inparaenum}[a)]
@@ -89,20 +93,17 @@ or the addition of \emph{Smart Casts} in \lang{Kotlin},\footnote{\url{https://ko
 \item a guide for developers for best or better practices.
 \end{inparaenum}
 
-\section{Plan}
-
 To answer our question above,
-we plan to empirically study how the two aforementioned mechanisms
---- unsafe intrinsics and casting ---
-are used by developers.
+we empirically studied how the two aforementioned mechanisms%
+---unsafe intrinsics and casting---are used by developers.
 Since any kind of language study must be language-specific,
-our plan is to focus on \java{} given its wide usage and relevance for both
-research and industry.\footnote{\url{https://www.tiobe.com/tiobe-index/}}
+we focus on \java{} given its wide usage and relevance for both
+research and industry.%
+\footnote{\url{https://www.tiobe.com/tiobe-index/}}
 Moreover, we focus on the \java{} Unsafe API to study unsafe intrinsics,
 given than the Java Native Interface already has been studied
 in~\cite{tanSafeJavaNative2006,tanEmpiricalSecurityStudy2008,kondohFindingBugsJava2008,sunNativeGuardProtectingAndroid2014,liFindingBugsExceptional2009}.
-% REVIEW: Reflection?
-%
+% TODO: Reflection?
 % Similarly, although casting uses run-time type information like
 % the \java's reflection \api{},
 % the reflection \api{} has been studied in
@@ -113,11 +114,9 @@ Sections~\ref{sec:lr:unsafe} and~\ref{sec:lr:casting} review the \emph{state-of-
 
 To better drive our \emph{main research question},
 we propose to answer the following set of sub-questions.
+% DONE: Explain *usage patterns*
 To answer these research sub-questions,
-we have already devised (for the Unsafe \api{}) and
-we are devising (for casting)
-% DONE: Explain =usage patterns=.
-\emph{usage patterns}.
+we have devised \emph{usage patterns} for both the Unsafe \api{} and casting.
 Usage patterns are \emph{recurrent programming idioms} used by developers to solve a specific issue.
 We believe that having usage patterns can help us to better categorize use cases and
 thus understand how these mechanisms are used.
@@ -154,5 +153,5 @@ Chapter~\ref{cha:unsafe} presents a summary of this study.
 \item {\bf \crqC} \crqCdesc
 \end{enumerate}
 
-Finally, in Chapter \ref{cha:casts} we present our plan for the \emph{casting} study,
-showing the results we have so far.
+Finally, in Chapter \ref{cha:casts} we present our \emph{casting} study.
+The results of this chapter have been submitted for publication to OOPSLA'19.
