@@ -1,5 +1,4 @@
-\chapter{Casting about in the Dark}
-\label{cha:casts}
+\chapter{Casting about in the Dark}\label{cha:casts}
 
 The main goal of a \emph{static} type system
 is to prevent certain kinds of errors from happening at run time.
@@ -29,10 +28,10 @@ Why is the static type system insufficient,
 requiring an escape hatch into dynamic type checking?
 Specifically, we attempt to answer the following three research questions:
 
-\begin{enumerate}[label=$RQ/C\arabic*:$,ref=$RQ/C\arabic*$,leftmargin=3.4\parindent]
-\item\label{casts:rq1}{\bf \crqA} \crqAdesc
-\item\label{casts:rq2}{\bf \crqB} \crqBdesc
-\item\label{casts:rq3}{\bf \crqC} \crqCdesc
+\begin{enumerate}[label=RQ/C\arabic*:,ref=RQ/C\arabic*,leftmargin=3.4\parindent]
+\item\label{casts:rq1}{\bf \crqA} \crqAdesc{}
+\item\label{casts:rq2}{\bf \crqB} \crqBdesc{}
+\item\label{casts:rq3}{\bf \crqC} \crqCdesc{}
 \end{enumerate}
 
 To answer these research questions, we devise
@@ -48,8 +47,8 @@ to make more informed decisions about programming languages,
 the addition of \emph{smart casts} in \lang{Kotlin},\footnote{\url{https://kotlinlang.org/docs/reference/typecasts.html\#smart-casts}}
 \item a reference for tool builders, \eg{}, by providing more precise or new
   refactoring or code smell analyses,
-\item a guide for researchers to test new language features, \eg{}, \cite{wintherGuardedTypePromotion2011} or to carry out controlled
-  experiments about programming, \eg{}, \cite{stuchlikStaticVsDynamic2011}, and
+\item a guide for researchers to test new language features, \eg{},~\cite{wintherGuardedTypePromotion2011} or to carry out controlled
+  experiments about programming, \eg{},~\cite{stuchlikStaticVsDynamic2011}, and
 \item a guide for developers for best or better practices.
 \end{inparaenum}
 To answer our research questions,
@@ -60,7 +59,7 @@ we empirically study how casts are used by developers.
 Section~\ref{sec:casts:casts} provides an introduction to casts in \java{},
 while Section~\ref{sec:casts:issues} illustrates the sort of problems developers have when applying casting conversions.
 In Section~\ref{sec:casts:methodology} we introduce the methodology we used to analyze casts and to devise cast usage patterns.
-Sections~\ref{sec:casts:overview} and \ref{sec:casts:patterns} present the cast usage patterns and answers our research questions.
+Sections~\ref{sec:casts:overview} and~\ref{sec:casts:patterns} present the cast usage patterns and answers our research questions.
 Finally, Section~\ref{sec:casts:discussion} discusses the patterns we found,
 while Section~\ref{sec:casts:conclusions} concludes.
 
