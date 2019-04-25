@@ -51,12 +51,12 @@ In some situations,
 an \api{} method is designed to return an abstract class or interface.
 This \api{} allows the developer to then choose which implementation use at run-time.
 The following example shows this situation.
-The cast is applied to the \code{getLogger} method---with return type \code{org.slf4j.Logger}--- in line 3.
-But the developer set up the application to use \code{ch.qos.logback.classic.Logger}.
+The cast is applied to the \code{getLogger} method---with return type \code{org.slf4j.Logger}--- in line 4.
+But the developer set up the application to use \code{ch.qos.logback.classic.Logger} instead.
 
 %https://lgtm.com/projects/g/skylot/jadx/snapshot/dist-41240110-1524814812150/files/jadx-gui/src/main/java/jadx/gui/utils/LogCollector.java?sort=name&dir=ASC&mode=heatmap#L22
 \def\urlvar{http://bit.ly/skylot_jadx_2HIoR9X}
-\begin{minted}[highlightlines=3]{java}
+\begin{minted}[highlightlines=4]{java}
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
 
