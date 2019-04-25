@@ -36,20 +36,19 @@
   \committeeMember{Prof. Gabriele Bavota}{\USI, Switzerland}
   \committeeMember{Prof. Jan Vitek}{Northeastern University \& Czech Technical University}
   \committeeMember{Prof. Hridesh Rajan}{Iowa State University}
-  %there can as many members as you like
-} %the committee is compulsory
+}
 
 \dedication{To my beloved} %optional
 \openepigraph{Someone said \dots}{Someone} %optional
 
-% \makeindex %optional, also comment out \theindex at the end
-
 \begin{document}
 
-% \def\thesis{}
-\ifdefined\thesis
+\if11
+\input{cha-casts}
+\else
 
 \maketitle
+
 \frontmatter
 
 \input{abstract}
@@ -74,15 +73,9 @@
 
 \backmatter
 
-\else
-\input{cha-casts}
 \fi
 
 \bibliographystyle{plainnat}
 \bibliography{pubs-zotero,pubs-manual}
-
-% \cleardoublepage
-% \theindex %optional, use only if you have an index, must use
-% \makeindex in the preamble
 
 \end{document}
