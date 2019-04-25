@@ -39,7 +39,7 @@ taxonomy = list(
   ),
   'Stash' = list(
     'features' = c('LookupById', 'Tag', 'StaticResource'),
-    'categories' = c('tools')
+    'categories' = c('tools', 'gen')
   ),
   'CovariantReturnType' = list(
     'features' = c('CovariantReturnType', 'Clone'),

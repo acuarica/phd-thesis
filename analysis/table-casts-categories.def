@@ -1,5 +1,5 @@
 \row 1 & \nameref{pat:Typecase} & \cmark & \cmark & \cmark &  &  &  \\
-\alt 2 & \nameref{pat:Stash} &  &  & \cmark &  &  &  \\
+\alt 2 & \nameref{pat:Stash} &  &  & \cmark & \cmark &  &  \\
 \row 3 & \nameref{pat:Factory} &  &  & \cmark &  &  &  \\
 \alt 4 & \nameref{pat:Family} &  & \cmark &  &  &  &  \\
 \row 5 & \nameref{pat:UseRawType} &  &  &  &  & \cmark & \cmark \\
