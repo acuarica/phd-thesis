@@ -1,18 +1,4 @@
-
-% DONE: made a study -> conducted a study
-% DONE: Avoid "note that", "notice that"
-
-% DONE: Static vs. Dynamic analysis in the literature review
-% DONE: Why static, why not dynamic? where static is OK, where is reasonable, feasible?
-
-% DONE: Refactor this chapter into four subsections:
-% Which projects: Repositories - what is out there
-% Selection of projects: Corpora - what to analyze
-% Tools - how to analyze (static/dynamic, BOA, QL, ...)
-% What questions do developers ask? Questions -what questions to answer (especially where they get close to type systems)
-
-\chapter{Literature Review}
-\label{cha:literature-review}
+\chapter{Literature Review}\label{cha:literature-review}
 
 Understanding how developers use language features
 and \api{}s is a broad topic.
@@ -26,25 +12,22 @@ The motivation behind these studies is quite broad,
 and has been shifted to the needs of researchers,
 together with the evolution of computer science itself.
 
-% DONE: Basic, move earlier
-% DONE: Nothing after 1990?
-% DONE: At least add a statement here acknowledging all the MSR work.
-For instance,~to measure the advantages between compilation and interpretation in \basic{},
-\cite{hammondBASICEvaluationProcessing1977} studied a representative dataset of programs.
-\cite{knuthEmpiricalStudyFORTRAN1971} started to study \fortran{} programs.
+For instance,~to measure the advantages between compilation and interpretation in \basic{},%
+~\cite{hammondBASICEvaluationProcessing1977} studied a representative dataset of programs.%
+~\cite{knuthEmpiricalStudyFORTRAN1971} started to study \fortran{} programs.
 By knowing what kind of programs arise in practice,
 a compiler optimizer can focus in those cases,
 and therefore can be more effective.
-Adding to Knuth's work,
-\cite{shenEmpiricalStudyFortran1990} conducted an empirical study for
+Adding to Knuth's work,%
+~\cite{shenEmpiricalStudyFortran1990} conducted an empirical study for
 parallelizing compilers.
 Similar works have been done for
 \cobol{}~\cite{salvadoriStaticProfileCOBOL1975,chevanceStaticProfileDynamic1978},
 \pascal{}~\cite{cookContextualAnalysisPascal1982},
-and \apl{}~\cite{saalPropertiesAPLPrograms1975,saalEmpiricalStudyAPL1977} programs.
-\cite{millerEmpiricalStudyReliability1990,millerFuzzRevisitedReexamination1995,forresterEmpiricalStudyRobustness2000}
-studied the reliability of programs using \emph{fuzz} testing.
-\cite{dieckmannStudyAllocationBehavior1999} studied the memory allocating
+and \apl{}~\cite{saalPropertiesAPLPrograms1975,saalEmpiricalStudyAPL1977} programs.%
+~\cite{millerEmpiricalStudyReliability1990,millerFuzzRevisitedReexamination1995,forresterEmpiricalStudyRobustness2000}
+studied the reliability of programs using \emph{fuzz} testing.%
+~\cite{dieckmannStudyAllocationBehavior1999} studied the memory allocating
 behavior in the SPECjvm98 benchmarks.%
 \footnote{\url{https://www.spec.org/jvm98/}}
 The importance of conducting empirical studies of programs
@@ -81,8 +64,6 @@ respectively.
 \section{Benchmarks and Corpora}
 \label{sec:lr:benchmarks}
 
-% DONE: OOPSLA'17 code duplicates in GitHub
-% DONE: SPEC, etc
 Benchmarks are crucial to properly evaluate and measure product development.
 This is key for both research and industry.
 One popular benchmark suite for \java{} is the DaCapo Benchmark~\citep{blackburnDaCapoBenchmarksJava2006}.
@@ -99,7 +80,6 @@ They provide a corpus of curated open source systems to facilitate empirical stu
 On top of Qualitas Corpus,~\cite{dietrichXCorpusExecutableCorpus2017} provide an executable corpus of \java{} programs.
 This allows any researcher to experiment with both static and dynamic analysis.
 
-% DONE: Some discussion of the representativeness of the corpora
 For any benchmark or corpus to be useful and reliable,
 it must faithfully represent real world code.
 For instance,
@@ -108,7 +88,6 @@ ease of use, but they ``excluded GUI applications since they are difficult
 to benchmark systematically.''
 Along these lines, \cite{allamanisMiningSourceCode2013} go one step further and provide a large-scale (14,807) curated corpus of open source \java{} projects.
 
-% DONE: Acknowledge here that open source repositories, while not curated corpora, are very commonly used.
 With the advent of cloud computing,
 several source code management (SCM) hosting services have emerged, \eg,
 \github, \gitlab, \bitbucket, and \sourceforge.
@@ -119,24 +98,15 @@ real-world applications.
 Thus, while not curated corpora, these hosting services are
 commonly used to conduct empirical studies.
 
-% DONE: Remove subsection
-% \subsection*{Selecting Good Representatives}
-% \label{sec:lr:selection}
-
-% DONE: Related to Lopes
 Another dimension to consider when analyzing large codebases, is how relevant the repositories are.
 \cite{lopesDeJaVuMapCode2017} conducted a study to measure code duplication in \github{}.
 They found out that much of the code there is actually duplicated.
 This raises a flag when considering which projects to analyze when mining software repositories.
 
-% DONE: How do clones fit in this section?
-% to code duplication detection is code 
 \cite{baxterCloneDetectionUsing1998} propose a clone detection algorithm using Abstract Syntax Trees,
 while \cite{riegerVisualDetectionDuplicated} propose a visual detection for clones.
 \cite{yuanCMCDCountMatrix2011,chenReplicationReproductionCode} instead propose Count Matrix-based approach to detect code clones.
 
-% DONE: Move to 2.1
-% DONE: Removed "of the last 12 months"
 \cite{nagappanDiversitySoftwareEngineering2013} have developed the Software Projects Sampling (SPS) tool.
 SPS tries to find a maximal set of projects based on representativeness and diversity.
 Diversity dimensions considered include total lines of code,
@@ -146,7 +116,6 @@ and number of commits.
 \section{Tools for Mining Software Repositories}
 \label{sec:lr:mining}
 
-% DONE: Too general, should be statistical information?
 When talking about mining software repositories,
 we refer to extracting any kind of information from large-scale codebase repositories. 
 Usually doing so requires several engineering but challenging tasks.
@@ -154,7 +123,6 @@ The most common being downloading, storing, parsing, analyzing and
 properly extracting information from different kinds of artifacts.
 In this scenario, there are several tools that allows a researcher or developer to query information about software repositories.
 
-% DONE: Fix .QL citation
 \cite{urmaProgrammingLanguageEvolution2012} evaluated seven source code
 query languages\footnote{\url{https://wiki.openjdk.java.net/display/Compiler/Java+Corpus+Tools}}:
 \emph{Java Tools Language} \citep{cohenJTLJavaTools},
@@ -167,7 +135,6 @@ query languages\footnote{\url{https://wiki.openjdk.java.net/display/Compiler/Jav
 They have implemented --- whenever possible --- four use cases using the tools mentioned above.
 They concluded that only \emph{SOUL} and \emph{.QL} have the minimal features to implement all their use cases.
 
-% DONE: Which features? Any relevant for your work?
 \cite{dyerBoaLanguageInfrastructure2013,dyerDeclarativeVisitorsEase2013} built \boa{}, both a domain-specific language and an online platform\footnote{\url{http://boa.cs.iastate.edu/}}. 
 It is used to query software repositories on two popular hosting services, \github{} and \sourceforge{}.
 The same authors of \boa{} conducted a study on
@@ -199,26 +166,15 @@ At the time of this writing, the service\footnote{\url{http://www.spencer-t.raci
 Sourcegraph\footnote{\url{https://sourcegraph.com}} is a tool that allows regular expression and diff searches.
 It integrates with source repositories to ease navigate software projects.
 
-% DONE: Removed subsection Code Patterns Discovery: Body of this section seems to be on tools, not on pattern discovery
-% \subsection*{Code Patterns Discovery}
-% \label{sec:lr:patterns}
-
-% DONE: What's a pattern?
-% DONE: Why
 \cite{posnettTHEXMiningMetapatterns2010} have extended
 \asm{}~\citep{brunetonASMCodeManipulation2002,kuleshovUsingASMFramework2007}
 to detect meta-patterns, \ie,
 purely structural patterns of object-oriented interaction.
 \cite{huDynamicAnalysisDesign2008} used both dynamic and static analysis to discover design patterns, while \cite{arcelliDesignPatternDetection2008} used only dynamic.
 
-% DONE: Why is Rascal relevant?
 Trying to unify analysis and transformation tools,
 \cite{vinjuHowMakeBridge2006,klintRASCALDomainSpecific2009} built \rascal,
 a DSL that aims to bring them together by querying the AST of a program.
-% DONE: Redundant, remove
-% As mentioned above,
-% \cite{dietrichContractsWildStudy2017a} conducted a study about how programmers use contracts in \mavencentral{}.
-% For their analysis\footnote{\url{https://bitbucket.org/jensdietrich/contractstudy}},
 
 As its name suggests, JavaParser\footnote{\url{http://javaparser.org/}}
 is a parser for \java.
@@ -243,7 +199,6 @@ Similar empirical studies were done for
 \php~\citep{hillsEmpiricalStudyPHP2013,dahseExperienceReportEmpirical2015,doyleEmpiricalStudyEvolution2011}
 and \swift~\citep{reboucasEmpiricalStudyUsage2016}.  
 
-% DONE: Why is this important?
 Going one step forward, \cite{rayLargescaleStudyProgramming2017} studied the correlation between programming languages and defects. 
 One important note is that they choose relevant projects by popularity,
 measured by how many times was \emph{starred} in \github.
@@ -295,17 +250,12 @@ Android applications.
 
 \subsection*{Programming Language Features}
 
-% DONE: Instead of this, add an intro sentence motivating this section by connecting it to your focus on type safety (if possible).
-% DONE: Generics is not just a functional language feature, no?
 Programming language design has been always a hot topic in computer science literature.
 It has been extensively studied in the past decades.
-There is a trend in incorporating
-% functional
-programming features into mainstream object-oriented languages, \eg,
+There is a trend in incorporating programming features into mainstream object-oriented languages, \eg,
 lambdas in \java{} 8\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.27}},
 \cpp{}11\footnote{\url{http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1968.pdf}} and
 \csharp{} 3.0\footnote{\url{https://msdn.microsoft.com/en-us/library/bb308966.aspx\#csharp3.0overview\_topic7}};
-% DONE: not strictly functional
 or parametric polymorphism, \ie{}, generics, in \java{} 5.%
 \footnote{\url{https://docs.oracle.com/javase/1.5.0/docs/guide/language/generics.html}}\(^{,}\)\footnote{\url{http://www.oracle.com/technetwork/java/javase/generics-tutorial-159168.pdf}}
 For instance, \java{} generics were designed to extend
@@ -329,11 +279,9 @@ improves performance.
 This kind of studies give an insight of the adoption of lambdas and generics; which can drive future direction for language designers and tool builders, while providing developers with best practices.
 
 
-% DONE: Removed numbered section
 \subsection{Unsafe Intrinsics in \java}
 \label{sec:lr:unsafe}
 
-% DONE: This paragraph should go first, no? 
 Oracle provides the \smu{} class for low-level programming,
 \eg, synchronization primitives, direct memory access methods,
 array manipulation and memory usage.
@@ -347,39 +295,19 @@ Maven artifacts and usages in Grepcode~\citep{sandoz-personal-communication}
 and conducted a unscientific user survey to study how \unsafe{} is used~\citep{psandoz14}.
 The survey consists of 7 questions\footnote{\url{http://www.infoq.com/news/2014/02/Unsafe-Survey}} 
 that help to understand what pieces of \smu{} should be mainstreamed.
-% DONE: Sounds wrong here. This wording fits in a paper, not a proposal.
 In our work~\citep{mastrangeloUseYourOwn2015} we extend Sandoz' work
 by performing a comprehensive study of the \mavencentral{}
 software repository to analyze how and when \smu{} is being used.
 This study is summarized in Chapter \ref{cha:unsafe}.
-
-% DONE: Who cares that there is literature. Motivate the contents of that literature by putting a better glue sentence here..
-% DONE: Relevant? These are users of Unsafe, not studies of it
-% DONE: Moved above to show only that there is work using Unsafe.
-% The use of \smu{} is not limited to industrial applications.
-% Researchers have used \smu{} as well.
-% \cite{korlandNoninvasiveConcurrencyJava2010} presented a \java{} STM framework, intended as a development platform for scalable concurrent applications and as a research tool for designing STM algorithms.
-% They chose to use \smu{} to implement fast reflection,
-% as it proved to be vastly more efficient than the standard \java{} reflection mechanisms.
-% \cite{pukallFlexibleDynamicSoftware} introduced a runtime update approach based on Java that offers flexible dynamic software updates with minimal performance overhead.
-% They used the \code{allocateInstance} method,
-% because it eases the creation of instances even if the class has no default constructor.
-% \cite{gligoricCoDeSeFastDeserialization2011} proposed a new approach to serialization/deserialization via code generation, using \smu{} to allocate instances and to set the fields.
-% The Jikes RVM~\cite{alpernJikesResearchVirtual2005} is a Java Virtual Machine targeting researchers in runtime systems.
-% It is a Java-in-Java virtual machine because is itself built in \java{}, a style of implementation termed meta-circular.
-% The Jikes RVM provides an implementation of \smu{} with the \emph{magic} framework.
-% \cite{framptonDemystifyingMagicHighlevel2009} proposed \code{org.vmmagic} to provide an escape hatch to low-level alternatives needed to build virtual machines; however, they require compiler support.
 
 \cite{tanSafeJavaNative2006} propose a safe variant of \jni{}.
 \cite{tanEmpiricalSecurityStudy2008,kondohFindingBugsJava2008} conducted an empirical security study to describe a taxonomy to classify bugs when using JNI.
 \cite{sunNativeGuardProtectingAndroid2014} develop a method to isolate native components in Android applications.
 \cite{liFindingBugsExceptional2009} analyze the discrepancy between how exceptions are handled in native code and \java{}.
 
-% DONE: Removed numbered section
 \subsection{Casting}
 \label{sec:lr:casting}
 
-% DONE: Intro sentence needed
 Casting operations in \java
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.16}}
 allows the developer to view a reference at a different type as it was declared.
@@ -388,7 +316,6 @@ The related \code{instanceof} operator%
 tests whether a reference could be cast to a different type without
 throwing \code{ClassCastException}.
 
-% DONE: Makes it sound like "semantic patterns" was a well-known concept. Don't start with terms like this, start with description instead.
 \cite{wintherGuardedTypePromotion2011} has implemented a
 path sensitive analysis that allows the developer to avoid casting
 once a guarded \code{instanceof} is provided.
@@ -400,7 +327,6 @@ We plan to refine this categorization to answer
 our~\ref{casts:rq2} (\emph{\crqB}).
 This is described in Chapter~\ref{cha:casts}.
 
-% DONE: Briefly connect to casts
 \cite{tsantalisJDeodorantIdentificationRemoval2008} present an
 Eclipse plug-in that identifies type-checking bad smells,
 a "variation of an algorithm that should be executed,
@@ -426,28 +352,18 @@ Finally, they argue that controlled programming experiments on
 subjects need to be correlated with real-world use cases,
 \eg, \github{} or \mavencentral{}.
 
-% DONE: Shouldn't that 2.8?
-% \subsection*{Controlled Experiments on Subjects}
-% \label{sec:lr:experiments}
 \textbf{Controlled Experiments on Subjects.}
 There is an extensive literature \perse{} in controlled experiments on subjects to understand several aspects in programming, and programming languages.
 For instance, \cite{solowayEmpiricalStudiesProgramming1984} tried to understand how expert programmers face problem solving.
 \cite{buddTheoreticalEmpiricalStudies1980} made a empirical study on how effective is mutation testing.
 \cite{precheltEmpiricalComparisonSeven2000} compared how a given --- fixed --- task was implemented in several programming languages.
-%
 \cite{latozaDevelopersAskReachability2010} realize that, in essence, programmers need to answer reachability questions to understand large codebases.
-%
 Several authors~\cite{stuchlikStaticVsDynamic2011,mayerEmpiricalStudyInfluence2012,harlinImpactUsingStaticType2017} measure whether using a static-type system improves programmers productivity.
 They compare how a static and a dynamic type system impact on productivity.
 The common setting for these studies is to have a set of programming problems.
 Then, let a group of developers solve them in both a static and dynamic languages.
-%
 For this kind of studies to reflect reality, the problems to be solved need to be representative of the real-world code.
 Having artificial problems may lead to invalid conclusions.
 The work by~\cite{wuHowTypeErrors2017,wuLearningUserFriendly2017} goes towards this direction. 
 They have examined programs written by students to understand real debugging conditions. 
 Their focus is on ill-typed programs written in \haskell{}.
-
-% Unfortunately, these dataset does not correspond to real-world code.
-% Therefore, it is important to study how casts are used in real-world code. 
-% This can led to informed decisions when designing these kind of experiments. 
