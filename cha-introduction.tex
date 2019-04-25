@@ -15,14 +15,10 @@ However, there are situations when the developer has more information
 about the program that is too complex to explain in terms of typing constraints.
 To that end, programming languages often provide \emph{mechanisms} that 
 make the typing constraints less strict
-% the constraints of a type system can be relaxed
 to permit more programs to be valid,
 at the expense of causing more errors at run-time.
-% Within a type system,
 These mechanisms are essentially two:
 \emph{Unsafe Intrinsics} and \emph{Casting}.
-% DONE: Reflection?
-% DONE: FFI comes later.
 
 \textbf{Unsafe Intrinsics.}
 Unsafe intrinsics is the ability to perform certain operations \emph{without} being checked by the compiler.
@@ -103,18 +99,15 @@ research and industry.%
 Moreover, we focus on the \java{} Unsafe API to study unsafe intrinsics,
 given than the Java Native Interface already has been studied
 in~\cite{tanSafeJavaNative2006,tanEmpiricalSecurityStudy2008,kondohFindingBugsJava2008,sunNativeGuardProtectingAndroid2014,liFindingBugsExceptional2009}.
-% TODO: Reflection?
-% Similarly, although casting uses run-time type information like
-% the \java's reflection \api{},
-% the reflection \api{} has been studied in
-% \cite{livshitsImprovingSoftwareSecurity2006,livshitsReflectionAnalysisJava2005,landmanChallengesStaticAnalysis2017}.
-%
+Similarly, although casting uses run-time type information like
+the \java's reflection \api{},
+the reflection \api{} has been studied in
+\cite{livshitsImprovingSoftwareSecurity2006,livshitsReflectionAnalysisJava2005,landmanChallengesStaticAnalysis2017}.
 In Chapter~\ref{cha:literature-review} we give a review of the literature in empirical studies of programming languages features.
 Sections~\ref{sec:lr:unsafe} and~\ref{sec:lr:casting} review the \emph{state-of-the-art} of the different aspects related to the two proposed studies.
 
 To better drive our \emph{main research question},
 we propose to answer the following set of sub-questions.
-% DONE: Explain *usage patterns*
 To answer these research sub-questions,
 we have devised \emph{usage patterns} for both the Unsafe \api{} and casting.
 Usage patterns are \emph{recurrent programming idioms} used by developers to solve a specific issue.
@@ -123,16 +116,11 @@ thus understand how these mechanisms are used.
 These patterns can provide an insight into how the language is being used by developers in real-world applications.
 Overall these sub-questions will help us to answer our MRQ:
 
-
-% DONE: Make this subsection.
 \textbf{Unsafe API.}
-% \subsection*{Unsafe API}
 
 \begin{enumerate}[label=$RQ/U\arabic*:$,ref=$RQ/U\arabic*$,leftmargin=3.4\parindent]
 \item\label{unsafe:rq1} {\bf \urqA}
-We want to understand to what extent
-% DONE: third-party: what do you mean? Removed
-code actually uses Unsafe or depends on it.
+We want to understand to what extent code actually uses Unsafe or depends on it.
 
 \item\label{unsafe:rq2} {\bf \urqB}
 We want to investigate what functionality third-party libraries require from Unsafe.
