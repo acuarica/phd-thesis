@@ -43,9 +43,8 @@
 
 \begin{document}
 
-\if11
-\input{cha-casts}
-\else
+% \def\thesis{}
+\ifdefined\thesis
 
 \maketitle
 
@@ -73,6 +72,8 @@
 
 \backmatter
 
+\else
+\input{cha-casts}
 \fi
 
 \bibliographystyle{plainnat}

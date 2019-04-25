@@ -1,6 +1,6 @@
 
 all:
-	latexmk -pdf -bibtex -interaction=nonstopmode -shell-escape -g phd-thesis.tex
+	latexmk -pdf -bibtex -g -pdflatex="pdflatex -interaction=nonstopmode -shell-escape '\def\thesis{} \input{phd-thesis.tex}'" phd-thesis.tex
 	cp phd-thesis.pdf public/
 
 clean:
