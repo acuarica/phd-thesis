@@ -21,8 +21,14 @@ public class ClockBuilder <B extends ClockBuilder<B>> {
 } #\urlbox#
 \end{minted}
 
-The following example implements \thisp{} by directly casting the receiver (\code{this}).
-Similarly to the \code{addAllThrown} method, the rest of methods in the enclosing class cast \code{this}.
+The following example implements \thisp{} by directly casting the receiver
+(\code{this}) in line 3.
+Similarly to the \code{addAllThrown} method,
+the rest of methods in the enclosing class perform a cast to \code{this}.
+Although there is a lot of boilerplate code,
+this instance happens in generated code.
+The cast succeeds because there is a guard (line 8) in the constructor that 
+guarantees the receiver is of the appropriate type (\cf{} \nameref{pat:Typecase}).
 
 % https://lgtm.com/projects/g/immutables/immutables/snapshot/dist-43930039-1524814812150/files/value-processor/target/generated-sources/annotations/org/immutables/value/processor/encode/ImmutableEncodedElement.java?sort=name&dir=ASC&mode=heatmap#L1734
 \def\urlvar{http://bit.ly/immutables_immutables_2S4BoJs}
@@ -31,6 +37,12 @@ public final EncodedElement.Builder addAllThrown(
             Iterable<? extends Type> elements) {
     this.thrown.addAll(elements);
     return (EncodedElement.Builder) this;
+}
+
+public Builder() {
+    if (!(this instanceof EncodedElement.Builder)) {
+        throw new UnsupportedOperationException("/* [...] */");
+    }
 } #\urlbox#
 \end{minted}
 
