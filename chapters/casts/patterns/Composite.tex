@@ -4,8 +4,7 @@ composite data structure, typically a tree, where the target type is known becau
 position in the data structure.
 
 \instances{}
-The following example
-shows a cast from a \code{Box} to a \code{TableSectionBox}.
+The following example shows a cast from a \code{Box} to a \code{TableSectionBox}.
 The programmer reasons that the cast will succeed because the 
 the source of the cast is a sibling of another \code{TableSectionBox}.
 
@@ -13,15 +12,12 @@ the source of the cast is a sibling of another \code{TableSectionBox}.
 \def\urlvar{http://bit.ly/flyingsaucerproject_flyingsaucer_2N2nYbY}
 \begin{minted}[highlightlines=3]{java}
 public class TableBox extends BlockBox {
-    protected TableSectionBox sectionAbove(TableSectionBox section, boolean skipEmptySections) {
+    protected TableSectionBox sectionAbove(TableSectionBox section /*[...]*/) {
         TableSectionBox prevSection=(TableSectionBox)section.getPreviousSibling();
     }
 }
 public abstract class Box implements Styleable {
-    // [...]
-    public Box getPreviousSibling() {
-        // [...]
-    }
+    public Box getPreviousSibling() { }
 } #\urlbox#
 \end{minted}
 
@@ -36,9 +32,7 @@ eliminate the need for the casts. For example, in the above example,
 the sibling of a \code{TableSectionBox} might be declared to have type
 \code{TableSectionBox}. However, this may require the programmer to override
 methods to refine return types covariantly.
-Language features available in other languages like generalized algebraic data types
-  (GADTs)~\cite{gadts} or self types~\cite{bruceChallengingTypingIssues2003,scalaIndependentlyExtensible} could also be 
-used to provide a more precise typing.
+Language features available in other languages like generalized algebraic data types (GADTs)~\citep{gadts} or self types~\citep{bruceChallengingTypingIssues2003,scalaIndependentlyExtensible} could also be used to provide a more precise typing.
 
 The pattern can be thought of as a more dynamic variant of the
 \nameref{pat:Family} pattern. Rather than

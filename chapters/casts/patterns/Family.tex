@@ -106,12 +106,12 @@ public abstract class BaseExchange implements Exchange {
 \end{minted}
 
 \issues{}
-\java{} itself does not support statically type-safe family polymorphism directly
-and so casts are often necessary. Various proposals have been made to better
-support family polymorphism (and the related ``expression
-problem''~\cite{Wadler98ExpressionProblem}) in object-oriented languages, including
-the use of design patterns~\cite{WangOliveira16ExpressionProblem, oliveiraExtensibilityMasses2012, nystromPolyglotExtensibleCompiler2003},
-and type systems~\cite{gbeta, scalaIndependentlyExtensible,
+\java{} itself does not support statically type-safe family polymorphism directly and so casts are often necessary.
+Various proposals have been made to better support family polymorphism 
+(and the related ``expression problem''~\citep{Wadler98ExpressionProblem}) 
+in object-oriented languages,
+including the use of design patterns~\citep{WangOliveira16ExpressionProblem, oliveiraExtensibilityMasses2012, nystromPolyglotExtensibleCompiler2003},
+and type systems~\citep{gbeta, scalaIndependentlyExtensible,
 Myers2006SoftwareCW, olivieraDisjointIntersectionTypes,
 funWithTypeFunctionsKiselyov09} that
 permit some restricted form of covariant method parameters.

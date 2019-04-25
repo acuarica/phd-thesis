@@ -74,7 +74,7 @@ but this is not always feasible or cost effective.
 Casts among generic types and between raw types and generic types are unchecked at run time,
 although other casts are typically inserted by the compiler to ensure type safety dynamically.
 When these inserted casts fail, the reported location of the failure may not match the programmer's expectation.
-Indeed, this is similar to the problem of \emph{blame} in gradually typed languages~\cite{wadlerWellTypedProgramsCan2009}.
+Indeed, this is similar to the problem of \emph{blame} in gradually typed languages~\citep{wadlerWellTypedProgramsCan2009}.
 In this setting, when a run-time cast fails the blame should be put on the appropriate programmer-inserted cast,
 not on a compiler-inserted cast.
 
