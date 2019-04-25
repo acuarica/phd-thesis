@@ -16,35 +16,6 @@ Iterator it = c.iterator();
 verifyRecipient((RecipientInformation)it.next(), privKey);
 \end{minted}
 
-% TODO: Add example.
-% TODO: Cast of Object because of AccessController. PrivAct<T>
-% TODO: Not necessarily mistakes, maybe requirement is jdk 1.2
-% The following snippet%
-
-% %https://lgtm.com/projects/g/robovm/robovm/snapshot/dist-39650108-1524814812150/files/rt/external/apache-xml/src/main/java/org/apache/xml/dtm/SecuritySupport12.java#L59
-% \def\urlvar{http://bit.ly/robovm_robovm_2FAI5x5}
-% \begin{minted}[highlightlines=3]{java}
-% class SecuritySupport12 extends SecuritySupport {
-%     ClassLoader getSystemClassLoader() {
-%         return (ClassLoader)
-%             AccessController.doPrivileged(new PrivilegedAction() {
-%                 public Object run() {
-%                     ClassLoader cl = null;
-%                     try {
-%                         cl = ClassLoader.getSystemClassLoader();
-%                     } catch (SecurityException ex) {}
-%                     return cl;
-%                 }
-%             });
-%     }
-% }
-% public final class AccessController {
-%     public static <T> T doPrivileged(PrivilegedAction<T> action) {
-%         return action.run();
-%     }
-% } #\urlbox#
-% \end{minted}
-
 The following example uses the \code{Comparable} interface (line 1).
 This interface is generic,%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html}}
@@ -65,6 +36,44 @@ public class McpSettlementDetailDto implements Comparable {
     }
 } #\urlbox#
 \end{minted}
+
+
+In the following snippet,
+a cast is applied to the result of the \code{doPrivileged} method in lines 3 and 4.
+This method takes a \code{PrivilegedAction<T>},
+but the cast is needed because it is invoked with a raw type, \eg, \code{new PrivilegedAction()}.
+Inspecting further the source code application,
+we found that it might be a requirement to be compatible with the JDK 1.2.
+Generics were added to \java{} 5.
+Thus, this cast might be still necessary.
+
+%https://lgtm.com/projects/g/robovm/robovm/snapshot/dist-39650108-1524814812150/files/rt/external/apache-xml/src/main/java/org/apache/xml/dtm/SecuritySupport12.java#L59
+\def\urlvar{http://bit.ly/robovm_robovm_2FAI5x5}
+\begin{minted}[highlightlines=3-4]{java}
+class SecuritySupport12 extends SecuritySupport {
+    ClassLoader getSystemClassLoader() {
+        return (ClassLoader)
+            AccessController.doPrivileged(new PrivilegedAction() {
+                public Object run() {
+                    ClassLoader cl = null;
+                    try {
+                        cl = ClassLoader.getSystemClassLoader();
+                    } catch (SecurityException ex) {}
+                    return cl;
+                }
+            });
+    }
+}
+public final class AccessController {
+    public static <T> T doPrivileged(PrivilegedAction<T> action) {
+        return action.run();
+    }
+}
+public interface PrivilegedAction<T> {
+    public T run();
+} #\urlbox#
+\end{minted}
+
 
 \issues{}
 Raw types exist in \java{} to support legacy code.
