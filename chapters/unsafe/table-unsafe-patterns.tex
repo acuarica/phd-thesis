@@ -1,27 +1,8 @@
-
-% alloc probyte lockfree fence park finalfield monitor serialization marshalling throw size largearrays page class
-
-A summary of the patterns is shown in Table~\ref{table:pats}.
-The \textbf{\em Pattern} column indicates the name of the pattern.
-\textbf{\em Found in}
-indicates the number of artifacts in \mavencentral{} that contain the pattern.
-\textbf{\em Used by}
-indicates the number of artifacts that transitively depend on the artifacts with the
-pattern.
-\textbf{\em Most used artifacts}
-presents the three most used artifacts containing the pattern, that is, the 
-artifact with the most other artifacts that transitively depend upon it.
-Artifacts are shown using their Maven identifier, \ie{}
-\artexp{$\langle$groupId$\rangle$}{$\langle$artifactId$\rangle$}.
-% \textbf{\em Members used}
-% shows the members of \unsafe{} used in the pattern.
-
-%\& \verb+\+textbf\{Unsafe members\}
 \begin{table*}[t!]
 \scriptsize
 \centering
 \caption{Patterns and their occurrences in the Maven Central repository}
-\label{table:pats}
+\label{table:unsafe:patterns}
 \begin{tabularx}{\linewidth}{rp{5.3cm}ccX}
 \hdr    & \textbf{Pattern}              & \textbf{Found In} & \textbf{Used by} & \textbf{Most used artifacts} \\
 \alt  1 & \namealloc                    & \rowalloc             \\
