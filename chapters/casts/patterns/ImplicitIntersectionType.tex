@@ -1,10 +1,7 @@
 \begin{pattern}{ImplicitIntersectionType}
-This pattern occurs when there is a downcast of reference $v$ of type $T$ to a
-target
-interface type $I$.
+This pattern occurs when there is a downcast of reference $v$ of type $T$ to a target interface type $I$.
 Although $T$ does not implement $I$, 
-the cast succeeds because all possible run-time types of $v$
-do implement $I$.
+the cast succeeds because all possible run-time types of $v$ do implement $I$.
 
 \instances{}
 For instance, in the following example the method call returns a \code{Number},
