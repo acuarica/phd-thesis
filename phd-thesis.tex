@@ -43,37 +43,30 @@
 
 \begin{document}
 
-% \def\thesis{}
-\ifdefined\thesis
-
-\maketitle
-
-\frontmatter
-
-\input{abstract}
-\input{acks}
-
-\tableofcontents 
-\listoffigures
-\listoftables
-\listoflistings
-
-\mainmatter
-
-\input{cha-introduction}
-\input{cha-literaturereview}
-\input{cha-unsafe}
-\input{cha-casts}
-\input{cha-conclusions}
-
-\appendix
-
-\input{cha-ap-jnif}
-
-\backmatter
-
+\ifdefined\UnsafeChapter
+  \input{cha-unsafe}
 \else
-\input{cha-casts}
+  \ifdefined\CastsChapter
+    \input{cha-casts}
+  \else
+    \maketitle
+    \frontmatter
+    \input{abstract}
+    \input{acks}
+    \tableofcontents 
+    \listoffigures
+    \listoftables
+    \listoflistings
+    \mainmatter
+    \input{cha-introduction}
+    \input{cha-literaturereview}
+    \input{cha-unsafe}
+    \input{cha-casts}
+    \input{cha-conclusions}
+    \appendix
+    \input{cha-ap-jnif}
+    \backmatter
+  \fi
 \fi
 
 \bibliographystyle{plainnat}

@@ -12,9 +12,54 @@
                 "-outdir=%OUTDIR%",
                 "%DOC%"
             ]
+        },
+        {
+            "name": "latexmk-unsafe",
+            "command": "latexmk",
+            "args": [
+                "-pdf",
+                "-bibtex",
+                "-pdflatex=pdflatex -synctex=1 -interaction=nonstopmode -shell-escape -file-line-error -output-directory='%OUTDIR%' '\\def\\UnsafeChapter{} \\input{%DOC%}'",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "latexmk-casts",
+            "command": "latexmk",
+            "args": [
+                "-pdf",
+                "-bibtex",
+                "-pdflatex=pdflatex -synctex=1 -interaction=nonstopmode -shell-escape -file-line-error -output-directory='%OUTDIR%' '\\def\\CastsChapter{} \\input{%DOC%}'",
+                "%DOC%"
+            ]
         }
     ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk 🔃",
+            "tools": [
+                "latexmk"
+            ]
+        },
+        {
+            "name": "latexmk Unsafe Chapter 🔃",
+            "tools": [
+                "latexmk-unsafe"
+            ]
+        },
+        {
+            "name": "latexmk Casts Chapter 🔃",
+            "tools": [
+                "latexmk-casts"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipe.default": "lastUsed",
     "cSpell.words": [
-        "parallelizing"
+        "Intrinsics",
+        "bytecode",
+        "numbersep",
+        "parallelizing",
+        "xleftmargin"
     ]
 }
