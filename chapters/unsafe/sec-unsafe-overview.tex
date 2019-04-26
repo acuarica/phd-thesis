@@ -9,20 +9,21 @@ To achieve our goal, several elements are needed.
 \textbf{Code Repository.}
 As a code base representative of the ``real world'',
 we have chosen the \mavencentral{} software repository.
-% The rationale behind this decision is that a large number of well-known \java{} projects deploy to Maven Central using Apache Maven.
-% Besides code written in \java{}, projects written in \lang{Scala} are also deployed to Maven Central using the Scala Build Tool (sbt).
-% Moreover, Maven Central is the largest \java{} repository\footnote{\url{http://www.modulecounts.com/}}
-% , and it contains projects from the most popular source code management repositories, like \github{} and \sourceforge{}.
+The rationale behind this decision is that a large number of well-known \java{} projects deploy to \mavencentral{} using Apache Maven.
+Besides code written in \java{},
+projects written in \lang{Scala} are also deployed to \mavencentral{} using the \scala{} Build Tool (sbt).
+Moreover, \mavencentral{} is the largest \java{} repository,%
+\footnote{\url{http://www.modulecounts.com/}}
+and it contains projects from the most popular source code management repositories, like \github{} and \sourceforge{}.
 
 \textbf{Artifacts.}
 In Maven, an artifact is the output of the build procedure of a project.
-% An artifact can be any type of file, ranging from a \emph{.pdf} to a \emph{.zip} file.
-% However,
-Artifacts are usually \emph{.jar} files,
+An artifact can be any type of file, ranging from a \emph{.pdf} to a \emph{.zip} file.
+However, Artifacts are usually \emph{.jar} files,
 which archive compiled \java{} bytecode stored in \emph{.class} files.
 
 \textbf{Bytecode Analysis.}
-% We examine these kinds of artifacts to analyze how they use \code{sun.misc.\-Unsafe}.
+We examine these kinds of artifacts to analyze how they use \code{sun.misc.Unsafe}.
 We use a bytecode analysis library to search for method call sites and field accesses of the \code{sun.misc.Unsafe} class.
 
 \textbf{Dependency Analysis.}
@@ -31,15 +32,21 @@ either directly or indirectly.
 This helps us to define the impact of artifacts that use \code{sun.misc.Unsafe},
 and thus the impact \code{sun.misc.Unsafe} has on real-world code overall.
 
-% \textbf{Usage Pattern Detection.}
-% After all call sites and field accesses are found,
-% we analyze this information to discover usage patterns.
-% It is common that an artifact exhibits more than one pattern.
-% Our list of patterns is not exhaustive.
-% We have manually investigated the source code of the 100 highest-impact artifacts using \code{sun.misc.Unsafe} to understand why and how they are using it.
+\textbf{Usage Pattern Detection.}
+After all call sites and field accesses are found,
+we analyze this information to discover usage patterns.
+It is common that an artifact exhibits more than one pattern.
+Our list of patterns is not exhaustive.
+We have manually investigated the source code of the 100 highest-impact artifacts using \code{sun.misc.Unsafe} to understand why and how they are using it.
 
 Our analysis found $48,490$ uses of \code{sun.misc.Unsafe} --- $48,139$ call sites and $351$ field accesses --- distributed over $817$ different artifacts.
 This initial result shows that Unsafe is indeed used in third-party code.
+
+\textbf{Stack Overflow Analysis.}
+We studied what kind of problems developers encountered using \code{sun.misc.Unsafe} by analyzing the \stackoverflow{} question/answer database.
+After discovering usage patterns in the Maven archive,
+we use \stackoverflow{} to correlate them to discussions.
+Our goal is to understand the difficulties in implementing certain \unsafe{} usage patterns.
 
 We use the dependency information to determine the impact of the artifacts that use \code{sun.misc.Unsafe}.
 We rank all artifacts according to their impact (the number of artifacts that directly or indirectly depend on them).
