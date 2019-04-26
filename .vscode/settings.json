@@ -1,4 +1,5 @@
 {
+    "editor.wordWrap": "on",
     "latex-workshop.latex.tools": [
         {
             "name": "latexmk",
@@ -55,11 +56,15 @@
         }
     ],
     "latex-workshop.latex.recipe.default": "lastUsed",
+    "cSpell.allowCompoundWords": true,
     "cSpell.words": [
         "Intrinsics",
-        "bytecode",
-        "numbersep",
-        "parallelizing",
+        "aload",
+        "astore",
+        "captionpos",
+        "emphstyle",
+        "upcast",
+        "upcasts",
         "xleftmargin"
     ]
 }
