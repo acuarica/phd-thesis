@@ -75,9 +75,11 @@
     "cSpell.allowCompoundWords": true,
     "cSpell.words": [
         "Intrinsics",
+        "Untrusted",
         "aload",
         "astore",
         "captionpos",
+        "deserialization",
         "emphstyle",
         "instanceof",
         "upcast",
