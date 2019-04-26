@@ -33,6 +33,16 @@
                 "-pdflatex=pdflatex -synctex=1 -interaction=nonstopmode -shell-escape -file-line-error -output-directory='%OUTDIR%' '\\def\\CastsChapter{} \\input{%DOC%}'",
                 "%DOC%"
             ]
+        },
+        {
+            "name": "latexmk-conclusions",
+            "command": "latexmk",
+            "args": [
+                "-pdf",
+                "-bibtex",
+                "-pdflatex=pdflatex -synctex=1 -interaction=nonstopmode -shell-escape -file-line-error -output-directory='%OUTDIR%' '\\def\\ConclusionsChapter{} \\input{%DOC%}'",
+                "%DOC%"
+            ]
         }
     ],
     "latex-workshop.latex.recipes": [
@@ -52,6 +62,12 @@
             "name": "latexmk Casts Chapter 🔃",
             "tools": [
                 "latexmk-casts"
+            ]
+        },
+        {
+            "name": "latexmk Conclusions Chapter 🔃",
+            "tools": [
+                "latexmk-conclusions"
             ]
         }
     ],
