@@ -73,7 +73,7 @@ and 5 discussions mention a field of \unsafe{}.
 However, if the presence of the type \unsafe{} guarantees that the discussion is likely about \smu{},
 the lone presence of the method name does not guarantee that.
 For example, methods like \code{getInt} and \code{getFloat} can be found in other classes like \code{java.nio.ByteBuffer}.%
-\footnote{\url{http://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html}}.
+\footnote{\url{http://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html}}
 Neither does the absence of the type in our parsing results guarantee that the discussion does not concern \smu{}.
 Indeed, to avoid false positives,
 we do not check at parsing time if the lone term ``unsafe'' is mentioned in the natural language parts of a discussion.
@@ -91,6 +91,13 @@ Of these ones, 163 questions mention both the type (or the term \emph{unsafe}) a
 
 
 \subsection{Findings on \stackoverflow{} Discussions}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.56\textwidth]{chapters/unsafe/usage-so}
+\caption{\smu{} members mentions on \stackoverflow{}}
+\label{fig:unsafe:usage-so}
+\end{figure}
 
 Figure~\ref{fig:unsafe:usage-so} presents an overview of \smu{} method mentions in \stackoverflow{}.
 The mentions are presented by distinguishing whether they appear only in the question,
@@ -115,31 +122,23 @@ The most frequently occurring groups of methods are \smugroup{Get} and \smugroup
 Moreover, the methods mentioned most in questions are the ones in the \smugroup{Put} group.
 Finally, the methods from \smugroup{Fetch \& Add} group are not mentioned in our dataset.
 
-% \clearpage
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.54\textwidth]{chapters/unsafe/usage-so}
-\caption{\smu{} members mentions on \stackoverflow{}}
-\label{fig:unsafe:usage-so}
-\end{figure}
-
 { \bfseries Discussions Archetypes. } 
 We manually inspected the resulting discussions to understand how \smu{} is discussed, devising a set of discussion archetypes:
 
 \begin{itemize}
-\item\textbf{Lack of documentation.}
+\item\textbf{Lack of documentation:}
 \unsafe{} is an undocumented API,
 and a primary archetype concerns developers asking the crowd to obtain clarification on usage.
 A relatively popular question, entitled ``Using sun.misc.Unsafe in real world'',
 asks for typical use cases.%
 \footnote{\url{http://stackoverflow.com/questions/5574241}}
 
-\item\textbf{Performance.}
-Users coming from unmanaged languages like \c{} and \cpp{} discuss how to avoid the cost of \java{}'s safety checks.
+\item\textbf{Performance:}
+Users coming from unmanaged languages like \cc{} and \cpp{} discuss how to avoid the cost of \java{}'s safety checks.
 For instance, a user asked for an equivalent method call for \code{memcpy}.%
 \footnote{\url{http://stackoverflow.com/questions/6060163}}
 
-\item \textbf{Misdirected uses.}
+\item \textbf{Misdirected uses:}
 Developers may propose \unsafe{} for inappropriate purposes.
 For example, a post discusses the use of the address to free an object on the \java{} heap.%
 \footnote{\url{http://stackoverflow.com/questions/24429777}}
@@ -147,6 +146,6 @@ Developers suggested the use of \unsafe{} as a workaround to the \code{Runnable.
 \footnote{\url{http://stackoverflow.com/questions/11410042}}
 to allow it throwing exceptions.
 Overall, the availability of \unsafe{} to developers who do not have a deep understanding of the \jvm{} comes with the risk of misdirected uses.
-This risk is not unlike the risk of inappropriately using \code{eval}~\cite{Richards:2011:EML:2032497.2032503} in \javascript{}.
+This risk is not unlike the risk of inappropriately using \code{eval}~\citep{richardsEvalThatMen2011} in \javascript{}.
 
 \end{itemize}
