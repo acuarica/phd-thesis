@@ -1,6 +1,13 @@
-\chapter{Conclusions}
+\chapter{Conclusions}\label{cha:conclusions}
 
-In this proposal we have presented our research plan.
+% TODO:
+% Matthias: Expand significantly.
+% Maybe 5 pages or more.
+% What insights did you gain, can you summarize to what degree you answered the RQs?
+% What limitations?
+% What future work?
+
+In this thesis we have presented our research.
 We have devised common usage patterns for the \java{} Unsafe \api.
 We discussed several current and future alternatives to improve the
 \java{} language.
@@ -8,14 +15,41 @@ This work has been published in~\citep{mastrangeloUseYourOwn2015}.
 On the other hand, we plan to complement our Unsafe \api{} study with 
 our casting study.
 We are devising common usage patterns that involve the casting operator.
-Having a taxonomy of usage patterns
---- for both the Unsafe \api{} and casting ---
-can shed light on how \java{} developers circumvent
+Having a taxonomy of usage patterns---for both the Unsafe \api{} and casting---can shed light on how \java{} developers circumvent
 the static type system's constraints.
 
-% TODO:
-Matthias: Expand significantly.
-Maybe 5 pages or more.
-What insights did you gain, can you summarize to what degree you answered the RQs?
-What limitations?
-What future work?
+\section{The \java{} Unsafe \api{} in the Wild}
+
+\smu{} is an API that was designed for limited use in system-level runtime library code.
+The \unsafe{} API is powerful, but dangerous.
+The improper use of \unsafe{} undermines \java{}'s safety guarantees.
+We studied to what degree \unsafe{} usage has spread into third-party libraries,
+to what degree such third-party usage of \unsafe{} can impact existing Java code,
+and which \unsafe{} API features such third-party libraries actually use.
+We studied the questions and discussions developers have about \unsafe{},
+and we identified common usage patterns.
+We thereby provided a basis for evolving the \unsafe{} API, the \java{} language, and the \jvm{}
+by eliminating unused or abused unsafe features,
+and by providing safer alternatives for features that are used in meaningful ways.
+We hope this will help to make \unsafe{} safer.
+
+
+\section{Casting about in the Dark}
+
+We found the rationale behind some patterns is due to the inexpressiveness of \java{}'s type system.
+On the other hand,
+there are patterns that abuse or misuse it.
+
+Many of the patterns we found should be unsurprising to most object-oriented programmers.
+That nearly 45\% of casts are (possibly) unguarded 
+suggests that developers use application-specific knowledge that cannot be easily encoded in
+the type system to ensure the absence of run-time type errors.
+
+Our study provides insight on the boundary between static and dynamic typing,
+which may inform research on both static and dynamic,
+as well as gradual type systems~\citep{Siek06gradualtyping}.
+Conversely, this research can inform the design of extensions of the \java{} type system to reduce the need for casting.
+
+We are currently working to define static analyses to detect some of these patterns automatically.
+With these analyses,
+tools can be developed to identify instances of the pattern and to ensure that they are being implemented properly.
