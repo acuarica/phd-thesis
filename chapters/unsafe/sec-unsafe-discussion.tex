@@ -115,13 +115,14 @@ Other patterns may require \java{} language changes.
 For instance, 
 the language could be changed to not require methods to declare the exceptions they throw,
 obviating the need for \unsafe{} in this case.
-Indeed, there is a long-running debate\footnote{\url{http://www.ibm.com/developerworks/library/j-jtp05254/}} about the software-engineering benefits of checked exceptions.
-C\#, for instance, does not require that exceptions be declared in method signatures at all.
-One alternative not requiring a language change
-% , proposed in a \stackoverflow{} discussion,
-is to use \java{} generics
-instead.
-% \footnote{\url{http://stackoverflow.com/questions/11410042}}
+Indeed, there is a long-running debate%
+\footnote{\url{http://www.ibm.com/developerworks/library/j-jtp05254/}}
+about the software-engineering benefits of checked exceptions.
+\csharp{}, for instance, does not require that exceptions be declared in method signatures at all.
+One alternative not requiring a language change,
+proposed in a \stackoverflow{} discussion,
+is to use \java{} generics instead.
+\footnote{\url{http://stackoverflow.com/questions/11410042}}
 Because of type erasure, a checked exception can be coerced unsafely into an unchecked exception and thrown.
 
 Changing the language to support allocation without constructors or non-lexically-scoped monitors is feasible.
