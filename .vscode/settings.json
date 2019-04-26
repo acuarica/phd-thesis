@@ -79,6 +79,8 @@
         "aload",
         "astore",
         "captionpos",
+        "clusterings",
+        "dendrogram",
         "deserialization",
         "emphstyle",
         "instanceof",
