@@ -4,12 +4,14 @@ We examined the artifacts in the Maven Central software repository to identify u
 This section describes our methodology for identifying these patterns. 
 
 \begin{figure}[!ht]
+\centering
 \includegraphics[page=6,width=\columnwidth]{chapters/unsafe/artifacts}
 \caption{\artexp{com.lmax}{disruptor} call sites}
 \label{fig:appartfingerprint}
 \end{figure}
 
 \begin{figure}[!ht]
+\centering
 \includegraphics[page=5,width=0.9\columnwidth]{chapters/unsafe/artifacts}
 \caption{\artexp{org.scala-lang}{scala-library} call sites}
 \label{fig:langartfingerprint}
@@ -17,7 +19,7 @@ This section describes our methodology for identifying these patterns.
 
 Our first step is to visualize how an artifact uses \unsafe{}.
 To this end, we count the \unsafe{} call sites and field usages per class in each artifact.
-Figures~\ref{fig:appartfingerprint} and \ref{fig:langartfingerprint} show two examples of call sites usages for \artexp{com.lmax}{disruptor} and \artexp{org.scala-lang}{scala-library} respectively.
+Figures~\ref{fig:appartfingerprint} and~\ref{fig:langartfingerprint} show two examples of call sites usages for \artexp{com.lmax}{disruptor} and \artexp{org.scala-lang}{scala-library} respectively.
 Each row shows a fully qualified class name and their usage of \smu{}.
 
 After determining the call sites and field usage per artifact, we tried to find a way to group artifacts by how they use \smu{}.
@@ -26,6 +28,7 @@ These calls might all be located within a single class, be spread across differe
 After trying different combinations, we decided to group together calls occurring within a single class and its inner classes.
 
 \begin{figure}[!ht]
+\centering
 \includegraphics[width=0.55\columnwidth]{chapters/unsafe/classunit}
 \caption{Classes using off-heap large arrays}
 \label{fig:classunitfingerprint}
