@@ -1,4 +1,5 @@
-\chapter{Literature Review}\label{cha:literature-review}
+\chapter{Literature Review}
+\label{cha:literature-review}
 
 Understanding how developers use language features
 and \api{}s is a broad topic.
@@ -30,39 +31,34 @@ studied the reliability of programs using \emph{fuzz} testing.
 \cite{dieckmannStudyAllocationBehavior1999} studied the memory allocating
 behavior in the SPECjvm98 benchmarks.%
 \footnote{\url{https://www.spec.org/jvm98/}}
-The importance of conducting empirical studies of programs
-gave rise to the
-International Conference on Mining Software Repositories%
+
+But there is more than empirical studies at the source code level.
+A machine instruction set is effectively another kind of language.
+Therefore, its design can be affected by how compilers generate machine code.
+Several studies targeted the \jvm{}~\cite{collbergEmpiricalStudyJava2007,odonoghueBigramAnalysisJava2002,antonioliAnalysisJavaClass1998};
+while~\cite{cookEmpiricalAnalysisLilith1989} did a similar study for \lilith{} in the past.
+
+The importance of conducting empirical studies of programs gave rise to the International Conference on Mining Software Repositories%
 \footnote{\url{http://www.msrconf.org/}}
 in 2004.
 
-% The organization of the rest of this chapter is as follows: 
 When conducting empirical studies about programs,
 multiple dimensions are involved.
-The first one
-% when conducting empirical studies of programs
-is 
-\emph{What to analyze?}
+The first one is \emph{What to analyze?}
 Benchmarks and corpora are used as a source of programs to analyze.
 Another aspect is how to select good candidates projects from a large-base software repository.
-This is presented in Section~\ref{sec:lr:benchmarks}.
+This is presented in Section~\ref{sec:literature-review:benchmarks}.
 After the selection of programs to analyze is set,
 comes the question \emph{how to analyze them?}
-An overview of what tools are available to extract information from software repositories is given in Section~\ref{sec:lr:mining}.
+An overview of what tools are available to extract information from software repositories is given in Section~\ref{sec:literature-review:mining}.
 With this infrastructure, \emph{what questions do researchers ask?}
-In Section~\ref{sec:lr:largescale}, we give an overview of large-scale
-empirical studies
-% either in \java{} or other languages
-that show what
-kind of questions researchers ask.
-This chapter ends by presenting the related work more specific to
-the Unsafe API and Casting in
-Sections~\ref{sec:lr:unsafe} and \ref{sec:lr:casting}
-respectively.
+In Section~\ref{sec:literature-review:largescale},
+we give an overview of large-scale empirical studies that show what kind of questions researchers ask.
+This chapter ends by presenting the related work more specific to the Unsafe API and Casting in Sections~\ref{sec:literature-review:unsafe} and \ref{sec:literature-review:casting} respectively.
 
 
 \section{Benchmarks and Corpora}
-\label{sec:lr:benchmarks}
+\label{sec:literature-review:benchmarks}
 
 Benchmarks are crucial to properly evaluate and measure product development.
 This is key for both research and industry.
@@ -89,8 +85,8 @@ to benchmark systematically.''
 Along these lines, \cite{allamanisMiningSourceCode2013} go one step further and provide a large-scale (14,807) curated corpus of open source \java{} projects.
 
 With the advent of cloud computing,
-several source code management (SCM) hosting services have emerged, \eg,
-\github, \gitlab, \bitbucket, and \sourceforge.
+several source code management (SCM) hosting services have emerged, \eg{},
+\github{}, \gitlab{}, \bitbucket{}, and \sourceforge{}.
 These services allow the developer to work with different SCMs, \eg,
 Git, Mercurial, Subversion to host their open source projects.
 These projects are usually taken as a representation of
@@ -114,7 +110,7 @@ project age, activity, number of contributors, total code churn,
 and number of commits.
 
 \section{Tools for Mining Software Repositories}
-\label{sec:lr:mining}
+\label{sec:literature-review:mining}
 
 When talking about mining software repositories,
 we refer to extracting any kind of information from large-scale codebase repositories. 
@@ -155,8 +151,10 @@ But it does not work at a large-scale, \ie{}, \lgtm{} allows the user to query j
 Unlike \boa{}, \lgtm{} is based on \ql{}---before named \emph{.QL}---,
 an object-oriented domain-specific language to query recursive data structures~\cite{avgustinovQLObjectorientedQueries2016}.
 
-% On top of \boa{},~\cite{tiwariCandoiaPlatformBuilding2017} built \candoia \footnote{\url{http://candoia.github.io/}}. 
-% Although it is not a mining software repository \perse{}, it eases the creation of mining applications. 
+On top of \boa{},~\cite{tiwariCandoiaPlatformBuilding2017} built \candoia{}%
+\footnote{\url{http://candoia.github.io/}}.
+Although it is not a mining software repository \perse{},
+it eases the creation of mining applications. 
 
 Another tool to analyze large software repositories is presented in~\cite{brandauerSpencerInteractiveHeap2017}.
 In this case, the analysis is dynamic, based on program traces. 
@@ -182,7 +180,7 @@ The main issue with JavaParser is the lack to do symbol resolution integrated wi
 
 
 \section{Large-scale Codebase Empirical Studies}
-\label{sec:lr:largescale}
+\label{sec:literature-review:largescale}
 
 In the same direction as our plan,
 \cite{callauHowWhyDevelopers2013} performed an empirical study to assess
@@ -196,12 +194,13 @@ how fields are accessed via strings,
 while~\cite{jangEmpiricalStudyPrivacyviolating2010}
 analyzed privacy violations.
 Similar empirical studies were done for
-\php~\citep{hillsEmpiricalStudyPHP2013,dahseExperienceReportEmpirical2015,doyleEmpiricalStudyEvolution2011}
-and \swift~\citep{reboucasEmpiricalStudyUsage2016}.  
+\php{}~\citep{hillsEmpiricalStudyPHP2013,dahseExperienceReportEmpirical2015,doyleEmpiricalStudyEvolution2011}
+and \swift{}~\citep{reboucasEmpiricalStudyUsage2016}.
+\cite{PINTO201559} conducted a large-scale study on how concurrency is used in \java{}
 
 Going one step forward, \cite{rayLargescaleStudyProgramming2017} studied the correlation between programming languages and defects. 
 One important note is that they choose relevant projects by popularity,
-measured by how many times was \emph{starred} in \github.
+measured by how many times was \emph{starred} in \github{}.
 We argue that it is more important to analyze projects that are \emph{representative}, not \emph{popular}.
 
 \cite{gorlaCheckingAppBehavior2014} mined a large set of Android applications, clustering applications by their description topics and identifying outliers in each cluster with respect to their API usage.
@@ -220,7 +219,7 @@ contribute a dataset of five types of code smells together with a systematic pro
 \cite{palombaDetectingBadSmells2013} propose to detect code smells using change history information.
 
 \cite{nagappanEmpiricalStudyGoto2015} conducted a study on how the
-\code{goto} statement is used in \cc.
+\code{goto} statement is used in \cc{}.
 They used \github{} as a data source for \cc{} programs.
 They concluded that \code{goto} statements are most used for
 \emph{handling errors} and \emph{cleaning up resources}.
@@ -273,14 +272,17 @@ They found that the use of generics does not significantly reduce the number of 
 
 \cite{costaEmpiricalStudyUsage2017} have mined \github{} corpus to study the use and performance of collections,
 and how these usages can be improved.
-They found that in most cases there is an alternative usage that
-improves performance.
+They found that in most cases there is an alternative usage that improves performance.
+
+Another study about how a programming language feature is used is done in
+\cite{temperoHowJavaPrograms2008}.
+They conducted a study on how inheritance is used in \java{} programs.
 
 This kind of studies give an insight of the adoption of lambdas and generics; which can drive future direction for language designers and tool builders, while providing developers with best practices.
 
 
 \subsection{Unsafe Intrinsics in \java}
-\label{sec:lr:unsafe}
+\label{sec:literature-review:unsafe}
 
 Oracle provides the \smu{} class for low-level programming,
 \eg, synchronization primitives, direct memory access methods,
@@ -306,9 +308,9 @@ This study is summarized in Chapter \ref{cha:unsafe}.
 \cite{liFindingBugsExceptional2009} analyze the discrepancy between how exceptions are handled in native code and \java{}.
 
 \subsection{Casting}
-\label{sec:lr:casting}
+\label{sec:literature-review:casting}
 
-Casting operations in \java
+Casting operations in \java{}%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.16}}
 allows the developer to view a reference at a different type as it was declared.
 The related \code{instanceof} operator%
