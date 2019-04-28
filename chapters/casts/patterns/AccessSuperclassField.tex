@@ -14,27 +14,24 @@ public abstract class StudentsPerformanceReport_Base extends QueueJobWithFile {
     private OwnedVBox<ExecutionSemester> executionSemester;
 }
 public class StudentsPerformanceReport extends StudentsPerformanceReport_Base {
-   /* [...] */
+    // [...]
 } #\urlbox#
 \end{minted}
 
 \issues{}
-The particular instance we encountered has a method whose parameter is a
-  subclass of the current class. The cast is needed to access a private
-  field of the current class.
-  Being an upcast, the cast is always safe. More problematic is the strong coupling 
-  between the base class and the derived class, however the base class is
-  generated code; possibly, a manually written version would just combine the
-  two classes.
+The particular instance we encountered has a method whose parameter is a subclass of the current class.
+The cast is needed to access a private field of the current class.
+Being an upcast, the cast is always safe.
+More problematic is the strong coupling between the base class and the derived class,
+however the base class is generated code;
+possibly, a manually written version would just combine the two classes.
 
-  Another use of the pattern, not found in our sample however,
-  is to upcast a value to access a field of a superclass 
-  which is shadowed by another field of the same name in the subclass.
+Another use of the pattern, not found in our sample however,
+is to upcast a value to access a field of a superclass which is shadowed by another field of the same name in the subclass.
 
-  The \nameref{pat:ReflectiveAccessibility} pattern is also used to access
-  private fields, albeit fields of unrelated classes that cannot be accessed
-  simply by casting to another type.
-  Like \nameref{pat:SoleSubclassImplementation}, this pattern occurs
-  when there is high cohesion between super and subclass.
+The \nameref{pat:ReflectiveAccessibility} pattern is also used to access private fields,
+albeit fields of unrelated classes that cannot be accessed simply by casting to another type.
+Like \nameref{pat:SoleSubclassImplementation},
+this pattern occurs when there is high cohesion between super and subclass.
 
 \end{pattern}

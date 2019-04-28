@@ -85,18 +85,20 @@ Discusses the issues with the pattern, flaws, and alternatives that achieve the 
 \newcommand\castpatternsection[1]{\paragraph{#1.}}
 \newcommand\variant[1]{\textsl{#1}}
 \newenvironment{pattern}[1]{
-    \newcommand{\nocc}{\csname n#1Pattern\endcsname{}}
-    \newcommand{\noccsrc}{\csname n#1PatternSrc\endcsname{}}
-    \newcommand{\noccgen}{\csname n#1PatternGen\endcsname{}}
-    \newcommand{\nocctest}{\csname n#1PatternTest\endcsname{}}
-    \newcommand{\pocc}{\csname p#1Pattern\endcsname{}}
-    \newcommand{\instances}{\castpatternsection{Instances: \nocc{} (\pocc\%)}
-    We found \noccsrc{} in application code, \nocctest{} in test code, and \noccgen{} in generated code.}
-    \newcommand{\issues}{\castpatternsection{Issues}}
-    \newcommand{\thisp}{\textsc{#1}}
-    \subsection{\textsc{#1}}
-    \label{pat:#1}
-    \castpatternsection{Description}
+\newcommand{\nocc}{\csname n#1Pattern\endcsname{}}
+\newcommand{\noccsrc}{\csname n#1PatternSrc\endcsname{}}
+\newcommand{\noccgen}{\csname n#1PatternGen\endcsname{}}
+\newcommand{\nocctest}{\csname n#1PatternTest\endcsname{}}
+\newcommand{\pocc}{\csname p#1Pattern\endcsname{}}
+\newcommand{\instances}{\castpatternsection{Instances: \nocc{} (\pocc\%)}
+    We found \noccsrc{} in application code,
+    \nocctest{} in test code,
+    and \noccgen{} in generated code.}
+\newcommand{\issues}{\castpatternsection{Issues}}
+\newcommand{\thisp}{\textsc{#1}}
+\subsection{\textsc{#1}}
+\label{pat:#1}
+\castpatternsection{Description}
 }{}
 
 \input{analysis/input-patterns.def}

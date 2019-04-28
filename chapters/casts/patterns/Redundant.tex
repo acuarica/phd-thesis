@@ -14,7 +14,6 @@ This cast is not needed a \java{} compiler can infer that the lambda expression 
 \def\urlvar{http://bit.ly/vladmihalcea_high_performance_java_persistence_2FWXw2e}
 \begin{minted}[highlightlines=8]{java}
 public class FlywayTest {
-    // [...]
     private TransactionTemplate transactionTemplate;
     @Test
     public void test() {
@@ -25,7 +24,6 @@ public class FlywayTest {
                 entityManager.persist(post);
                 return null;
         });
-        // [...]
     }
 }
 public interface TransactionStatus { /* [...] */ }
@@ -56,20 +54,17 @@ static protected BigDecimal count(Tuple input) throws ExecException {
 } #\urlbox#
 \end{minted}
 
-In the following cast instance,%
-\def\urlvar{http://bit.ly/phishman3579_java_algorithms_implementation_2SGcH6w}
+In the following cast instance,
 a cast is applied to the \code{node.right} field (line 12).
 Nevertheless, the \code{right} field of the \code{Node} class is already defined as \code{Node<T>},
 rendering the cast redundant.
 
 %https://lgtm.com/projects/g/phishman3579/java-algorithms-implementation/snapshot/dist-1797111073-1524814812150/files/src/com/jwetherell/algorithms/data_structures/ImplicitKeyTreap.java?sort=name&dir=ASC&mode=heatmap#L266
+\def\urlvar{http://bit.ly/phishman3579_java_algorithms_implementation_2SGcH6w}
 \begin{minted}[highlightlines=12]{java}
 public class ImplicitKeyTreap<T> implements IList<T> {
-
-    protected Node<T> root = null;
-
-    // [...]
-
+    protected Node<T> root = null; 
+    // [...] 
     private int getIndexByValue(T value) {
         final Node<T> node = (Node<T>)root;
         if (value == null || node == null)
@@ -79,7 +74,6 @@ public class ImplicitKeyTreap<T> implements IList<T> {
         // [...]
         return i;
     }
-
     public static class Node<T> {
         private T value = null;
         private int priority;
@@ -93,11 +87,10 @@ public class ImplicitKeyTreap<T> implements IList<T> {
 \end{minted}
 
 There are cases when code generators insert superfluous casts to \code{null}.
-The following cast instance%
-\def\urlvar{http://bit.ly/togglz_togglz_2SGncXB}
-could be removed since in this case the cast to \code{null} is not needed.
+The following cast instance could be removed since in this case the cast to \code{null} is not needed.
 
 %https://lgtm.com/projects/g/togglz/togglz/snapshot/dist-44910020-1524814812150/files/slack/target/generated-sources/groovy-stubs/test/org/togglz/slack/sender/AsyncNotifierSpecIT.java?sort=name&dir=ASC&mode=heatmap#L17
+\def\urlvar{http://bit.ly/togglz_togglz_2SGncXB}
 \begin{minted}[highlightlines=2]{java}
 public groovy.lang.MetaClass getMetaClass() {
     return (groovy.lang.MetaClass) null;
@@ -107,10 +100,7 @@ public groovy.lang.MetaClass getMetaClass() {
 
 \issues{}
 Redundant casts are generally upcasts or casts involving erased type parameters.
-  This pattern arises often in generated code.
-  It may also appear 
-due to code refactorings that change a type and therefore make the cast
-  redundant.
-
+This pattern arises often in generated code.
+It may also appear due to code refactoring that change a type and therefore make the cast redundant.
     
 \end{pattern}
