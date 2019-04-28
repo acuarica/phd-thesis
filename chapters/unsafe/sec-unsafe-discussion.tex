@@ -1,5 +1,4 @@
-\section{What is the Unsafe API Used for?}
-\label{sec:unsafe:discussion}
+\section{What is the Unsafe API Used for?}\label{sec:unsafe:discussion}
 
 In response to \ref{unsafe:rq2} (\emph{\urqB}),
 many of the patterns we found indicate that \unsafe{} is used to achieve 
@@ -69,7 +68,9 @@ therefore less performant) than are needed for a given application.
 Indeed, the \unsafe{} \smugroup{Put Ordered}
 and \smugroup{Fence} methods were likely introduced
 to improve performance versus volatile variables.
-The accepted proposal JEP 193 (Enhanced Volatiles~\citep{jep193}) introduces \emph{variable handles}, which allow
+The accepted proposal JEP 193 (Variable Handles%
+\footnote{\url{https://openjdk.java.net/jeps/193}}~\citep{jep193})
+introduces \emph{variable handles}, which allow
 atomic operations on fields and array elements.
 
 Many of the patterns can be implemented using the reflection API,
@@ -95,14 +96,22 @@ Using \code{struct}s or packed objects can reduce memory overhead by eliminating
 \java{} has no native support for \code{struct}s,
 but they can be implemented with byte buffers or with \jni{}.\footnote{\url{http://www.oracle.com/technetwork/java/jvmls2013sciam-2013525.pdf}}
 
-The Arrays 2.0 proposal~\citep{arrays20} and
-the value types proposal~\citep{valuetypes} address the large arrays pattern.
-Project Sumatra~\citep{layouts} proposes features for accessing GPUs
+The Arrays 2.0~\citep{arrays20} and
+the value types%
+\footnote{\url{https://openjdk.java.net/jeps/169}}$^{,}$%
+\footnote{\url{http://cr.openjdk.java.net/~jrose/values/values-0.html}}\citep{valuetypes,jep169}
+proposals address the large arrays pattern.
+Project Sumatra%
+\footnote{\url{https://openjdk.java.net/projects/sumatra/}}~\citep{layouts}
+proposes features for accessing GPUs
 and other accelerators,
 one of the use cases for foreign data access.
-Related proposals include JEP 191~\citep{jep191},
+Related proposals include JEP 191%
+\footnote{\url{https://openjdk.java.net/jeps/191}}~\citep{jep191},
 which proposes a new foreign function interface for \java{},
-and Project Panama~\citep{panama}, which supports native data access from the \jvm{}.
+and Project Panama%
+\footnote{\url{https://cr.openjdk.java.net/~jrose/panama/isthmus-in-the-vm-2014.html}}~\citep{panama},
+which supports native data access from the \jvm{}.
 
 A \member{sizeof} feature could be introduced into the language or into the standard library.
 A use case for this feature includes cache management implementations.
@@ -142,4 +151,4 @@ eliminating the motivation to use \unsafe{} to process byte arrays.
 Many patterns use \unsafe{} to use memory more efficiently.
 This could be ameliorated with lower GC overhead.
 There are proposals for this, for instance JEP 189 Shenandoah:
-Low Pause GC~\citep{jep189}.
+Low Pause GC\footnote{\url{https://openjdk.java.net/jeps/189}}~\citep{jep189}.

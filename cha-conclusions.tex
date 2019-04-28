@@ -1,24 +1,34 @@
 \chapter{Conclusions}\label{cha:conclusions}
 
-In this thesis we have presented our research.
-We have devised common usage patterns for the \java{} Unsafe \api.
+In this thesis we have presented our research to fullfil the requirements for \phd{} degree.
+We have devised common usage patterns for the \java{} Unsafe \api{}.
 We discussed several current and future alternatives to improve the
 \java{} language.
 This work has been published in~\citep{mastrangeloUseYourOwn2015}.
-On the other hand, we plan to complement our Unsafe \api{} study with 
+On the other hand, we complement our Unsafe \api{} study with 
 our casting study.
-We are devising common usage patterns that involve the casting operator.
+We have submitted this study for publication to the \conf{OOPSLA}{19} conference.
+We have devised common usage patterns that involve the cast operator.
 Having a taxonomy of usage patterns---for both the Unsafe \api{} and casting---can shed light on how \java{} developers circumvent the static type system's constraints.
 
-% TODO: recast these studies with boa or ql to using repos, eg github datasets.
-% TODO: unsafe using source code, instead of bytecode. src with  boa or ql.
-% TODO:
-% Matthias: Expand significantly.
-% Maybe 5 pages or more.
-% What insights did you gain, can you summarize to what degree you answered the RQs?
-% What limitations?
-% What future work?
-
+The \java{} language is evolving constantly.
+There are several proposals to improve different aspects of the language.
+The proposal JEP 193~\citep{jep193} that introduces Variable Handles is already accepted and included in \java{} 9.
+The GC algorithm introduced in JEP 189 Shenandoah~\citep{jep189} is included as a experimental feature in \java{} 12.
+There is an ongoing proposal%
+\footnote{\url{https://openjdk.java.net/jeps/305}}$^{,}$%
+\footnote{\url{https://cr.openjdk.java.net/~briangoetz/amber/pattern-match.html}}%
+~\citep{jep305} to add pattern matching to the \java{} language.
+The proposal explores changing the \code{instanceof} operator in order to support pattern matching.
+\java{} 12 extends the \code{switch} statement to be used as either a statement or an expression%
+\footnote{\url{https://openjdk.java.net/jeps/325}}$^{,}$%
+\footnote{\url{https://openjdk.java.net/jeps/354}}~\citep{jep325,jep354}.
+This enhancement aims to ease the transition to a \code{switch} expression that supports pattern matching.
+On the other hand,
+JEP 191 Foreign Function Interface~\citep{jep191},
+JEP 169 Value Objects~\citep{jep169}, and
+JEP 300 Augment Use-Site Variance with Declaration-Site Defaults~\citep{jep300}
+are still in draft status.
 
 \section*{\nameref*{cha:unsafe}}
 
@@ -28,6 +38,7 @@ The improper use of \unsafe{} undermines \java{}'s safety guarantees.
 We studied to what degree \unsafe{} usage has spread into third-party libraries,
 to what degree such third-party usage of \unsafe{} can impact existing Java code,
 and which \unsafe{} API features such third-party libraries actually use.
+
 We studied the questions and discussions developers have about \unsafe{},
 and we identified common usage patterns.
 We thereby provided a basis for evolving the \unsafe{} API, the \java{} language, and the \jvm{}
@@ -35,10 +46,11 @@ by eliminating unused or abused unsafe features,
 and by providing safer alternatives for features that are used in meaningful ways.
 We hope this will help to make \unsafe{} safer.
 
-
 \section*{\nameref*{cha:casts}}
 
-We found the rationale behind some patterns is due to the inexpressiveness of \java{}'s type system.
+The cast operator in \java{} bridges the gap between compile-time and run-time safety.
+We have devised several cast usage patterns.
+We found the rationale behind some cast patterns is due to the inexpressiveness of \java{}'s type system.
 On the other hand,
 there are patterns that abuse or misuse it.
 
@@ -55,3 +67,12 @@ Conversely, this research can inform the design of extensions of the \java{} typ
 We are currently working to define static analyses to detect some of these patterns automatically.
 With these analyses,
 tools can be developed to identify instances of the pattern and to ensure that they are being implemented properly.
+
+% \section{Futute Work and Limitations}
+
+% TODO: recast these studies with boa or ql to using repos, eg github datasets.
+% TODO: unsafe using source code, instead of bytecode. src with  boa or ql.
+% Maybe 5 pages or more.
+% What insights did you gain, can you summarize to what degree you answered the RQs?
+% What limitations?
+% What future work?

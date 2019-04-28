@@ -378,12 +378,13 @@ def showNotification(notification: Notification): String = {
 Alternatives to the \thisp{} pattern would be to use the visitor pattern or to use virtual dispatch on the match scrutinee.
 However, both of these alternatives might be difficult to implement when the scrutinee is defined in a library or in third-party code.
 There is an ongoing proposal%
-\footnote{\url{http://openjdk.java.net/jeps/305}}$^{,}$%
-\footnote{\url{https://cr.openjdk.java.net/~briangoetz/amber/pattern-match.html}}
-to add pattern matching to the \java{} language.
+\footnote{\url{https://openjdk.java.net/jeps/305}}$^{,}$%
+\footnote{\url{https://cr.openjdk.java.net/~briangoetz/amber/pattern-match.html}}%
+~\citep{jep305} to add pattern matching to the \java{} language.
 The proposal explores changing the \code{instanceof} operator in order to support pattern matching.
-\java{} 12 extends the \code{switch} statement to be used as either a statement or an expression.%
-\footnote{\url{https://openjdk.java.net/jeps/325}}
+\java{} 12 extends the \code{switch} statement to be used as either a statement or an expression%
+\footnote{\url{https://openjdk.java.net/jeps/325}}$^{,}$%
+\footnote{\url{https://openjdk.java.net/jeps/354}}~\citep{jep325,jep354}.
 This enhancement aims to ease the transition to a \code{switch} expression that supports pattern matching.
 
 The \variant{GuardByClassLiteral} variant may be used instead of the \code{instanceof} operator when the developer wants to match exactly the runtime class.
