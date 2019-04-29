@@ -1,90 +1,18 @@
 \section{Using \jnif{}}\label{sec:jnif-usage}
 
-We now show how to use \jnif{}.
-\jnif{} can be used both in stand-alone tools or
-embedded inside a \jvmti{} agent.
-The complete \api{} documentation and more extensive examples are available online%
-\footnote{\url{http://acuarica.gitlab.io/jnif/}}.
-Listing~\ref{usage-decode-encode} shows how to read and write a class file.
-
-\begin{listing}
-\begin{minted}{cpp}
-// Decode the binary data into a ClassFile object
-const char* data = ...;
-int len = ...;
-jnif::ClassFile cf(data, len);
-
-// Analyze or edit the ClassFile
-...
-
-// Encode the ClassFile into binary
-int newlen = cf.computeSize();
-u1* newdata = new u1[newlen];
-cf.write(newdata, newlen);
-
-// Use newdata and newlen
-...
-
-// Free the new binary
-delete [] newdata;
-\end{minted}
-\caption{Decoding and encoding a class}
-\label{usage-decode-encode}
-\end{listing}
-
-\jnif{}'s \code{ClassFile} class provides fields and methods for analyzing and editing a Java class.
-Listing~\ref{usage-print1} shows how to traverse all methods in a class
-to dump their names and descriptors.
-
-\begin{listing}
-\begin{minted}{cpp}
-for (jnif::Method* m : cf.methods) {
-  cout << "Method: ";
-  cout << cf.getUtf8(m->nameIndex);
-  cout << cf.getUtf8(m->descIndex);
-  cout << endl;
-}
-\end{minted}
-\caption{Traversing all methods in a class}
-\label{usage-print1}
-\end{listing}
-
-Listing~\ref{usage-edit} shows how to find all constructors in a class
-and how to inject instrumentation, in the form of a call to a static method
-\code{static void alloc( Object o)} of an analysis class,
-at the beginning of each constructor.
-
-\begin{listing}
-\begin{minted}{cpp}
-ConstIndex mid = cf.addMethodRef(classIndex, 
-  "alloc", "(Ljava/lang/Object;)V");
-
-for (Method* method : cf.methods) {
-  if (method->isInit()) {
-    InstList& instList = method->instList();
-    Inst* p = *instList.begin();
-    instList.addZero(OPCODE_aload_0, p);
-    instList.addInvoke(OPCODE_invokestatic, mid, p);
-  }
-}
-\end{minted}
-\caption{Instrumenting constructor entries}
-\label{usage-edit}
-\end{listing}
-
-Besides providing access to all members of a class,
-\texttt{ClassFile} also provides access to the constant pool
-via methods like \texttt{getUtf8()} and \texttt{addMethodRef()}.
-
 This section shows common use cases of the \jnif{} library, 
 such as writing instrumentation code and analyzing class files, 
 thus giving an overview of the library. 
 Its components are explained in more detail in Section~\ref{sec:jnif-implementation}.
+\jnif{} can be used both in stand-alone tools or
+embedded inside a \jvmti{} agent.
+The complete \api{} documentation and more extensive examples are available online%
+\footnote{\url{http://acuarica.gitlab.io/jnif/}}.
 We present the examples in an incremental fashion,
 adding complexity in each example.
-
 In order to be able to work with class files, they must me parsed. 
-Given a buffer with a class file and its length, Listing~\ref{usage-parse} shows how to parse it.
+Given a buffer with a class file and its length,
+Listing~\ref{usage-parse} shows how to parse it.
 
 \begin{listing}
 \begin{minted}{cpp}
@@ -98,8 +26,9 @@ jnif::ClassFile cf(data, len);
 \end{listing}
 
 The class \code{ClassFile} represents a \java{} class file and contains the definition for each method and fields. 
-The full documentation can be found online.%
-\footnote{\url{https://acuarica.gitlab.io/jnif/}}
+Besides providing access to all members of a class,
+\code{ClassFile} also provides access to the constant pool
+via methods like \texttt{getUtf8()} and \texttt{addMethodRef()}.
 
 Once a class file is correctly parsed and loaded it can be manipulated using the methods and fields in \code{ClassFile}.
 For instance, in order to write back the parsed class file in a new buffer, the write method is used in conjunction with the computeSize method as shown in listing~\ref{usage-write}.

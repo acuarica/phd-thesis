@@ -1,12 +1,12 @@
-\section{Related Work}
-\label{sec:jnif-relatedwork}
+\section{Related Work}\label{sec:jnif-relatedwork}
 
-We now discuss low-level Java bytecode rewriting libraries,
+We now discuss low-level \java{} bytecode rewriting libraries,
 JVM hooks for dynamic bytecode rewriting,
 high-level dynamic bytecode rewriting frameworks,
 and how they relate to JNIF.
  
-\textbf{Low-level rewriting libraries.}
+\subsection*{Low-level rewriting libraries.}
+
 JNIF certainly is not the first Java bytecode analysis and instrumentation framework.
 The probably earliest is BCEL\footnote{\url{http://commons.apache.org/bcel/}},
 a well-designed Java library with a tree-based API.
@@ -30,7 +30,8 @@ Javassist\footnote{\url{http://www.javassist.org/}}~\cite{chibaEasytoUseToolkitE
 provides an API for editing class files like they were Java source code,
 thereby enabling developers who do not understand bytecode to instrument class files.
 
-\textbf{Dynamic instrumentation hooks.}
+\subsection*{Dynamic instrumentation hooks.}
+
 The most limited way for dynamically rewriting \java{} classes at runtime
 is the use of a custom class loader.
 This requires modifications to the application,
@@ -57,7 +58,8 @@ Java also provides JDI%
 (the \emph{Java Debug Interface}), 
 a high-level interface on top of JVMTI to control a running application in a remote JVM.
 
-\textbf{High-level dynamic analysis frameworks.}
+\subsection*{High-level dynamic analysis frameworks.}
+
 We now discuss dynamic analysis frameworks that are built on top of the previously mentioned rewriting libraries
 and use the above instrumentation hooks.
 These frameworks do not allow arbitrary code transformations 
@@ -97,7 +99,8 @@ convert bytecode into a three-address quadcode internal representation for stati
 Chord also supports dynamic analysis, 
 for which it instruments programs using Javassist.
 
-\textbf{How JNIF differs.}
+\subsection*{How JNIF differs.}
+
 Similar to BCEL, JNIF is a low-level library that uses a clean object model to represent java class files.
 However, unlike all the libraries described above,
 JNIF is not implemented in Java, but in C++.
