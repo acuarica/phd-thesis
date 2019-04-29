@@ -1,7 +1,6 @@
-\section{Performance Evaluation}
-\label{sec:jnif-evaluation}
+\section{Performance Evaluation}\label{sec:jnif-evaluation}
 
-We evaluated the performance of a JNIF-based dynamic instrumentation approach 
+We evaluated the performance of a \jnif{}-based dynamic instrumentation approach 
 versus an approach using an ASM-based instrumentation server.
 
 \subsection*{Measurement Contexts}
@@ -50,10 +49,10 @@ We also include the Scala benchmarks (except for the subset identical to Dacapo)
 
 
 \subsection*{Subjects}
-We compare JNIF to ASM for the purpose of performing dynamic instrumentation.
-For JNIF we built a JVMTI agent that directly includes JNIF to instrument loaded classes.
-For ASM, we use a JVMTI agent that forwards loaded classes to an instrumentation server
-that uses ASM's streaming API (which is faster than ASM's tree API).
+We compare \jnif{} to \asm{} for the purpose of performing dynamic instrumentation.
+For \jnif{} we built a \jvmti{} agent that directly includes \jnif{} to instrument loaded classes.
+For \asm{}, we use a \jvmti{} agent that forwards loaded classes to an instrumentation server
+that uses \asm{}'s streaming \api{} (which is faster than \asm{}'s tree API).
 
 
 \subsection*{Results}
@@ -61,8 +60,7 @@ that uses ASM's streaming API (which is faster than ASM's tree API).
 Figure~\ref{fig:instr-time} shows the results of our performance evaluation
 in terms of time spent instrumenting classes.
 The figure shows the results from our first machine.
-The other machines produced results similar to Figure~\ref{fig:instr-time}, 
-and we omit them for space reasons.
+The other machines produced results similar to Figure~\ref{fig:instr-time}.
 The figure shows box plots summarizing five measurement runs.
 It shows one box for JNIF and two boxes for ASM.
 The ``ASM Server'' box represents the time as measured on the instrumentation server.
@@ -98,15 +96,11 @@ JNIF is faster even than just the ASM Server time.
 % \end{figure*}
 % }
 
-\begin{figure*}[htb]
-\centering
-\vspace{-1cm}
+\begin{figure}[t]
 \includegraphics[width=\textwidth]{chapters/jnif/eval-all-chart-instr}
-
-\vspace{-5mm}
 \caption{Instrumentation time on DaCapo and Scala benchmarks}
 \label{fig:instr-time}
-\end{figure*}
+\end{figure}
 
 %\chart{eval-dacapo-chart-instr}{Instrumentation time on DaCapo}{fig:instr-time-dacapo}
 %\chart{eval-scala-chart-instr}{Instrumentation time on Scala and JRuby}{fig:instr-time-scala}

@@ -1,6 +1,6 @@
 \section{Using \jnif{}}\label{sec:jnif-usage}
 
-We now briefly show how to use \jnif{}.
+We now show how to use \jnif{}.
 \jnif{} can be used both in stand-alone tools or
 embedded inside a \jvmti{} agent.
 The complete \api{} documentation and more extensive examples are available online%
@@ -160,10 +160,10 @@ for (Method* method : cf.methods) {
 		instList.addInvoke(OPCODE_invokestatic, mid, p);
 	}
 }
-\end{lstlisting}
+\end{minted}
 \caption{Instrumenting constructor entries}
 \label{usage-alloc}
-\end{minipage}
+\end{listing}
 
 Another common use case is to instrument every method entry and exit. In order to do so, one can add the instrumentation code at the beginning of the instruction list to detect the method entry. To detect method exit, it is necessary to look for instructions that terminate the current method execution, i.e., xRETURN family and ATHROW as showed in figure~\ref{usage-methodentryexit}.
 
