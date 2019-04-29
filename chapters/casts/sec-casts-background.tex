@@ -47,17 +47,21 @@ String s = (String)o;
 
 In type-safe OO languages, downcasts require
 a run-time check to ensure that the source value is an instance of the target type.
-The above snippet is compiled into the following \java{} bytecode.
+The above snippet is compiled into the \java{} bytecode shown in listing~\ref{lst:casts:bytecode}.
 The \code{aload\_1} instruction (line 3) pushes the local variable \code{o} into the operand stack.
 The \code{checkcast} instruction (line 4) then checks at run-time that the top of the stack has the specified type (\code{java.lang.String} in this example).
 
-\begin{lstlisting}[style=bytecode]
+\begin{listing}
+\begin{minted}{gas}	
 ldc           #2     // String foo
 astore_1
 aload_1
 checkcast     #3     // class java/lang/String
 astore_2
-\end{lstlisting}
+\end{minted}	
+\caption{Compiled bytecode to the \code{checkcast} instruction.}
+\label{lst:casts:bytecode}
+\end{listing}
 
 This run-time check can either \emph{succeed} or \emph{fail}.
 A \code{ClassCastException} is thrown when a downcast fails.

@@ -24,7 +24,13 @@ which archive compiled \java{} bytecode stored in \emph{.class} files.
 
 \textbf{Bytecode Analysis.}
 We examine these kinds of artifacts to analyze how they use \code{sun.misc.Unsafe}.
-We use a bytecode analysis library to search for method call sites and field accesses of the \code{sun.misc.Unsafe} class.
+We use a bytecode analysis library to search for method call sites and field accesses of the \code{sun.misc.Unsafe} class~\citep{brunetonRecursiveDynamicSoftware2002,brunetonASMCodeManipulation2002,kuleshovUsingASMFramework2007}.
+
+However, our first attempt was to use \jnif{},
+our own bytecode analysis library~\citep{mastrangeloJNIFJavaNative2014}.
+\jnif{} is described in Appendix~\ref{ap:jnif}.
+Due to its own limitations,
+we decided to use the aforementioned analysis library.
 
 \textbf{Dependency Analysis.}
 We define the impact of an artifact as how many artifacts depend on it,

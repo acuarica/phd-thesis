@@ -119,15 +119,16 @@ String pf = c.newInstance();
 
 compile to the same bytecode below.
 
-\begin{lstlisting}[style=bytecode]
+\begin{listing}
+\begin{minted}{gas}
 ldc           #24    // String java.lang.String
 invokestatic  #26    // Method java/lang/Class.forName
 astore_1
 aload_1
 invokevirtual #32    // Method java/lang/Class.newInstance
 checkcast     #36    // class java/lang/String
-\end{lstlisting}
-
+\end{minted}
+\end{listing}
 
 In the first case, the cast is on the \code{newInstance}, an instance of the
 \thisp{} pattern. In the second case, the cast is on the call to

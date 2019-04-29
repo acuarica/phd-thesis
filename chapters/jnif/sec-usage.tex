@@ -1,42 +1,14 @@
-\section{Using \jnif{}}
-\label{sec:jnif-usage}
-
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
- 
-\lstdefinestyle{mystyle}{
-    language=C++,
-    backgroundcolor=\color{backcolour},   
-%    commentstyle=\color{codegreen},
-%    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-%    stringstyle=\color{codepurple},
-    basicstyle=\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-%    numbers=left,                    
-%    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2%,
-%    frame=shadowbox
-}
-
-\lstset{style=mystyle}
-\lstset{escapechar=§}
+\section{Using \jnif{}}\label{sec:jnif-usage}
 
 We now briefly show how to use \jnif{}.
 \jnif{} can be used both in stand-alone tools or
 embedded inside a \jvmti{} agent.
-The complete API documentation and more extensive examples are available online\footnote{\url{http://acuarica.bitbucket.org/jnif/}}.
+The complete \api{} documentation and more extensive examples are available online%
+\footnote{\url{http://acuarica.gitlab.io/jnif/}}.
 Listing~\ref{usage-decode-encode} shows how to read and write a class file.
 
-\begin{lstlisting}[caption=Decoding and encoding a class,label=usage-decode-encode]
+\begin{listing}
+\begin{minted}{cpp}
 // Decode the binary data into a ClassFile object
 const char* data = ...;
 int len = ...;
@@ -55,27 +27,35 @@ cf.write(newdata, newlen);
 
 // Free the new binary
 delete [] newdata;
-\end{lstlisting}
+\end{minted}
+\caption{Decoding and encoding a class}
+\label{usage-decode-encode}
+\end{listing}
 
 \jnif{}'s \code{ClassFile} class provides fields and methods for analyzing and editing a Java class.
 Listing~\ref{usage-print1} shows how to traverse all methods in a class
 to dump their names and descriptors.
 
-\begin{lstlisting}[caption=Traversing all methods in a class,label=usage-print1]
+\begin{listing}
+\begin{minted}{cpp}
 for (jnif::Method* m : cf.methods) {
   cout << "Method: ";
   cout << cf.getUtf8(m->nameIndex);
   cout << cf.getUtf8(m->descIndex);
   cout << endl;
 }
-\end{lstlisting}
+\end{minted}
+\caption{Traversing all methods in a class}
+\label{usage-print1}
+\end{listing}
 
 Listing~\ref{usage-edit} shows how to find all constructors in a class
 and how to inject instrumentation, in the form of a call to a static method
 \code{static void alloc( Object o)} of an analysis class,
 at the beginning of each constructor.
 
-\begin{lstlisting}[caption=Instrumenting constructor entries,label=usage-edit]
+\begin{listing}
+\begin{minted}{cpp}
 ConstIndex mid = cf.addMethodRef(classIndex, 
   "alloc", "(Ljava/lang/Object;)V");
 
@@ -87,38 +67,45 @@ for (Method* method : cf.methods) {
     instList.addInvoke(OPCODE_invokestatic, mid, p);
   }
 }
-\end{lstlisting}
+\end{minted}
+\caption{Instrumenting constructor entries}
+\label{usage-edit}
+\end{listing}
 
 Besides providing access to all members of a class,
 \texttt{ClassFile} also provides access to the constant pool
 via methods like \texttt{getUtf8()} and \texttt{addMethodRef()}.
 
-
-
-% \ignore{
-This section shows common use cases of the JNIF library, 
+This section shows common use cases of the \jnif{} library, 
 such as writing instrumentation code and analyzing class files, 
 thus giving an overview of the library. 
-Its components are explained in more detail in section~\ref{sec:jnif-implementation}.
-We present the examples in an incremental fashion, adding complexity in each example.
+Its components are explained in more detail in Section~\ref{sec:jnif-implementation}.
+We present the examples in an incremental fashion,
+adding complexity in each example.
 
 In order to be able to work with class files, they must me parsed. 
 Given a buffer with a class file and its length, Listing~\ref{usage-parse} shows how to parse it.
 
-\begin{lstlisting}[caption=Decoding a class,label=usage-parse]
+\begin{listing}
+\begin{minted}{cpp}
 const char* data = ...;
 int len = ...;
 
 jnif::ClassFile cf(data, len);
-\end{lstlisting}
+\end{minted}
+\caption{Decoding a class}
+\label{usage-parse}
+\end{listing}
 
 The class \code{ClassFile} represents a \java{} class file and contains the definition for each method and fields. 
-The full documentation can be found online.\footnote{\url{https://acuarica.gitlab.io/jnif/}}
+The full documentation can be found online.%
+\footnote{\url{https://acuarica.gitlab.io/jnif/}}
 
 Once a class file is correctly parsed and loaded it can be manipulated using the methods and fields in \code{ClassFile}.
 For instance, in order to write back the parsed class file in a new buffer, the write method is used in conjunction with the computeSize method as shown in listing~\ref{usage-write}.
 
-\begin{lstlisting}[caption=Encoding a class,label=usage-write]
+\begin{listing}
+\begin{minted}{cpp}
 const char* data = ...;
 int len = ...;
 jnif::ClassFile cf(data, len);
@@ -129,13 +116,17 @@ cf.write(newdata, newlen);
 // Use newdata and newlen
 
 delete [] newdata;
-\end{lstlisting}
+\end{minted}
+\caption{Encoding a class}
+\label{usage-write}
+\end{listing}
 
 The \code{ClassFile} class has a collection of fields and methods which can be used to discover the members of the class file. 
 The listing~\ref{usage-print} prints in the standard output every method's name and descriptor in a class file. 
-Note that every jnif class overloads the \verb|operator<<| in order send it to an std::ostream.
+Note that every jnif class overloads the \verb|operator<<| in order send it to an \code{std::ostream}.
 
-\begin{lstlisting}[caption=Traversing all methods in a class,label=usage-print]
+\begin{listing}
+\begin{minted}{cpp}
 const char* data = ...;
 int len = ...;
 jnif::ClassFile cf(data, len);
@@ -145,15 +136,18 @@ for (jnif::Method* m : cf.methods) {
 	cout << cf.getUtf8(m->descIndex);
 	cout << endl;
 }
-\end{lstlisting}
+\end{minted}
+\caption{Traversing all methods in a class}
+\label{usage-print}
+\end{listing}
 
 To hook every invocation of a constructor, a method named <init> in Java bytecode, 
 one can traverse the method list and check whether the current method is an <init> method. 
 Once detected, it is possible to add instrumentation code, like for instance call a static method in a given class. 
 Figure~\ref{usage-alloc} shows how to add instruction to the instruction list.
 
-%\begin{minipage}{\linewidth}
-\begin{lstlisting}[caption=Instrumenting constructor entries,label=usage-alloc]
+\begin{listing}
+\begin{minted}{cpp}
 ConstIndex mid = cf.addMethodRef(classIndex, 
   "alloc", "(Ljava/lang/Object;)V");
 
@@ -167,17 +161,14 @@ for (Method* method : cf.methods) {
 	}
 }
 \end{lstlisting}
-%\end{minipage}
-% }
+\caption{Instrumenting constructor entries}
+\label{usage-alloc}
+\end{minipage}
 
-
-
-
-% \ignore{
 Another common use case is to instrument every method entry and exit. In order to do so, one can add the instrumentation code at the beginning of the instruction list to detect the method entry. To detect method exit, it is necessary to look for instructions that terminate the current method execution, i.e., xRETURN family and ATHROW as showed in figure~\ref{usage-methodentryexit}.
 
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[caption=Instrumenting <init> methods,label=usage-methodentryexit]
+\begin{listing}
+\begin{minted}{cpp}
 ConstIndex sid = cf.addMethodRef(proxyClass, "enterMethod",
 				"(Ljava/lang/String;Ljava/lang/String;)V");
 ConstIndex eid = cf.addMethodRef(proxyClass, "exitMethod",
@@ -203,7 +194,7 @@ for (Inst* inst : instList) {
 		instList.addInvoke(OPCODE_invokestatic, eid, inst);
 	}
 }
-\end{lstlisting}
-\end{minipage}
-% }
-
+\end{minted}
+\caption{Instrumenting <init> methods}
+\label{usage-methodentryexit}
+\end{listing}
