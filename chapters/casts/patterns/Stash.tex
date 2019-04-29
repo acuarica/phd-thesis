@@ -220,15 +220,15 @@ In our manual inspection,
 all dictionary keys and the resulting types are known at compile time,
 however a cast is needed because the dictionary type does not encode the
 relationship between key values and the result type.
-Casts in this pattern are typically not guarded indicating that the programmer
-knows the source of the cast based on the value of the key.
+Casts in this pattern are typically not guarded indicating that the programmer knows the source of the cast based on the value of the key.
+The \variant{LookupById} variant could be replaced by 
+strongly typed heterogeneous collections~\citep{kiselyovStronglyTypedHeterogeneous2004} although implementing it in \java{} would be more verbose.
 
 This pattern is often seen in Android applications.
 The Butter Knife framework%
 \footnote{\url{http://jakewharton.github.io/butterknife/}}
 uses annotations to avoid the ``manual'' casting.
-Instead, code is generated that casts the result of \code{findViewById} to the
-appropriate type.
+Instead, code is generated that casts the result of \code{findViewById} to the appropriate type.
 These casts could be solved by using code generation,
 or partial classes like in \csharp{}.
 Since the contents of the resource file are known at compile-time,
