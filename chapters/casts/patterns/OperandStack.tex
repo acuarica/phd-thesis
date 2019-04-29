@@ -45,6 +45,8 @@ case 40: // qualified_name_decl = name_decl.n DOT.DOT IDENTIFIER.i
 \issues{}
 This pattern is usually seen when implementing grammar-related operations,
 such as parsers or interpreters.
+In some situations, similar to the \nameref{pat:Stash} pattern,
+this pattern could be replaced with a strongly typed heterogenous collection~\citep{kiselyovStronglyTypedHeterogeneous2004}.
 
 Similar to \nameref{pat:Typecase},
 multiple cases are evaluated with casts to different types,
