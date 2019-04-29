@@ -68,11 +68,38 @@ We are currently working to define static analyses to detect some of these patte
 With these analyses,
 tools can be developed to identify instances of the pattern and to ensure that they are being implemented properly.
 
-% \section{Futute Work and Limitations}
+\section*{Limitations and Futute Work}
 
-% TODO: recast these studies with boa or ql to using repos, eg github datasets.
-% TODO: unsafe using source code, instead of bytecode. src with  boa or ql.
-% Maybe 5 pages or more.
+Both our \unsafe{} and casting studies rely on manual inspection to devise usage patterns.
+We tried to use \ql{} to devise cast patterns.
+However, \ql{}---and the \lgtm{} dataset---currently analyses a given project,
+not its dependencies.
+The main issue with manual inspection is that rely heavily on the personal experience of the authors.
+Different authors could devise different set of patterns.
+
+Conducting ultra-large scale studies, either on source code or compiled code, is not a trivial task.
+There are several factors to consider when doing these kind of studies,
+\eg{}, downloading, storing, parsing, compiling,
+and analyzing software repositories.
+Services like \boa{} and \lgtm{} make conducting these kind of studies easier.
+In recent versions~\citep{boa-github},
+\boa{} added support to conduct studies on open source projects from \github{} and Qualitas Corpus~\citep{temperoQualitasCorpusCurated2010}.
+However, at the time we conducted our study on \unsafe{},
+this support was not included yet.
+We could recast our \unsafe{} study to use \boa{} on the \github{} dataset,
+or \lgtm{} through \ql{} queries, although as mentioned above,
+we will not be able to analyze project dependencies.
+The patterns we have already devised for both the \unsafe{} and the casting study could be formalized using \ql{}~\citep{avgustinovQLObjectorientedQueries2016}.
+
+To conduct our studies we have used static analysis.
+Static analyses are always more conservative than dynamic analyses.
+Another possible future direction could be complement the static analyses with dynamic ones.
+For the \unsafe{} study,
+we found that it is used in 1\% of the \mavencentral{} artifacts.
+Using project dependencies, 25\% of artifacts depend on \smu{}.
+A dynamic analysis could actually measure how often the \unsafe{} \api{} is invoked at run-time,
+thus giving more precision about its usage.
+As for the casting study,
+using a dynamic analysis could measure how many casts fail with \code{ClassCastException}.
+
 % What insights did you gain, can you summarize to what degree you answered the RQs?
-% What limitations?
-% What future work?
