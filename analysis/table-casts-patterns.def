@@ -10,8 +10,8 @@
 \alt \nameref{pat:KnownReturnType} & \KnownReturnTypeDesc & \nKnownReturnTypePattern & \pKnownReturnTypePattern \% \\
 \row \nameref{pat:Deserialization} & \DeserializationDesc & \nDeserializationPattern & \pDeserializationPattern \% \\
 \alt \nameref{pat:VariableSupertype} & \VariableSupertypeDesc & \nVariableSupertypePattern & \pVariableSupertypePattern \% \\
-\row \nameref{pat:NewDynamicInstance} & \NewDynamicInstanceDesc & \nNewDynamicInstancePattern & \pNewDynamicInstancePattern \% \\
-\alt \nameref{pat:SoleSubclassImplementation} & \SoleSubclassImplementationDesc & \nSoleSubclassImplementationPattern & \pSoleSubclassImplementationPattern \% \\
+\row \nameref{pat:SoleSubclassImplementation} & \SoleSubclassImplementationDesc & \nSoleSubclassImplementationPattern & \pSoleSubclassImplementationPattern \% \\
+\alt \nameref{pat:NewDynamicInstance} & \NewDynamicInstanceDesc & \nNewDynamicInstancePattern & \pNewDynamicInstancePattern \% \\
 \row \nameref{pat:ObjectAsArray} & \ObjectAsArrayDesc & \nObjectAsArrayPattern & \pObjectAsArrayPattern \% \\
 \alt \nameref{pat:ImplicitIntersectionType} & \ImplicitIntersectionTypeDesc & \nImplicitIntersectionTypePattern & \pImplicitIntersectionTypePattern \% \\
 \row \nameref{pat:RemoveWildcard} & \RemoveWildcardDesc & \nRemoveWildcardPattern & \pRemoveWildcardPattern \% \\

@@ -10,8 +10,8 @@
 \alt 10 & \nameref{pat:KnownReturnType} &  &  & \cmark &  & \cmark &  \\
 \row 11 & \nameref{pat:Deserialization} &  &  & \cmark &  &  &  \\
 \alt 12 & \nameref{pat:VariableSupertype} &  &  &  &  & \cmark &  \\
-\row 13 & \nameref{pat:NewDynamicInstance} &  &  & \cmark &  &  &  \\
-\alt 14 & \nameref{pat:SoleSubclassImplementation} &  & \cmark &  &  &  &  \\
+\row 13 & \nameref{pat:SoleSubclassImplementation} &  & \cmark &  &  &  &  \\
+\alt 14 & \nameref{pat:NewDynamicInstance} &  &  & \cmark &  &  &  \\
 \row 15 & \nameref{pat:ObjectAsArray} &  &  &  &  & \cmark &  \\
 \alt 16 & \nameref{pat:ImplicitIntersectionType} &  & \cmark &  &  &  &  \\
 \row 17 & \nameref{pat:RemoveWildcard} &  & \cmark &  &  &  & \cmark \\
