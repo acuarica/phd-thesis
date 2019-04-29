@@ -77,8 +77,6 @@
         "Intrinsics",
         "Qualitas",
         "Untrusted",
-        "aload",
-        "astore",
         "captionpos",
         "clusterings",
         "dendrogram",
