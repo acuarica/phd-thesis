@@ -55,7 +55,7 @@ taxonomy = list(
   ),
   'UseRawType' = list(
     'features' = c('UseRawType'),
-    'categories' = c('dev', 'generic')
+    'categories' = c('dev', 'generic', 'boxing')
   ),
   'RemoveWildcard' = list(
     'features' = c('RemoveWildcard'),
@@ -75,15 +75,15 @@ taxonomy = list(
   ),
   'SelectOverload' = list(
     'features' = c('SelectOverload'),
-    'categories' = c('lang')
+    'categories' = c('lang', 'boxing')
   ),
   'ReflectiveAccessibility' = list(
     'features' = c('ReflectiveAccessibility'),
-    'categories' = c('lang')
+    'categories' = c('lang', 'boxing')
   ),
   'CovariantGeneric' = list(
     'features' = c('CovariantGeneric'),
-    'categories' = c('lang', 'generic')
+    'categories' = c('lang', 'generic', 'boxing')
   ),
   'SoleSubclassImplementation' = list(
     'features' = c('SoleSubclassImplementation'),
@@ -99,7 +99,7 @@ taxonomy = list(
   ),
   'GenericArray' = list(
     'features' = c('GenericArray', 'MatchBoxedType'),
-    'categories' = c('lang', 'generic')
+    'categories' = c('lang', 'generic', 'boxing')
   ),
   'UnoccupiedTypeParameter' = list(
     'features' = c('UnoccupiedTypeParameter'),
@@ -116,7 +116,7 @@ taxonomy = list(
   )
 
 declared.features <-  unlist(lapply(taxonomy, `[[`, 'features'), use.names=FALSE)
-declared.categories <- c('guarded', 'lang', 'tools', 'gen', 'dev', 'generic')
+declared.categories <- c('guarded', 'lang', 'tools', 'gen', 'dev', 'generic', 'boxing')
 declared.omitted <- c('BrokenLink', 'Bug', 'Duplicated')
 
 check.diff <- function(x, y) {

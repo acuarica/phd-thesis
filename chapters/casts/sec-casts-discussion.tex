@@ -22,6 +22,8 @@ while others only can guarantee it at the application-level.
 can be removed with little refactoring,
 or suggest a code smell in the source code.
 \gh{Generics} The casts in this category are related to generics or reified generics.
+\gh{Boxing} These casts are related with automatic boxing/unboxing operations, \ie{},
+automatic converting values of primitive types to boxed types back and forth.
 
 Many programming languages provide features to ameliorate the more common use cases of casts.
 For instance,
@@ -30,6 +32,7 @@ providing direct support for the \nameref{pat:Typecase} and \nameref{pat:Equals}
 More generally, ML-style pattern matching subsumes this pattern.
 Smart casts do not apply directly to the \nameref{pat:OperandStack} pattern,
 since it is dispatched depending on some application-specific control state.
+
 Other language features that might at least partially obviate the need for some of the patterns are
 intersection types (\cf{} \nameref{pat:ImplicitIntersectionType}),
 and self types or associated types (\cf{} 
@@ -69,3 +72,15 @@ would reduce the need for these patterns.
 There is an ongoing proposal%
 \footnote{\url{https://openjdk.java.net/jeps/300}}~\citep{jep300}
 to enhance \java{} with this feature.
+
+Some cast patterns use boxing/unboxing---\ie{},
+\nameref{pat:UseRawType},
+\nameref{pat:CovariantGeneric}, and
+\nameref{pat:GenericArray}---because of the interplay between primitive types and generics.
+The JEP 218 Generics over Primitive Types%
+\footnote{\url{https://openjdk.java.net/jeps/218}}~\citep{jep218}
+could ameliorate the situation in this aspect.
+On the other hand, 
+the \nameref{pat:SelectOverload} pattern uses boxing/unboxing to select the appropriate method,
+while the \nameref{pat:ReflectiveAccessibility} pattern
+uses unboxing when the field being accessed is of a primitive type.
