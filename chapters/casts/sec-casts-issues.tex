@@ -13,8 +13,7 @@ thus it represents a problem for developers.
 
 To illustrate the sort of problems developers have when applying casting conversions,
 we performed a search for commits and issues including the term
-\code{ClassCastException} within projects marked as using the \java{} language
-on \github{},
+\code{ClassCastException} within projects using \java{} on \github{},
 the largest host of source code in the world~\citep{gousiosLeanGHTorrentGitHub2014}.
 Our searches returned about 171K commits%
 \footnote{\url{https://github.com/search?l=Java&q=ClassCastException&type=Commits}}
@@ -26,29 +25,37 @@ represents a source for problems for developers.
 
 Typical classes of bugs encountered when using a cast are using the wrong cast target type,
 or using the wrong operand, or failing to guard a cast.
-The following snippet%
-\footnote{\url{https://github.com/jenkinsci/extra-columns-plugin/commit/02d10bd1fcbb2e656da9b1b4ec54208b0cc1cbb2}}
-shows a cast applied to the variable \code{job} (in line 3) that throws \code{ClassCastException} because the developer forgot to include a guard.
+We present a few examples we found.
+Each example presented here contains the link to the commit in \github{}.
+Instead of presenting long \github{} URLs,
+we have used the URL shortening service
+\href{https://bitly.com/}{\bitly} for easier reading.
+Each \bitly{} link was customized to include the project name.
+
+The following snippet shows a cast applied to the variable \code{job} (in line 3) that throws \code{ClassCastException} because the developer forgot to include a guard.
 In this case, the developer fixed the error by introducing an \code{instanceof} guard to the cast (lines 1 and 2).
 
+%https://github.com/jenkinsci/extra-columns-plugin/commit/02d10bd1fcbb2e656da9b1b4ec54208b0cc1cbb2
+\def\urlvar{http://bit.ly/jenkinsci_extra_columns_plugin_2vviBuc}
 \begin{listing}
 \begin{minted}[highlightlines=3]{java}
 if(!(job instanceof AbstractProject<?, ?>))
   return "";
 AbstractProject<?, ?> project = (AbstractProject<?, ?>) job;
+#\urlbox#
 \end{minted}
 \caption{Cast throws \code{ClassCastException} because of a forgotten guard.}
 \end{listing}
 
-In the next example%
-\footnote{\url{https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831}}
-the developer made a mistake by choosing a wrong class for the cast target,
+In the next example the developer made a mistake by choosing a wrong class for the cast target,
 \ie, \code{JCustomFileChooser} instead of \code{CustomFileFilter} (line 9).
 The \code{CustomFileFilter} is an inner static class inside the \code{JCustomFileFilter} class.
 There is no subclass relationship between these two classes.
 The cast happens inside an \code{equals} method---where this idiom is well known---within the \code{CustomFileFilter} class.
 But the developer made a typo, using the outer class (\code{JCustomFileFilter}), instead of the inner class (\code{CustomFileFilter}).
 
+%https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831
+\def\urlvar{http://bit.ly/GoldenGnu_jeveassets_2vsLbMr}
 \begin{listing}
 \begin{minted}[highlightlines=9]{java}
 public final class JCustomFileChooser extends JFileChooser {
@@ -65,18 +72,20 @@ public final class JCustomFileChooser extends JFileChooser {
       }
     }
   }
-}
+} #\urlbox#
 \end{minted} 
 \caption{Cast throws \code{ClassCastException} because of wrong cast target.}
 \end{listing}
 
 More subtle, however, is the interaction between casting and generics.
 For example, the following call to the \code{getProperty} method (line 1),%
-\footnote{\url{https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382}}
 throws a \code{Class\-CastException}.
 The method definition is shown in line 3.%
-\footnote{\url{https://github.com/ethereum/ethereumj/blob/224e65b9b4ddcb46198a6f8faf69edc65d34d382/ethereumj-core/src/main/java/org/ethereum/config/SystemProperties.java\#L312}}
+%https://github.com/ethereum/ethereumj/blob/224e65b9b4ddcb46198a6f8faf69edc65d34d382/ethereumj-core/src/main/java/org/ethereum/config/SystemProperties.java\#L312
+\footnote{\url{http://bit.ly/ethereum_ethereumj_getProperty_2vwQIBH}}
 
+%https://github.com/ethereum/ethereumj/commit/224e65b9b4ddcb46198a6f8faf69edc65d34d382
+\def\urlvar{http://bit.ly/ethereum_ethereumj_2vw4If8}
 \begin{listing}
 \begin{minted}[highlightlines=1]{java}
 config.getProperty("peer.p2p.pingInterval", 5L)
@@ -86,7 +95,7 @@ public <T> T getProperty(String propName, T defaultValue) {
     String string = config.getString(propName);
     if (string.trim().isEmpty()) return defaultValue;
     return (T) config.getAnyRef(propName);
-}
+} #\urlbox#
 \end{minted}
 \caption{Cast throws \code{ClassCastException} because of generic inference.}
 \end{listing}
