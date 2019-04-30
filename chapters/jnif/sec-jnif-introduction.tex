@@ -13,10 +13,10 @@ Many dynamic analysis tools rely on instrumentation to achieve their goals.
 
 In the context of the JVM, 
 static analysis and instrumentation for dynamic analysis often happens on the level of Java bytecode.
-Analysis tools thus need to decode and analyze---and in the case of instrumentation also edit and encode---Java bytecode.
+Analysis tools thus need to decode and analyze---and in the case of instrumentation also edit and encode---\java{} bytecode.
 Given the relative complexity of the Java class file format,
 a diverse set of libraries (see Section~\ref{sec:jnif-relatedwork}) has been created for this purpose.
-All those libraries are implemented in Java.
+All those libraries are implemented in \java{}.
 
 Instrumentation at bytecode level can be done in two ways:
 using a \java{} instrumentation agent or using a native \jvmti{} agent.%

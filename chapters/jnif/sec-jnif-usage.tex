@@ -70,8 +70,8 @@ for (jnif::Method* m : cf.methods) {
 \label{usage-print}
 \end{listing}
 
-To hook every invocation of a constructor, a method named <init> in Java bytecode, 
-one can traverse the method list and check whether the current method is an <init> method. 
+To hook every invocation of a constructor, a method named \code{<init>} in \java{} bytecode, 
+one can traverse the method list and check whether the current method is an \code{<init>} method. 
 Once detected, it is possible to add instrumentation code, like for instance call a static method in a given class. 
 Figure~\ref{usage-alloc} shows how to add instruction to the instruction list.
 
@@ -124,6 +124,6 @@ for (Inst* inst : instList) {
 	}
 }
 \end{minted}
-\caption{Instrumenting <init> methods}
+\caption{Instrumenting \code{<init>} methods}
 \label{usage-methodentryexit}
 \end{listing}

@@ -8,7 +8,7 @@ There are common aspects shared by several patterns.
 Table~\ref{table:casts:categories} presents a summary of the patterns and their different aspects.
 The table consists of the following columns:
 The \gh{Pattern} column indicates the name of the pattern.
-\gh{Guarded?} The patterns here are guarded casts.
+\gh{Guarded} The patterns here are guarded casts.
 A guarded cast is a cast such that before the cast is applied,
 some condition---the \emph{guard}---needs to be verified.
 The condition to be verified guarantees that the cast will not fail at runtime (unless there is a bug in the application), \ie,
@@ -16,7 +16,7 @@ the cast will not throw a \code{ClassCastException}.
 Some kind of guards ensure that the cast will not fail at the language-level,
 while others only can guarantee it at the application-level.
 \gh{Lang} These casts could be ameliorated if there is enough language support by changing the type system.
-\gh{Analysis} The casts in this group could be checked with new analysis or compiler tools.
+\gh{Tools} The casts in this group could be checked with new analysis or compiler tools.
 \gh{Auto} These casts are related to generated or boilerplate code.
 \gh{Refactor} The casts with this aspect can be simply removed by the developer,
 can be removed with little refactoring,
@@ -54,18 +54,17 @@ which among other features, provide equality out of the box.
 Our study also suggests analyses could be performed to improve code quality and eliminate some cast usages,
 for instance finding opportunities to use generics instead (\cf{} \nameref{pat:UseRawType}),
 removing redundant casts (\cf{} \nameref{pat:Redundant}),
-or locating code smells (\cf{}
+or locating and removing code smells (\cf{}
 \nameref{pat:KnownReturnType},
-\nameref{pat:VariableSupertype},
+\nameref{pat:VariableSupertype}, and
 \nameref{pat:ObjectAsArray}).
 
-Many cast patterns (\eg, 
+The
 \nameref{pat:RemoveWildcard},
-\nameref{pat:GenericArray},
-\nameref{pat:CovariantGeneric},
-\nameref{pat:UnoccupiedTypeParameter})
-are used either to 
-workaround---or to take advantage of---the erasure of generic type parameters in \java{}.
+\nameref{pat:GenericArray}, and
+\nameref{pat:CovariantGeneric}
+patterns are used to workaround the erasure of generic type parameters in \java{};
+while the \nameref{pat:UnoccupiedTypeParameter} pattern is used to take advantage of it.
 Reified generics or definition-site, rather than use-site,
 variance annotations~\citep{altidorTamingWildcardsCombining2011}
 would reduce the need for these patterns.
@@ -73,10 +72,11 @@ There is an ongoing proposal%
 \footnote{\url{https://openjdk.java.net/jeps/300}}~\citep{jep300}
 to enhance \java{} with this feature.
 
-Some cast patterns use boxing/unboxing---\ie{},
+The
 \nameref{pat:UseRawType},
 \nameref{pat:CovariantGeneric}, and
-\nameref{pat:GenericArray}---because of the interplay between primitive types and generics.
+\nameref{pat:GenericArray}
+patterns use boxing/unboxing because of the interplay between primitive types and generics.
 The JEP 218 Generics over Primitive Types%
 \footnote{\url{https://openjdk.java.net/jeps/218}}~\citep{jep218}
 could ameliorate the situation in this aspect.

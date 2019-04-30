@@ -1,7 +1,9 @@
 \begin{pattern}{Stash}
 This pattern is used to stash an application-specific value.
 It has three variants.
-The \variant{LookupById} and \variant{StaticResource} variants are used to extract values from a heterogenous container,
+The \variant{LookupById} and \variant{StaticResource} variants are used to extract values from a heterogenous container.
+The \variant{Tag} variant is used to extract a ``tag'' value, 
+typically in a GUI object or message payload.
 They look up an object by a compile-time constant identifier, tag, or name and casts the result to an appropriate type.
 They access a collection that holds values of different types
 (usually implemented as \code{Collection<Object>} or as \code{Map<K, Object>}).
@@ -13,14 +15,11 @@ it is used to retrieve a value instantiated from static resource file,
 The file contents are (in theory) known at compile-time and the file is included in the binary distribution of the application.
 These files are often built using tools such as GUI builders.
 
-The \variant{Tag} variant is used to extract a ``tag'' value, 
-typically in a GUI object or message payload.
-
 \instances{}
 Figure~\ref{fig:casts:stash} shows different variants of the pattern.
 The \variant{LookupById} is the most used variant.
 
-\plot{patterns/table-pattern-Stash-features}{fig:casts:stash}{\thisp{} Variants Occurrences}
+\plot{patterns/table-pattern-Stash-features}{fig:casts:stash}{\thisp{} Variant Occurrences}
 
 In the \variant{LookupById} variant example shown below,
 the \code{getAttribute} method returns \code{Object}.

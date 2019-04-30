@@ -23,7 +23,7 @@ The \variant{GuardByInstanceOf} is the most used variant.
 Often there is just one case and the default case, \ie,
 when the guard fails, performs a no-op or reports an error.
 
-\plot{patterns/table-pattern-Typecase-features}{fig:casts:typecase}{\thisp{} Variants Occurrences}
+\plot{patterns/table-pattern-Typecase-features}{fig:casts:typecase}{\thisp{} Variant Occurrences}
 
 The following listing shows an example of the \thisp{} pattern,
 using the \variant{GuardByInstanceOf} variant.
@@ -357,22 +357,11 @@ case class VoiceRecording(contactName: String, link: String)
 
 def showNotification(notification: Notification): String = {
 	notification match {
-		case Email(email, title, _) =>
-		s"You got an email from $email with title: $title"
-		case SMS(number, message) =>
-		s"You got an SMS from $number! Message: $message"
-		case VoiceRecording(name, link) =>
-		s"Voice Recording from $name! Click the link: $link"
+		case Email(email, title, _) => s"Email from $email titled: $title"
+		case SMS(number, message) => s"SMS from $number! Message: $message"
+		case VoiceRecording(name, link) => s"Recording from $name! Link: $link"
 	}
-	}
-	val someSms = SMS("12345", "Are you there?")
-	val someVoiceRecording = VoiceRecording("Tom", "voicerecording.org/id/123")
-	
-	// prints You got an SMS from 12345! Message: Are you there?
-	println(showNotification(someSms))
-	
-	// Voice Recording from Tom! Click the link: voicerecording.org/id/123	
-	println(showNotification(someVoiceRecording))
+}
 \end{minted}
 
 Alternatives to the \thisp{} pattern would be to use the visitor pattern or to use virtual dispatch on the match scrutinee.
@@ -387,7 +376,7 @@ The proposal explores changing the \code{instanceof} operator in order to suppor
 \footnote{\url{https://openjdk.java.net/jeps/354}}~\citep{jep325,jep354}.
 This enhancement aims to ease the transition to a \code{switch} expression that supports pattern matching.
 
-The \variant{GuardByClassLiteral} variant may be used instead of the \code{instanceof} operator when the developer wants to match exactly the runtime class.
+The \variant{GuardByClassLiteral} variant may be used instead of the \code{instanceof} operator when the developer wants to match exactly the runtime class of an object.
 The \code{instanceof} operator%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.20.2}}
 returns \code{true} if the expression could be cast to the specified type,

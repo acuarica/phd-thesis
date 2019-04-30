@@ -1,48 +1,43 @@
-\section{Limitations}
-\label{sec:jnif-limitations}
+\section{Limitations}\label{sec:jnif-limitations}
 
-JNIF still has some limitations.
+\jnif{} still has some limitations.
 
-\textbf{jsr/ret.} JNIF does not support stack map generation for jsr and ret.
-Class files requiring stack maps do not include jsr/ret.
-%Compute stack map frames for code with JSR/RET instructions not supported.
-%JSR/RET makes the control flow graph generation difficult, because a RET instruction can jump to multiple targets instead of a predefined one.
+\textbf{jsr/ret.} \jnif{} does not support stack map generation for \code{jsr} and \code{ret}.
+Class files requiring stack maps do not include \code{jsr}/\code{ret}.
+The \code{jsr}/\code{ret} instructions make the control flow graph generation difficult, because a \code{ret} instruction can jump to multiple targets instead of a predefined one.
 
-\textbf{invokedynamic.} JNIF's support for invokedynamic is not yet fully tested, 
-but our initial tests with JRuby have been successful
-(using \texttt{-Djruby.compile.invokedynamic=true}).
-% Since Dacapo bach was released in 2009 before the creation of Java 7 which introduces invokedynamic instruction, 
-% it does not contain any benchmark with invokedynamic.
-% Instead we use jruby 1.7 in order to create a self-contained jar file. 
-% This jar file per does not contain any invokedynamic instruction, 
-% but it does contain the jruby compiler, 
-% that when specified via -Djruby.compile.invokedynamic=true it will generate class files with invokedynamic. 
-% We tested our parser and writer with this settings with successful results.
+\textbf{invokedynamic.} \jnif{}'s support for \code{invokedynamic} is not yet fully tested, 
+but our initial tests with JRuby have been successful.
+Dacapo bach was released in 2009,
+before the creation of \java{} 7,
+which introduces the \code{invokedynamic} instruction.
+Thus it does not contain any benchmark with \code{invokedynamic}.
+Instead we use JRuby 1.7 in order to create a self-contained jar file. 
+This jar file does not contain any \code{invokedynamic} instruction, 
+but it does contain the JRuby compiler, 
+that when specified via \code{-Djruby.compile.invokedynamic=true} it will generate class files with \code{invokedynamic}. 
+We tested our parser and writer with this settings with successful results.
 
 \textbf{Stack map generation with full coverage.}
-When the JVM loads the first few runtime library classes,
-and calls the JVMTI agent to have those classes instrumented,
-it is still too early to use JNI for loading classes needed for computing least upper bounds for stack map generation.
+When the \jvm{} loads the first few runtime library classes,
+and calls the \jvmti{} agent to have those classes instrumented,
+it is still too early to use \jni{} for loading classes needed for computing least upper bounds for stack map generation.
 For this reason, we do not generate stack maps for runtime library classes.
-This no problem, because the JVM does not verify the runtime library classes by default,
+This no problem, because the \jvm{} does not verify the runtime library classes by default,
 and thus it does not need stack maps for those classes.
 However, should developers decide to explicitly turn on the verification of runtime library classes
-(with \verb|-Xverify:all|), the verifier would complain because JNIF would not have generated stack maps.
+(with \code{-Xverify:all}), the verifier would complain because \jnif{} would not have generated stack maps.
 
-
-% \ignore{
-To get full coverage for the instrumentation inside a JVMTI agent, 
+To get full coverage for the instrumentation inside a \jvmti{} agent, 
 it is necessary to instrument every class, 
 even the whole java class library.
 If the instrumentation needs to change or add branch targets, 
 the compute frames option must be used, 
 but it cannot be used against the class library,
 because to compute frames, 
-the class hierarchy must be known, and 
-this imposes a depedency with a classloader which is not yet available.
+the class hierarchy must be known,
+and this imposes a dependency with a classloader which is not yet available.
 
-Luckily, by default the Java library classes are not verified, because they are trusted. 
-Thus the instrumentation only needs to compute frames on classes not belonging to java library.
-
-%Should developers wish to verify Java library classes anyways, they can use the \verb|-Xverify:all| option of the JVM.
-% }
+Luckily, by default the \java{} library classes are not verified,
+because they are trusted. 
+Thus the instrumentation only needs to compute frames on classes not belonging to the \java{} library.
