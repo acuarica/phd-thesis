@@ -45,7 +45,7 @@ public class ResourceContentionExceptionUnmarshaller extends StandardErrorUnmars
 } #\urlbox#
 \end{minted}
 
-The \code{initCause} method ---from the \code{java.lang.Throwable} class---has return type \code{Throwable}.
+The \code{initCause} method---from the \code{java.lang.Throwable} class---has return type \code{Throwable}.
 Nevertheless, this method returns the receiver (after setting the cause exception).
 Therefore a cast is needed to recover the original exception type,
 as shown in the following example.

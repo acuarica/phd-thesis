@@ -46,9 +46,7 @@ the developer made a mistake by choosing a wrong class for the cast target,
 \ie, \code{JCustomFileChooser} instead of \code{CustomFileFilter} (line 9).
 The \code{CustomFileFilter} is an inner static class inside the \code{JCustomFileFilter} class.
 There is no subclass relationship between these two classes.
-The cast happens inside an \code{equals} method
----where this idiom is well known---
-within the \code{CustomFileFilter} class.
+The cast happens inside an \code{equals} method---where this idiom is well known---within the \code{CustomFileFilter} class.
 But the developer made a typo, using the outer class (\code{JCustomFileFilter}), instead of the inner class (\code{CustomFileFilter}).
 
 \begin{listing}
