@@ -126,13 +126,14 @@ checkcast     #36    // class java/lang/String
 \end{minted}
 \end{listing}
 
-In the first case, the cast is on the \code{newInstance}, an instance of the
-\thisp{} pattern. In the second case, the cast is on the call to
-\code{Class.forName}, an instance of the \nameref{pat:Factory} pattern.
+In the first case, the cast is to the \code{newInstance} method,
+an instance of the \thisp{} pattern.
+In the second case, the cast is to the call to \code{Class.forName},
+an instance of the \nameref{pat:Factory} pattern.
 
 This pattern is related to \nameref{pat:Deserialization},
 since both create an object dynamically.
 It is also related to \nameref{pat:ReflectiveAccessibility},
-where both retrieve objects by reflection.
+where both retrieve objects by using reflection.
 
 \end{pattern}

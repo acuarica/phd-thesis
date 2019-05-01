@@ -29,15 +29,13 @@ samlTokenRenewer.setAllowRenewalAfterExpiry(true);
 #\urlbox#
 \end{minted}
 
-The following listing%
-\def\urlvar{http://bit.ly/facebookarchive_hadoop_20_2FuDeO7}
-shows an example of the \thisp{} pattern.
-We can see that the field \code{uncompressedDirectBuf} is being cast to the \code{java.nio.ByteBuffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
+The following listing shows an example of the \thisp{} pattern.
+The field \code{uncompressedDirectBuf} is being cast to the \code{java.nio.ByteBuffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
 Nevertheless, the field is assigned only once in the constructor (line $7$)
 with a value of type \code{java.nio.ByteBuffer}.
 The value assigned is returned by the method
-\code{ByteBuffer.allocateDirect}.%
-\footnote{\url{https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html\#allocateDirect(int)}}
+\code{allocate\-Direct} from the \code{ByteBuffer} class.%
+\urlnote{https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html\#allocateDirect(int)}
 Inspecting the enclosing class, there is no other assignment to the
 \code{uncompressedDirectBuf} field,
 thus making possible to declare it as \code{final}.
@@ -45,6 +43,7 @@ Therefore, the cast pattern in line $13$ will always succeed.
 Any other similar use of the \code{uncompressedDirectBuf} field needs to be cast as well.
 
 % https://lgtm.com/projects/g/facebookarchive/hadoop-20/snapshot/dist-1802091768-1524814812150/files/src/core/org/apache/hadoop/io/compress/snappy/SnappyCompressor.java?sort=name&dir=ASC&mode=heatmap#L134
+\def\urlvar{http://bit.ly/facebookarchive_hadoop_20_2FuDeO7}
 \begin{minted}[highlightlines=13]{java}
 public class SnappyCompressor implements Compressor {
     // [...]

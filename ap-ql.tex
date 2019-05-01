@@ -1,6 +1,7 @@
 \chapter{Automatic Pattern Detection with \ql{}}\label{ap:ql}
 
 
+
 \textbf{Source Code Analysis.}
 We have implemented our study using the \ql{} query language:
 % ``a declarative, object-oriented logic programming language for querying complex, potentially recursive data structures encoded in a relational data model''~\cite{avgustinov_ql:_2016}.
@@ -110,7 +111,7 @@ The query to gather this statistics is available online.\footnote{\url{https://g
 
 \label{sec:methodology}
 
-To answer both research questions \ref{enum:rq2} and \ref{enum:rq3} we have used the \ql{} query language within the \lgtm{} service to look for cast instances.
+% To answer both research questions \ref{enum:rq2} and \ref{enum:rq3} we have used the \ql{} query language within the \lgtm{} service to look for cast instances.
 As mentioned in section \ref{sec:stats}, \ql{} treats primitive conversions as casts.
 Thus, a preliminary step is to exclude them as cast instances.
 The following \ql{} query shows how to retrieve all relevant cast expressions:
@@ -149,7 +150,7 @@ The final \ql{} query is available online.\footnote{\url{https://gitlab.com/acua
 \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
     minimum height=2em]
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \begin{tikzpicture}[node distance = 1.3cm, auto]
     % Place nodes

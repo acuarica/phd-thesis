@@ -4,16 +4,19 @@ composite data structure, typically a tree, where the target type is known becau
 position in the data structure.
 
 \instances{}
-The following example shows a cast from a \code{Box} to a \code{TableSectionBox}.
+The following example shows a cast from a \code{Box}%
+---as returned by the \code{getPreviousSibling} method---%
+to a \code{TableSectionBox}.
 The programmer reasons that the cast will succeed because the 
 the source of the cast is a sibling of another \code{TableSectionBox}.
 
 %https://lgtm.com/projects/g/flyingsaucerproject/flyingsaucer/snapshot/dist-26624048-1524814812150/files/flying-saucer-core/src/main/java/org/xhtmlrenderer/newtable/TableBox.java#L711
 \def\urlvar{http://bit.ly/flyingsaucerproject_flyingsaucer_2N2nYbY}
-\begin{minted}[highlightlines=3]{java}
+\begin{minted}[highlightlines=3-4]{java}
 public class TableBox extends BlockBox {
     protected TableSectionBox sectionAbove(TableSectionBox section /*[...]*/) {
-        TableSectionBox prevSection=(TableSectionBox)section.getPreviousSibling();
+        TableSectionBox prevSection = (TableSectionBox)section.
+                                                getPreviousSibling();
     }
 }
 public abstract class Box implements Styleable {
