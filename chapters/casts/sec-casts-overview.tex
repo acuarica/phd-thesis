@@ -1,6 +1,8 @@
 \section{Overview of the Sampled Casts}\label{sec:casts:overview}
 
 The casts we sampled are summarized in Table~\ref{table:casts:guarded}.
+Our sample of casts spans \nUniqueProjects{} different projects
+(out of 6,840 projects).
 In our sample of \nSize{} casts,
 we found \nPrimitivePattern{} (\pPrimitivePattern\%) primitive conversions.
 The remaining \nReference{} (\pReference\%) casts are either reference upcasts,
@@ -28,6 +30,6 @@ present is often infeasible. The possibly unguarded casts are cases where the ap
 has some reason for believing the cast will succeed, but it is not immediately
 apparent in the source code.
 
-As we describe in the next section, nearly all guarded casts fit into just a
-few patterns. Unguarded or possibly unguarded casts account for most of the
-patterns.
+As we describe in the next section,
+nearly all guarded casts fit into just a few patterns.
+Unguarded or possibly unguarded casts account for most of the patterns.
