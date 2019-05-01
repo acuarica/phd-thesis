@@ -1,37 +1,34 @@
 \begin{pattern}{NewDynamicInstance}
-In the \thisp{} pattern, a new 
-object or array is created by means of reflection.
+In the \thisp{} pattern,
+a new object or array is created by means of reflection.
 The type of the object being created is determined at run time,
 and the new object is cast to some statically known supertype of the run time type.
 
-The \code{newInstance} method family declared in the \code{Class},
-% \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html\#newInstance--}}
-\code{Array}
-% \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Array.html\#newInstance-java.lang.Class-int-}}\(^{,}\)
-% \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Array.html\#newInstance-java.lang.Class-int...-}}
-and \code{Constructor}
-% \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Constructor.html\#newInstance-java.lang.Object...-}}
-classes creates an object or array dynamically by means of reflection, \ie,
-the type of object being created is not known at compile-time.
+The \code{newInstance} method family declared in the \code{Class},%
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html\#newInstance--}}
+\code{Array}%
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Array.html\#newInstance-java.lang.Class-int-}}\(^{,}\)
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Array.html\#newInstance-java.lang.Class-int...-}}
+and \code{Constructor}%
+\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Constructor.html\#newInstance-java.lang.Object...-}}
+classes creates an object or array dynamically by means of reflection,
+\ie{}, the type of object being created is not known at compile-time.
 This pattern consists of casting the result of these methods to the appropriate target type.
 
 \instances{}
-The following example%
-\def\urlvar{http://bit.ly/apache_hadoop_2HC3IPg}
-shows a cast of the result of the \code{Class.newInstance()}
-method.
+The following example shows a cast of the result of the \code{Class.newInstance()} method.
 
 %https://lgtm.com/projects/g/apache/hadoop/snapshot/6bedbef6c5f2d937a6cbc268300ce2a39609d06c/files/hadoop-hdfs-project/hadoop-hdfs/src/main/java/org/apache/hadoop/hdfs/server/namenode/FSNamesystem.java?sort=name\&dir=ASC\&mode=heatmap\&showExcluded=false#L1039
+\def\urlvar{http://bit.ly/apache_hadoop_2HC3IPg}
 \begin{minted}[highlightlines=1,linenos=false]{java}
 logger = (AuditLogger) Class.forName(className).newInstance();
 #\urlbox#
 \end{minted}
 
-The following example%
-\def\urlvar{http://bit.ly/neo4j_neo4j_2Hp5Hqc}
-shows how to dynamically create an array, using the \texttt{Array} class.
+The following example shows how to dynamically create an array, using the \texttt{Array} class.
 
 %https://lgtm.com/projects/g/neo4j/neo4j/snapshot/27aaa67633e4d26446e38125d04fbbd27f938b75/files/community/collections/src/main/java/org/neo4j/helpers/collection/Iterables.java?sort=name\&dir=ASC\&mode=heatmap\&showExcluded=false#L403
+\def\urlvar{http://bit.ly/neo4j_neo4j_2Hp5Hqc}
 \begin{minted}[highlightlines=1]{java}
 return list.toArray( (T[]) Array.newInstance( componentType, list.size()));
 #\urlbox#
@@ -45,10 +42,9 @@ as shown in the following example.%
 
 %https://lgtm.com/projects/g/gradle/gradle/snapshot/209c3175e75af6ac30cb66c02eda15b0f8b6a616/files/subprojects/internal-integ-testing/src/main/groovy/org/gradle/integtests/fixtures/executer/OutputScrapingExecutionFailure.java?sort=name\&dir=ASC\&mode=heatmap\&showExcluded=false#L174
 \begin{minted}[highlightlines=1]{java}
-return (Exception) Class
-                       .forName(className)
-                       .getConstructor(String.class)
-                       .newInstance(message);
+return (Exception) Class.forName(className)
+                        .getConstructor(String.class)
+                        .newInstance(message);
 #\urlbox#
 \end{minted}
 
