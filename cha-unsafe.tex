@@ -63,9 +63,6 @@ but also confusing or difficult to use,
 then its use by third-party developers is particularly problematic.
 If there are specific \unsafe{} features or usage patterns that developers worry about,
 it would make sense to evolve \java{} or the \jvm{} to provide safer alternatives in that direction.
-Thus, in addition to our research questions,
-we complement our study by analizing the \stackoverflow{} question/answer database
-to answer \emph{What problems do developers who use \unsafe{} encounter?}
 
 We studied a large repository of \java{} code, \mavencentral{},
 to answer these questions.
@@ -87,14 +84,12 @@ and for the design of new language features to regain safety in \java{}.
 We have already published our work on how developers use the Unsafe \api{} in \java{}~\citep{mastrangeloUseYourOwn2015}.
 In this thesis we outline the risks of using the \unsafe{} \api{} in Section~\ref{sec:unsafe:background}.
 Then we answer \ref{unsafe:rq1} (\urqA{}) in Section~\ref{sec:unsafe:overview}.
-Section~\ref{sec:unsafe:so} describes our analysis of the \stackoverflow{} question/answer database.
 To answer \ref{unsafe:rq2} (\urqB{}),
 first we introduce our methodology and the patterns we found in Sections~\ref{sec:unsafe:methodology} and \ref{sec:unsafe:patterns} respectively,
 to then present how the patterns we found could be implemented in a safer way in Section~\ref{sec:unsafe:discussion}.
 
 \input{chapters/unsafe/sec-unsafe-background}
 \input{chapters/unsafe/sec-unsafe-overview}
-\input{chapters/unsafe/sec-unsafe-so}
 \input{chapters/unsafe/sec-unsafe-methodology}
 \input{chapters/unsafe/sec-unsafe-patterns}
 \input{chapters/unsafe/sec-unsafe-discussion}
