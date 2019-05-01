@@ -10,9 +10,12 @@
 \usepackage{multirow}
 \usepackage{multicol}
 \usepackage[newfloat]{minted}
+\usepackage{tikz}
 
 \SetupFloatingEnvironment{listing}{placement=H}
 \SetupFloatingEnvironment{listing}{listname=Listings}
+
+\usetikzlibrary{shapes,arrows}
 
 \input{prelude}
 
@@ -68,6 +71,7 @@
       \input{cha-casts}
       \input{cha-conclusions}
       \appendix
+      \input{ap-ql}
       \input{ap-jnif}
       \backmatter
     \fi
