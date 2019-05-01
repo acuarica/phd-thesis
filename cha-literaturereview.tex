@@ -286,38 +286,38 @@ This kind of studies give an insight of the adoption of lambdas and generics; wh
 \label{sec:literature-review:unsafe}
 
 Oracle provides the \smu{} class for low-level programming,
-\eg, synchronization primitives, direct memory access methods,
+\eg{}, synchronization primitives, direct memory access methods,
 array manipulation and memory usage.
-Although the \smu{} class is not officially documented,
+Although \smu{} is not officially documented,
 it is being used in both industrial applications
 and research projects~\citep{korlandNoninvasiveConcurrencyJava2010,pukallFlexibleDynamicSoftware,gligoricCoDeSeFastDeserialization2011}
 outside the JDK, compromising the safety of the \java{} ecosystem.
 
-Oracle software engineer Paul Sandoz performed an informal analysis of
-Maven artifacts and usages in Grepcode~\citep{sandoz-personal-communication}
+Software engineer Paul Sandoz from Oracle performed an informal analysis of
+\mavencentral{} artifacts and usages in Grepcode~\citep{sandoz-personal-communication}
 and conducted a unscientific user survey to study how \unsafe{} is used~\citep{psandoz14}.
-The survey consists of 7 questions\footnote{\url{http://www.infoq.com/news/2014/02/Unsafe-Survey}} 
+The survey consists of 7 questions%
+\footnote{\url{http://www.infoq.com/news/2014/02/Unsafe-Survey}} 
 that help to understand what pieces of \smu{} should be mainstreamed.
 In our work~\citep{mastrangeloUseYourOwn2015} we extend Sandoz' work
 by performing a comprehensive study of the \mavencentral{}
 software repository to analyze how and when \smu{} is being used.
-This study is summarized in Chapter \ref{cha:unsafe}.
+This study is summarized in Chapter~\ref{cha:unsafe}.
 
 \cite{tanSafeJavaNative2006} propose a safe variant of \jni{}.
-\cite{tanEmpiricalSecurityStudy2008,kondohFindingBugsJava2008} conducted an empirical security study to describe a taxonomy to classify bugs when using JNI.
+\cite{tanEmpiricalSecurityStudy2008} and~\cite{kondohFindingBugsJava2008}
+conducted an empirical security study to describe a taxonomy to classify bugs when using \jni{}.
 \cite{sunNativeGuardProtectingAndroid2014} develop a method to isolate native components in Android applications.
 \cite{liFindingBugsExceptional2009} analyze the discrepancy between how exceptions are handled in native code and \java{}.
 
-\subsection{Casting}
-\label{sec:literature-review:casting}
+\subsection{Casting}\label{sec:literature-review:casting}
 
 Casting operations in \java{}%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.16}}
 allows the developer to view a reference at a different type as it was declared.
 The related \code{instanceof} operator%
-\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.20.2}}
-tests whether a reference could be cast to a different type without
-throwing \code{ClassCastException}.
+\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.20.2}}---written \code{e instanceof T}---tests whether a reference \code{e} could be cast to a different type \code{T} without
+throwing \code{ClassCastException} at run-time.
 
 \cite{wintherGuardedTypePromotion2011} has implemented a
 path sensitive analysis that allows the developer to avoid casting
@@ -357,7 +357,7 @@ subjects need to be correlated with real-world use cases,
 
 \textbf{Controlled Experiments on Subjects.}
 There is an extensive literature \perse{} in controlled experiments on subjects to understand several aspects in programming, and programming languages.
-For instance, \cite{solowayEmpiricalStudiesProgramming1984} tried to understand how expert programmers face problem solving.
+For instance,~\cite{solowayEmpiricalStudiesProgramming1984} tried to understand how expert programmers face problem solving.
 \cite{buddTheoreticalEmpiricalStudies1980} made a empirical study on how effective is mutation testing.
 \cite{precheltEmpiricalComparisonSeven2000} compared how a given---fixed---task was implemented in several programming languages.
 \cite{latozaDevelopersAskReachability2010} realize that, in essence, programmers need to answer reachability questions to understand large codebases.
