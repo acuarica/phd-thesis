@@ -232,7 +232,10 @@ df.out <- df
 df.out$qltag <- NULL
 df.out$batch <- NULL
 write.csv(df.out, 'casts.csv', row.names=FALSE)
+
 casts.def <- list()
+patterns.def = list()
+ 
 casts.def['Seen'] <- nrow(df)
 cat("[Links seen: ", casts.def$Seen, "]", sep='', fill=TRUE)
 
@@ -245,7 +248,7 @@ for (key in declared.omitted) {
 }
 
 casts.def['Size'] <- nrow(df)
-cat("[Accoutable cast instances (sample size): ", casts.def$Size, "]", sep='', fill=TRUE)
+cat("[Accountable cast instances (sample size): ", casts.def$Size, "]", sep='', fill=TRUE)
 df <- separate(df, value, c('features', 'scope'), sep=',')
 check.consistency(df$castid, casts.def)
 check.auto(df)
@@ -263,6 +266,12 @@ for (p in names(taxonomy)) {
 }
 stopifnot(empty(subset(df, is.na(pattern))))
 check.diff(declared.features, unique(df$features))
+
+patterns.def['UniqueProjects'] <- length(unique(df$repoid))
+df.repo <- dcast(df, repoid+features~'count', length, value.var="features")
+df.repo.distinct <- dcast(df.repo, repoid~'count', length, value.var="features")
+df.repo.distinct <- df.repo.distinct[order(df.repo.distinct$count, decreasing=TRUE),]
+cat("[Repoid showing more different features: ", df.repo.distinct[1,]$repoid, "]", sep='', fill=TRUE)
 
 labs.instances <- labs(x=NULL, y = "# Instances")
 scale.scope <- scale_fill_discrete(
@@ -331,7 +340,6 @@ pp <- ggplot(df, aes(x=pattern))+
   labs.instances+scale.scope
 write.plot(pp, 'table-patterns.pdf', plot.height.col(df$pattern))
 
-patterns.def = list()
 lpatterns <- levels(as.factor(df$pattern))
 patterns.def['Pattern'] = length(lpatterns)
 
@@ -351,26 +359,14 @@ casts.def['Unguarded'] = nReference - nrow(df.guarded)
 casts.def['Upcast'] = nrow(df.upcast)
 casts.def['Downcast'] = nReference - nrow(df.upcast)
 
-patterns.def['EqualsOutofGuarded'] = perc(casts.def$EqualsPattern, casts.def$Guarded)
+patterns.def['EqualsOutOfGuarded'] = perc(casts.def$EqualsPattern, casts.def$Guarded)
 
 write.def(patterns.def, casts.def, 'casts.def')
 
-
-
+ 
 # df.equals <- subset(df, df$features=='Equals')
 # df.wide <- dcast(df.equals, castid~args, length, value.var="args")
 # df.wide <- dcast(df, castid~features, length)
 # #upset(df.wide,nsets=ncol(df.wide),nintersects=NA,mb.ratio = c(0.3, 0.7))
 # upset(df.wide,nsets=ncol(df.wide) )
 #upset(df.wide)
-# df.repo <- dcast(df, repoid+features~'ads', length, value.var="features")
-# df.repo0 <- dcast(df.repo, repoid~'x', length, value.var="features")
-# a<-df.repo0[order(df.repo0$x,decreasing=TRUE),]
-# plot(df.repo)
-# ggplot(df.repo, aes(x=repoid))+geom_bar()
-# print(pp)
-
-# tb <- table(df.repo$.)
-# names(tb[order(tb, decreasing = FALSE)])
-
-# df.repo.long <- melt(df.repo, id.vars=c('repoid'))
