@@ -44,8 +44,10 @@
 {With this pattern an object can be allocated on the heap
 without executing its constructor.}
 {}
-{The \member{allocate\-Instance} method takes as parameter a \javaclass{java.lang.Class} object, and returns a new instance of that class. Unlike allocating an
-object directly, or through the reflection API, the object's constructor is not invoked.}
+{The \member{allocate\-Instance} method takes a \code{java.lang.Class} object as parameter,
+and returns a new instance of that class.
+Unlike allocating an
+object directly, or through the reflection \api{}, the object's constructor is not invoked.}
 {This pattern is useful for creating mock objects for testing and in deserializing
 serialized objects.}
 {If the constructor is not invoked, the object might be left uninitialized
@@ -166,8 +168,11 @@ of the pattern that use the \smugroup{Fence} methods.}
 
 
 \patterntext{park}%
-{The \member{park} and \member{unpark} methods are used to block and unblock threads and are useful for implementing locks and other
-blocking synchronization constructs.}
+{
+To implement locks and other blocking synchronization constructs,
+the \member{park} and \member{unpark} methods are used.
+With these methods, the developer can block and unblock threads.
+}
 {The standard library class \javaclass{java.\-util.\-concurrent.\-locks.\-LockSupport} provides \member{park} and \member{unpark}
 methods to be used for implementing locks.}
 {The \member{park} method blocks the current thread while \member{unpark}

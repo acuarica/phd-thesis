@@ -1,6 +1,6 @@
 \section{Casts in Java}\label{sec:casts:background}
 
-While casts should be familiar to most programmers of object-oriented languages, 
+While casts should be familiar to most developers of object-oriented languages,
 because casts have different semantics in different programming languages,
 we briefly summarize the meaning of casts in \java{} and the terminology used in the rest of this chapter.
 
@@ -82,8 +82,7 @@ try {
 \label{lst:casts:catchcce}
 \end{listing}
 
-A \emph{guard} is a conditional expression on which a (down)cast is control-dependent and that ensures that the cast is evaluated only if it will succeed.
-
+A \emph{guard} is a conditional expression on which a cast---usually a downcast--- is control-dependent and that ensures that the cast is evaluated only if it will succeed.
 Guards are often implemented using the \code{instanceof} operator, which tests
 if an expression is an instance of a given reference type.
 If an \code{instanceof} guard returns true, the guarded cast should not throw

@@ -7,10 +7,11 @@ and how they relate to JNIF.
  
 \subsection*{Low-level Rewriting Libraries}
 
-JNIF certainly is not the first Java bytecode analysis and instrumentation framework.
+\jnif{} certainly is not the first \java{} bytecode analysis and instrumentation framework.
 The probably earliest is BCEL\footnote{\url{http://commons.apache.org/bcel/}},
 a well-designed \java{} library with a tree-based \api{}.
-The probably most prevalent is \asm{}\footnote{\url{http://asm.ow2.org/}}~\citep{brunetonASMCodeManipulation2002,kuleshovUsingASMFramework2007},
+\asm{}\footnote{\url{http://asm.ow2.org/}}~\citep{brunetonASMCodeManipulation2002,kuleshovUsingASMFramework2007}
+is probably the most prevalent,
 which aims to be more efficient, especially due to the addition of a visitor-based streaming \api{}, 
 but which has a somewhat less encapsulated design.
 

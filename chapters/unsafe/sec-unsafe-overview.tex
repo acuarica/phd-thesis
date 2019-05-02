@@ -98,7 +98,11 @@ The fields were added as a simpler and potentially faster alternative in a more 
 The value of all fields in this group are constants initialized with the result of a call to either \member{arrayBaseOffset} or \member{arrayIndexScale} in the \smugroup{Array} group.
 The figures show that the majority of sites still invoke the methods instead of accessing the corresponding constant fields.
 
-\item The \smugroup{CAS} group contains methods to atomically compare-and-swap a \java{} variable. These operations are implemented using processor-specific atomic instructions. For instance, on \emph{x86} architectures, \member{compareAndSwapInt} is implemented using the \texttt{CMPXCHG} machine instruction. Figure~\ref{fig:overview} shows that these methods represent the most heavily used feature of \unsafe{}.
+\item The \smugroup{CAS} group contains methods to atomically compare-and-swap a \java{} variable.
+These methods are implemented using processor-specific atomic instructions.
+For instance, on \emph{x86} architectures,
+\member{compareAndSwapInt} is implemented using the \texttt{CMPXCHG} machine instruction.
+Figure~\ref{fig:overview} shows that these methods represent the most heavily used feature of \unsafe{}.
 
 \item Methods of the \smugroup{Class} group are used to dynamically load and check \java{} classes. They are rarely used, with \member{defineClass} being used the most.
 

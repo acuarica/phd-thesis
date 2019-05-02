@@ -105,6 +105,24 @@
 	escapeinside=\#\#
 }
 
+\lstdefinestyle{ql}{
+	language=sql,
+	tabsize=2,
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	numbersep=4pt,
+	xleftmargin=0.2cm,
+	mathescape=true,
+	keywordstyle=\color{blue}\textbf,
+	stringstyle=\color{magenta},
+	captionpos=b,
+	showstringspaces=false,
+	keywords=[2]{import, predicate, java, instanceof, this},
+	emph={CastExpr, PrimitiveType},
+	emphstyle={\color{lightblue}}
+}
+
 \newcommand{\urqA}{To what extent does the Unsafe API impact common application code?}
 \newcommand{\urqB}{How and when are Unsafe features used?}
 
