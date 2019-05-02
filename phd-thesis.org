@@ -310,7 +310,10 @@ CLOSED: [2019-05-01 Wed 19:22]
 :LOGBOOK:
 - State "TODO"       from              [2019-05-01 Wed 22:54]
 :END:
-** Toward QL queries for some automatic detection of patterns?
+** TODO Toward QL queries for some automatic detection of patterns?
+:LOGBOOK:
+- State "TODO"       from              [2019-05-02 Thu 01:41]
+:END:
 ** DONE Why JNIF relevant to the thesis?
 CLOSED: [2019-05-01 Wed 19:22]
 :LOGBOOK:
@@ -330,3 +333,20 @@ CLOSED: [2019-05-01 Wed 19:22]
 :END:
 *** Use as a motivation
 *** Cast provides a bridge between compile-time and run-time checking
+** WONTDO ExceptionSoftening
+CLOSED: [2019-05-02 Thu 02:53]
+:LOGBOOK:
+- State "WONTDO"     from "TODO"       [2019-05-02 Thu 02:53] \\
+  Didn't find any in the manual sample
+- State "TODO"       from              [2019-05-02 Thu 02:52]
+:END:
+*** We can throw checked exceptions even on methods that don't declare them
+*** With Exception softening
+** WONTDO Mention on ~cast~ method
+CLOSED: [2019-05-02 Thu 15:21]
+:LOGBOOK:
+- State "WONTDO"     from "TODO"       [2019-05-02 Thu 15:21] \\
+  No data on cast method.
+- State "TODO"       from              [2019-05-02 Thu 15:20]
+:END:
+*** https://lgtm.com/projects/g/mockito/mockito/snapshot/da68900466a17e21fef3e27690f4cef4b5c240ea/files/src/test/java/org/mockitoutil/SimpleSerializationUtil.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L29
