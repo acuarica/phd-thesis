@@ -1,19 +1,18 @@
 \begin{pattern}{GenericArray}
 A cast due to the instantiation of an array with a parameterized base type.
-  In \java{} these arrays cannot be instantiated, instead an \code{Object[]}
-  or an array of raw types must be created.
-  The cast is necessary to use the array at the intended type. 
+In \java{} these arrays cannot be instantiated,
+instead an \code{Object[]} or an array of raw types must be created.
+The cast is necessary to use the array at the intended type. 
 
 \instances{}
-In the following snippet,%
-\def\urlvar{http://bit.ly/ppiastucki_recast4j_2EM7zWK}
+In the following snippet,
 a cast is required when accessing an element in the array (line 4).
-  The array is created using the raw type \code{List[][]}
-  and assigned to a variable of using the wildcard type \code{List<?>[][]}
-  (line 1).
-  It is not possible to simply allocate a \code{List<byte[]>}.
+The array is created using the raw type \code{List[][]}
+and assigned to a variable of using the wildcard type \code{List<?>[][]} (line 1).
+It is not possible to simply allocate a \code{List<byte[]>}.
 
 %https://lgtm.com/projects/g/ppiastucki/recast4j/snapshot/dist-4860452-1524814812150/files/detourtilecache/src/main/java/org/recast4j/detour/tilecache/AbstractTileLayersBuilder.java?sort=name&dir=ASC&mode=heatmap#L50
+\def\urlvar{http://bit.ly/ppiastucki_recast4j_2EM7zWK}
 \begin{minted}[highlightlines=4]{java}
 List<?>[][] partialResults = new List[th][tw];
 for (...) {
@@ -24,11 +23,10 @@ for (...) {
 % protected abstract List<byte[]> build(int tx, int ty, ByteOrder order, boolean cCompatibility);
 
 Instead of casting individual elements,
-the following example%
-\def\urlvar{http://bit.ly/seven332_Nimingban_2UdBwIL}
-shows a cast applied directly when the array is created. 
+the following example shows a cast applied directly when the array is created. 
 
 %https://lgtm.com/projects/g/seven332/Nimingban/snapshot/dist-1506180917302-1524814812150/files/yorozuya/src/main/java/com/hippo/yorozuya/ArrayUtils.java?sort=name&dir=ASC&mode=heatmap#L124
+\def\urlvar{http://bit.ly/seven332_Nimingban_2UdBwIL}
 \begin{minted}[highlightlines=1,linenos=false]{java}
 T[] newArray = (T[]) new Object[growSize(currentSize)];
 #\urlbox#
@@ -37,10 +35,10 @@ T[] newArray = (T[]) new Object[growSize(currentSize)];
 
 \issues{}
 This pattern occurs because generic type parameters are not reified at runtime,
-but array types are reified. To create a generic \code{T[]}, for instance, since the
-  parameter \code{T} is not known statically, the compiler cannot know the
-  runtime representation of the array. The \java{} specification just forbids
-  these problematic cases and therefore requires programmers to create
-  arrays of raw types and to use casts.
+but array types are reified.
+To create a generic \code{T[]}, for instance,
+since the parameter \code{T} is not known statically,
+the compiler cannot know the runtime representation of the array.
+The \java{} specification just forbids these problematic cases and therefore requires programmers to create arrays of raw types and to use casts.
 
 \end{pattern}
