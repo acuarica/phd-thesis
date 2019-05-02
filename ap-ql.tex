@@ -1,0 +1,35 @@
+\chapter{Automatic Detection of Patterns using \ql{}}\label{ap:ql}
+
+Query all observations defined.
+Columns 'patterns', 'tags', and 'show' need to be concatenated since they might have more than one result.
+By concatenating the results in each column, we keep one line for observation.
+We sort the results by 'obs' to keep the observations in the same order across runs.
+This allows us to easily identify observations every time we re-run the query after adding either a tag or a pattern.
+
+\begin{listing}
+\begin{minted}{sql}
+from Category category, Top obs #\qlbox#
+where obs = category.getAnObs()
+select
+	category,
+	concat(obs.(Pattern).getPattern(), "|") as patterns,
+	concat(obs.(Tag).getTag(), "|") as tags,
+	concat(obs.(Show).show(), " | ") as show,
+	obs,
+	getLgtmUrl(obs) as url
+order by obs
+\end{minted}
+\caption{Main query to run all observation}
+\end{listing}
+
+\begin{listing}
+\begin{minted}{java}
+abstract class Pattern extends Top {
+	abstract string getPattern();
+	string getLgtmUrl() { result = getLgtmUrl(this) }
+}
+
+abstract class CastTag extends Tag, Cast { }
+abstract class CastPattern extends Pattern, Cast { }
+\end{minted}
+\end{listing}

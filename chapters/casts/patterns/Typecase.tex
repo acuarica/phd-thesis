@@ -358,9 +358,37 @@ class IofGuardsVarCast extends IofControlsVarCast {
         )
     }
 }
+
+final class GuardByInstanceOfCastPattern extends CastPattern {
+	GuardByInstanceOfCastPattern() {
+		this instanceof IofGuardsVarCast
+	}
+	override string getPattern() { result = "GuardByInstanceOf" }
+}
 \end{minted}
+\caption{Query for the \variant{GuardByInstanceOf} variant.}
 \end{listing}
 
+\begin{listing}
+\begin{minted}{java}
+final class GuardByTypeTagCastPattern extends CastPattern { #\qlbox#
+	private FieldAccess tagAccess;
+	private FieldAccess castAccess;
+	private Variable v;
+	GuardByTypeTagCastPattern() {
+		tagAccess = this.(SwitchedExpr).getSwitchStmt().getExpr() and
+		castAccess = getExpr() and
+		v.getAnAccess() = tagAccess.getQualifier() and
+		v.getAnAccess() = castAccess.getQualifier()
+	}
+	override string getPattern() { result = "GuardByTypeTag" }
+	FieldAccess getTagAccess() { result = tagAccess }
+	FieldAccess getCastAccess() { result = castAccess }
+	Variable getVariable() { result = v }
+}
+\end{minted}
+\caption{Query for the \variant{GuardByTypeTag} variant.}
+\end{listing}
 
 \issues{}
 Having only a single case---that is, a single guard and cast---is common.
@@ -381,7 +409,7 @@ In this example,%
 a different action is taken according to the runtime type of the parameter \code{notification} (line 10).
 
 \begin{minted}[highlightlines=10]{scala}
-abstract class Notification
+abstract class Notification #\scalabox#
 case class Email(sender: String, title: String, body: String)
 	extends Notification
 case class SMS(caller: String, message: String)
