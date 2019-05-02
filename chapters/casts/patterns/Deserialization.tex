@@ -21,8 +21,9 @@ assertEquals("...", this.seed.toString(), deserializedCuri.toString());
 
 \detection{}
 
-\begin{lstlisting}[style=ql]
-private final class ReadObjectMethodAccess extends MethodAccess {
+\begin{listing}
+\begin{minted}{java}
+private final class ReadObjectMethodAccess extends MethodAccess { #\qlbox#
     ReadObjectMethodAccess() {
         getMethod() instanceof ReadObjectMethod
     }
@@ -34,7 +35,8 @@ final class DeserializationCastPattern extends CastPattern {
     }
     override string getPattern() { result = "Deserialization" }
 }
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 
 \issues{}

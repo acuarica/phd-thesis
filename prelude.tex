@@ -15,7 +15,6 @@
 \newcommand{\host}[1]{\textsl{#1}}
 \newcommand{\conf}[2]{\textsf{#1'#2}}
 
-% \newcommand{\urlnote}[1]{\footnote{\RaggedRight\url{#1}}}
 \newcommand{\urlnote}[1]{\footnote{\url{#1}}}
 
 \newcommand{\java}{\lang{Java}}
@@ -103,24 +102,6 @@
 	tabsize=4,
 	linenos,
 	escapeinside=\#\#
-}
-
-\lstdefinestyle{ql}{
-	language=sql,
-	tabsize=2,
-	basicstyle=\footnotesize\ttfamily,
-	numbers=left,
-	numberstyle=\tiny\color{gray},
-	numbersep=4pt,
-	xleftmargin=0.2cm,
-	mathescape=true,
-	keywordstyle=\color{blue}\textbf,
-	stringstyle=\color{magenta},
-	captionpos=b,
-	showstringspaces=false,
-	keywords=[2]{import,predicate,java,instanceof, this, extends, class, private},
-	emph={IofControlsVarCast, InstanceOfExpr, ConditionBlock, VarCast},
-	emphstyle={\color{violet}}
 }
 
 \newcommand{\urqA}{To what extent does the Unsafe API impact common application code?}

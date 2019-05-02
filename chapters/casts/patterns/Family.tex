@@ -6,14 +6,13 @@ collaborate with each other.
 Each type has a role in the family.
 Deriving from a base family to form another family requires subclassing all the members of the base family,
 with the subclasses in the new family retaining their roles in the new family.
+
 Because method parameter types are invariant in \java{} and because covariant parameter types are unsound in general,
 the method parameter types in the derived family are the same as in the base family.
 Casts are therefore necessary for one member of a derived family to access
 another member using its derived family type rather that its base family
 type.
 
-To detect this pattern, the cast needs to be applied to a family.
-A family is distinguished by a covariant usage of a field or parameter in an overriding method.
 
 \instances{}
 The following example shows an instance of the \thisp{} pattern.
@@ -104,6 +103,12 @@ public abstract class BaseExchange implements Exchange {
   // [...]
 } #\urlbox#
 \end{minted}
+
+
+\detection{}
+To detect this pattern, the cast needs to be applied to a family.
+A family is distinguished by a covariant usage of a field or parameter in an overriding method.
+
 
 \issues{}
 \java{} itself does not support statically type-safe family polymorphism directly and so casts are often necessary.

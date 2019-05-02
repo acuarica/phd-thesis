@@ -98,6 +98,29 @@ public groovy.lang.MetaClass getMetaClass() {
 \end{minted}
 
 
+\detection{}
+The following query returns casts where the static type of the cast expression is the exactly the same as the target type.
+That is, casts \code{(T) e} where e is declared as \code{T}.
+
+\begin{listing}
+\begin{minted}{java}
+final class SamecastCastTag extends CastTag {
+    SamecastCastTag() {
+        getExpr().getType() = getTargetType()
+    }
+    override string getTag() { result = "Samecast" }
+}
+
+final class RedundantCastPattern extends CastPattern {
+    RedundantCastPattern() {
+        this instanceof SamecastCastTag
+    } 
+    override string getPattern() { result = "Redundant" }
+}
+\end{minted}
+\caption{Detection query for the \thisp{} pattern}
+\end{listing}
+
 \issues{}
 Redundant casts are generally upcasts or casts involving erased type parameters.
 This pattern arises often in generated code.

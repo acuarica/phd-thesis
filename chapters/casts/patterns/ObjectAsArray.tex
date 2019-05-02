@@ -24,6 +24,27 @@ Then, a cast is performed of a constant array slot,
 #\urlbox#
 \end{minted}
 
+
+\detection{}
+The following query detects when the cast expression is an array access,
+and that access is indexed with a compile-time constant.
+
+\begin{listing}
+\begin{minted}{java}
+final class ObjectAsArrayCastPattern extends CastPattern { #\qlbox#
+    private ArrayAccess arr;
+    ObjectAsArrayCastPattern() {
+        arr = getExpr() and
+        arr.getIndexExpr() instanceof CompileTimeConstantExpr and
+        arr.getArray().getType().(Array).
+                        getElementType() instanceof TypeObject
+    }
+    override string getPattern() { result = "ObjectAsArray" }
+    ArrayAccess getArrayAccess() { result = arr }
+}
+\end{minted}
+\end{listing}
+
 \issues{}
 This pattern usually suggests an abuse of the type system.
 Using an object with statically typed fields might be a better alternative.

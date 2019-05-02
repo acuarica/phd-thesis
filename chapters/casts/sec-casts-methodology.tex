@@ -9,6 +9,7 @@ we need a corpus of representative ``real world'' code and we need to perform
 source code analysis to identify cast operations and to help classify these
 operations.
 
+
 \subsection*{Corpus Analysis}
 
 We gathered cast usage data using the \ql{} query language,
@@ -37,6 +38,25 @@ We argue that this project selection provides a wide coverage over realistic
 \java{} applications, excluding
 uninteresting projects, \eg, student projects.
 
+
+\subsection*{Manual Detection of Cast Patterns}
+
+We initially sought to describe patterns precisely as \ql{} queries so that
+detection and categorization was repeatable,
+but we found this was infeasible because of the
+complexity of the reasoning involved in identifying a pattern.
+Often determining to which pattern a cast belongs requires reasoning about the runtime source of the cast,
+which might be non-local and might depend on external application frameworks or generated code.
+Thus, we resorted to manually inspect casts in order to devise cast usage patterns.
+
+Nevertheless, whenever possible,
+we provide a \ql{} query that \emph{approximates} the detection of some patterns.
+That is, the result of a \ql{} query%
+---cast expressions in the AST in our case---%
+for a pattern, always belong to that pattern.
+However, there could be others cast expressions not returned by the query,
+which are instances of the pattern. 
+
 \subsection*{Methodology}
 
 To identify patterns of cast usage, we analyzed all \java{} projects in the \lgtm{} database, 7,559 projects
@@ -60,7 +80,7 @@ We want to know the probability of not finding this pattern, \ie, sampling exact
 Our population consists of $N = 9,030,852$ cast instances.
 For our study, we assume that a pattern is irrelevant if it represents less than $0.1\%$ of the population, or $K = 9,031$ cast instances.
 Plugging-in these parameters using the hypergeometric distribution formula,%
-\footnote{The reader can use any hypergeometric distribution calculator, \eg, \url{https://keisan.casio.com/exec/system/1180573201}}
+\footnote{The reader can use any hypergeometric distribution calculator, \eg{}, \url{https://keisan.casio.com/exec/system/1180573201}}
 we found that with a sample size of $n = 5,000$ the probability of not sampling the
 least frequently occurring pattern is $0.67\%$.
 

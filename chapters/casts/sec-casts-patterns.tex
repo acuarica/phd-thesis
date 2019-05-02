@@ -17,15 +17,6 @@ refining, merging, or splitting them into new patterns.
 This was repeated until consensus among the authors was reached.
 The particular categorization here is therefore subjective.
 
-We initially sought to describe patterns precisely as \ql{} queries so that
-detection and categorization was repeatable,
-but we found this was infeasible because of the
-complexity of the reasoning involved in identifying a pattern.
-Often determining to which pattern a cast belongs
-requires reasoning about the runtime source of the cast,
-which might be non-local and might depend on external application
-frameworks or generated code.
-
 We do not claim that our list of patterns is exhaustive,
 although our methodology should ensure that any pattern that occurs more
 than 0.1\% of the time has a small probability of being excluded.
@@ -74,11 +65,11 @@ As we mentioned above, projects can be removed from the \lgtm{} service,
 thus some links may not work.
 
 \item\textit{Detection.}
-% We have implemented our study using the \ql{} query language:
-% ``a declarative, object-oriented logic programming language for querying complex, potentially recursive data structures encoded in a relational data model''~\cite{avgustinov_ql:_2016}.
-% \ql{} allows us to analyze programs at the source code level by abstracting the code sources into a relational data model.
-% Besides providing structural data for programs, \ie{}, ASTs, \ql{} has the ability to query static types and data-flow analysis.
-% To run our \ql{} queries, we have used the service provided by Semmle.\footnote{\url{https://lgtm.com/}} 
+For some patterns,
+we provide a \ql{} query that approximates their automatic detection,
+as describes in Section~\ref{sec:casts:methodology}.
+Whenever a pattern is too complex to describe in terms of \ql{},
+we explain our manual process to detect it.
 
 \item\textit{Issues.}
 Discusses the issues with the pattern, flaws, and alternatives that achieve the same goal without casting.
