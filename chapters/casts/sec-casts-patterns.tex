@@ -48,7 +48,7 @@ Each pattern is described using the following template:
 
 \begin{itemize}
 
-\item \textit{Description.}
+\item\textit{Description.}
 Tells what the pattern is about, gives a general overview of its structure, and
 briefly describes the rationale behind how this pattern was characterized as such.
 A few patterns can have distinct \emph{variants}, \ie,
@@ -56,7 +56,7 @@ different ways of implementing the pattern.
 Whenever a pattern has variants,
 we state how they differ from each other.
 
-\item \textit{Instances.}
+\item\textit{Instances.}
 Gives one or more concrete examples found in real code.
 The code snippets presented here were modified for formatting purposes.
 Each example contains a highlighted line which shows the cast instance being inspected.
@@ -73,7 +73,14 @@ Each \bitly{} link was customized to include the project name.
 As we mentioned above, projects can be removed from the \lgtm{} service,
 thus some links may not work.
 
-\item \textit{Issues.}
+\item\textit{Detection.}
+% We have implemented our study using the \ql{} query language:
+% ``a declarative, object-oriented logic programming language for querying complex, potentially recursive data structures encoded in a relational data model''~\cite{avgustinov_ql:_2016}.
+% \ql{} allows us to analyze programs at the source code level by abstracting the code sources into a relational data model.
+% Besides providing structural data for programs, \ie{}, ASTs, \ql{} has the ability to query static types and data-flow analysis.
+% To run our \ql{} queries, we have used the service provided by Semmle.\footnote{\url{https://lgtm.com/}} 
+
+\item\textit{Issues.}
 Discusses the issues with the pattern, flaws, and alternatives that achieve the same goal without casting.
 
 \end{itemize}
@@ -91,6 +98,7 @@ Discusses the issues with the pattern, flaws, and alternatives that achieve the 
     We found \noccsrc{} in application code,
     \nocctest{} in test code,
     and \noccgen{} in generated code.}
+\newcommand{\detection}{\castpatternsection{Detection}}
 \newcommand{\issues}{\castpatternsection{Issues}}
 \newcommand{\thisp}{\textsc{#1}}
 \subsection{\textsc{#1}}

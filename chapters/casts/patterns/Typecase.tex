@@ -328,6 +328,39 @@ public Object convertToNumber(Number value, Class toType) throws Exception {
 \end{minted}
 
 
+\detection{}
+
+\begin{lstlisting}[style=ql]
+class IofControlsVarCast extends VarCast {
+    InstanceOfExpr iof;
+    private ConditionBlock cb;
+    IofControlsVarCast() {
+        iof = cb.getCondition() and
+        cb.controls(getBasicBlock(), true) and
+        var.getAnAccess() = iof.getExpr()
+    }
+    InstanceOfExpr getIof() {
+        result = iof
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=ql]
+class IofGuardsVarCast extends IofControlsVarCast {
+    IofGuardsVarCast() {
+        forall (VariableUpdate def | defUsePair(def, getExpr()) |
+            defUsePair(def, iof.getExpr())
+        )
+    }
+}
+\end{lstlisting}
+
+
+The typecase pattern consists of testing the runtime type of a variable against several related types.
+Based on rule taken from:
+It was taken from a \lgtm{} rule.%
+\footnote{\url{https://lgtm.com/rules/910065/}}
+
 \issues{}
 Having only a single case---that is, a single guard and cast---is common.
 In the 742 instances of \thisp{} that used \code{instanceof}, 511

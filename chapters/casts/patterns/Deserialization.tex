@@ -18,6 +18,25 @@ assertEquals("...", this.seed.toString(), deserializedCuri.toString());
 #\urlbox#
 \end{minted}
 
+
+\detection{}
+
+\begin{lstlisting}[style=ql]
+private final class ReadObjectMethodAccess extends MethodAccess {
+    ReadObjectMethodAccess() {
+        getMethod() instanceof ReadObjectMethod
+    }
+}
+
+final class DeserializationCastPattern extends CastPattern {
+    DeserializationCastPattern() {
+        getExpr() instanceof ReadObjectMethodAccess
+    }
+    override string getPattern() { result = "Deserialization" }
+}
+\end{lstlisting}
+
+
 \issues{}
 The serialization API dates back to \java{} 1.1 in 1997.
 Since then, newer serialization APIs have been developed.
