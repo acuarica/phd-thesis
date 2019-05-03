@@ -85,6 +85,7 @@
         "dacapo",
         "dendrogram",
         "deserialization",
+        "deserialize",
         "emphstyle",
         "instanceof",
         "jython",
