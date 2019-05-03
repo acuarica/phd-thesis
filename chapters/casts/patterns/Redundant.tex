@@ -101,25 +101,24 @@ public groovy.lang.MetaClass getMetaClass() {
 \detection{}
 The following query returns casts where the static type of the cast expression is the exactly the same as the target type.
 That is, casts \code{(T) e} where e is declared as \code{T}.
+The query also detects a redundant upcast, \ie{},
+an upcast that is not used for neither the \nameref{pat:SelectOverload} nor the \nameref{pat:CovariantGeneric} patterns.
 
 \begin{listing}
 \begin{minted}{java}
-final class SamecastCastTag extends CastTag {
-    SamecastCastTag() {
-        getExpr().getType() = getTargetType()
-    }
-    override string getTag() { result = "Samecast" }
-}
-
-final class RedundantCastPattern extends CastPattern {
-    RedundantCastPattern() {
-        this instanceof SamecastCastTag
-    } 
-    override string getPattern() { result = "Redundant" }
+class RedundantCast extends #\qlref{Cast}# { #\qlbox#
+	RedundantCast() {
+		getExpr().getType() = getTargetType() or (
+			this instanceof #\qlref{Upcast}# and
+			not this instanceof #\qlref{SelectOverloadCast}# and
+			not this instanceof #\qlref{CovariantGenericCast}#
+		)
+	}
 }
 \end{minted}
 \caption{Detection query for the \thisp{} pattern}
 \end{listing}
+
 
 \issues{}
 Redundant casts are generally upcasts or casts involving erased type parameters.
