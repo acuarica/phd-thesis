@@ -20,22 +20,20 @@ assertEquals("...", this.seed.toString(), deserializedCuri.toString());
 
 
 \detection{}
+The following query detects \thisp{} with the fact that the \code{readObject} method family is used to deserialize objects.
+For other deserialization frameworks,
+it would require to analyze external dependencies.
 
 \begin{listing}
 \begin{minted}{java}
-private final class ReadObjectMethodAccess extends MethodAccess { #\qlbox#
-    ReadObjectMethodAccess() {
-        getMethod() instanceof ReadObjectMethod
-    }
-}
-
-final class DeserializationCastPattern extends CastPattern {
-    DeserializationCastPattern() {
-        getExpr() instanceof ReadObjectMethodAccess
-    }
-    override string getPattern() { result = "Deserialization" }
+class DeserializationCast extends Cast { #\qlbox#
+	DeserializationCast() {
+		getExpr().(MethodAccess).getMethod() instanceof ReadObjectMethod
+	}
 }
 \end{minted}
+\caption{Detection of the \thisp{} pattern.}
+\label{lst:ql:DeserializationCast}
 \end{listing}
 
 
