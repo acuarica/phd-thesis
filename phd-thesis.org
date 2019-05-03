@@ -350,3 +350,11 @@ CLOSED: [2019-05-02 Thu 15:21]
 - State "TODO"       from              [2019-05-02 Thu 15:20]
 :END:
 *** https://lgtm.com/projects/g/mockito/mockito/snapshot/da68900466a17e21fef3e27690f4cef4b5c240ea/files/src/test/java/org/mockitoutil/SimpleSerializationUtil.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L29
+** WONTDO All captions above figures, e.g., table/listing/graphic
+CLOSED: [2019-05-03 Fri 20:58]
+:LOGBOOK:
+- State "WONTDO"     from "TODO"       [2019-05-03 Fri 20:58] \\
+  No time.
+- State "TODO"       from              [2019-05-03 Fri 20:20]
+:END:
+*** When linking is not visible, annoying scroll needed
