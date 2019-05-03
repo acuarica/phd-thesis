@@ -421,7 +421,7 @@ class ControlByIsArrayCast extends VarCast { #\qlbox#
 The following query detects the \variant{GuardByClassLiteral} variant.
 Similar to the previous case,
 this query \emph{does not} detect the case when the variable to be cast and the \code{Class} object are passed as parameters.
-To detect such case would require a inter-procedural (global) data flow analysis.
+To detect such case would require an inter-procedural (global) data flow analysis.
 Such analysis does not scale easily.
 
 \begin{listing}
