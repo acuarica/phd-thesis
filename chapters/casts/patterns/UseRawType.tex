@@ -76,6 +76,32 @@ public interface PrivilegedAction<T> {
 \end{minted}
 
 
+\detection{}
+The Query~\ref{lst:casts:detection:userawtype} detects a variation of the \thisp{} pattern, \eg{}, \emph{only} the first example shown above.
+That is, when a cast is applied to a method \emph{declared} as returning a generic type,
+but the method is invoked on an object defined as a raw type.
+
+\begin{listing}
+\begin{minted}{java}
+class UseRawTypeCast extends Cast { #\qlbox#
+	MethodAccess ma;
+	RawType rt;
+	UseRawTypeCast() {
+		ma = getOperand() and
+		rt = ma.getQualifier().getType() and
+		ma.getMethod().getSourceDeclaration().getReturnType()
+				instanceof TypeVariable
+	}
+	MethodAccess getMethodAccess() {
+		result = ma
+	}
+}
+\end{minted}
+\caption{Detection of the \thisp{} pattern.}
+\label{lst:casts:detection:userawtype}
+\end{listing}
+
+
 \issues{}
 Raw types exist in \java{} to support legacy code.
 Best practice would be to rewrite the code to use generics,
