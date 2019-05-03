@@ -83,6 +83,28 @@ public static <T> T max(Iterable<T> self, Comparator<T> comparator) {
 } #\urlbox#
 \end{minted}
 
+
+\detection{}
+The Query~\ref{lst:ql:SelectOverloadCast} detects when a cast is used as an argument of an overloaded method.
+A cast returned by this query needs to be either a cast to \code{null} or an upcast.
+This is an approximation because the query does not check whether the overloaded method differs only on the type of the argument that is cast.
+
+\begin{listing}
+\begin{minted}{java}
+class SelectOverloadCast extends #\qlref{Cast}# { #\qlbox#
+	SelectOverloadCast() {
+		(getExpr() instanceof NullLiteral or this instanceof #\qlref{Upcast}#) and
+		this instanceof #\qlref{OverloadedArgument}#
+	}
+	Callable getOverload() {
+		result = this.(#\qlref{OverloadedArgument}#).getAnOverload()
+	}
+}
+\end{minted}
+\caption{Query to detect the \thisp{} pattern.}
+\label{lst:ql:SelectOverloadCast}
+\end{listing}
+
 \issues{}
 Casting the \code{null} constant seems rather artificial.
 This pattern shows either a lack of expressiveness in \java{} or a bad \api{} design.
