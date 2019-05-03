@@ -87,7 +87,7 @@ class UseRawTypeCast extends #\qlref{Cast}# { #\qlbox#
 	MethodAccess ma;
 	RawType rt;
 	UseRawTypeCast() {
-		ma = getOperand() and
+		ma = getExpr() and
 		rt = ma.getQualifier().getType() and
 		ma.getMethod().getSourceDeclaration().getReturnType()
 				instanceof TypeVariable

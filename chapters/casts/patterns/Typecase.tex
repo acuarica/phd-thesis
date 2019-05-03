@@ -339,7 +339,7 @@ That is, it checks that there is no assignment to the variable between the \code
 \begin{minted}{java}
 class GuardByInstanceOfCast extends #\qlref{ControlByInstanceOfCast}# {
 	GuardByInstanceOfCast() {
-		forall (VariableUpdate def | defUsePair(def, getOperand()) |
+		forall (VariableUpdate def | defUsePair(def, getDefUse()) |
 		  defUsePair(def, iof.getExpr())
 		)
 	}
@@ -362,7 +362,7 @@ class SwitchFieldTypeTagCast extends #\qlref{Cast}# { #\qlbox#
 	Variable v;
 	SwitchFieldTypeTagCast() {
 		tagAccess = this.(SwitchedExpr).getSwitchStmt().getExpr() and
-		castAccess = getOperand() and
+		castAccess = getDefUse() and
 		v.getAnAccess() = tagAccess.getQualifier() and
 		v.getAnAccess() = castAccess.getQualifier()
 	}

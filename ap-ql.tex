@@ -11,28 +11,18 @@ This allows us to easily identify observations every time we re-run the query af
 from CastExpr ce
 select ce
 \end{minted}
-\caption{Query to fetch all cast expressions in a project}
+\caption{Query to fetch all cast expressions in a project.}
 \end{listing}
 
 \section{Additional \ql{} Classes and Predicates}
 
-
 \begin{listing}
 \begin{minted}{java}
-class Cast extends Expr { #\qlbox#
-	Cast() {
-		this instanceof CastExpr
-	}
-	Expr getOperand() {
-		result = this.(CastExpr).getExpr() or
-		result = getDefUse()
-	}
-	Type getTargetType() {
-		result = this.(CastExpr).getTypeExpr().getType()
-	}
+class Cast extends CastExpr { #\qlbox#
+	Type getTargetType() { result = getTypeExpr().getType() }
 	Expr getDefUse() {
 		exists (VariableAssign def |
-			defUsePair(def, getOperand()) and
+			defUsePair(def, getExpr()) and
 			result = def.getSource()
 		)
 	}
@@ -42,23 +32,61 @@ class Cast extends Expr { #\qlbox#
 \label{lst:ql:Cast}
 \end{listing}
 
+\begin{listing}
+\begin{minted}{java}
+class Upcast extends #\qlref{Cast}# { #\qlbox#
+	Upcast() {
+		getExpr().getType().(RefType).getASupertype+() = getTargetType()
+	}
+}
+\end{minted}
+\caption{\code{Upcast} class definition}
+\label{lst:ql:Upcast}
+\end{listing}
+
+\begin{listing}
+\begin{minted}{java}
+class ArgumentEx extends Argument { #\qlbox#
+	Parameter param;
+	ArgumentEx() {
+		call.getCallee().getParameter(pos) = param
+	}
+}
+\end{minted}
+\caption{\code{ArgumentEx} class definition.}
+\label{lst:ql:ArgumentEx}
+\end{listing}
+
+\begin{listing}
+\begin{minted}{java}
+class OverloadedArgument extends #\qlref{ArgumentEx}# { #\qlbox#
+	Callable target;
+	Callable overload;
+	OverloadedArgument() {
+		target = call.getCallee() and
+		overload = target.getDeclaringType().getACallable() and
+		overload.getName() = target.getName() and
+		target != overload
+	}
+	Callable getTarget() { result = target }
+	Callable getAnOverload() { result = overload }
+}
+\end{minted}
+\caption{\code{OverloadedArgument} class definition.}
+\label{lst:ql:OverloadedArgument}
+\end{listing}
 
 \begin{listing}
 \begin{minted}{java}
  class VarCast extends #\qlref{Cast}# { #\qlbox#
 	Variable var;
-	VarCast() {
-		var.getAnAccess() = getOperand()
-	}
-	Variable getVar() {
-		result = var
-	}
+	VarCast() { var.getAnAccess() = getExpr() }
+	Variable getVar() { result = var }
 }
 \end{minted}
 \caption{\code{VarCast} class definition.}
 \label{lst:ql:VarCast}
 \end{listing}
-
 
 \begin{listing}
 \begin{minted}{java}	
@@ -70,9 +98,7 @@ class ControlByInstanceOfCast extends #\qlref{VarCast}# { #\qlbox#
 		cb.controls(getBasicBlock(), true) and
 		var.getAnAccess() = iof.getExpr()
 	}
-	InstanceOfExpr getIof() {
-		result = iof
-	}
+	InstanceOfExpr getIof() { result = iof }
 }
 \end{minted}
 \caption{\code{ControlByInstanceOfCast} class definition.}
@@ -127,7 +153,7 @@ predicate isSubtype(RefType sub, RefType sup) { #\qlbox#
 
 \begin{listing}
 \begin{minted}{java}	
-class GetClassGuardsVarCast extends Cast {
+class GetClassGuardsVarCast extends Cast { #\qlbox#
 	GetClassMethodAccess tma;
 	GetClassMethodAccess oma;
 	GetClassGuardsVarCast() {
