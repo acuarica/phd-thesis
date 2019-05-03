@@ -108,7 +108,8 @@ public abstract class BaseExchange implements Exchange {
 \detection{}
 To detect this pattern, the cast needs to be applied to a family.
 A family is distinguished by a covariant usage of a field or parameter in an overriding method.
-
+Since this pattern has many small variations,
+writing a \ql{} query would be impractical.
 
 \issues{}
 \java{} itself does not support statically type-safe family polymorphism directly and so casts are often necessary.
