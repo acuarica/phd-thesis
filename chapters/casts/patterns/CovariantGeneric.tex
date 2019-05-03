@@ -51,7 +51,7 @@ This use case resembles the \nameref{pat:SelectOverload} pattern.
 
 %https://lgtm.com/projects/g/EngineHub/WorldGuard/snapshot/dist-1795351250-1524814812150/files/worldguard-legacy/src/test/java/com/sk89q/worldguard/protection/FlagValueCalculatorTest.java?sort=name&dir=ASC&mode=heatmap#L1024
 \def\urlvar{http://bit.ly/EngineHub_WorldGuard_2IVUOx1}
-\begin{minted}[highlightlines=2]{java}
+\begin{minted}[highlightlines=1]{java}
 assertThat(result.queryValue(memberOne, DefaultFlag.BUILD), is((State) null));
 public static <T> Matcher<T> is(T value) {
     // [...]
@@ -70,6 +70,37 @@ public class ArrayExpression extends Expression {
     public ArrayExpression(ClassNode elementType, List<Expression> exprs) {}
 } #\urlbox#
 \end{minted}
+
+
+\detection{}
+The Query~\ref{lst:ql:CovariantGenericCast} detects when a cast is used to select the return type of a generic method.
+This query \emph{does not} detect a cast belonging to this pattern when the raw type is used, \eg{}, last example shown above.
+
+\begin{listing}
+\begin{minted}{java}
+class CovariantGenericCast extends Cast {
+	Argument arg;
+	Call call;
+	Callable m;
+	CovariantGenericCast() {
+		this = arg and
+		call = arg.getCall() and
+		arg.getCall().getCallee() = m and
+		(
+			m.getReturnType().(ParameterizedType).getATypeArgument() =
+					m.getParameterType(arg.getPosition()).(TypeVariable) or
+			m.getReturnType().(TypeVariable) =
+					m.getParameterType(arg.getPosition()).(TypeVariable)
+		)
+	}
+	Argument getArgument() { result = arg }
+	Call getCallSite() { result = call }
+	Callable getCallee() { result = m }
+}
+\end{minted}
+\caption{Query to detect the \thisp{} pattern.}
+\label{lst:ql:CovariantGenericCast}
+\end{listing}
 
 
 \issues{}
