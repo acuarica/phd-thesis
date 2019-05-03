@@ -63,6 +63,26 @@ throw (IllegalArgumentException)
 \end{minted}
 
 
+\detection{}
+The Query~\ref{lst:ql:CovariantReturnTypeCast} approximates the detection of the pattern when a cast is applied to a method in a \code{super} class, \eg{},
+in the first two examples shown above.
+
+\begin{listing}
+\begin{minted}{java}	
+class CovariantReturnTypeCast extends #\qlref{Cast}# { #\qlbox#
+	Method m;
+	MethodAccess ma;
+	CovariantReturnTypeCast() {
+		getExpr() = ma and ma.isOwnMethodAccess() and
+		getEnclosingCallable() = m and m.overrides(ma.getMethod())
+	}
+}
+\end{minted}
+\caption{\thisp{} detection query.}
+\label{lst:ql:CovariantReturnTypeCast}
+\end{listing}
+
+
 \issues{}
 The situation of returning \code{this} could be avoided if \java{} supported self types~\citep{bruceChallengingTypingIssues2003}.
 More generally, associated types~\citep{chakravartyAssociatedTypeSynonyms2005} can provide a statically typed solution,
