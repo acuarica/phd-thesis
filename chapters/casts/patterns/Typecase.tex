@@ -8,14 +8,6 @@ an \code{instanceof} operator (\variant{GuardByInstanceOf}),
 a comparison of the runtime class against a class literal (\variant{GuardByClassLiteral}),
 or an application-specific type tag (\variant{GuardByTypeTag}).
 
-When implementing the pattern,
-care must be taken with complex operands that the value of the operand is
-not changed between the guard and the cast, possibly even by another thread.
-For instance, in some situations the operand expression is a method invocation.
-The value returned by the method should be the same for both the
-\code{instanceof} and the cast, thus the method should be a pure method.
-Typically, this problem is avoided by using an effectively final local variable in both the guard and the cast operand.
-
 \instances{}
 \thisp{} is by far the most common pattern.
 Figure~\ref{fig:casts:typecase} shows the different variants of the pattern.
@@ -329,66 +321,128 @@ public Object convertToNumber(Number value, Class toType) throws Exception {
 
 
 \detection{}
+When implementing the pattern,
+care must be taken with complex operands that the value of the operand is
+not changed between the guard and the cast, possibly even by another thread.
+For instance, in some situations the operand expression is a method invocation.
+The value returned by the method should be the same for both the
+\code{instanceof} and the cast, thus the method should be a pure method.
+Typically, this problem is avoided by using an effectively final local variable in both the guard and the cast operand.
 
-The typecase pattern consists of testing the runtime type of a variable against several related types.
-Based on rule taken from:
-It was taken from a \lgtm{} rule.%
-
-\footnote{\url{https://lgtm.com/rules/910065/}}
+The Query~\ref{lst:casts:detect:iof} detects the \variant{GuardByInstanceOf} variant.
+It is decoupled in two \ql{} classes.
+The \code{ControlByInstanceOfCast} class checks that the cast---\emph{to a variable}---is control-dependant on a \code{instanceof} on the same variable.
+Then, the \code{GuardByInstanceOfCast} class checks that the value tested by the \code{instanceof} is the same to be cast.
+That is, it checks that there is no assignment to the variable between the \code{instanceof} and the cast.
 
 \begin{listing}
 \begin{minted}{java}
-class IofControlsVarCast extends VarCast { #\qlbox#
-    InstanceOfExpr iof;
-    private ConditionBlock cb;
-    IofControlsVarCast() {
-        iof = cb.getCondition() and
-        cb.controls(getBasicBlock(), true) and
-        var.getAnAccess() = iof.getExpr()
-    }
-    InstanceOfExpr getIof() {
-        result = iof
-    }
-}
-
-class IofGuardsVarCast extends IofControlsVarCast {
-    IofGuardsVarCast() {
-        forall (VariableUpdate def | defUsePair(def, getExpr()) |
-            defUsePair(def, iof.getExpr())
-        )
-    }
-}
-
-final class GuardByInstanceOfCastPattern extends CastPattern {
-	GuardByInstanceOfCastPattern() {
-		this instanceof IofGuardsVarCast
+class ControlByInstanceOfCast extends VarCast { #\qlbox#
+	InstanceOfExpr iof;
+	private ConditionBlock cb;
+	ControlByInstanceOfCast() {
+		iof = cb.getCondition() and
+		cb.controls(getBasicBlock(), true) and
+		var.getAnAccess() = iof.getExpr()
 	}
-	override string getPattern() { result = "GuardByInstanceOf" }
+	InstanceOfExpr getIof() {
+		result = iof
+	}
+}
+
+class GuardByInstanceOfCast extends ControlByInstanceOfCast {
+	GuardByInstanceOfCast() {
+		forall (VariableUpdate def | defUsePair(def, getOperand()) |
+		  defUsePair(def, iof.getExpr())
+		)
+	}
 }
 \end{minted}
 \caption{Query for the \variant{GuardByInstanceOf} variant.}
+\label{lst:casts:detect:iof}
 \end{listing}
+
+The implementation of \variant{GuardByTypeTag} variant is application-specific,
+and thus its automatic detection in \ql{} is impractical.
+Nevertheless, the Query~\ref{lst:casts:detect:switchtypetag} detect the special case when a cast is applied to a field in an object inside a \code{switch} statement.
+The expression to be \code{switch}ed is another field in the same object.
 
 \begin{listing}
 \begin{minted}{java}
-final class GuardByTypeTagCastPattern extends CastPattern { #\qlbox#
-	private FieldAccess tagAccess;
-	private FieldAccess castAccess;
-	private Variable v;
-	GuardByTypeTagCastPattern() {
+class SwitchFieldTypeTagCast extends Cast { #\qlbox#
+	FieldAccess tagAccess;
+	FieldAccess castAccess;
+	Variable v;
+	SwitchFieldTypeTagCast() {
 		tagAccess = this.(SwitchedExpr).getSwitchStmt().getExpr() and
-		castAccess = getExpr() and
+		castAccess = getOperand() and
 		v.getAnAccess() = tagAccess.getQualifier() and
 		v.getAnAccess() = castAccess.getQualifier()
 	}
-	override string getPattern() { result = "GuardByTypeTag" }
 	FieldAccess getTagAccess() { result = tagAccess }
 	FieldAccess getCastAccess() { result = castAccess }
 	Variable getVariable() { result = v }
 }
 \end{minted}
-\caption{Query for the \variant{GuardByTypeTag} variant.}
+\caption{Detection of a cast inside a \code{switch} statement}
+\label{lst:casts:detect:switchtypetag}
 \end{listing}
+
+Similar to the previous case,
+the Query~\ref{lst:casts:detect:isarraytypetag} detects when a cast is guarded by a call to the \code{Class.isArray} method.
+This query detects \emph{only} the case when the variable to be cast and
+the \code{getClass} invocation are in the same method.
+
+\begin{listing}
+\begin{minted}{java}
+class ControlByIsArrayCast extends VarCast { #\qlbox#
+	ConditionBlock cb;
+	MethodAccess iama;
+	ControlByIsArrayCast() {
+		exists (VariableAssign def, GetClassMethodAccess gcls |
+			gcls.getQualifier() = var.getAnAccess() and
+			def.getSource() = gcls and
+			defUsePair(def, iama.getQualifier().(VarAccess) )
+		) and
+		iama.getMethod() instanceof IsArrayClassMethod and
+		(
+			(cb.getCondition()=iama and cb.controls(getBasicBlock(), true)) or
+			(cb.getCondition().(LogNotExpr).getExpr() = iama and
+				cb.controls(getBasicBlock(), false)
+			)
+		)
+	}
+}
+\end{minted}
+\caption{Detection of a cast guarded by the \code{Class.isArray} method.}
+\label{lst:casts:detect:isarraytypetag}
+\end{listing}
+
+The following query detects the \variant{GuardByClassLiteral} variant.
+Similar to the previous case,
+this query \emph{does not} detect the case when the variable to be cast and the \code{Class} object are passed as parameters.
+To detect such case would require a inter-procedural (global) data flow analysis.
+Such analysis does not scale easily.
+
+\begin{listing}
+\begin{minted}{java}
+class GuardByClassLiteral extends VarCast { #\qlbox#
+	TypeLiteral tl;
+	GetClassMethodAccess gcma;
+	GuardByClassLiteral() {
+		gcma.getQualifier() = getVar().getAnAccess() and
+		isSubtype(tl.getTypeName().getType(), getTargetType()) and (
+			controlByEqualityTest(tl, gcma, this) or
+			controlByEqualsMethod(tl, gcma, this)
+		)
+	}
+	TypeLiteral getClassLiteral() { result = tl }
+	GetClassMethodAccess getGetClass() { result = gcma }
+}
+\end{minted}
+\caption{Query for the \variant{GuardByClassLiteral} variant.}
+\end{listing}
+
 
 \issues{}
 Having only a single case---that is, a single guard and cast---is common.

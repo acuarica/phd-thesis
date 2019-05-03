@@ -8,28 +8,28 @@ This allows us to easily identify observations every time we re-run the query af
 
 \begin{listing}
 \begin{minted}{sql}
-from Category category, Top obs #\qlbox#
-where obs = category.getAnObs()
-select
-	category,
-	concat(obs.(Pattern).getPattern(), "|") as patterns,
-	concat(obs.(Tag).getTag(), "|") as tags,
-	concat(obs.(Show).show(), " | ") as show,
-	obs,
-	getLgtmUrl(obs) as url
-order by obs
+from CastExpr ce
+select ce
 \end{minted}
-\caption{Main query to run all observation}
+\caption{Query to fetch all cast expressions in a project}
 \end{listing}
 
 \begin{listing}
 \begin{minted}{java}
-abstract class Pattern extends Top {
-	abstract string getPattern();
-	string getLgtmUrl() { result = getLgtmUrl(this) }
+class Cast extends Expr {
+	Cast() {
+		this instanceof CastExpr
+	}
+	Expr getOperand() {
+		result = this.(CastExpr).getExpr() or
+		result = getDefUse()
+	}
+	Type getTargetType() {
+		result = this.(CastExpr).getTypeExpr().getType()
+	}
+	Expr getDefUse() {
+		exists (VariableAssign def | defUsePair(def, getOperand()) and result = def.getSource() )
+	}
 }
-
-abstract class CastTag extends Tag, Cast { }
-abstract class CastPattern extends Pattern, Cast { }
 \end{minted}
 \end{listing}

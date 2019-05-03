@@ -151,7 +151,8 @@ String pf = c.newInstance();
 compile to the same bytecode below.
 
 \begin{listing}
-\begin{minted}{gas}
+\begin{minted}[linenos=false,escapeinside=||]{gas}
+|\bcbox|
 ldc           #24    // String java.lang.String
 invokestatic  #26    // Method java/lang/Class.forName
 astore_1
