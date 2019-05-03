@@ -213,6 +213,41 @@ public final class MatchPanel extends JPanel implements Observer {
 \end{minted}
 
 \detection{}
+The implementation of the two variants---\variant{StaticResource} and \variant{Tag}---is application-specific.
+Thus, detecting them is often impractical.
+However, if the methods that perform the specified patterns are known,
+\eg{}, \code{findViewById}, then the automatic detection becomes trivial.
+
+On the other hand, the following query detects the \variant{LookupById} variant.
+
+\begin{listing}
+\begin{minted}{java}
+final class LookupByIdCast extends Cast {
+	private MethodAccess methodAccess;
+	private Method getterMethod;
+	private FieldAccess constantField;
+	LookupByIdCast() {
+		methodAccess = getOperand() and
+		getterMethod = methodAccess.getMethod() and
+		not getterMethod.isStatic() and not getterMethod.isVarargs() and
+		getterMethod.isPublic() and
+		getterMethod.getNumberOfParameters() = 1 and
+		getterMethod.getParameterType(0) instanceof TypeString and
+		getterMethod.getReturnType() instanceof TypeObject and
+		methodAccess.getArgument(0).getType() instanceof TypeString and
+		methodAccess.getArgument(0) = constantField and
+		constantField.getField().isFinal() and
+		constantField.getField().isStatic() and
+		constantField.getField().getType() instanceof TypeString
+	}
+	MethodAccess getMethodAccess() { result = methodAccess}
+	Method getGetterMethod() { result = getterMethod }
+	FieldAccess getConstantField() { result = constantField }
+}
+\end{minted}
+\caption{Detection of the \variant{LookupById} variant}
+\end{listing}
+
 
 \issues{}
 This pattern suggests a heterogeneous dictionary.
