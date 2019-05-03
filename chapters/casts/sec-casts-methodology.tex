@@ -29,14 +29,14 @@ The \lgtm{} database includes---at the time of writing---7,559 \java{} projects 
 open-source projects hosted in \github{}.
 The \lgtm{} database was constructed by importing popular open-source projects, \eg{},
 Apache Maven,\footnote{\url{https://lgtm.com/projects/g/apache/maven}}
-Neo4j,\footnote{\url{https://lgtm.com/projects/g/neo4j/neo4j/}},
-and Hibernate\footnote{\url{https://lgtm.com/projects/g/hibernate/hibernate-orm/}}.
+Neo4j,\footnote{\url{https://lgtm.com/projects/g/neo4j/neo4j/}}, and
+Hibernate\footnote{\url{https://lgtm.com/projects/g/hibernate/hibernate-orm/}}.
 Additionally it includes projects exported by developers
 to \lgtm{} to query them for bug finding, smell detection, and
 other analyses.
 We argue that this project selection provides a wide coverage over realistic
 \java{} applications, excluding
-uninteresting projects, \eg, student projects.
+uninteresting projects, \eg{}, student projects.
 
 
 \subsection*{Manual Detection of Cast Patterns}
@@ -53,9 +53,12 @@ Nevertheless, whenever possible,
 we provide a \ql{} query that \emph{approximates} the detection of some patterns.
 That is, the result of a \ql{} query%
 ---cast expressions in the AST in our case---%
-for a pattern, always belong to that pattern.
-However, there could be others cast expressions not returned by the query,
-which are instances of the pattern. 
+for a pattern, most often belong to that pattern.
+Moreover, there could be others cast expressions not returned by the query,
+which are instances of the pattern.
+This is a \emph{best-effort} approach.
+We believe that is better to have at least this kind of automatic approximation than nothing at all.
+
 
 \subsection*{Methodology}
 
