@@ -329,7 +329,7 @@ The value returned by the method should be the same for both the
 \code{instanceof} and the cast, thus the method should be a pure method.
 Typically, this problem is avoided by using an effectively final local variable in both the guard and the cast operand.
 
-The Query~\ref{lst:casts:detect:iof} detects the \variant{GuardByInstanceOf} variant.
+The Query~\ref{lst:ql:GuardByInstanceOfCast} detects the \variant{GuardByInstanceOf} variant.
 It is decoupled in two \ql{} classes.
 The \code{ControlByInstanceOfCast} class checks that the cast---\emph{to a variable}---is control-dependant on a \code{instanceof} on the same variable.
 Then, the \code{GuardByInstanceOfCast} class checks that the value tested by the \code{instanceof} is the same to be cast.
@@ -337,20 +337,7 @@ That is, it checks that there is no assignment to the variable between the \code
 
 \begin{listing}
 \begin{minted}{java}
-class ControlByInstanceOfCast extends VarCast { #\qlbox#
-	InstanceOfExpr iof;
-	private ConditionBlock cb;
-	ControlByInstanceOfCast() {
-		iof = cb.getCondition() and
-		cb.controls(getBasicBlock(), true) and
-		var.getAnAccess() = iof.getExpr()
-	}
-	InstanceOfExpr getIof() {
-		result = iof
-	}
-}
-
-class GuardByInstanceOfCast extends ControlByInstanceOfCast {
+class GuardByInstanceOfCast extends #\qlref{ControlByInstanceOfCast}# {
 	GuardByInstanceOfCast() {
 		forall (VariableUpdate def | defUsePair(def, getOperand()) |
 		  defUsePair(def, iof.getExpr())
@@ -359,7 +346,7 @@ class GuardByInstanceOfCast extends ControlByInstanceOfCast {
 }
 \end{minted}
 \caption{Query for the \variant{GuardByInstanceOf} variant.}
-\label{lst:casts:detect:iof}
+\label{lst:ql:GuardByInstanceOfCast}
 \end{listing}
 
 The implementation of \variant{GuardByTypeTag} variant is application-specific,
@@ -369,7 +356,7 @@ The expression to be \code{switch}ed is another field in the same object.
 
 \begin{listing}
 \begin{minted}{java}
-class SwitchFieldTypeTagCast extends Cast { #\qlbox#
+class SwitchFieldTypeTagCast extends #\qlref{Cast}# { #\qlbox#
 	FieldAccess tagAccess;
 	FieldAccess castAccess;
 	Variable v;
@@ -379,9 +366,6 @@ class SwitchFieldTypeTagCast extends Cast { #\qlbox#
 		v.getAnAccess() = tagAccess.getQualifier() and
 		v.getAnAccess() = castAccess.getQualifier()
 	}
-	FieldAccess getTagAccess() { result = tagAccess }
-	FieldAccess getCastAccess() { result = castAccess }
-	Variable getVariable() { result = v }
 }
 \end{minted}
 \caption{Detection of a cast inside a \code{switch} statement}
@@ -395,7 +379,7 @@ the \code{getClass} invocation are in the same method.
 
 \begin{listing}
 \begin{minted}{java}
-class ControlByIsArrayCast extends VarCast { #\qlbox#
+class ControlByIsArrayCast extends #\qlref{VarCast}# { #\qlbox#
 	ConditionBlock cb;
 	MethodAccess iama;
 	ControlByIsArrayCast() {
@@ -426,18 +410,16 @@ Such analysis does not scale easily.
 
 \begin{listing}
 \begin{minted}{java}
-class GuardByClassLiteral extends VarCast { #\qlbox#
+class GuardByClassLiteral extends #\qlref{VarCast}# { #\qlbox#
 	TypeLiteral tl;
 	GetClassMethodAccess gcma;
 	GuardByClassLiteral() {
 		gcma.getQualifier() = getVar().getAnAccess() and
-		isSubtype(tl.getTypeName().getType(), getTargetType()) and (
-			controlByEqualityTest(tl, gcma, this) or
-			controlByEqualsMethod(tl, gcma, this)
+		#\qlref{isSubtype}#(tl.getTypeName().getType(), getTargetType()) and (
+			#\qlref{controlByEqualityTest}#(tl, gcma, this) or
+			#\qlref{controlByEqualsMethod}#(tl, gcma, this)
 		)
 	}
-	TypeLiteral getClassLiteral() { result = tl }
-	GetClassMethodAccess getGetClass() { result = gcma }
 }
 \end{minted}
 \caption{Query for the \variant{GuardByClassLiteral} variant.}

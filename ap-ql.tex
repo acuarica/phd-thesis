@@ -14,9 +14,12 @@ select ce
 \caption{Query to fetch all cast expressions in a project}
 \end{listing}
 
+\section{Additional \ql{} Classes and Predicates}
+
+
 \begin{listing}
 \begin{minted}{java}
-class Cast extends Expr {
+class Cast extends Expr { #\qlbox#
 	Cast() {
 		this instanceof CastExpr
 	}
@@ -28,8 +31,143 @@ class Cast extends Expr {
 		result = this.(CastExpr).getTypeExpr().getType()
 	}
 	Expr getDefUse() {
-		exists (VariableAssign def | defUsePair(def, getOperand()) and result = def.getSource() )
+		exists (VariableAssign def |
+			defUsePair(def, getOperand()) and
+			result = def.getSource()
+		)
 	}
 }
 \end{minted}
+\caption{\code{Cast} class definition.}
+\label{lst:ql:Cast}
 \end{listing}
+
+
+\begin{listing}
+\begin{minted}{java}
+ class VarCast extends #\qlref{Cast}# { #\qlbox#
+	Variable var;
+	VarCast() {
+		var.getAnAccess() = getOperand()
+	}
+	Variable getVar() {
+		result = var
+	}
+}
+\end{minted}
+\caption{\code{VarCast} class definition.}
+\label{lst:ql:VarCast}
+\end{listing}
+
+
+\begin{listing}
+\begin{minted}{java}	
+class ControlByInstanceOfCast extends #\qlref{VarCast}# { #\qlbox#
+	InstanceOfExpr iof;
+	private ConditionBlock cb;
+	ControlByInstanceOfCast() {
+		iof = cb.getCondition() and
+		cb.controls(getBasicBlock(), true) and
+		var.getAnAccess() = iof.getExpr()
+	}
+	InstanceOfExpr getIof() {
+		result = iof
+	}
+}
+\end{minted}
+\caption{\code{ControlByInstanceOfCast} class definition.}
+\label{lst:ql:ControlByInstanceOfCast}
+\end{listing}
+
+
+\begin{listing}
+\begin{minted}{java}	
+predicate controlByEqualityTest(Expr e, Expr f, Expr c) { #\qlbox#
+	exists (ConditionBlock cb, EqualityTest eqe |
+		eqe.hasOperands(e, f) and eqe = cb.getCondition() and (
+			(eqe.getOp() = " == " and cb.controls(c.getBasicBlock(), true)) or
+			(eqe.getOp() = " != " and cb.controls(c.getBasicBlock(), false))
+		)
+	)
+}
+\end{minted}
+\caption{\code{controlByEqualityTest} predicate definition.}
+\label{lst:ql:controlByEqualityTest}
+\end{listing}
+
+
+\begin{listing}
+\begin{minted}{java}
+predicate controlByEqualsMethod(Expr e, Expr f, Expr c) { #\qlbox#
+	exists (ConditionBlock cb, MethodAccess ema |
+		ema.getMethod() instanceof EqualsMethod and (
+			(ema.getQualifier() = e and ema.getArgument(0) = f) or
+			(ema.getQualifier() = f and ema.getArgument(0) = e)
+		) and (
+			ema = cb.getCondition() and cb.controls(c.getBasicBlock(), true)
+		)
+	)
+}
+\end{minted}
+\caption{\code{controlByEqualsMethod} predicate definition.}
+\label{lst:ql:controlByEqualsMethod}
+\end{listing}
+
+
+\begin{listing}
+\begin{minted}{java}
+predicate isSubtype(RefType sub, RefType sup) { #\qlbox#
+	sub.getASupertype*() = sup
+}
+\end{minted}
+\caption{\code{isSubtype} predicate definition.}
+\label{lst:ql:isSubtype}
+\end{listing}
+
+
+\begin{listing}
+\begin{minted}{java}	
+class GetClassGuardsVarCast extends Cast {
+	GetClassMethodAccess tma;
+	GetClassMethodAccess oma;
+	GetClassGuardsVarCast() {
+		tma.isOwnMethodAccess() and
+		oma.getQualifier() = this.(VarCast).getVar().getAnAccess() and
+		(
+			controlByEqualityTest(tma, oma, this) or
+			controlByEqualsMethod(tma, oma, this)
+		)
+	}
+}
+\end{minted}
+\caption{\code{GetClassGuardsVarCast} class definition.}
+\label{lst:ql:GetClassGuardsVarCast}
+\end{listing}
+
+
+\begin{listing}
+\begin{minted}{java}	
+class AutoValueAnnotation extends Annotation { #\qlbox#
+	AutoValueAnnotation() {
+		getType().hasQualifiedName("com.google.auto.value", "AutoValue")
+	}
+}
+
+class AutoValueClass extends Class {
+	AutoValueClass() {
+		getAnAnnotation() instanceof AutoValueAnnotation and
+		isAbstract()
+	}
+}
+
+class AutoValueGenerated extends Class {
+	AutoValueGenerated() {
+		count(getASupertype()) = 1 and
+		getASupertype() instanceof AutoValueClass
+	}
+}
+\end{minted}
+\caption{AutoValue related \ql{} classes.}
+\label{lst:ql:AutoValueGenerated}
+\end{listing}
+
