@@ -49,10 +49,13 @@
 \else
   \ifdefined\CastsChapter
     \input{cha-casts}
+    \appendix
+    \input{ap-ql}
+    \chapter{Placeholder}\label{ap:jnif}
   \else
     \ifdefined\ConclusionsChapter
-      \chapter{The \java{} Unsafe \api{} in the Wild}\label{cha:unsafe}
-      \chapter{Casting about in the Dark}\label{cha:casts}
+      \chapter{Placeholder}\label{cha:unsafe}
+      \chapter{Placeholder}\label{cha:casts}
       \input{cha-conclusions}
     \else
       \maketitle
