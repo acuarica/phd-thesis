@@ -20,12 +20,6 @@ select ce
 \begin{minted}{java}
 class Cast extends CastExpr { #\qlbox#
 	Type getTargetType() { result = getTypeExpr().getType() }
-	Expr getDefUse() {
-		exists (VariableAssign def |
-			defUsePair(def, getExpr()) and
-			result = def.getSource()
-		)
-	}
 }
 \end{minted}
 \caption{\code{Cast} class definition.}
