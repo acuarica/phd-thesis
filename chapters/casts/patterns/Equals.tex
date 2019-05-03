@@ -146,6 +146,39 @@ class CapReq {
 \end{minted}
 
 
+\detection{}
+This pattern contains several variants.
+The Query~\ref{lst:casts:detection:equals} detects three of them, \ie{},
+\variant{InstanceOf},
+\variant{GetClass}, and
+\variant{AutoValue}.
+It is not difficult to extend this query to detect the other variants. 
+
+\begin{listing}
+\begin{minted}{java}
+class EqualsCast extends #\qlref{VarCast}# { #\qlbox#
+	EqualsCast() {
+		getVar() instanceof Parameter and
+		getEnclosingCallable() instanceof EqualsMethod and (
+			this instanceof #\qlref{GuardByInstanceOfCast}# or
+			this instanceof #\qlref{GetClassGuardsVarCast}#
+		) and (
+			getTargetType() = getEnclosingCallable().getDeclaringType() or
+			(
+				getTargetType() = getEnclosingCallable().getDeclaringType().
+								getASupertype+() and
+				getEnclosingCallable().getDeclaringType()
+								instanceof #\qlref{AutoValueGenerated}# 
+			)
+		)
+	}
+}
+\end{minted}
+\caption{Detection of the \thisp{} pattern.}
+\label{lst:casts:detection:equals}
+\end{listing}
+
+
 \issues{}
 The pattern for an \code{equals} method implementation is well-known.
 Most \code{equals} methods in our sample are implemented with the same boilerplate structure:
