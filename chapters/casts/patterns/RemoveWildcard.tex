@@ -15,6 +15,29 @@ copy.setUnitOfMeasure( (Unit<Length>) unit );
 \end{minted}
 
 
+\detection{}
+The following query detects the \thisp{} pattern.
+The query checks that the type of the cast operand is a wildcard,
+or a parameterized type containing a wildcard.
+
+\begin{listing}
+\begin{minted}{java}
+predicate containsWildcard(Type t) { #\qlbox#
+	t instanceof Wildcard or
+	containsWildcard( t.(ParameterizedType).getATypeArgument() )
+}
+
+class RemoveWildcardCast extends #\qlref{Cast}# {
+	RemoveWildcardCast() {
+		containsWildcard(getExpr().getType())
+	}
+}
+\end{minted}
+\caption{Detection of the \thisp{} pattern.}
+\label{lst:ql:RemoveWildcardCast}
+\end{listing}
+
+
 \issues{}
 Wildcard types are a form of existential type and consequently can limit
 access to members of a generic type.
