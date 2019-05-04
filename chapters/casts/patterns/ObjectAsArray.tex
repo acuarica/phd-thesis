@@ -31,18 +31,17 @@ and that access is indexed with a compile-time constant.
 
 \begin{listing}
 \begin{minted}{java}
-final class ObjectAsArrayCastPattern extends CastPattern { #\qlbox#
-    private ArrayAccess arr;
-    ObjectAsArrayCastPattern() {
-        arr = getExpr() and
-        arr.getIndexExpr() instanceof CompileTimeConstantExpr and
-        arr.getArray().getType().(Array).
-                        getElementType() instanceof TypeObject
-    }
-    override string getPattern() { result = "ObjectAsArray" }
-    ArrayAccess getArrayAccess() { result = arr }
+class ObjectAsArrayCast extends #\qlref{Cast}# { #\qlbox#
+	ArrayAccess arr;
+	ObjectAsArrayCast() {
+		arr = getExprOrDef() and
+		arr.getIndexExpr() instanceof CompileTimeConstantExpr and
+		arr.getArray().getType().(Array).
+						getElementType() instanceof TypeObject
+	}
 }
 \end{minted}
+\caption{Detection of the \thisp{} pattern.}
 \end{listing}
 
 \issues{}

@@ -27,6 +27,25 @@ for (User user : api.getUsers()) {
 \end{minted}
 
 
+\detection{}
+The following query returns all casts such that the the type---class or interface---of the expression being cast has only one subtype.
+The \emph{transitive closure} symbol \code{+} indicates that \code{getASubtype} may be followed one or more times.
+
+\begin{listing}
+\begin{minted}{java}
+class SoleSubclassImplementation extends #\qlref{Cast}# { #\qlbox#
+	SoleSubclassImplementation() {
+		count(RefType rt | 
+				rt = getExpr().getType() and rt.fromSource() | 
+				rt.getASubtype+() ) = 1
+	}
+}
+\end{minted}
+\caption{Detection of the \thisp{} pattern.}
+\label{lst:ql:SoleSubclassImplementationCast}
+\end{listing}
+
+
 \issues{}
 This pattern occurs when there is high cohesion between super and subclass.
 In some cases, the cast instance appear in a generated class.
