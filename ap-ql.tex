@@ -217,3 +217,55 @@ class NewInstanceAccess extends NewDynamicInstanceAccess {
 \caption{\code{NewDynamicInstanceAccess} class definition.}
 \label{lst:ql:NewDynamicInstanceAccess}
 \end{listing}
+
+
+\begin{listing}
+\begin{minted}{java}	
+abstract class ReflectiveMethodAccess extends MethodAccess {}
+
+class MethodInvokeMethodAccess extends ReflectiveMethodAccess {
+	MethodInvokeMethodAccess() {
+		getMethod().hasName("invoke") and
+		getMethod().getDeclaringType()
+						.hasQualifiedName("java.lang.reflect", "Method")
+	}
+}
+
+class FieldGetMethodAccess extends ReflectiveMethodAccess {
+	FieldGetMethodAccess() {
+		getMethod().hasName("get") and
+		getMethod().getDeclaringType()
+						.hasQualifiedName("java.lang.reflect", "Field")
+	}
+}
+\end{minted}
+\caption{\code{ReflectiveMethodAccess} class definition.}
+\label{lst:ql:ReflectiveMethodAccess}
+\end{listing}
+
+\begin{listing}
+\begin{minted}{java}
+class SetAccessibleMethodAccess extends MethodAccess {
+	private Argument flagArgument;
+	SetAccessibleMethodAccess() {
+		getMethod().hasName("setAccessible") and
+		getMethod().getDeclaringType().hasQualifiedName("java.lang.reflect", "AccessibleObject") and
+		(
+			(getNumArgument() = 1 and flagArgument = getArgument(0)) or
+			(getNumArgument() = 2 and flagArgument = getArgument(1))
+		)
+	}	
+	Argument getFlagArgument() {
+		result = flagArgument
+	}
+}
+
+final class SetAccessibleTrueMethodAccess extends SetAccessibleMethodAccess {
+	SetAccessibleTrueMethodAccess() {
+		getFlagArgument().(BooleanLiteral).getBooleanValue() = true
+	}
+}
+\end{minted}
+\caption{\code{SetAccessibleTrueMethodAccess} class definition.}
+\label{lst:ql:SetAccessibleTrueMethodAccess}
+\end{listing}

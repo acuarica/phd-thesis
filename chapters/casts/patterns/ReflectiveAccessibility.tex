@@ -30,6 +30,28 @@ PositionWithChanges<ChangesAssert, ChangeAssert> positionBis =
 \end{minted}
 
 
+\detection{}
+The Query~\ref{lst:ql:ReflectiveAccessibilityCast} detects the \thisp{} pattern.
+
+\begin{listing}
+\begin{minted}{java}	
+class ReflectiveAccessibilityCast extends #\qlref{Cast}# { #\qlbox#
+	Variable fieldVariable;
+    #\qlref{ReflectiveMethodAccess}# reflectiveMethodAccess;
+	#\qlref{SetAccessibleTrueMethodAccess}# satma;
+	ReflectiveAccessibilityCast() {
+		reflectiveMethodAccess = getExprOrDef() and
+		fieldVariable.getAnAccess() = 
+                getExprOrDef().(MethodAccess).getQualifier().(VarAccess) and
+		fieldVariable.getAnAccess() = satma.getQualifier()
+	}
+}
+\end{minted}
+\caption{Detection of the \thisp{} pattern.}
+\label{lst:ql:ReflectiveAccessibilityCast}
+\end{listing}
+
+
 \issues{}
 Using reflection to access a field is a common workaround to tight access
   control restrictions. However, it should generally be regarded as a code
