@@ -31,7 +31,10 @@ PositionWithChanges<ChangesAssert, ChangeAssert> positionBis =
 
 
 \detection{}
-The Query~\ref{lst:ql:ReflectiveAccessibilityCast} detects the \thisp{} pattern.
+The Query~\ref{lst:ql:ReflectiveAccessibilityCast} detects this pattern.
+The query looks for a cast applied to a \code{get} or \code{invoke} method in an object \code{o} of type \code{Field} or \code{Method} respectively.
+Moreover, it checks that \code{setAccessible(true)} has been invoked in \code{o}.
+However, this query does not check that \code{setAccessible(true)} has been invoked \emph{before} the cast.
 
 \begin{listing}
 \begin{minted}{java}	
@@ -53,13 +56,11 @@ class ReflectiveAccessibilityCast extends #\qlref{Cast}# { #\qlbox#
 
 
 \issues{}
-Using reflection to access a field is a common workaround to tight access
-  control restrictions. However, it should generally be regarded as a code
-  smell.
+Using reflection to access a field is a common workaround to tight access control restrictions.
+However, it should generally be regarded as a code smell.
 
 As with \nameref{pat:Deserialization}, this pattern is necessary because
 a library method can return values of many different types at run time,
 and so is declared to return \code{Object}.
-
 
 \end{pattern}
