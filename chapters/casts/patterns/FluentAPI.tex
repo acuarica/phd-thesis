@@ -47,6 +47,30 @@ public Builder() {
 \end{minted}
 
 
+\detection{}
+The Query~\ref{lst:ql:FluentAPICast} detects the \thisp{} pattern.
+The query detects the case like the first example.
+
+\begin{listing}
+\begin{minted}{java}
+class FluentAPICast extends #\qlref{Cast}# { #\qlbox#
+	TypeVariable x;
+	GenericType enclosingClass;
+	FluentAPICast() {
+		getExpr() instanceof ThisAccess and
+		getParent() instanceof ReturnStmt and
+		x = getTargetType() and
+		enclosingClass = getExpr().getType() and
+		x.hasTypeBound() and
+		x.getFirstTypeBound().getType() = enclosingClass and
+		x.getFirstTypeBound().getType().(GenericType).getATypeParameter() = x
+	}
+}
+\end{minted}
+\caption{Detection of the \thisp{} pattern.}
+\label{lst:ql:FluentAPICast}
+\end{listing}
+
 \issues{}
 In most cases,
 this pattern is concerned with a particular implementation of fluent \api{}s
