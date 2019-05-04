@@ -32,6 +32,30 @@ PyObjectValue pyObjectValue = (PyObjectValue) proxyClass.getConstructor()
 #\urlbox#
 \end{minted}
 
+
+\detection{}
+The Query~\ref{lst:ql:ImplicitIntersectionTypeCast} detects this pattern.
+Usually, in a downcast \code{(T) e}, the class or interface \code{T} is a subtype of {e}'s class or interface.
+This query essentially detects whether \code{T} has no subtyping relation with the type of \code{e}.
+
+\begin{listing}
+\begin{minted}{java}
+class ImplicitIntersectionTypeCast extends #\qlref{Cast}# { #\qlbox#
+	ImplicitIntersectionTypeCast() {
+		getTargetType() instanceof Interface and
+		not isSubtype(getTargetType(), getExpr().getType()) and
+		not this instanceof Upcast and
+		not getExpr() instanceof NullLiteral and
+		#\qlref{notGenericRelated}#(getTargetType()) and
+		#\qlref{notGenericRelated}#(getExpr().getType())
+	}
+}
+\end{minted}
+\caption{Detection of the \thisp{} pattern.}
+\label{lst:ql:ImplicitIntersectionTypeCast}
+\end{listing}
+
+
 \issues{}
 The cast could avoided by having the operand type implement the target type
 interface or by introducing a more precise interface.

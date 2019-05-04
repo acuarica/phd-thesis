@@ -154,7 +154,7 @@ predicate isSubtype(RefType sub, RefType sup) { #\qlbox#
 
 \begin{listing}
 \begin{minted}{java}	
-class GetClassGuardsVarCast extends Cast { #\qlbox#
+class GetClassGuardsVarCast extends #\qlref{Cast}# { #\qlbox#
 	GetClassMethodAccess tma;
 	GetClassMethodAccess oma;
 	GetClassGuardsVarCast() {
@@ -201,7 +201,7 @@ class AutoValueGenerated extends Class {
 
 \begin{listing}
 \begin{minted}{java}
-abstract class NewDynamicInstanceAccess extends MethodAccess {}
+abstract class NewDynamicInstanceAccess extends MethodAccess {} #\qlbox#
 
 class NewInstanceAccess extends NewDynamicInstanceAccess {
 	NewInstanceAccess() {
@@ -221,7 +221,7 @@ class NewInstanceAccess extends NewDynamicInstanceAccess {
 
 \begin{listing}
 \begin{minted}{java}	
-abstract class ReflectiveMethodAccess extends MethodAccess {}
+abstract class ReflectiveMethodAccess extends MethodAccess {} #\qlbox#
 
 class MethodInvokeMethodAccess extends ReflectiveMethodAccess {
 	MethodInvokeMethodAccess() {
@@ -245,11 +245,12 @@ class FieldGetMethodAccess extends ReflectiveMethodAccess {
 
 \begin{listing}
 \begin{minted}{java}
-class SetAccessibleMethodAccess extends MethodAccess {
+class SetAccessibleMethodAccess extends MethodAccess { #\qlbox#
 	private Argument flagArgument;
 	SetAccessibleMethodAccess() {
 		getMethod().hasName("setAccessible") and
-		getMethod().getDeclaringType().hasQualifiedName("java.lang.reflect", "AccessibleObject") and
+		getMethod().getDeclaringType()
+				.hasQualifiedName("java.lang.reflect", "AccessibleObject") and
 		(
 			(getNumArgument() = 1 and flagArgument = getArgument(0)) or
 			(getNumArgument() = 2 and flagArgument = getArgument(1))
@@ -268,4 +269,17 @@ final class SetAccessibleTrueMethodAccess extends SetAccessibleMethodAccess {
 \end{minted}
 \caption{\code{SetAccessibleTrueMethodAccess} class definition.}
 \label{lst:ql:SetAccessibleTrueMethodAccess}
+\end{listing}
+
+
+\begin{listing}
+\begin{minted}{java}
+predicate notGenericRelated(Type type) { #\qlbox#
+	not type instanceof RawType and
+	not type instanceof ParameterizedType and
+	not type instanceof BoundedType
+}
+\end{minted}
+\caption{\code{notGenericRelated} predicate definition.}
+\label{lst:ql:notGenericRelated}
 \end{listing}
