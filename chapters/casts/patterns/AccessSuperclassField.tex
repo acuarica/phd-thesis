@@ -18,6 +18,54 @@ public class StudentsPerformanceReport extends StudentsPerformanceReport_Base {
 } #\urlbox#
 \end{minted}
 
+
+\detection{}
+The Query~\ref{lst:ql:AccessSuperclassFieldCast} detects the two variants of this pattern.
+The first variant, as shown in the example below, is when an upcast is performed to access a field when the subclass does not have access privileges to access the field.
+In this case, the field is declared as either \code{private} or \code{protected} in the superclass.
+On the other variant---not found in our manual sample---an upcast is performed to access a field declared in a superclass,
+when the subclass declares a field with the same name.
+
+
+\begin{listing}
+\begin{minted}{java}
+class AccessSuperclassFieldCast extends Cast {
+	FieldAccess fa;
+	AccessSuperclassFieldCast() {
+		this instanceof Upcast and
+		fa.getQualifier().getProperExpr() = this and (
+		getExpr().getType().(RefType).declaresField(fa.getField().getName()) or
+		( fa.getField().isPrivate() or fa.getField().isProtected() )
+		)
+	}
+}
+\end{minted}
+\caption{Detection of the \thisp{} pattern.}
+\label{lst:ql:AccessSuperclassFieldCast}
+\end{listing}
+
+As in our first example,
+the following snippet shows an example of the second variant mentioned above.
+
+%https://lgtm.com/projects/g/mockito/mockito/snapshot/da68900466a17e21fef3e27690f4cef4b5c240ea/files/src/test/java/org/mockito/internal/util/reflection/LenientCopyToolTest.java?sort=name&dir=ASC&mode=heatmap&showExcluded=false#L120
+\def\urlvar{http://bit.ly/mockito_mockito_2vF51Em}
+\begin{listing}
+\begin{minted}[highlightlines=4]{java}
+private SomeObject from = new SomeObject(100);
+
+assertThat(((InheritMe) to).privateInherited)
+				.isNotEqualTo(((InheritMe) from).privateInherited);
+
+static class InheritMe {
+	protected String protectedInherited = "protected";
+	private String privateInherited = "private";
+}
+public static class SomeObject extends InheritMe {
+} #\urlbox#
+\end{minted}
+\end{listing}
+
+
 \issues{}
 The particular instance we encountered has a method whose parameter is a subclass of the current class.
 The cast is needed to access a private field of the current class.
