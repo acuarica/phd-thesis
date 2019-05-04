@@ -362,7 +362,7 @@ class SwitchFieldTypeTagCast extends #\qlref{Cast}# { #\qlbox#
 	Variable v;
 	SwitchFieldTypeTagCast() {
 		tagAccess = this.(SwitchedExpr).getSwitchStmt().getExpr() and
-		castAccess = getExpr() and
+		castAccess = getExprOrDef() and
 		v.getAnAccess() = tagAccess.getQualifier() and
 		v.getAnAccess() = castAccess.getQualifier()
 	}

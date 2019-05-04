@@ -227,7 +227,7 @@ final class LookupByIdCast extends #\qlref{Cast}# { #\qlbox#
 	private Method getterMethod;
 	private FieldAccess constantField;
 	LookupByIdCast() {
-		methodAccess = getExpr() and
+		methodAccess = getExprOrDef() and
 		getterMethod = methodAccess.getMethod() and
 		not getterMethod.isStatic() and not getterMethod.isVarargs() and
 		getterMethod.isPublic() and
