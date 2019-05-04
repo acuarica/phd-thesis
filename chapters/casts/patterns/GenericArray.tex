@@ -33,6 +33,59 @@ T[] newArray = (T[]) new Object[growSize(currentSize)];
 \end{minted}
 
 
+\detection{}
+The following queries detect different variations of the \thisp{} pattern.
+The first one detects when a generic cast is applied to the array,
+\eg{}, \code{(E[]) new Object[length]}.
+
+\begin{listing}
+\begin{minted}{java}
+class OnArrayGenericArrayCast extends #\qlref{Cast}# { #\qlbox#
+	OnArrayGenericArrayCast() {
+		getTargetType().(Array).getComponentType() instanceof TypeVariable and
+		getExpr().getType() instanceof Array
+	}
+}
+\end{minted}
+\end{listing}
+
+The following query detects the case when the target type of the cast is a type variable used to get an element from the array.
+For instance, \code{(T) events[i]},
+where the \code{events} array is defined as \code{EventObject[]} and \code{T} is declared as \code{T extends EventObject}.
+
+\begin{listing}
+\begin{minted}{java}
+class TypeVariableGenericArrayCast extends #\qlref{Cast}# { #\qlbox#
+	TypeVariableGenericArrayCast() {
+		getExprOrDef() instanceof ArrayAccess and
+		getTargetType() instanceof TypeVariable
+	}
+}
+\end{minted}
+\end{listing}
+
+Our last query for this pattern is similar to the previous one.
+But in this case, the component type of the array is either a raw type or a wildcard type (\eg{}, \code{List<?>}).
+For instance, a cast \code{(Any<T>) entries[i]} where \code{entries} is defined as \code{Any[] entries = new Any[n]}.
+In this example, \code{Any} is a generic type, but the array is using the raw type instead.
+
+\begin{listing}
+\begin{minted}{java}
+class OnElementGenericArrayCast extends #\qlref{Cast}# { #\qlbox#
+	OnElementGenericArrayCast() {
+		(
+        getExprOrDef().(ArrayAccess).getArray().getType().(Array)
+                .getComponentType() instanceof RawType or
+        containsWildcard( getExprOrDef().(ArrayAccess).getArray()
+                .getType().(Array).getComponentType() )
+        ) and
+            getTargetType() instanceof ParameterizedType
+	}
+}
+\end{minted}
+\end{listing}
+
+
 \issues{}
 This pattern occurs because generic type parameters are not reified at runtime,
 but array types are reified.
