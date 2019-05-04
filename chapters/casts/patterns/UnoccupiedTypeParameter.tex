@@ -23,7 +23,8 @@ implementation.
 public interface Either<L, R> extends Value<R>, Serializable {
     // [...]
     @SuppressWarnings("unchecked")
-    default <U> Either<U, R> mapLeft(Function<? super L, ? extends U> leftMapper) {
+    default <U> Either<U, R> mapLeft(
+                    Function<? super L, ? extends U> leftMapper) {
         Objects.requireNonNull(leftMapper, "leftMapper is null");
         if (isLeft()) {
             return Either.left(leftMapper.apply(getLeft()));
@@ -35,6 +36,11 @@ public interface Either<L, R> extends Value<R>, Serializable {
 } #\urlbox#
 \end{minted}
 
+
+\detection{}
+To detect this pattern, application-specific knownledge is required.
+The developers knows that no value of a type parameter is ever being created. 
+Thus, automatic detection of this pattern seems unfeasible.
 
 \issues{}
 This pattern is related to the use of \emph{phantom types} in parametrically polymorphic languages~\citep{LeijenMeijer99,cheneyHinzePhantomTypes}.
