@@ -26,9 +26,9 @@ it would require to analyze external dependencies.
 
 \begin{listing}
 \begin{minted}{java}
-class DeserializationCast extends Cast { #\qlbox#
+class DeserializationCast extends #\qlref{Cast}# { #\qlbox#
 	DeserializationCast() {
-		getExpr().(MethodAccess).getMethod() instanceof ReadObjectMethod
+		getExprOrDef().(MethodAccess).getMethod() instanceof ReadObjectMethod
 	}
 }
 \end{minted}

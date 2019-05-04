@@ -20,6 +20,13 @@ select ce
 \begin{minted}{java}
 class Cast extends CastExpr { #\qlbox#
 	Type getTargetType() { result = getTypeExpr().getType() }
+	Expr getExprOrDef() {
+		result = getExpr() or
+		exists (VariableAssign def |
+			defUsePair(def, getExprOrDef()) and
+			result = def.getSource()
+		)
+	}
 }
 \end{minted}
 \caption{\code{Cast} class definition.}
@@ -191,3 +198,22 @@ class AutoValueGenerated extends Class {
 \label{lst:ql:AutoValueGenerated}
 \end{listing}
 
+
+\begin{listing}
+\begin{minted}{java}
+abstract class NewDynamicInstanceAccess extends MethodAccess {}
+
+class NewInstanceAccess extends NewDynamicInstanceAccess {
+	NewInstanceAccess() {
+		getCallee().hasName("newInstance") and
+		(
+			getCallee().getDeclaringType() instanceof TypeClass or
+			getCallee().getDeclaringType() instanceof TypeConstructor or
+			getCallee().getDeclaringType() instanceof TypeArray
+		)
+	}
+}
+\end{minted}
+\caption{\code{NewDynamicInstanceAccess} class definition.}
+\label{lst:ql:NewDynamicInstanceAccess}
+\end{listing}

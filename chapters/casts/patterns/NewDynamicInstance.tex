@@ -92,40 +92,21 @@ final ConfigFactory factory = clazz.newInstance();
 
 
 \detection{}
-The following query detects the \thisp{} pattern.
+The Query~\ref{lst:ql:NewDynamicInstanceCast} detects the \thisp{} pattern.
+The \ql{} \code{NewDynamicInstanceAccess} class checks where the cast expression is the \code{newInstance} method on the aforementioned classes.
 
 \begin{listing}
 \begin{minted}{java}
-abstract class NewDynamicInstanceAccess extends MethodAccess { #\qlbox#
-}
-
-class NewInstanceAccess extends NewDynamicInstanceAccess {
-	NewInstanceAccess() {
-		getCallee().hasName("newInstance") and
-		(
-			getCallee().getDeclaringType() instanceof TypeClass or
-			getCallee().getDeclaringType() instanceof TypeConstructor or
-			getCallee().getDeclaringType() instanceof TypeArray
-		)
+class NewDynamicInstanceCast extends #\qlref{Cast}# { #\qlbox#
+	NewDynamicInstanceCast() {
+		getExprOrDef() instanceof #\qlref{NewDynamicInstanceAccess}#
 	}
-}
-
-class NewProxyInstanceAccess extends NewDynamicInstanceAccess {
-	NewProxyInstanceAccess() {
-		getMethod().getDeclaringType().getQualifiedName()
-						= "java.lang.reflect.Proxy" and
-		getMethod().getName() = "newProxyInstance"
-	}
-}
-
-class NewDynamicInstanceCastPattern extends CastPattern {
-	NewDynamicInstanceCastPattern() {
-		getExpr() instanceof NewDynamicInstanceAccess
-	}
-	override string getPattern() { result = "NewDynamicInstance" }
 }
 \end{minted}
+\caption{Detection of the \thisp{} pattern.}
+\label{lst:ql:NewDynamicInstanceCast}
 \end{listing}
+
 
 \issues{}
 The cast here is needed because of the dynamic nature of reflection.
