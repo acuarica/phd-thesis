@@ -1,0 +1,21 @@
+\section{Conclusions}\label{sec:casts:conclusions}
+
+The cast operator in \java{} bridges the gap between compile-time and run-time safety.
+We have devised several cast usage patterns.
+We found the rationale behind some cast patterns is due to the inexpressiveness of \java{}'s type system.
+On the other hand,
+there are patterns that abuse or misuse it.
+
+Many of the patterns we found should be unsurprising to most object-oriented programmers.
+That nearly 45\% of casts are (possibly) unguarded 
+suggests that developers use application-specific knowledge that cannot be easily encoded in
+the type system to ensure the absence of run-time type errors.
+
+Our study provides insight on the boundary between static and dynamic typing,
+which may inform research on both static and dynamic,
+as well as gradual type systems~\citep{Siek06gradualtyping}.
+Conversely, this research can inform the design of extensions of the \java{} type system to reduce the need for casting.
+
+We are currently working to define static analyses to detect some of these patterns automatically.
+With these analyses,
+tools can be developed to identify instances of the pattern and to ensure that they are being implemented properly.

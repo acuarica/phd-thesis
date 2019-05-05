@@ -1,0 +1,15 @@
+\section{Conclusions}\label{sec:unsafe:conclusions}
+
+\smu{} is an API that was designed for limited use in system-level runtime library code.
+The \unsafe{} API is powerful, but dangerous.
+The improper use of \unsafe{} undermines \java{}'s safety guarantees.
+We studied to what degree \unsafe{} usage has spread into third-party libraries,
+to what degree such third-party usage of \unsafe{} can impact existing Java code,
+and which \unsafe{} API features such third-party libraries actually use.
+
+We studied the questions and discussions developers have about \unsafe{},
+and we identified common usage patterns.
+We thereby provided a basis for evolving the \unsafe{} API, the \java{} language, and the \jvm{}
+by eliminating unused or abused unsafe features,
+and by providing safer alternatives for features that are used in meaningful ways.
+We hope this will help to make \unsafe{} safer.
