@@ -274,8 +274,11 @@ CLOSED: [2019-04-30 Tue 21:01]
 *** Under the thesis introduction
 ** DONE Underfull & overfull boxes in PDF
 CLOSED: [2019-04-30 Tue 20:58]
-** ONHOLD Send email remainder to Matthias&Nate to read it
+** DONE Send email remainder to Matthias&Nate to read it
+CLOSED: [2019-05-05 Sun 16:13]
 :LOGBOOK:
+- State "DONE"       from "ONHOLD"     [2019-05-05 Sun 16:13] \\
+  Sent
 - State "ONHOLD"     from "TODO"       [2019-05-01 Wed 19:23]
 - State "TODO"       from              [2019-05-01 Wed 19:23]
 :END:
@@ -292,7 +295,13 @@ CLOSED: [2019-05-01 Wed 19:22]
 *** More on advantanges of static typing
 *** More on dangers of unsafe/casting
 *** Also reflection/native code
-*** Make subsection /Outline/ to introduce rest of thesis
+*** DONE Make subsection /Outline/ to introduce rest of thesis
+CLOSED: [2019-05-05 Sun 16:15]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-05 Sun 16:15] \\
+  Added
+- State "TODO"       from              [2019-05-05 Sun 16:15]
+:END:
 ** TODO Literature Review
 *** There are many Java parsers, why only JavaParser
 ** TODO Introduction casts chapter based on paper submitted

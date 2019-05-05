@@ -64,7 +64,7 @@ Being a escape-hatch to the type system,
 a cast is often seen as a design flaw or code smell~\citep{tufanoWhenWhyYour2015} in an object-oriented system.
 
 
-\section*{Research Question}
+\section{Research Question}
 
 If static type systems aim to prevent certain kind of errors from happening at run-time,
 yet they provide the means to circumvent their constraints,
@@ -104,8 +104,6 @@ Similarly, although casting uses run-time type information like
 the \java's reflection \api{},
 the reflection \api{} has been studied in
 \cite{livshitsImprovingSoftwareSecurity2006,livshitsReflectionAnalysisJava2005,landmanChallengesStaticAnalysis2017}.
-In Chapter~\ref{cha:literature-review} we give a review of the literature in empirical studies of programming languages features.
-Sections~\ref{sec:literature-review:unsafe} and~\ref{sec:literature-review:casting} review the \emph{state-of-the-art} of the different aspects related to the two proposed studies.
 
 To better drive our \emph{main research question},
 we propose to answer the following set of sub-questions.
@@ -126,7 +124,6 @@ Overall these sub-questions will help us to answer our MRQ:
 
 These questions have been already answered in our previous published
 study on the Unsafe API in \java{}~\citep{mastrangeloUseYourOwn2015}.
-Chapter~\ref{cha:unsafe} presents a summary of this study.
 
 \subsection*{Casting}
 
@@ -136,9 +133,19 @@ Chapter~\ref{cha:unsafe} presents a summary of this study.
 \item {\bf \crqC} \crqCdesc{}
 \end{enumerate}
 
-In Chapter \ref{cha:casts} we present our \emph{casting} study.
-The results of this chapter have been submitted for publication to \conf{OOPSLA}{19}.
+The results of this study have been submitted for publication to \conf{OOPSLA}{19}.
 
-Finally, Chapter~\ref{cha:conclusions} presents 
-a summary for both Chapters~\ref{cha:unsafe} and~\ref{cha:casts}, and
-the conclusions for the thesis.
+\section{Thesis Outline}
+
+The rest of this thesis is as follows.
+In Chapter~\ref{cha:literature-review} we give a review of the literature in empirical studies of programming languages features.
+In particular, Sections~\ref{sec:literature-review:unsafe} and~\ref{sec:literature-review:casting} review the \emph{state-of-the-art} of the different aspects related to the two proposed studies.
+Chapter~\ref{cha:unsafe} presents a summary of our \unsafe{} study;
+while in Chapter \ref{cha:casts} we present our \emph{casting} study.
+Finally, Chapter~\ref{cha:conclusions} presents the conclusions for the thesis.
+
+The Appendix~\ref{ap:ql} contains an introduction to \ql{}%
+---the language we used to approximate automatic detection of patterns---%
+and reference material used in our casting study.
+Appendix~\ref{ap:jnif}---although not directly related---%
+describes our bytecode analysis library used in some experiments in both Chapters~\ref{cha:unsafe} and~\ref{cha:casts}.
