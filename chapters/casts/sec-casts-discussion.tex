@@ -24,6 +24,10 @@ or suggest a code smell in the source code.
 \gh{Generics} The casts in this category are related to generics or reified generics.
 \gh{Boxing} These casts are related with explicit boxing/unboxing operations, \ie{},
 explicit converting values of primitive types to boxed types back and forth.
+\gh{\ql{}}
+A bullet (\exis{}) in the \ql{} columns indicates that a pattern is partially detected in \ql{};
+a check mark (\tick{}) indicates that we have provided a \ql{} query for automatic detection; and
+a cross mark (\xmark{}) indicates that is unfeasible or impractical to detect this pattern in \ql{}.
 
 Many programming languages provide features to ameliorate the more common use cases of casts.
 For instance,
@@ -84,3 +88,35 @@ On the other hand,
 the \nameref{pat:SelectOverload} pattern uses boxing/unboxing to select the appropriate method,
 while the \nameref{pat:ReflectiveAccessibility} pattern
 uses unboxing when the field being accessed is of a primitive type.
+
+To detect patterns like
+\nameref{pat:Typecase},
+\nameref{pat:Equals}, and
+\nameref{pat:Redundant},
+only a local analysis (within a method) is needed.
+Usually generic related patterns, \eg{},
+\nameref{pat:UseRawType},
+\nameref{pat:RemoveWildcard},
+
+
+On the other hand,
+patterns like \nameref{pat:VariableSupertype} and
+\nameref{pat:UnoccupiedTypeParameter} require a global analysis.
+
+There are patterns that depend exclusively on known methods, \eg{},
+\nameref{pat:NewDynamicInstance}, and
+\nameref{pat:ReflectiveAccessibility}.
+These patterns are easily detectable.
+Although a pattern like \nameref{pat:Deserialization} depends on a well-known method---\code{readObject}---an application could use others deserialization mechanisms.
+
+Some other patterns are inherently complex to detect, \eg{},
+\nameref{pat:Stash},
+\nameref{pat:Family},
+\nameref{pat:OperandStack}, and
+\nameref{pat:Composite}.
+Recognition of these patterns would require to take into account many different variants,
+which makes automatic detection impractical.
+Manually inspection would be better suited in these cases. 
+
+Patterns like \nameref{pat:Factory} and \nameref{pat:KnownReturnType}
+
