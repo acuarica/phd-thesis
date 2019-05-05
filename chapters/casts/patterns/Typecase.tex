@@ -337,7 +337,18 @@ That is, it checks that there is no assignment to the variable between the \code
 
 \begin{listing}
 \begin{minted}{java}
-class GuardByInstanceOfCast extends #\qlref{ControlByInstanceOfCast}# {
+class ControlByInstanceOfCast extends #\qlref{VarCast}# { #\qlbox#
+	InstanceOfExpr iof;
+	private ConditionBlock cb;
+	ControlByInstanceOfCast() {
+		iof = cb.getCondition() and
+		cb.controls(getBasicBlock(), true) and
+		var.getAnAccess() = iof.getExpr()
+	}
+	InstanceOfExpr getIof() { result = iof }
+}
+
+class GuardByInstanceOfCast extends ControlByInstanceOfCast {
 	GuardByInstanceOfCast() {
 		forall (VariableUpdate def | defUsePair(def, getExpr()) |
 		  defUsePair(def, iof.getExpr())

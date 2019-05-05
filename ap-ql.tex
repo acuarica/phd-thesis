@@ -8,13 +8,15 @@ This allows us to easily identify observations every time we re-run the query af
 
 \begin{listing}
 \begin{minted}{sql}
-from CastExpr ce
+from CastExpr ce #\qlbox#
 select ce
 \end{minted}
 \caption{Query to fetch all cast expressions in a project.}
 \end{listing}
 
 \section{Additional \ql{} Classes and Predicates}
+
+This section 
 
 \begin{listing}
 \begin{minted}{java}
@@ -87,23 +89,6 @@ class OverloadedArgument extends #\qlref{ArgumentEx}# { #\qlbox#
 \end{minted}
 \caption{\code{VarCast} class definition.}
 \label{lst:ql:VarCast}
-\end{listing}
-
-\begin{listing}
-\begin{minted}{java}	
-class ControlByInstanceOfCast extends #\qlref{VarCast}# { #\qlbox#
-	InstanceOfExpr iof;
-	private ConditionBlock cb;
-	ControlByInstanceOfCast() {
-		iof = cb.getCondition() and
-		cb.controls(getBasicBlock(), true) and
-		var.getAnAccess() = iof.getExpr()
-	}
-	InstanceOfExpr getIof() { result = iof }
-}
-\end{minted}
-\caption{\code{ControlByInstanceOfCast} class definition.}
-\label{lst:ql:ControlByInstanceOfCast}
 \end{listing}
 
 
