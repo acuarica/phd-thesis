@@ -335,13 +335,9 @@ date of the approved research program.\\[18mm]
 \renewcommand\listtablename{Tables}
 
 
-
-
-
 %%% put ToC, LoF, LoT and Index entries in the ToC
 %%% use of \phantomsection is required for dealing with hyperref
 %%% package and depends on nohyper option
-
 
 \renewcommand\tableofcontents{%
 \ifthenelse{\boolean{@hypermode}}{\phantomsection}{}
