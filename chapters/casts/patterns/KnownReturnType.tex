@@ -65,6 +65,12 @@ Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 \end{minted}
 
 
+\detection{}
+Similar to the \nameref{pat:Factory} pattern,
+\thisp{} requires analysis of the method implementation called in the cast expression.
+Expressing this kind of analysis in \ql{} becomes impractical.
+
+
 \issues{}
 This pattern usually indicates an abstraction violation:
 the caller needs to know the method implementation to know the correct target type.
