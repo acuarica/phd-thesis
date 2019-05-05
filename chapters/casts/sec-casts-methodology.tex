@@ -20,10 +20,12 @@ model''~\citep{avgustinovQLObjectorientedQueries2016}.
 \ql{} extracts the source code of a project into a Datalog model.
 Besides providing structural data for programs, \ie{}, ASTs,
 \ql{} has the ability to query static types and perform data-flow analysis.
-To run our \ql{} queries,
+To test our \ql{} queries,
 we have used the \lgtm{} service provided by Semmle,%
 \footnote{\url{https://lgtm.com/}}
 the developers of \ql{}.
+To gather all cast expressions used in this study,
+we asked Semmle developers to run a query essentially like Query~\ref{lst:ql:all} on their entire database.
 
 The \lgtm{} database includes---at the time of writing---7,559 \java{} projects imported from
 open-source projects hosted in \github{}.
@@ -44,7 +46,7 @@ uninteresting projects, \eg{}, student projects.
 We initially sought to describe patterns precisely as \ql{} queries so that
 detection and categorization was repeatable,
 but we found this was infeasible because of the
-complexity of the reasoning involved in identifying a pattern.
+complexity of the reasoning involved in identifying some patterns.
 Often determining to which pattern a cast belongs requires reasoning about the runtime source of the cast,
 which might be non-local and might depend on external application frameworks or generated code.
 Thus, we resorted to manually inspect casts in order to devise cast usage patterns.
@@ -58,6 +60,11 @@ Moreover, there could be others cast expressions not returned by the query,
 which are instances of the pattern.
 This is a \emph{best-effort} approach.
 We believe that is better to have at least this kind of automatic approximation than nothing at all.
+
+Unfortunately,
+we do not possess the \lgtm{} database.
+It is not feasible for us to run our queries on their database.
+Therefore, it is impossible to gather partial statistics using our queries.
 
 
 \subsection*{Methodology}
