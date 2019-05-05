@@ -3,9 +3,7 @@ This pattern occurs when a generic type changes its type parameter,
 but the new type parameter hold no values.
 
 \instances{}
-This instance%
-\def\urlvar{http://bit.ly/vavr_io_vavr_2SMIfI2}
-is used to implement an \code{Either} type.
+This instance is used to implement an \code{Either} type.
 A value of type \code{Either<L, R>} can be either a value of type \code{L} or of type \code{R}.
 In this instance, the receiver---of type \code{Either<L, R>}---is cast to \code{Either<U, R>} (line 9).
 There is no subtype relation between \code{L} and \code{U}.
@@ -15,13 +13,13 @@ that no value of type \code{U} is accessible from \code{this}.
 Note that this cast does not conform to the \nameref{pat:Typecase}
 pattern, despite the guard, because the target type is not a subtype of the
 cast operand.
-The cast is successful only because of \java{}'s type erasure
+The cast succeeds only because of \java{}'s type erasure
 implementation.
 
 %https://lgtm.com/projects/g/vavr-io/vavr/snapshot/dist-11000099-1524814812150/files/vavr/src/main/java/io/vavr/control/Either.java?sort=name&dir=ASC&mode=heatmap#L398
+\def\urlvar{http://bit.ly/vavr_io_vavr_2SMIfI2}
 \begin{minted}[highlightlines=9]{java}
 public interface Either<L, R> extends Value<R>, Serializable {
-    // [...]
     @SuppressWarnings("unchecked")
     default <U> Either<U, R> mapLeft(
                     Function<? super L, ? extends U> leftMapper) {
@@ -32,7 +30,6 @@ public interface Either<L, R> extends Value<R>, Serializable {
             return (Either<U, R>) this;
         }
     }
-    // [...]
 } #\urlbox#
 \end{minted}
 
