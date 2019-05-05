@@ -33,11 +33,14 @@ are still in draft status.
 \section*{Limitations and Future Work}
 
 Both our \unsafe{} and casting studies rely on manual inspection to devise usage patterns.
-We tried to use \ql{} to devise cast patterns.
-However, \ql{}---and the \lgtm{} dataset---currently analyses a given project,
-not its dependencies.
 The main issue with manual inspection is that rely heavily on the personal experience of the authors.
 Different authors could devise different set of patterns.
+
+In our casting study---whenever possible---we have used \ql{} to automatically detect some patterns.
+For some other patterns, it is unfeasible to perform automatic detection since \ql{}---and the \lgtm{} dataset---currently analyses a given project,
+not its dependencies.
+Furthermore, some patterns require application-specific knownledge,
+which can not be expressed in \ql{}.
 
 Conducting ultra-large scale studies, either on source code or compiled code, is not a trivial task.
 There are several factors to consider when doing these kind of studies,
