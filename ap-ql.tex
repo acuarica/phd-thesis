@@ -1,22 +1,116 @@
 \chapter{Automatic Detection of Patterns using \ql{}}\label{ap:ql}
 
-Query all observations defined.
-Columns 'patterns', 'tags', and 'show' need to be concatenated since they might have more than one result.
-By concatenating the results in each column, we keep one line for observation.
-We sort the results by 'obs' to keep the observations in the same order across runs.
-This allows us to easily identify observations every time we re-run the query after adding either a tag or a pattern.
+\ql{}~\citep{avgustinovQLObjectorientedQueries2016} is ``a declarative, object-oriented logic programming language for querying complex,
+potentially recursive data structures encoded in a relational data
+model''.
+\ql{} allows us to analyze programs at the source code level.
+\ql{} extracts the source code of a project into a Datalog model.
+Besides providing structural data for programs, \ie{}, ASTs,
+\ql{} has the ability to query static types and perform data-flow analysis.
+
+In addition to gather cast usage data using \ql{}, given its powerfulness,
+we have used \ql{} to approximate the automatic detection of some cast patterns.
+This appendix gives an introduction to \ql{}.
+Section~\ref{ap:ql:classes} provides the definition of several additional classes and predicates used in Chapter~\ref{cha:casts}.
+
+\section{Introduction to \ql{}}
+
+\ql{} is logic query language,
+with a syntax that resembles both \sql{} and \java{}.
+It is built up of logical formulas.
+\ql{} uses logical connectives, \eg{}, \code{or} and \code{not},
+quantifiers \code{exists} and \code{forall}, and logical predicates.
+\ql{} is highly optimized to support recursive queries.
+It is possible to use aggregates, \eg{}, \code{count} or \code{sum}, in \ql{} as well.
+
+The source code ASTs are modeled as \ql{} classes,
+\eg{}, the \code{CastExpr} class represents the table of cast expressions.
+Unlike \java{},
+\ql{} ``classes are just logical properties describing sets of already existing values.''%
+\urlnote{https://help.semmle.com/QL/learn-ql/ql/about-ql.html}
+For instance, Query~\ref{lst:ql:all} gets all cast expressions in a given project.
+The \code{from} and \code{select} clauses have similar semantics as in \sql{}.
+The \code{import} clause is used to select the language to be analyzed.
+\ql{} supports analysis of several languages,
+\eg{}, \javascript{}, \python{}, \cc{}/\cpp{}, and \csharp{}.
 
 \begin{listing}
 \begin{minted}{sql}
-from CastExpr ce #\qlbox#
+import java #\qlbox#
+
+from CastExpr ce
 select ce
 \end{minted}
 \caption{Query to fetch all cast expressions in a project.}
+\label{lst:ql:all}
 \end{listing}
 
-\section{Additional \ql{} Classes and Predicates}
+The \code{where} clause is used to constraint the results.
+The Query~\ref{lst:ql:unused-parameter} returns all unused parameters.
+It \code{select}s both the unused parameter and the method where it is declared.
+In this case, \code{where} is used similarly to a \sql{} \code{join} clause.
+The \code{getAnAccess} class predicate returns any access---read or write---to that parameter.
 
-This section 
+\begin{listing}
+\begin{minted}{sql}
+import java #\qlbox#
+
+from Parameter p, Method m
+where not exists(p.getAnAccess())
+  and m.getAParameter() = p
+  and not m.isAbstract()
+select p, m
+\end{minted}
+\caption{Query to fetch unused parameters.}
+\label{lst:ql:unused-parameter}
+\end{listing}
+
+
+The following query demonstrates how to use the \code{count} aggregate.
+In this example it returns the number of methods with body,
+\ie{}, neither \code{abstract} nor \code{native}.
+
+\begin{listing}
+\begin{minted}{sql}
+import java #\qlbox#
+
+select count(Method m | exists(Block b | m.getBody() = b))
+\end{minted}
+\caption{Query to count methods with implementation.}
+\label{lst:ql:count}
+\end{listing}
+
+\ql{} permits to define custom classes to refine query results. 
+For example, the following query fetches all primitive cast expressions.
+A primitive cast is a cast where both the target type and the type of the operand are primitive types.
+This excludes any boxed type.
+The class predicate defined in line 2 is called the \emph{characteristic predicate}.
+It is the predicate that determines which values correspond to a given class.
+Thus, it is similar to filter out results using the \code{where} clause.
+
+\begin{listing}
+\begin{minted}{java}
+class PrimitiveCast extends CastExpr { #\qlbox#
+	PrimitiveCast() {
+		getExpr().getType() instanceof PrimitiveType and
+		getTypeExpr().getType() instanceof PrimitiveType
+	}
+}
+
+from PrimitiveCast ce
+select ce
+\end{minted}
+\end{listing}
+
+The following section describes the additional classes and predicates used throughout Chapter~\ref{cha:casts}.
+
+\section{Additional \ql{} Classes and Predicates}\label{ap:ql:classes}
+
+All cast pattern classes inherit from this base class.
+As we have seen before,
+the \code{CastExpr} is the \ql{} class that represents all casts.
+Note that this class does not provide a characteristic predicate.
+It just adds helper predicates to be used by detection patterns.
 
 \begin{listing}
 \begin{minted}{java}
@@ -35,6 +129,11 @@ class Cast extends CastExpr { #\qlbox#
 \label{lst:ql:Cast}
 \end{listing}
 
+This class represents all upcasts.
+An upcast \code{(T) e} happens when the type of \code{e} is a subtype of \code{T}.
+Since to detect an upcast is needed to look-up in the class hierarchy,
+the \code{+} operator---transitive closure operator---is used.
+
 \begin{listing}
 \begin{minted}{java}
 class Upcast extends #\qlref{Cast}# { #\qlbox#
@@ -47,6 +146,8 @@ class Upcast extends #\qlref{Cast}# { #\qlbox#
 \label{lst:ql:Upcast}
 \end{listing}
 
+The following class represents when an argument is used in an overloaded method.
+
 \begin{listing}
 \begin{minted}{java}
 class ArgumentEx extends Argument { #\qlbox#
@@ -55,14 +156,8 @@ class ArgumentEx extends Argument { #\qlbox#
 		call.getCallee().getParameter(pos) = param
 	}
 }
-\end{minted}
-\caption{\code{ArgumentEx} class definition.}
-\label{lst:ql:ArgumentEx}
-\end{listing}
 
-\begin{listing}
-\begin{minted}{java}
-class OverloadedArgument extends #\qlref{ArgumentEx}# { #\qlbox#
+class OverloadedArgument extends ArgumentEx {
 	Callable target;
 	Callable overload;
 	OverloadedArgument() {
@@ -79,6 +174,9 @@ class OverloadedArgument extends #\qlref{ArgumentEx}# { #\qlbox#
 \label{lst:ql:OverloadedArgument}
 \end{listing}
 
+This class represents a cast applied to a variable.
+A \ql{} variable is a field, a local variable or a parameter.
+
 \begin{listing}
 \begin{minted}{java}
  class VarCast extends #\qlref{Cast}# { #\qlbox#
@@ -91,6 +189,20 @@ class OverloadedArgument extends #\qlref{ArgumentEx}# { #\qlbox#
 \label{lst:ql:VarCast}
 \end{listing}
 
+The following predicate holds with expressions \code{e}, \code{f}, and \code{c} such that either
+
+\noindent%
+\begin{minipage}{0.205\textwidth}
+\begin{minted}[linenos=false]{java}
+if (e == f) c;
+\end{minted}
+\end{minipage} or
+\begin{minipage}{0.36\textwidth}
+\begin{minted}[linenos=false]{java}
+if (e != f) /*...*/ else c;
+\end{minted}
+\end{minipage}.
+Expressions \code{e} and \code{f} are interchangeable.
 
 \begin{listing}
 \begin{minted}{java}	
@@ -107,6 +219,15 @@ predicate controlByEqualityTest(Expr e, Expr f, Expr c) { #\qlbox#
 \label{lst:ql:controlByEqualityTest}
 \end{listing}
 
+Similar to the previous predicate,
+this predicate holds with expressions \code{e}, \code{f}, and \code{c} such that 
+\noindent%
+\begin{minipage}{0.26\textwidth}
+\begin{minted}[linenos=false]{java}
+if (e.equals(f)) c;
+\end{minted}
+\end{minipage}.
+Expressions \code{e} and \code{f} are interchangeable.
 
 \begin{listing}
 \begin{minted}{java}
@@ -125,6 +246,7 @@ predicate controlByEqualsMethod(Expr e, Expr f, Expr c) { #\qlbox#
 \label{lst:ql:controlByEqualsMethod}
 \end{listing}
 
+This predicate holds whenever \code{sub} is direct or indirect subclass of \code{sup}, or whenever both are the same type.
 
 \begin{listing}
 \begin{minted}{java}
@@ -136,6 +258,7 @@ predicate isSubtype(RefType sub, RefType sup) { #\qlbox#
 \label{lst:ql:isSubtype}
 \end{listing}
 
+The following class represents all casts guarded with a \code{getClass} comparison in an \code{equals} method.
 
 \begin{listing}
 \begin{minted}{java}	
@@ -146,8 +269,8 @@ class GetClassGuardsVarCast extends #\qlref{Cast}# { #\qlbox#
 		tma.isOwnMethodAccess() and
 		oma.getQualifier() = this.(VarCast).getVar().getAnAccess() and
 		(
-			controlByEqualityTest(tma, oma, this) or
-			controlByEqualsMethod(tma, oma, this)
+			#\qlref{controlByEqualityTest}#(tma, oma, this) or
+			#\qlref{controlByEqualsMethod}#(tma, oma, this)
 		)
 	}
 }
@@ -156,6 +279,7 @@ class GetClassGuardsVarCast extends #\qlref{Cast}# { #\qlbox#
 \label{lst:ql:GetClassGuardsVarCast}
 \end{listing}
 
+These classes define the AutoValue related classes used in the \nameref{pat:Equals} pattern.
 
 \begin{listing}
 \begin{minted}{java}	
@@ -179,19 +303,18 @@ class AutoValueGenerated extends Class {
 	}
 }
 \end{minted}
-\caption{AutoValue related \ql{} classes.}
+\caption{\code{AutoValueGenerated} class definition.}
 \label{lst:ql:AutoValueGenerated}
 \end{listing}
 
+This class represents a \code{newInstance} method,
+used in the detection of the \nameref{pat:NewDynamicInstance} pattern.
 
 \begin{listing}
 \begin{minted}{java}
-abstract class NewDynamicInstanceAccess extends MethodAccess {} #\qlbox#
-
-class NewInstanceAccess extends NewDynamicInstanceAccess {
-	NewInstanceAccess() {
-		getCallee().hasName("newInstance") and
-		(
+class NewDynamicInstanceAccess extends MethodAccess  { #\qlbox#
+	NewDynamicInstanceAccess() {
+		getCallee().hasName("newInstance") and (
 			getCallee().getDeclaringType() instanceof TypeClass or
 			getCallee().getDeclaringType() instanceof TypeConstructor or
 			getCallee().getDeclaringType() instanceof TypeArray
@@ -203,6 +326,9 @@ class NewInstanceAccess extends NewDynamicInstanceAccess {
 \label{lst:ql:NewDynamicInstanceAccess}
 \end{listing}
 
+
+These classes represent either a \code{Method.invoke} or \code{Field.get} method.
+It is used in the detection of the \nameref{pat:ReflectiveAccessibility} pattern.
 
 \begin{listing}
 \begin{minted}{java}	
@@ -228,34 +354,34 @@ class FieldGetMethodAccess extends ReflectiveMethodAccess {
 \label{lst:ql:ReflectiveMethodAccess}
 \end{listing}
 
+The following class represents an invocation to the \code{setAccessible(true)} method either on a \code{Field} or \code{Method} object.
+It is used in the detection of the \nameref{pat:ReflectiveAccessibility} pattern.
+
 \begin{listing}
 \begin{minted}{java}
-class SetAccessibleMethodAccess extends MethodAccess { #\qlbox#
-	private Argument flagArgument;
-	SetAccessibleMethodAccess() {
+class SetAccessibleTrueMethodAccess extends MethodAccess { #\qlbox#
+	Argument flagArgument;
+	SetAccessibleTrueMethodAccess() {
 		getMethod().hasName("setAccessible") and
 		getMethod().getDeclaringType()
 				.hasQualifiedName("java.lang.reflect", "AccessibleObject") and
 		(
 			(getNumArgument() = 1 and flagArgument = getArgument(0)) or
 			(getNumArgument() = 2 and flagArgument = getArgument(1))
-		)
+		) and
+		flagArgument.(BooleanLiteral).getBooleanValue() = true
 	}	
-	Argument getFlagArgument() {
-		result = flagArgument
-	}
-}
-
-final class SetAccessibleTrueMethodAccess extends SetAccessibleMethodAccess {
-	SetAccessibleTrueMethodAccess() {
-		getFlagArgument().(BooleanLiteral).getBooleanValue() = true
-	}
 }
 \end{minted}
 \caption{\code{SetAccessibleTrueMethodAccess} class definition.}
 \label{lst:ql:SetAccessibleTrueMethodAccess}
 \end{listing}
 
+This predicate holds whenever \code{type} is neither
+a raw type (\eg{}, \code{List}),
+a parameterized type (\eg{}, \code{List<String>}), nor
+a bounded type (\ie{}, a type parameter or a wildcard).
+It is used in the detection of the \nameref{pat:ImplicitIntersectionType}.
 
 \begin{listing}
 \begin{minted}{java}
