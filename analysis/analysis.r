@@ -7,103 +7,128 @@ library(UpSetR)
 taxonomy = list(
   'Typecase' = list(
     'features' = c('GuardByInstanceOf', 'GuardByTypeTag', 'GuardByClassLiteral'),
-    'categories' = c('guarded', 'lang', 'tools')
+    'categories' = c('guarded', 'lang', 'tools'),
+    'ql' = '\\exis'
   ),
   'Equals' = list(
     'features' = c('Equals'),
-    'categories' = c('guarded', 'gen')
+    'categories' = c('guarded', 'gen'),
+    'ql' = '\\cmark'
   ),
   'OperandStack' = list(
     'features' = c('OperandStack'),
-    'categories' = c('guarded', 'lang')
+    'categories' = c('guarded', 'lang'),
+    'ql' = '\\xmark'
   ),
   'Family' = list(
     'features' = c('Family'),
-    'categories' = c('lang')
+    'categories' = c('lang'),
+    'ql' = '\\xmark'
   ),
   'Factory' = list(
     'features' = c('Factory', 'GetOrCreateByClassLiteral'),
-    'categories' = c('tools')
+    'categories' = c('tools'),
+    'ql' = '\\xmark'
   ),
   'Deserialization' = list(
     'features' = c('Deserialization'),
-    'categories' = c('tools')
+    'categories' = c('tools'),
+    'ql' = '\\exis'
   ),
   'Composite' = list(
     'features' = c('Composite'),
-    'categories' = c('lang')
+    'categories' = c('lang'),
+    'ql' = '\\xmark'
   ),
   'NewDynamicInstance' = list(
     'features' = c('NewDynamicInstance'),
-    'categories' = c('tools')
+    'categories' = c('tools'),
+    'ql' = '\\cmark'
   ),
   'Stash' = list(
     'features' = c('LookupById', 'Tag', 'StaticResource'),
-    'categories' = c('tools', 'gen')
+    'categories' = c('tools', 'gen'),
+    'ql' = '\\exis'
   ),
   'CovariantReturnType' = list(
     'features' = c('CovariantReturnType', 'Clone'),
-    'categories' = c('lang')
+    'categories' = c('lang'),
+    'ql' = '\\exis'
   ),
   'Redundant' = list(
     'features' = c('Redundant'),
-    'categories' = c('dev')
+    'categories' = c('dev'),
+    'ql' = '\\cmark'
   ),
   'VariableSupertype' = list(
     'features' = c('VariableSupertype'),
-    'categories' = c('dev')
+    'categories' = c('dev'),
+    'ql' = '\\xmark'
   ),
   'UseRawType' = list(
     'features' = c('UseRawType'),
-    'categories' = c('dev', 'generic', 'boxing')
+    'categories' = c('dev', 'generic', 'boxing'),
+    'ql' = '\\cmark'
   ),
   'RemoveWildcard' = list(
     'features' = c('RemoveWildcard'),
-    'categories' = c('lang', 'generic')
+    'categories' = c('lang', 'generic'),
+    'ql' = '\\cmark'
   ),
   'KnownReturnType' = list(
     'features' = c('KnownReturnType'),
-    'categories' = c('tools', 'dev')
+    'categories' = c('tools', 'dev'),
+    'ql' = '\\xmark'
   ),
   'ObjectAsArray' = list(
     'features' = c('ObjectAsArray'),
-    'categories' = c('dev')
+    'categories' = c('dev'),
+    'ql' = '\\exis'
   ),
   'AccessSuperclassField' = list(
     'features' = c('AccessSuperclassField'),
-    'categories' = c('dev')
+    'categories' = c('dev'),
+    'ql' = '\\cmark'
   ),
   'SelectOverload' = list(
     'features' = c('SelectOverload'),
-    'categories' = c('lang', 'boxing')
+    'categories' = c('lang', 'boxing'),
+    'ql' = '\\cmark'
   ),
   'ReflectiveAccessibility' = list(
     'features' = c('ReflectiveAccessibility'),
-    'categories' = c('lang', 'boxing')
+    'categories' = c('lang', 'boxing'),
+    'ql' = '\\cmark'
   ),
   'CovariantGeneric' = list(
     'features' = c('CovariantGeneric'),
-    'categories' = c('lang', 'generic', 'boxing')
+    'categories' = c('lang', 'generic', 'boxing'),
+    'ql' = '\\exis'
   ),
   'SoleSubclassImplementation' = list(
     'features' = c('SoleSubclassImplementation'),
-    'categories' = c('lang')
+    'categories' = c('lang'),
+    'ql' = '\\cmark'
   ),
   'FluentAPI' = list(
     'features' = c('FluentAPI'),
-    'categories' = c('lang', 'generic')
+    'categories' = c('lang', 'generic'),
+    'ql' = '\\exis'
   ),
   'ImplicitIntersectionType' = list(
     'features' = c('ImplicitIntersectionType'),
-    'categories' = c('lang')
+    'categories' = c('lang'),
+    'ql' = '\\cmark'
   ),
   'GenericArray' = list(
     'features' = c('GenericArray', 'MatchBoxedType'),
-    'categories' = c('lang', 'generic', 'boxing')
+    'categories' = c('lang', 'generic', 'boxing'),
+    'ql' = '\\cmark'
   ),
   'UnoccupiedTypeParameter' = list(
     'features' = c('UnoccupiedTypeParameter'),
-    'categories' = c('lang', 'generic')
+    'categories' = c('lang', 'generic'),
+    'ql' = '\\xmark'
   ),
   'Primitive' = list(
     'features' = c('Literal', 'Numeric'),
@@ -324,8 +349,8 @@ for (p in names(tb[order(tb, decreasing = TRUE)])) {
   
   a <- declared.categories %in% taxonomy[[p]]$categories
   r <- paste(sapply(a, function(b) if (b) '\\cmark' else ''), collapse=' & ', sep=' & ')
-  table.categories.def <- append(table.categories.def, sprintf("%s %s & \\nameref{pat:%s} & %s \\\\", row.color, i, p, r))
-  
+  r <- sprintf("%s & %s", r, taxonomy[[p]]$ql)
+  table.categories.def <- append(table.categories.def, sprintf("%s \\nameref{pat:%s} & %s \\\\", row.color, p, r))
   i = i+1
 }
 write(table.def, 'table-casts-patterns.def')

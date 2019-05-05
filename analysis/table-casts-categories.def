@@ -1,25 +1,25 @@
-\row 1 & \nameref{pat:Typecase} & \cmark & \cmark & \cmark &  &  &  &  \\
-\alt 2 & \nameref{pat:Stash} &  &  & \cmark & \cmark &  &  &  \\
-\row 3 & \nameref{pat:Factory} &  &  & \cmark &  &  &  &  \\
-\alt 4 & \nameref{pat:Family} &  & \cmark &  &  &  &  &  \\
-\row 5 & \nameref{pat:UseRawType} &  &  &  &  & \cmark & \cmark & \cmark \\
-\alt 6 & \nameref{pat:Equals} & \cmark &  &  & \cmark &  &  &  \\
-\row 7 & \nameref{pat:Redundant} &  &  &  &  & \cmark &  &  \\
-\alt 8 & \nameref{pat:CovariantReturnType} &  & \cmark &  &  &  &  &  \\
-\row 9 & \nameref{pat:SelectOverload} &  & \cmark &  &  &  &  & \cmark \\
-\alt 10 & \nameref{pat:KnownReturnType} &  &  & \cmark &  & \cmark &  &  \\
-\row 11 & \nameref{pat:Deserialization} &  &  & \cmark &  &  &  &  \\
-\alt 12 & \nameref{pat:VariableSupertype} &  &  &  &  & \cmark &  &  \\
-\row 13 & \nameref{pat:SoleSubclassImplementation} &  & \cmark &  &  &  &  &  \\
-\alt 14 & \nameref{pat:NewDynamicInstance} &  &  & \cmark &  &  &  &  \\
-\row 15 & \nameref{pat:ObjectAsArray} &  &  &  &  & \cmark &  &  \\
-\alt 16 & \nameref{pat:ImplicitIntersectionType} &  & \cmark &  &  &  &  &  \\
-\row 17 & \nameref{pat:RemoveWildcard} &  & \cmark &  &  &  & \cmark &  \\
-\alt 18 & \nameref{pat:OperandStack} & \cmark & \cmark &  &  &  &  &  \\
-\row 19 & \nameref{pat:ReflectiveAccessibility} &  & \cmark &  &  &  &  & \cmark \\
-\alt 20 & \nameref{pat:FluentAPI} &  & \cmark &  &  &  & \cmark &  \\
-\row 21 & \nameref{pat:CovariantGeneric} &  & \cmark &  &  &  & \cmark & \cmark \\
-\alt 22 & \nameref{pat:Composite} &  & \cmark &  &  &  &  &  \\
-\row 23 & \nameref{pat:GenericArray} &  & \cmark &  &  &  & \cmark & \cmark \\
-\alt 24 & \nameref{pat:AccessSuperclassField} &  &  &  &  & \cmark &  &  \\
-\row 25 & \nameref{pat:UnoccupiedTypeParameter} &  & \cmark &  &  &  & \cmark &  \\
+\row \nameref{pat:Typecase} & \cmark & \cmark & \cmark &  &  &  &  & \exis \\
+\alt \nameref{pat:Stash} &  &  & \cmark & \cmark &  &  &  & \exis \\
+\row \nameref{pat:Factory} &  &  & \cmark &  &  &  &  & \xmark \\
+\alt \nameref{pat:Family} &  & \cmark &  &  &  &  &  & \xmark \\
+\row \nameref{pat:UseRawType} &  &  &  &  & \cmark & \cmark & \cmark & \cmark \\
+\alt \nameref{pat:Equals} & \cmark &  &  & \cmark &  &  &  & \cmark \\
+\row \nameref{pat:Redundant} &  &  &  &  & \cmark &  &  & \cmark \\
+\alt \nameref{pat:CovariantReturnType} &  & \cmark &  &  &  &  &  & \exis \\
+\row \nameref{pat:SelectOverload} &  & \cmark &  &  &  &  & \cmark & \cmark \\
+\alt \nameref{pat:KnownReturnType} &  &  & \cmark &  & \cmark &  &  & \xmark \\
+\row \nameref{pat:Deserialization} &  &  & \cmark &  &  &  &  & \exis \\
+\alt \nameref{pat:VariableSupertype} &  &  &  &  & \cmark &  &  & \xmark \\
+\row \nameref{pat:SoleSubclassImplementation} &  & \cmark &  &  &  &  &  & \cmark \\
+\alt \nameref{pat:NewDynamicInstance} &  &  & \cmark &  &  &  &  & \cmark \\
+\row \nameref{pat:ObjectAsArray} &  &  &  &  & \cmark &  &  & \exis \\
+\alt \nameref{pat:ImplicitIntersectionType} &  & \cmark &  &  &  &  &  & \cmark \\
+\row \nameref{pat:RemoveWildcard} &  & \cmark &  &  &  & \cmark &  & \cmark \\
+\alt \nameref{pat:OperandStack} & \cmark & \cmark &  &  &  &  &  & \xmark \\
+\row \nameref{pat:ReflectiveAccessibility} &  & \cmark &  &  &  &  & \cmark & \cmark \\
+\alt \nameref{pat:FluentAPI} &  & \cmark &  &  &  & \cmark &  & \exis \\
+\row \nameref{pat:CovariantGeneric} &  & \cmark &  &  &  & \cmark & \cmark & \exis \\
+\alt \nameref{pat:Composite} &  & \cmark &  &  &  &  &  & \xmark \\
+\row \nameref{pat:GenericArray} &  & \cmark &  &  &  & \cmark & \cmark & \cmark \\
+\alt \nameref{pat:AccessSuperclassField} &  &  &  &  & \cmark &  &  & \cmark \\
+\row \nameref{pat:UnoccupiedTypeParameter} &  & \cmark &  &  &  & \cmark &  & \xmark \\
