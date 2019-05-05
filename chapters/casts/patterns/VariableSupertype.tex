@@ -118,6 +118,8 @@ if (readers.size() == 1) {
 
 \detection{}
 This pattern contains many variations that require manual inspection.
+To detect this pattern an interprocedural data-flow analysis would be required,
+since the value being cast could be assigned in another method.
 However, for some cases (\eg{}, the first example),
 some query approximations would be possible.
 
