@@ -2,6 +2,9 @@
 \newcommand{\nUniqueProjects}{1,299}
 \newcommand{\nPattern}{25}
 \newcommand{\nEqualsOutOfGuarded}{16.94}
+\newcommand{\nExisCount}{8}
+\newcommand{\nCmarkCount}{11}
+\newcommand{\nXmarkCount}{6}
 \newcommand{\nSeen}{5,530}
 \newcommand{\pSeen}{110.60}
 \newcommand{\nBrokenLink}{526}

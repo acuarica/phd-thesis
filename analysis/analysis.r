@@ -386,6 +386,11 @@ casts.def['Downcast'] = nReference - nrow(df.upcast)
 
 patterns.def['EqualsOutOfGuarded'] = perc(casts.def$EqualsPattern, casts.def$Guarded)
 
+declared.ql <- unlist(lapply(taxonomy, `[[`, 'ql'), use.names=FALSE)
+patterns.def['ExisCount'] <- length(declared.ql[declared.ql=='\\exis'])
+patterns.def['CmarkCount'] <- length(declared.ql[declared.ql=='\\cmark'])
+patterns.def['XmarkCount'] <- length(declared.ql[declared.ql=='\\xmark'])
+
 write.def(patterns.def, casts.def, 'casts.def')
 
  

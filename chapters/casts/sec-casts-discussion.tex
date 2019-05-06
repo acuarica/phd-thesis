@@ -88,6 +88,11 @@ the \nameref{pat:SelectOverload} pattern uses boxing/unboxing to select the appr
 while the \nameref{pat:ReflectiveAccessibility} pattern
 uses unboxing when the field being accessed is of a primitive type.
 
+The \gh{\ql{}} column shows if the patterns can be automatically detected using \ql{}.
+Currently we have \nCmarkCount{} patterns for which we can automatically detect them, and
+\nExisCount{} where at least we have a partial detection.
+Just \nXmarkCount{} patterns (out of \nPattern{}) are impractical to automatically detect.
+
 To detect patterns like
 \nameref{pat:Typecase},
 \nameref{pat:Equals}, and
