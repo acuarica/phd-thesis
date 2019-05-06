@@ -101,6 +101,9 @@ are local.
 On the other hand,
 patterns like \nameref{pat:VariableSupertype} and
 \nameref{pat:UnoccupiedTypeParameter} require a non-local analysis.
+However, the \nameref{pat:VariableSupertype} pattern can be detected when
+is instantiated locally, \ie{},
+the cast and the variable assignment are in the same method.
 Generic related patterns like \nameref{pat:FluentAPI} and \nameref{pat:CovariantGeneric} require a non-local analysis as well.
 
 There are patterns that depend exclusively on known methods, \eg{},
