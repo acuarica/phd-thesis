@@ -11,7 +11,8 @@ K = Total number of casts of the least used pattern
 n = Sample size to select
 k = Times we saw the least used cast from the sample: 0 meaning we do not see it in our sample
 https://keisan.casio.com/exec/system/1180573201
-** TODO Talk about reflection as a way to /escape/ the type system, then talk about casting as a subset of reflection
+** TODO Talk about reflection as a way to /escape/ the type system
+*** Then talk about casting as a subset of reflection
 ** TODO Add discussion from <https://martinfowler.com/bliki/DynamicTyping.html>
 ** DONE Discuss "Static Typing of Complex Presence Constraints in Interfaces" \cite{oostvogelsStaticTypingComplex2018a}
 CLOSED: [2019-05-06 Mon 15:46]
