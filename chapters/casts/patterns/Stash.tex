@@ -258,7 +258,7 @@ Casts in this pattern are typically not guarded indicating that the programmer k
 The \variant{LookupById} variant could be replaced by 
 strongly typed heterogeneous collections~\citep{kiselyovStronglyTypedHeterogeneous2004} although implementing it in \java{} would be more verbose.
 
-This pattern is often seen in Android applications.
+The \variant{StaticResource} variant is often seen in Android applications.
 The Butter Knife framework%
 \footnote{\url{http://jakewharton.github.io/butterknife/}}
 uses annotations to avoid the ``manual'' casting.
@@ -267,6 +267,7 @@ These casts could be solved by using code generation,
 or partial classes like in \csharp{}.
 Since the contents of the resource file are known at compile-time,
 code generation could be used to generate the corresponding \java{} code.
+In our sample, however, this variant only appears in application code.
 
 The \variant{Tag} variant can also be used to fetch a value from a collection
 (as in \variant{LookupById}).

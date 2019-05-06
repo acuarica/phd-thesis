@@ -35,6 +35,8 @@ The pattern is typical of hierarchical data structures such as abstract syntax
 trees, document models, or UI layouts. Based on the grammar of 
 the data structure, the types of adjacent objects in the structure can be known.
 The cast succeeds if the data structure is well-formed.
+This pattern is only seen in application code,
+since it is used when designing an extensible API.
 
 More precise typing of the links in the the data structure could 
 eliminate the need for the casts. For example, in the above example,

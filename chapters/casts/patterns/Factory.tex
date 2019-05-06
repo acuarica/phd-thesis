@@ -127,4 +127,9 @@ in that hierarchy based on the arguments passed into the factory method.
 The \nameref{pat:KnownReturnType} pattern is similar to \thisp{},
 since both depend on the knowledge that a method returns a more specific type.
 
+This pattern is prevalent in test code \nFactoryPatternTestPerc{}\%.
+This is because when testing,
+known parameters are given to factory methods.
+In these situations, a test method needs to know a more specific type---by using a cast---to properly check for a test condition. 
+
 \end{pattern}
