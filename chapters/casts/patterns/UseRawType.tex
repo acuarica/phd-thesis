@@ -107,6 +107,11 @@ Raw types exist in \java{} to support legacy code.
 Best practice would be to rewrite the code to use generics,
 but this is not always feasible or cost effective.
 
+This pattern is prevalent in generated code
+(\nUseRawTypePatternGenPerc{}\% of generated instances).
+Since these casts will not be seen by a developer,
+code generators make less effort to avoid them.
+
 Casts among generic types and between raw types and generic types are unchecked at run time,
 although other casts are typically inserted by the compiler to ensure type safety dynamically.
 When these inserted casts fail, the reported location of the failure may not match the programmer's expectation.

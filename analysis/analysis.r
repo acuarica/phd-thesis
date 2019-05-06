@@ -320,6 +320,10 @@ for (pname in levels(as.factor(df$pattern))) {
   casts.def[sprintf("%sPatternTest", pname)] <- nrow(x[which(x$scope=='test'),])
   casts.def[sprintf("%sPatternGen", pname)] <- nrow(x[which(x$scope=='gen'),])
   
+  patterns.def[sprintf("%sPatternSrcPerc", pname)] <- perc( nrow(x[which(x$scope=='src'),]), nrow(x))
+  patterns.def[sprintf("%sPatternTestPerc", pname)] <- perc( nrow(x[which(x$scope=='test'),]), nrow(x))
+  patterns.def[sprintf("%sPatternGenPerc", pname)] <- perc( nrow(x[which(x$scope=='gen'),]), nrow(x))
+
   for (subp in levels(as.factor(x$features))) {
     y <- x[which(x$features==subp),]
     casts.def[sprintf("%s%sSubpattern", pname, subp)] <- nrow(y)
