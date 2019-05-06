@@ -13,12 +13,27 @@ k = Times we saw the least used cast from the sample: 0 meaning we do not see it
 https://keisan.casio.com/exec/system/1180573201
 ** TODO Talk about reflection as a way to /escape/ the type system, then talk about casting as a subset of reflection
 ** TODO Add discussion from <https://martinfowler.com/bliki/DynamicTyping.html>
-** TODO Discuss "Static Typing of Complex Presence Constraints in Interfaces" \cite{oostvogelsStaticTypingComplex2018a}
-** TODO Source of information for cast success
+** DONE Discuss "Static Typing of Complex Presence Constraints in Interfaces" \cite{oostvogelsStaticTypingComplex2018a}
+CLOSED: [2019-05-06 Mon 15:46]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 15:46] \\
+  Added to SelectOverload.
+:END:
+** DONE Source of information for cast success
+CLOSED: [2019-05-06 Mon 15:47]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 15:47] \\
+  Discuss
+:END:
 *** Configuration files
 *** Libraries
 *** More complex analysis
-** TODO What does the compiler need to know to assert that a cast won't fail at runtime?
+** DONE What does the compiler need to know to assert that a cast won't fail at runtime?
+CLOSED: [2019-05-06 Mon 15:47]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 15:47] \\
+  Discussion
+:END:
 ** TODO Include type system soundness discussion for thesis
 ** DONE Find examples where ~instanceof~ is right and wrong
 CLOSED: [2019-04-25 Thu 21:06]
@@ -82,14 +97,24 @@ CLOSED: [2019-04-25 Thu 19:29]
 CLOSED: [2019-04-25 Thu 19:29]
 ** WONTDO Venn Diagram by Groups: UpSet plot
 CLOSED: [2019-04-25 Thu 21:00]
-** TODO Grouping/Tagging/Patterns+Subpatterns table for casts patterns
+** DONE Grouping/Tagging/Patterns+Subpatterns table for casts patterns
+CLOSED: [2019-05-06 Mon 15:28]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 15:28] \\
+  Discussion of these aspects.
+:END:
 *** DONE Type system changes
 CLOSED: [2019-04-29 Mon 14:54]
 *** DONE Guarded/Unguarded
 CLOSED: [2019-04-26 Fri 00:17]
 *** DONE Audiences: Developers/Designers/Tool Builders
 CLOSED: [2019-04-26 Fri 00:17]
-*** TODO Languages Features: Generics/Autoboxing/Primitives/Unchecked/Throws
+*** DONE Languages Features: Generics/Autoboxing/Primitives/Unchecked/Throws
+CLOSED: [2019-05-06 Mon 15:28]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 15:28] \\
+  Discussion
+:END:
 **** More prevalent in: App/Test/Gen
 **** Android/API related
 **** Need to talk about the approach to analysis.
@@ -104,7 +129,13 @@ CLOSED: [2019-04-29 Mon 15:49]
 **** Narrowing cast from int literal to char/short/byte for call
 *** DONE Could the cast be avoided?
 CLOSED: [2019-04-26 Fri 00:17]
-*** TODO Type erasure, Erased category
+*** DONE Type erasure, Erased category
+CLOSED: [2019-05-06 Mon 15:28]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 15:28] \\
+  Discussion
+- State "TODO"       from "TODO"       [2019-05-06 Mon 15:28]
+:END:
 *** DONE Levels of locality
 CLOSED: [2019-05-06 Mon 13:18]
 :LOGBOOK:
@@ -112,7 +143,12 @@ CLOSED: [2019-05-06 Mon 13:18]
   Detection in QL
 :END:
 Go beyond the aplication to detect a pattern: Class/Method.
-** TODO Tie "unchecked" casts with blame/gradual typing
+** DONE Tie "unchecked" casts with blame/gradual typing
+CLOSED: [2019-05-06 Mon 15:29]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 15:29] \\
+  Discussed
+:END:
 ** CANCELED AccessPrivateField: Special mention in SelectOverload
 CLOSED: [2019-04-25 Thu 21:00]
 ** DONE SoleClassImplementation: Use a better example: ClassImpl implements Inteface
@@ -319,8 +355,11 @@ CLOSED: [2019-05-06 Mon 13:22]
   Added comment in casts introduction.
 - State "TODO"       from              [2019-05-01 Wed 22:55]
 :END:
-** TODO Discuss generated and test code casts, for instance
+** DONE Discuss generated and test code casts, for instance
+CLOSED: [2019-05-06 Mon 15:27]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 15:27] \\
+  Added discussion
 - State "TODO"       from              [2019-05-01 Wed 22:54]
 :END:
 *** Stash/Equals:instanceof patterns for generated code
