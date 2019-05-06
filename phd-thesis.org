@@ -103,8 +103,12 @@ CLOSED: [2019-04-28 Sun 17:07]
 ** DONE Cite Pierce in the introduction of the casts chapter
 ** DONE Thanks Max for the contributions
 ** DONE Test/Gen/App
-** CANCELED Autodetection of patterns
+** DONE Autodetection of patterns
 CLOSED: [2019-04-25 Thu 20:56]
+:LOGBOOK:
+- State "DONE"       from "CANCELED"   [2019-05-07 Tue 01:14] \\
+  Added detection of patterns in QL.
+:END:
 ** DONE Split UseRawType/RemoveWildcard
 CLOSED: [2019-04-25 Thu 19:29]
 ** DONE Statistics/Broken links: More casts until we reach 5000
@@ -167,6 +171,10 @@ CLOSED: [2019-05-06 Mon 15:29]
 :END:
 ** CANCELED AccessPrivateField: Special mention in SelectOverload
 CLOSED: [2019-04-25 Thu 21:00]
+:LOGBOOK:
+- State "CANCELED"   from "CANCELED"   [2019-05-07 Tue 01:22] \\
+  AccessSuperclassField and SelectOverload related patterns.
+:END:
 ** DONE SoleClassImplementation: Use a better example: ClassImpl implements Inteface
 CLOSED: [2019-04-25 Thu 20:59]
 ** DONE Example CreateByClassLiteral to GetByClassLiteral
