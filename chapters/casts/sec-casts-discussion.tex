@@ -54,6 +54,16 @@ The \nameref{pat:Equals} pattern is composed of boilerplate code.
 For instance, \scala{}' solves this issue by introducing \emph{case classes},
 which among other features, provide equality out of the box.
 
+Patterns like \nameref{pat:Factory} are prevalent in test code,
+because when testing the developer calls the factory methods with known-parameters.
+The \variant{StaticResource} appear only in source code.
+This could be because of our sample does not contain any code generation for Android,
+\eg{}, Butter Knife.
+\nameref{pat:UseRawType} is prevalent in generated code.
+In those cases, code generators do not make the effort to avoid these casts.
+In our sample, the \nameref{pat:AccessSuperclassField} pattern only appears in generated code.
+However, we found other instances using \ql{}.
+
 Our study also suggests analyses could be performed to improve code quality and eliminate some cast usages,
 for instance finding opportunities to use generics instead (\cf{} \nameref{pat:UseRawType}),
 removing redundant casts (\cf{} \nameref{pat:Redundant}),
