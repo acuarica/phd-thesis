@@ -149,7 +149,11 @@ Similar to \boa{}, \lgtm{}\footnote{\url{https://lgtm.com/}} is a platform to qu
 It works by querying repositories from \github{}.
 But it does not work at a large-scale, \ie{}, \lgtm{} allows the user to query just a few projects.
 Unlike \boa{}, \lgtm{} is based on \ql{}---before named \emph{.QL}---,
-an object-oriented domain-specific language to query recursive data structures~\cite{avgustinovQLObjectorientedQueries2016}.
+an object-oriented domain-specific language to query recursive data structures based on Datalog~\citep{avgustinovQLObjectorientedQueries2016}.
+Another static analysis framework based on Datalog is \doop{}~\citep{bravenboerStrictlyDeclarativeSpecification}.
+Since \ql{} and \doop{} are based on Datalog,
+both are well-suited to perform points-to analysis and data-flow analysis.
+However, scaling such analysis to a large-scale study remains an open problem.
 
 On top of \boa{},~\cite{tiwariCandoiaPlatformBuilding2017} built \candoia{}%
 \footnote{\url{http://candoia.github.io/}}.
@@ -326,7 +330,7 @@ He proposes four cast categorizations according to their
 run-time type safety:
 \emph{Guarded Casts}, \emph{Semi-Guarded Casts},
 \emph{Unguarded Casts}, and \emph{Safe Casts}.
-We plan to refine this categorization to answer
+We refined this categorization to answer
 our~\ref{casts:rq2} (\emph{\crqB}).
 This is described in Chapter~\ref{cha:casts}.
 
