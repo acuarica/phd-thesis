@@ -105,7 +105,12 @@ CLOSED: [2019-04-29 Mon 15:49]
 *** DONE Could the cast be avoided?
 CLOSED: [2019-04-26 Fri 00:17]
 *** TODO Type erasure, Erased category
-*** TODO Levels of locality
+*** DONE Levels of locality
+CLOSED: [2019-05-06 Mon 13:18]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 13:18] \\
+  Detection in QL
+:END:
 Go beyond the aplication to detect a pattern: Class/Method.
 ** TODO Tie "unchecked" casts with blame/gradual typing
 ** CANCELED AccessPrivateField: Special mention in SelectOverload
@@ -138,6 +143,7 @@ How to handle bias?
 CLOSED: [2019-04-29 Mon 14:10]
 QL queries, what queries could be expresses in QL.
 Patterns as training set and then use ML, code equality.
+** TODO Address completely Antonio's & Gabriele's comments on the proposal
 ** TODO Address Antonio's comment on casting is not circumventing the static type system: Dynamically recovery information
 ** TODO Address internal committee comments on the proposal
 *** Antonio's
@@ -215,7 +221,6 @@ A machine instruction set is effectively another kind of language.
 Therefore, its design can be affected by how compilers generate machine code.
 Several studies targeted the \jvm{}~\cite{collberg_empirical_2007,odonoghue_bigram_2002,antonioli_analysis_1998};
 while~\cite{cook_empirical_1989} did a similar study for \lilith{} in the past.
-** TODO Address completely Antonio's & Gabriele's comments on the proposal
 ** DONE Remove StackOverflow subsection from Unsafe
 CLOSED: [2019-05-01 Wed 16:30]
 *** Should this be in the thesis?
@@ -277,7 +282,7 @@ CLOSED: [2019-04-30 Tue 21:01]
 *** Under the thesis introduction
 ** DONE Underfull & overfull boxes in PDF
 CLOSED: [2019-04-30 Tue 20:58]
-** DONE Send email remainder to Matthias&Nate to read it
+** DONE Send email remainder to Matthias & Nate to read it
 CLOSED: [2019-05-05 Sun 16:13]
 :LOGBOOK:
 - State "DONE"       from "ONHOLD"     [2019-05-05 Sun 16:13] \\
@@ -286,7 +291,7 @@ CLOSED: [2019-05-05 Sun 16:13]
 - State "TODO"       from              [2019-05-01 Wed 19:23]
 :END:
 *** Friday after work
-** DONE Send email to committee to announce the thesis is on June 6
+** DONE Send email to committee to announce the thesis is on +June 6+ June 13
 CLOSED: [2019-05-01 Wed 19:22]
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2019-05-01 Wed 19:22] \\
@@ -307,8 +312,11 @@ CLOSED: [2019-05-05 Sun 16:15]
 :END:
 ** TODO Literature Review
 *** There are many Java parsers, why only JavaParser
-** TODO Introduction casts chapter based on paper submitted
+** DONE Introduction casts chapter based on paper submitted
+CLOSED: [2019-05-06 Mon 13:22]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 13:22] \\
+  Added comment in casts introduction.
 - State "TODO"       from              [2019-05-01 Wed 22:55]
 :END:
 ** TODO Discuss generated and test code casts, for instance
@@ -318,12 +326,20 @@ CLOSED: [2019-05-05 Sun 16:15]
 *** Stash/Equals:instanceof patterns for generated code
 *** Factory patterns for test code
 *** Why so many?
-** TODO OperandStack find a non-parsing example
+** DONE ~OperandStack~ find a non-parsing example
+CLOSED: [2019-05-06 Mon 13:36]
 :LOGBOOK:
+- State "DONE"       from "DONE"       [2019-05-06 Mon 13:36] \\
+  Not found any non-parsing example.
+- State "DONE"       from "TODO"       [2019-05-06 Mon 13:36] \\
+  Wording in issues.
 - State "TODO"       from              [2019-05-01 Wed 22:54]
 :END:
-** TODO Toward QL queries for some automatic detection of patterns?
+** DONE Toward QL queries for some automatic detection of patterns?
+CLOSED: [2019-05-06 Mon 12:50]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 12:50] \\
+  Added some conclusion
 - State "TODO"       from              [2019-05-02 Thu 01:41]
 :END:
 ** DONE Why JNIF relevant to the thesis?
