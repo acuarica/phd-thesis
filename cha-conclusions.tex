@@ -11,10 +11,13 @@ We have submitted this study for publication to the \conf{OOPSLA}{19} conference
 We have devised common usage patterns that involve the cast operator.
 Having a taxonomy of usage patterns---for both the Unsafe \api{} and casting---can shed light on how \java{} developers circumvent the static type system's constraints.
 
+\section{\java{}'s Evolution}
+
 The \java{} language is evolving constantly.
 There are several proposals to improve different aspects of the language.
 The proposal JEP 193~\citep{jep193} that introduces Variable Handles is already accepted and included in \java{} 9.
 The GC algorithm introduced in JEP 189 Shenandoah~\citep{jep189} is included as a experimental feature in \java{} 12.
+
 There is an ongoing proposal%
 \footnote{\url{https://openjdk.java.net/jeps/305}}$^{,}$%
 \footnote{\url{https://cr.openjdk.java.net/~briangoetz/amber/pattern-match.html}}%
@@ -24,13 +27,14 @@ The proposal explores changing the \code{instanceof} operator in order to suppor
 \footnote{\url{https://openjdk.java.net/jeps/325}}$^{,}$%
 \footnote{\url{https://openjdk.java.net/jeps/354}}~\citep{jep325,jep354}.
 This enhancement aims to ease the transition to a \code{switch} expression that supports pattern matching.
+
 On the other hand,
 JEP 191 Foreign Function Interface~\citep{jep191},
 JEP 169 Value Objects~\citep{jep169}, and
 JEP 300 Augment Use-Site Variance with Declaration-Site Defaults~\citep{jep300}
 are still in draft status.
 
-\section*{Limitations and Future Work}
+\section{Limitations}
 
 Both our \unsafe{} and casting studies rely on manual inspection to devise usage patterns.
 The main issue with manual inspection is that rely heavily on the personal experience of the authors.
@@ -41,6 +45,15 @@ For some other patterns, it is unfeasible to perform automatic detection since \
 not its dependencies.
 Furthermore, some patterns require application-specific knownledge to be detected,
 which can not be expressed in \ql{}.
+
+
+\section{Future Work}
+
+A possible direction for future work could be to run our detection queries on the entire \lgtm{} database.
+This can open up the possibility to devise new usage patterns,
+or to refine existing ones.
+Moreover,
+by running our queries at large-scale we can corroborate---or refute---the distribution of patterns given in both Sections~\ref{sec:casts:overview} and~\ref{sec:casts:patterns}.
 
 Conducting ultra-large scale studies, either on source code or compiled code, is not a trivial task.
 There are several factors to consider when doing these kind of studies,
@@ -54,7 +67,7 @@ this support was not included yet.
 We could recast our \unsafe{} study to use \boa{} on the \github{} dataset,
 or \lgtm{} through \ql{} queries, although as mentioned above,
 we will not be able to analyze project dependencies.
-The patterns we have already devised for both the \unsafe{} and the casting study could be formalized using \ql{}~\citep{avgustinovQLObjectorientedQueries2016}.
+The patterns we have already devised for the \unsafe{} study could be formalized using \ql{}~\citep{avgustinovQLObjectorientedQueries2016}.
 
 To conduct our studies we have used static analysis.
 Static analyses are always more conservative than dynamic analyses.
