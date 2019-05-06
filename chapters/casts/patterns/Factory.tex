@@ -12,7 +12,7 @@ Usually the arguments that determine the run-time type to be returned are known 
 The following snippet
 shows an instance of the \thisp{} pattern.
 The cast is applied to the result of invoking \code{keyPair.getPrivate}
-(line 10).
+(line 6).
 The variable \code{keyPair} is assigned the result of \code{pairGen.generateKey\-Pair} (line 3).
 At the same time, the \code{pairGen} variable is assigned the value returned by \code{KeyPairGenerator.getInstance("RSA")}.
 The argument \code{"RSA"} indicates the algorithm to use.
@@ -23,15 +23,11 @@ and this is determined by the algorithm argument described above.
 
 %https://lgtm.com/projects/b/connect2id/oauth-2.0-sdk-with-openid-connect-extensions/snapshot/dist-1311020143-1524814812150/files/src/test/java/com/nimbusds/oauth2/sdk/jose/jwk/RemoteJWKSetTest.java?sort=name&dir=ASC&mode=heatmap#L242
 \def\urlvar{http://bit.ly/connect2id_oauth_2_0_sdk_with_2HvRlUX}
-\begin{minted}[highlightlines=10]{java}
+\begin{minted}[highlightlines=6]{java}
 KeyPairGenerator pairGen = KeyPairGenerator.getInstance("RSA");
 pairGen.initialize(1024);
 KeyPair keyPair = pairGen.generateKeyPair();
-RSAKey rsaJWK1 = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
-        .privateKey((RSAPrivateKey) keyPair.getPrivate())
-        .keyID("1")
-        .build();
-keyPair = pairGen.generateKeyPair();
+// [...]
 RSAKey rsaJWK2 = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
         .privateKey((RSAPrivateKey) keyPair.getPrivate())
         .keyID("2")
