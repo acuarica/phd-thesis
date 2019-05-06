@@ -52,20 +52,35 @@ CLOSED: [2019-04-29 Mon 00:34]
 CLOSED: [2019-04-25 Thu 17:03]
 ** DONE Comment about why source code is necessary: upcasts are lost during compilation
 CLOSED: [2019-04-29 Mon 13:55]
-** TODO Add Code Recommenders Systems Codota/Kite https://www.codota.com/
+** WONTDO Add Code Recommenders Systems Codota/Kite https://www.codota.com/
+CLOSED: [2019-05-06 Mon 18:15]
+:LOGBOOK:
+- State "WONTDO"     from "TODO"       [2019-05-06 Mon 18:15] \\
+  No time
+:END:
 ** CANCELED Patterns discussion `Selection`: Implicits in Scala
 CLOSED: [2019-04-29 Mon 13:56]
-** TODO Pattern discussion `Pattern Matching`: Jurgen Vinju paper <http://homepages.cwi.nl/~storm/publications/visitor.pdf>
+** CANCELED Pattern discussion `Pattern Matching`: Jurgen Vinju paper <http://homepages.cwi.nl/~storm/publications/visitor.pdf>
+CLOSED: [2019-05-06 Mon 18:15]
+:LOGBOOK:
+- State "CANCELED"   from "TODO"       [2019-05-06 Mon 18:15] \\
+  Not related
+:END:
 ** CANCELED Methodology should be reproducible by other people leading to the same results
 CLOSED: [2019-04-29 Mon 13:57]
 ** CANCELED Cast study coverage w/QL
 CLOSED: [2019-04-25 Thu 21:05]
-** DONE Make a case for the complexity of Engineering for compiling/dependencies for static analysis
+** DONE Case for complexity of Engineering for compiling/dependencies for static analysis
 CLOSED: [2019-04-29 Mon 13:58]
 ** DONE Expand on study about the source of exceptions
 CLOSED: [2019-04-25 Thu 20:53]
 Showing CCE being a problem for developers
-** TODO Pattern Dynamic Proxy: Paper "Static Analysis of Java Dynamic Proxies"
+** DONE Pattern Dynamic Proxy: Paper "Static Analysis of Java Dynamic Proxies"
+CLOSED: [2019-05-06 Mon 18:22]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-06 Mon 18:22] \\
+  Discussion in ImplicitIntersectionType
+:END:
 ** TODO Literature Review: Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
 ** DONE Discussion about *strong typing* in "On understanding types, data abstraction, and polymorphism"
 CLOSED: [2019-04-29 Mon 16:23]
@@ -168,7 +183,7 @@ TypeTag think about reclassifiyng into ?LikelyBug.
 CLOSED: [2019-04-25 Thu 21:13]
 ** CANCELED Type erasure, Erased category: Removed groups
 CLOSED: [2019-04-25 Thu 21:13]
-** DONE Typecase on rethrow because of ~throws~ declaration
+** DONE Typecase on rethrow because of =throws= declaration
 CLOSED: [2019-04-25 Thu 19:31]
 ** DONE Logger is a redundant cast: Actually /KnownReturnType/
 CLOSED: [2019-04-25 Thu 19:30]
@@ -180,7 +195,8 @@ CLOSED: [2019-04-29 Mon 14:10]
 QL queries, what queries could be expresses in QL.
 Patterns as training set and then use ML, code equality.
 ** TODO Address completely Antonio's & Gabriele's comments on the proposal
-** TODO Address Antonio's comment on casting is not circumventing the static type system: Dynamically recovery information
+** TODO Address Antonio's comment on casting is not circumventing the static type system
+*** Dynamically recovery information
 ** TODO Address internal committee comments on the proposal
 *** Antonio's
 **** My first and perhaps most important objections are on the premise of
