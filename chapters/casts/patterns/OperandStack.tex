@@ -2,8 +2,8 @@
 The \thisp{} pattern consists of multiple cases,
 dispatched depending on some application-specific control state,
 with casts of the top elements of stack-like collection in each case.
-An application invariant ensures that if the application is in a given state
-then the top elements of the stack should be of known run-time types.
+An application invariant ensures that if the application is in a given 
+state then the top elements of the stack should be of known run-time types.
 
 \instances{}
 The following example,
@@ -53,7 +53,8 @@ and when a class is implementing a stack-like structure.
 
 
 \issues{}
-This pattern is usually seen when implementing grammar-related operations,
+In our sample,
+this pattern is always seen when implementing grammar-related operations,
 such as parsers or interpreters.
 In some situations, similar to the \nameref{pat:Stash} pattern,
 this pattern could be replaced with a strongly typed heterogenous collection~\citep{kiselyovStronglyTypedHeterogeneous2004}.
@@ -64,7 +65,7 @@ depending on application-specific guards.
 However, unlike \nameref{pat:Typecase}, 
 the success of the casts is ensured not by a type-tag-like value,
 but by application-specific state
-(\eg, the current parser state or the state of an evaluator)
+(\eg{}, the current parser state or the state of an evaluator)
 and proper use of the stack.
 
 \end{pattern}
