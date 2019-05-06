@@ -175,13 +175,31 @@ purely structural patterns of object-oriented interaction.
 \cite{huDynamicAnalysisDesign2008} used both dynamic and static analysis to discover design patterns, while \cite{arcelliDesignPatternDetection2008} used only dynamic.
 
 Trying to unify analysis and transformation tools,
-\cite{vinjuHowMakeBridge2006} and~\cite{klintRASCALDomainSpecific2009} built \rascal,
+\cite{vinjuHowMakeBridge2006} and~\cite{klintRASCALDomainSpecific2009} built \rascal{},
 a DSL that aims to bring them together by querying the AST of a program.
-
-As its name suggests,
-JavaParser\footnote{\url{http://javaparser.org/}}
+Spoon is a \java{} library
+``to analyze, rewrite, transform, transpile \java{} source code''~\citep{pawlak:hal-01169705}.
+It supports symbol resolution natively and match code elements using Spoon patterns.
+Probably one of the most mature libraries to parse and manipulate \java{} source code is Eclipse \java{} Development Tools (JDT).%
+\urlnote{https://www.eclipse.org/jdt/}
+Besides parsing \java{} source code,
+Eclipse JDT has the ability to compile, run, and debug \java{} source code.
+ExtendJ~\citep{Ekman:2007:JEJ:1297027.1297029} is an extensible \java{} compiler.
+It supports semantic analysis and bytecode generation.
+With \java{} 8, it is possible to write plug-ins for the \javac{} compiler.
+By writing a compiler plug-in, it is possible to add extra-compile checks,
+perform code transformations and custom analysis.
+JavaParser,\footnote{\url{http://javaparser.org/}} as its name suggests,
 is a parser for \java{}.
-The main issue with JavaParser is that it lacks the ability to perform symbol resolution integrated with the project dependencies.
+The main issue with JavaParser is that it lacks the ability to perform symbol resolution integrated with project dependencies.
+javalang\urlnote{https://github.com/c2nes/javalang} is a library written in \python{} to parse \java{} source code.
+
+In early prototypes of our cast study we have used
+javalang and a custom \javac{} plug-in,%
+\urlnote{https://gitlab.com/acuarica/java-cast-inspection}
+and JavaParser%
+\urlnote{https://gitlab.com/acuarica/java-cast-study}
+to parse and analyze \java{} source code.
 
 
 \section{Large-scale Codebase Empirical Studies}

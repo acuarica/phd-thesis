@@ -363,8 +363,12 @@ CLOSED: [2019-05-05 Sun 16:15]
   Added
 - State "TODO"       from              [2019-05-05 Sun 16:15]
 :END:
-** TODO Literature Review
-*** There are many Java parsers, why only JavaParser
+** DONE Literature Review, there are many Java parsers, why only JavaParser?
+CLOSED: [2019-05-07 Tue 00:57]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 00:57] \\
+  Added more parsers in Literature Review.
+:END:
 ** DONE Introduction casts chapter based on paper submitted
 CLOSED: [2019-05-06 Mon 13:22]
 :LOGBOOK:
