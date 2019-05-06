@@ -5,6 +5,9 @@
 \newcommand{\nExisCount}{8}
 \newcommand{\nCmarkCount}{11}
 \newcommand{\nXmarkCount}{6}
+\newcommand{\nExisPerc}{32.00}
+\newcommand{\nCmarkPerc}{44.00}
+\newcommand{\nXmarkPerc}{24.00}
 \newcommand{\nSeen}{5,530}
 \newcommand{\pSeen}{110.60}
 \newcommand{\nBrokenLink}{526}

@@ -391,9 +391,12 @@ patterns.def['ExisCount'] <- length(declared.ql[declared.ql=='\\exis'])
 patterns.def['CmarkCount'] <- length(declared.ql[declared.ql=='\\cmark'])
 patterns.def['XmarkCount'] <- length(declared.ql[declared.ql=='\\xmark'])
 
+patterns.def['ExisPerc'] = perc(patterns.def$ExisCount, patterns.def$Pattern)
+patterns.def['CmarkPerc'] = perc(patterns.def$CmarkCount, patterns.def$Pattern)
+patterns.def['XmarkPerc'] = perc(patterns.def$XmarkCount, patterns.def$Pattern)
+
 write.def(patterns.def, casts.def, 'casts.def')
 
- 
 # df.equals <- subset(df, df$features=='Equals')
 # df.wide <- dcast(df.equals, castid~args, length, value.var="args")
 # df.wide <- dcast(df, castid~features, length)
