@@ -63,7 +63,7 @@ taxonomy = list(
   'VariableSupertype' = list(
     'features' = c('VariableSupertype'),
     'categories' = c('dev'),
-    'ql' = '\\xmark'
+    'ql' = '\\exis'
   ),
   'UseRawType' = list(
     'features' = c('UseRawType'),

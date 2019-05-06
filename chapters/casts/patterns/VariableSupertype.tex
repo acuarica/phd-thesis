@@ -120,8 +120,29 @@ if (readers.size() == 1) {
 This pattern contains many variations that require manual inspection.
 To detect this pattern an interprocedural data-flow analysis would be required,
 since the value being cast could be assigned in another method.
+
 However, for some cases (\eg{}, the first example),
-some query approximations would be possible.
+some query approximations would be possible,
+since the cast and the assignment are in the same method.
+The following query shows how to approximate the detection in this case.
+The \code{forex} quantifier asserts that for every \code{Type t = getADef().getType()},
+then \code{t = getTargetType()},
+and that at least exists one \code{t} satisfying the condition,
+\ie{}, \code{t = getTargetType()}.
+
+\begin{listing}
+\begin{minted}{java}
+class VariableSupertypeCast extends #\qlref{VarCast}# { #\qlbox#
+	VariableSupertypeCast() {
+		forex (Type t | t = getADef().getType() | t = getTargetType()) and
+		#\qlref{isSubtype}#(getTargetType(), getExpr().getType())
+	}
+}
+\end{minted}
+\caption{Detection of the \thisp{} pattern.}
+\label{lst:ql:VariableSupertype}
+\end{listing}
+
 
 \issues{}
 In most the cases this can be considered as a bad practice or code smell.

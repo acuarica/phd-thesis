@@ -9,7 +9,7 @@
 \row \nameref{pat:SelectOverload} &  & \cmark &  &  &  &  & \cmark & \cmark \\
 \alt \nameref{pat:KnownReturnType} &  &  & \cmark &  & \cmark &  &  & \xmark \\
 \row \nameref{pat:Deserialization} &  &  & \cmark &  &  &  &  & \exis \\
-\alt \nameref{pat:VariableSupertype} &  &  &  &  & \cmark &  &  & \xmark \\
+\alt \nameref{pat:VariableSupertype} &  &  &  &  & \cmark &  &  & \exis \\
 \row \nameref{pat:SoleSubclassImplementation} &  & \cmark &  &  &  &  &  & \cmark \\
 \alt \nameref{pat:NewDynamicInstance} &  &  & \cmark &  &  &  &  & \cmark \\
 \row \nameref{pat:ObjectAsArray} &  &  &  &  & \cmark &  &  & \exis \\

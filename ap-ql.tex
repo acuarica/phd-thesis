@@ -176,6 +176,8 @@ class OverloadedArgument extends ArgumentEx {
 
 This class represents a cast applied to a variable.
 A \ql{} variable is a field, a local variable or a parameter.
+The \code{getADef} class predicate returns any definition for the variable being cast.
+This is used in the \nameref{pat:VariableSupertype} pattern.
 
 \begin{listing}
 \begin{minted}{java}
@@ -183,6 +185,12 @@ A \ql{} variable is a field, a local variable or a parameter.
 	Variable var;
 	VarCast() { var.getAnAccess() = getExpr() }
 	Variable getVar() { result = var }
+	Expr getADef() {
+		exists (VariableAssign def |
+			defUsePair(def, getExpr()) and
+			result = def.getSource()
+		)
+	}
 }
 \end{minted}
 \caption{\code{VarCast} class definition.}
