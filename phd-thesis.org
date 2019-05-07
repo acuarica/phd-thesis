@@ -509,7 +509,13 @@ CLOSED: [2019-05-07 Tue 16:23]
 *** 4.3 Manual detection of Cast pattern belong ~s~
 *** 4.3 other ~s~ cast expression
 *** 4.3 database not use, impossible->impractical
-*** 4.3 Remove best-effort sentence.
+*** DONE 4.3 Remove best-effort sentence.
+CLOSED: [2019-05-07 Tue 16:27]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 16:27] \\
+  Removed
+- State "TODO"       from              [2019-05-07 Tue 16:27]
+:END:
 *** the the typo
 *** We have to sample more of 5000, table contains 5530 rows, explain why
 *** Demographics of app/test/gen in overview
