@@ -80,6 +80,17 @@ thus giving more precision about its usage.
 As for the casting study,
 using a dynamic analysis could measure how many casts fail with \code{ClassCastException}.
 
+The two studies we conducted in this thesis analyse a single snapshot of a project,
+\ie{}, we did not look into the evolution of a project.
+Some patterns could be better understood in terms of their history.
+Questions like
+\emph{How did they solve this problem before using \unsafe{}?},
+or \emph{Why this cast is redundant?}
+could be answered by analysing the project's history. 
+Source code management tools, \eg{}, Git,
+maintain a detailed track of changes,
+which can point out the precise moment in time when an \unsafe{} operation or cast was introduced in a project.
+
 % What insights did you gain, can you summarize to what degree you answered the RQs?
 
 % We are currently working to define static analyses to detect some of these patterns automatically.
