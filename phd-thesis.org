@@ -508,7 +508,13 @@ CLOSED: [2019-05-07 Tue 16:23]
 *** 4.3 glue sentence
 *** 4.3 Manual detection of Cast pattern belong ~s~
 *** 4.3 other ~s~ cast expression
-*** 4.3 database not use, impossible->impractical
+*** DONE 4.3 database not use, impossible->impractical
+CLOSED: [2019-05-07 Tue 16:29]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 16:29] \\
+  Fixed
+- State "TODO"       from              [2019-05-07 Tue 16:29]
+:END:
 *** DONE 4.3 Remove best-effort sentence.
 CLOSED: [2019-05-07 Tue 16:27]
 :LOGBOOK:
