@@ -525,7 +525,11 @@ Another, perhaps more interesting question is how often those uses are
 identified as the root cause of failures.
 
 *** ONHOLD Gabriele's
-**** Chapter 3, only 1% of the projects (817 out of 86k) use the Unsafe API,
+**** DONE Chapter 3, only 1% of the projects (817 out of 86k) use the Unsafe API,
+CLOSED: [2019-05-08 Wed 01:09]
+:LOGBOOK:
+- State "DONE"       from              [2019-05-08 Wed 01:09]
+:END:
 but they use it a lot (48k usages). Why?
 **** Is the usage of the Unsafe API a form of technical debt?
 If yes, do you expect developers to refactor the code using the Usafe API?
@@ -617,7 +621,12 @@ CLOSED: [2019-05-08 Wed 00:22]
 *** Use as a motivation
 *** Cast provides a bridge between compile-time and run-time checking
 ** TODO Include type system soundness discussion for thesis
-** TODO Cast to null (SelectionOverload)
+** DONE Cast to null (SelectionOverload)
+CLOSED: [2019-05-08 Wed 00:47]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 00:47] \\
+  Evolution in conclusions.
+:END:
 Sometimes they are not redundant.
 For one case, find out in the history why it is redundant.
 ** TODO Literature Review: Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
