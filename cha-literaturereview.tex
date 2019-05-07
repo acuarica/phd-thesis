@@ -42,6 +42,8 @@ The importance of conducting empirical studies of programs gave rise to the Inte
 \footnote{\url{http://www.msrconf.org/}}
 in 2004.
 
+\section*{Outline}
+
 When conducting empirical studies about programs,
 multiple dimensions are involved.
 The first one is \emph{What to analyse?}
@@ -54,8 +56,8 @@ An overview of what tools are available to extract information from software rep
 With this infrastructure, \emph{what questions do researchers ask?}
 In Section~\ref{sec:literature-review:largescale},
 we give an overview of large-scale empirical studies that show what kind of questions researchers ask.
-This chapter ends by presenting the related work more specific to the Unsafe API and Casting in Sections~\ref{sec:literature-review:unsafe} and \ref{sec:literature-review:casting} respectively.
-
+In particular, this section ends by presenting the related work more specific to the Unsafe API and Casting in Sections~\ref{sec:literature-review:unsafe} and \ref{sec:literature-review:casting} respectively.
+Finally~\ref{sec:literature-review:conclusions} concludes this chapter.
 
 \section{Benchmarks and Corpora}
 \label{sec:literature-review:benchmarks}
@@ -326,14 +328,14 @@ by performing a comprehensive study of the \mavencentral{}
 software repository to analyse how and when \smu{} is being used.
 This study is summarized in Chapter~\ref{cha:unsafe}.
 
-\cite{tanSafeJavaNative2006} propose a safe variant of \jni{}.
+\cite{tanSafeJavaNative2006} propose a safe variant of the \java{} Native Interface (\jni{}).
 \cite{tanEmpiricalSecurityStudy2008} and~\cite{kondohFindingBugsJava2008}
 conducted an empirical security study to describe a taxonomy to classify bugs when using \jni{}.
 \cite{sunNativeGuardProtectingAndroid2014} develop a method to isolate native components in Android applications.
 \cite{liFindingBugsExceptional2009} analyse the discrepancy between how exceptions are handled in native code and \java{}.
 
-
-\subsection{Casting}\label{sec:literature-review:casting}
+\subsection{Casting}
+\label{sec:literature-review:casting}
 
 Casting operations in \java{}%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.16}}
@@ -393,3 +395,17 @@ Having artificial problems may lead to invalid conclusions.
 The work by~\cite{wuHowTypeErrors2017,wuLearningUserFriendly2017} goes towards this direction. 
 They have examined programs written by students to understand real debugging conditions. 
 Their focus is on ill-typed programs written in \haskell{}.
+
+\section{Conclusions}
+\label{sec:literature-review:conclusions}
+
+The \java{} Native Interface and \java{}'s reflection \api{} are well-studied topics.
+Several studies have been conducted to understand why developers use these features,
+and several analyses have been devised to check whether their usage is correct.
+
+But \java{}'s unsafe intrinsics and reflection capabilities comprise more than \jni{} and reflection \api{}.
+Unsafe operations can be performed by using the undocumented \smu{} class.
+The cast operator provides a lightweight form of reflection.
+However---to our knowledge---these features have never been studied before in the literature.
+Chapters~\ref{cha:unsafe} and \ref{cha:casts} provide the first empirical studies on the \unsafe{} \api{} and cast operator in \java{}. 
+We believe that understanding how and when developers use these features can provide informed decisions for the future of \java{} while providing a guide for developers with better or best practices.
