@@ -11,15 +11,13 @@ K = Total number of casts of the least used pattern
 n = Sample size to select
 k = Times we saw the least used cast from the sample: 0 meaning we do not see it in our sample
 https://keisan.casio.com/exec/system/1180573201
-** TODO Talk about reflection as a way to /escape/ the type system
-*** Then talk about casting as a subset of reflection
-** TODO Add discussion from <https://martinfowler.com/bliki/DynamicTyping.html>
-** DONE Discuss "Static Typing of Complex Presence Constraints in Interfaces" \cite{oostvogelsStaticTypingComplex2018a}
+** DONE Discuss "Static Typing of Complex Presence Constraints in Interfaces"
 CLOSED: [2019-05-06 Mon 15:46]
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2019-05-06 Mon 15:46] \\
   Added to SelectOverload.
 :END:
+*** Cite oostvogelsStaticTypingComplex2018a
 ** DONE Source of information for cast success
 CLOSED: [2019-05-06 Mon 15:47]
 :LOGBOOK:
@@ -35,20 +33,14 @@ CLOSED: [2019-05-06 Mon 15:47]
 - State "DONE"       from "TODO"       [2019-05-06 Mon 15:47] \\
   Discussion
 :END:
-** TODO Include type system soundness discussion for thesis
 ** DONE Find examples where ~instanceof~ is right and wrong
 CLOSED: [2019-04-25 Thu 21:06]
 ** DONE Quantify patterns, Qualitative data
 CLOSED: [2019-04-29 Mon 13:55]
 ** DONE Expand comment on usages of C ~goto~ s in GitHub (similar to our cast study)
 CLOSED: [2019-04-29 Mon 02:30]
-** TODO What conclusions did they draw on JNI usage?
-** TODO Expand discussion on static vs. dynamic analyses for these kinds of studies
 ** DONE How many JEPs have been adopted since 2015?
 CLOSED: [2019-04-29 Mon 00:34]
-** TODO Discuss aspects of type systems
-*** Static vs. Dynamic
-*** Staging-time/Compile-time/Link-time/Load-time/Run-time
 ** DONE Preliminary discussion about `checkcast` and `instanceof` bytecodes
 CLOSED: [2019-04-25 Thu 17:03]
 ** DONE Comment about why source code is necessary: upcasts are lost during compilation
@@ -82,7 +74,6 @@ CLOSED: [2019-05-06 Mon 18:22]
 - State "DONE"       from "TODO"       [2019-05-06 Mon 18:22] \\
   Discussion in ImplicitIntersectionType
 :END:
-** TODO Literature Review: Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
 ** DONE Discussion about *strong typing* in "On understanding types, data abstraction, and polymorphism"
 CLOSED: [2019-04-29 Mon 16:23]
 ** WONTDO Discuss why `classInstanceValue` (square/leakcanary) is not analyzable
@@ -91,13 +82,9 @@ Deserialization pattern
 ** DONE Discuss about `findViewById`
 CLOSED: [2019-04-25 Thu 20:56]
 Partial solutions in other languages
-** TODO Cast to null (SelectionOverload)
-Sometimes they are not redundant.
-For one case, find out in the history why it is redundant.
 ** DONE Cast int to long: Invocation context
 CLOSED: [2019-04-25 Thu 21:11]
 https://lgtm.com/projects/g/apache/commons-io/snapshot/dist-41210059-1524814812150/files/src/test/java/org/apache/commons/io/filefilter/FileFilterTestCase.java?#L1048
-
 ** DONE Cite Unsafe in Related Work.
 CLOSED: [2019-04-28 Sun 17:07]
 ** DONE Cite Pierce in the introduction of the casts chapter
@@ -203,76 +190,6 @@ How to handle bias?
 CLOSED: [2019-04-29 Mon 14:10]
 QL queries, what queries could be expresses in QL.
 Patterns as training set and then use ML, code equality.
-** TODO Address completely Antonio's & Gabriele's comments on the proposal
-** TODO Address Antonio's comment on casting is not circumventing the static type system
-*** Dynamically recovery information
-** TODO Address internal committee comments on the proposal
-*** Antonio's
-**** My first and perhaps most important objections are on the premise of
-the main research questions, namely that casting and unsafe are
-mechanism used to circumvent the type system.
-**** In particular, I would argue that a down-cast is not a way to
-circumvent the type system, but rather a perfectly clear and
-straightforward way to work /within/ the type system.
-**** The /Unsafe/ mechanism can do a lot more than messing around with types,
-so I wonder in what way the use of /Unsafe/ can be
-characterized as a way to circumvent the type system.
-Of the 14 usage patterns listed in Table 3.1, only two have something to do with the
-type system, namely throwing undeclared exceptions and updating
-/final/ fields -- and those don't seem to be significant breaches of
-the type systems anyway.
-**** The examples listed in Section 4.1 don't seem to indicate problems with
-the type system.
-In other words, here ClassCast exceptions
-not fundamentally different from, say, NullPointer exceptions.
-**** The percentage of /indirect/ use of /Unsafe/ is not am indication of
-the prevalence of bugs, let alone the prevalence of bugs that are
-actually due to the use of /Unsafe/.
-Perhaps you should look into that.
-**** It seems to me that you are focusing on a syntactic or anyway
-low-level aspect of the use of a programming language.
-You should instead focus on the /semantics/ of a particular use of
-a language feature.
-For example, you could ask, how often and in what cases do
-programmers use bound checks (in using arrays), and are those bad,
-perhaps because they make the code less readable, or they are
-unnecessary, because the checks are provably unnecessary.
-**** You say that performance is the main motivation for the uses of Unsafe.
-I would argue that the main motivation is instead another typical one:
-supporting various forms of application instrumentation or
-other application-independent services (e.g., a checkpointing library).
-**** DONE You say you focus on high-impact uses/features,
-CLOSED: [2019-04-29 Mon 15:06]
-but you seem to only use static analysis.
-Have you thought about measuring how often
-/Unsafe/ is actually used, meaning /dynamically/? 
-Another, perhaps more interesting question is how often those uses are
-identified as the root cause of failures.
-
-*** ONHOLD Gabriele's
-**** Chapter 3, only 1% of the projects (817 out of 86k) use the Unsafe API,
-but they use it a lot (48k usages). Why?
-**** Is the usage of the Unsafe API a form of technical debt?
-If yes, do you expect developers to refactor the code using the Usafe API?
-**** DONE Comment on the limitation of the study in Chapter 3
-CLOSED: [2019-04-29 Mon 14:28]
-related to the selection of the subject systems (libraries only)
-**** DONE Clarify the manual process used to define the taxonomy in Chapter 3
-CLOSED: [2019-04-29 Mon 09:59]
-(e.g., what is the confidence level/interval of the manually analyzed sample?
-how many evaluators have been involved in the process?
-how did you solve conflicts between evaluators? etc.)
-**** It would be interesting to look not only to commits fixing a ClassCastException,
-but also in code review repositories/issue trackers to analyze the developers’
-discussion and extract the rationale behind some implementation choices.
-**** Consider using the explicit link existing in GitHub between commits and issues
-to only analyze bug-fixing commits related to ClassCastException
-(and automatically exclude commits unrelated to bug-fixing activities).
-**** Look at the 2019 MSR challenge dataset.
-It reports discussions on Stack Overflow including their code snippets linked to projects in GitHub.
-You can see whether a given code snippet in SO has been reused in GitHub projects and
-this can give you some hints on why developers use the Unsafe API or some type cast patterns.
-
 ** DONE Literature Review: Add to introduction
 CLOSED: [2019-04-27 Sat 15:04]
 Users/Compilers Java/Scala generated bytecode
@@ -300,47 +217,9 @@ CLOSED: [2019-05-06 Mon 00:17]
 *** OperandStack example: Method names, difficult to came up with a QL query
 *** QL queries are subset of manual detection
 *** Quite impractical, how to recognize a stack?
-** TODO Conclusions and Introduction need to be bigger
-:LOGBOOK:
-- State "TODO"       from              [2019-05-01 Wed 22:57]
-:END:
-*** My learning in these 5 years
-*** Take home for me as a PhD student, see it as a dissertation
-*** Boa or QL
-*** JNIF/ASM
-*** /Lessons Learnt/ section in conclusions
-** TODO Literature Review
-:LOGBOOK:
-- State "TODO"       from              [2019-05-01 Wed 22:57]
-:END:
-*** Add a table to help visualize the chapter
-*** Like an overview
-** TODO Qualitative/Quantitative Research
-:LOGBOOK:
-- State "TODO"       from              [2019-05-01 Wed 22:57]
-:END:
-*** What methodology did I use?
-*** Add this to the conclusion
-*** How am I going to answer the RQ?
-*** Small description after the RQ presentation
-*** Relate to repository mining in the introduction
-** TODO When the answers to the RQs are good enough?
-:LOGBOOK:
-- State "TODO"       from              [2019-05-01 Wed 22:57]
-:END:
-** TODO Conclusions in each chapter (also in Literature Review)
-:LOGBOOK:
-- State "TODO"       from              [2019-05-01 Wed 22:57]
-:END:
-*** Each conclusion should bridge to the next chapter
-*** In Literature review: finish the chapter motivating the next 2 chapters
-*** Conclusion in Literature Review
-*** /There is a hole, I'm going to fill it, it's important/
 ** DONE Chapter and Section capitalized
 CLOSED: [2019-04-30 Tue 21:01]
 *** Look introduction in JNIF
-** TODO Unsafe and Casts chapter title renamed
-*** Under the thesis introduction
 ** DONE Underfull & overfull boxes in PDF
 CLOSED: [2019-04-30 Tue 20:58]
 ** DONE Send email remainder to Matthias & Nate to read it
@@ -360,17 +239,6 @@ CLOSED: [2019-05-01 Wed 19:22]
 - State "TODO"       from              [2019-05-01 Wed 19:21]
 :END:
 *** Ask to Rajan & Jan to confirm if they are going to be in Lugano
-** TODO Introduction
-*** More on advantanges of static typing
-*** More on dangers of unsafe/casting
-*** Also reflection/native code
-*** DONE Make subsection /Outline/ to introduce rest of thesis
-CLOSED: [2019-05-05 Sun 16:15]
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2019-05-05 Sun 16:15] \\
-  Added
-- State "TODO"       from              [2019-05-05 Sun 16:15]
-:END:
 ** DONE Literature Review, there are many Java parsers, why only JavaParser?
 CLOSED: [2019-05-07 Tue 00:57]
 :LOGBOOK:
@@ -419,16 +287,6 @@ CLOSED: [2019-05-01 Wed 19:22]
 :END:
 *** Comments on both chapters 3 & 4
 *** Used for first attempts to conduct the studies
-** TODO Relate ~null~ as theoretical point of view in the TAPL book
-:LOGBOOK:
-- State "TODO"       from              [2019-05-01 Wed 20:11]
-:END:
-** TODO Featherweight Java is sound unless you use cast
-:LOGBOOK:
-- State "TODO"       from              [2019-05-01 Wed 20:11]
-:END:
-*** Use as a motivation
-*** Cast provides a bridge between compile-time and run-time checking
 ** WONTDO ExceptionSoftening
 CLOSED: [2019-05-02 Thu 02:53]
 :LOGBOOK:
@@ -455,10 +313,6 @@ CLOSED: [2019-05-03 Fri 20:58]
 :END:
 *** When linking is not visible, annoying scroll needed
 
-** TODO Write to decanato & committee to re-confirm date
-:LOGBOOK:
-- State "TODO"       from              [2019-05-07 Tue 14:40]
-:END:
 ** DONE Matthias's comments
 CLOSED: [2019-05-07 Tue 19:57]
 :LOGBOOK:
@@ -620,3 +474,155 @@ CLOSED: [2019-05-07 Tue 17:45]
   Removed
 - State "TODO"       from              [2019-05-07 Tue 17:45]
 :END:
+** TODO Write to decanato & committee to re-confirm date
+:LOGBOOK:
+- State "TODO"       from              [2019-05-07 Tue 14:40]
+:END:
+** TODO Address completely Antonio's & Gabriele's comments on the proposal
+** TODO Address Antonio's comment on casting is not circumventing the static type system
+*** Dynamically recovery information
+** TODO Address internal committee comments on the proposal
+*** Antonio's
+**** My first and perhaps most important objections are on the premise of
+the main research questions, namely that casting and unsafe are
+mechanism used to circumvent the type system.
+**** In particular, I would argue that a down-cast is not a way to
+circumvent the type system, but rather a perfectly clear and
+straightforward way to work /within/ the type system.
+**** The /Unsafe/ mechanism can do a lot more than messing around with types,
+so I wonder in what way the use of /Unsafe/ can be
+characterized as a way to circumvent the type system.
+Of the 14 usage patterns listed in Table 3.1, only two have something to do with the
+type system, namely throwing undeclared exceptions and updating
+/final/ fields -- and those don't seem to be significant breaches of
+the type systems anyway.
+**** The examples listed in Section 4.1 don't seem to indicate problems with
+the type system.
+In other words, here ClassCast exceptions
+not fundamentally different from, say, NullPointer exceptions.
+**** The percentage of /indirect/ use of /Unsafe/ is not am indication of
+the prevalence of bugs, let alone the prevalence of bugs that are
+actually due to the use of /Unsafe/.
+Perhaps you should look into that.
+**** It seems to me that you are focusing on a syntactic or anyway
+low-level aspect of the use of a programming language.
+You should instead focus on the /semantics/ of a particular use of
+a language feature.
+For example, you could ask, how often and in what cases do
+programmers use bound checks (in using arrays), and are those bad,
+perhaps because they make the code less readable, or they are
+unnecessary, because the checks are provably unnecessary.
+**** You say that performance is the main motivation for the uses of Unsafe.
+I would argue that the main motivation is instead another typical one:
+supporting various forms of application instrumentation or
+other application-independent services (e.g., a checkpointing library).
+**** DONE You say you focus on high-impact uses/features,
+CLOSED: [2019-04-29 Mon 15:06]
+but you seem to only use static analysis.
+Have you thought about measuring how often
+/Unsafe/ is actually used, meaning /dynamically/? 
+Another, perhaps more interesting question is how often those uses are
+identified as the root cause of failures.
+
+*** ONHOLD Gabriele's
+**** Chapter 3, only 1% of the projects (817 out of 86k) use the Unsafe API,
+but they use it a lot (48k usages). Why?
+**** Is the usage of the Unsafe API a form of technical debt?
+If yes, do you expect developers to refactor the code using the Usafe API?
+**** DONE Comment on the limitation of the study in Chapter 3
+CLOSED: [2019-04-29 Mon 14:28]
+related to the selection of the subject systems (libraries only)
+**** DONE Clarify the manual process used to define the taxonomy in Chapter 3
+CLOSED: [2019-04-29 Mon 09:59]
+(e.g., what is the confidence level/interval of the manually analyzed sample?
+how many evaluators have been involved in the process?
+how did you solve conflicts between evaluators? etc.)
+**** It would be interesting to look not only to commits fixing a ClassCastException,
+but also in code review repositories/issue trackers to analyze the developers’
+discussion and extract the rationale behind some implementation choices.
+**** Consider using the explicit link existing in GitHub between commits and issues
+to only analyze bug-fixing commits related to ClassCastException
+(and automatically exclude commits unrelated to bug-fixing activities).
+**** Look at the 2019 MSR challenge dataset.
+It reports discussions on Stack Overflow including their code snippets linked to projects in GitHub.
+You can see whether a given code snippet in SO has been reused in GitHub projects and
+this can give you some hints on why developers use the Unsafe API or some type cast patterns.
+
+** TODO Conclusions and Introduction need to be bigger
+:LOGBOOK:
+- State "TODO"       from              [2019-05-01 Wed 22:57]
+:END:
+*** My learning in these 5 years
+*** Take home for me as a PhD student, see it as a dissertation
+*** Boa or QL
+*** JNIF/ASM
+*** /Lessons Learnt/ section in conclusions
+** TODO Introduction
+:LOGBOOK:
+- State "TODO"       from              [2019-05-08 Wed 00:05]
+:END:
+*** More on advantanges of static typing
+*** More on dangers of unsafe/casting
+*** Also reflection/native code
+*** DONE Make subsection /Outline/ to introduce rest of thesis
+CLOSED: [2019-05-05 Sun 16:15]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-05 Sun 16:15] \\
+  Added
+- State "TODO"       from              [2019-05-05 Sun 16:15]
+:END:
+** TODO Literature Review
+:LOGBOOK:
+- State "TODO"       from              [2019-05-01 Wed 22:57]
+:END:
+*** Add a table to help visualize the chapter
+*** Like an overview
+** TODO Qualitative/Quantitative Research
+:LOGBOOK:
+- State "TODO"       from              [2019-05-01 Wed 22:57]
+:END:
+*** What methodology did I use?
+*** Add this to the conclusion
+*** How am I going to answer the RQ?
+*** Small description after the RQ presentation
+*** Relate to repository mining in the introduction
+** TODO When the answers to the RQs are good enough?
+:LOGBOOK:
+- State "TODO"       from              [2019-05-01 Wed 22:57]
+:END:
+** TODO Conclusions in each chapter (also in Literature Review)
+:LOGBOOK:
+- State "TODO"       from              [2019-05-01 Wed 22:57]
+:END:
+*** Each conclusion should bridge to the next chapter
+*** In Literature review: finish the chapter motivating the next 2 chapters
+*** Conclusion in Literature Review
+*** /There is a hole, I'm going to fill it, it's important/
+** TODO Unsafe and Casts chapter title renamed
+*** Under the thesis introduction
+** TODO Talk about reflection as a way to /escape/ the type system
+*** Then talk about casting as a subset of reflection
+** TODO Add discussion from <https://martinfowler.com/bliki/DynamicTyping.html>
+** CANCELED Relate ~null~ as theoretical point of view in the TAPL book
+CLOSED: [2019-05-08 Wed 00:22]
+:LOGBOOK:
+- State "CANCELED"   from "TODO"       [2019-05-08 Wed 00:22] \\
+  Only Option<T>
+- State "TODO"       from              [2019-05-01 Wed 20:11]
+:END:
+** TODO Featherweight Java is sound unless you use cast
+:LOGBOOK:
+- State "TODO"       from              [2019-05-01 Wed 20:11]
+:END:
+*** Use as a motivation
+*** Cast provides a bridge between compile-time and run-time checking
+** TODO Include type system soundness discussion for thesis
+** TODO Cast to null (SelectionOverload)
+Sometimes they are not redundant.
+For one case, find out in the history why it is redundant.
+** TODO Literature Review: Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
+** TODO What conclusions did they draw on JNI usage?
+** TODO Expand discussion on static vs. dynamic analyses for these kinds of studies
+** TODO Discuss aspects of type systems
+*** Static vs. Dynamic
+*** Staging-time/Compile-time/Link-time/Load-time/Run-time
