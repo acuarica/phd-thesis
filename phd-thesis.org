@@ -544,16 +544,25 @@ CLOSED: [2019-05-07 Tue 16:42]
   Fixed typo in several places.
 - State "TODO"       from              [2019-05-07 Tue 16:42]
 :END:
-*** TODO We have to sample more of 5000, table contains 5530 rows, explain why
+*** DONE We have to sample more of 5000, table contains 5530 rows, explain why
+CLOSED: [2019-05-07 Tue 18:52]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 18:52] \\
+  Rephrase paragraph.
 - State "TODO"       from              [2019-05-07 Tue 18:06]
 :END:
-*** TODO Demographics of app/test/gen in overview
+*** DONE Demographics of app/test/gen in overview
+CLOSED: [2019-05-07 Tue 18:30]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 18:30] \\
+  Added to table
 - State "TODO"       from              [2019-05-07 Tue 18:06]
 :END:
-*** TODO Anticipation with figure 4.1 of app/test/gen of discussion in patterns
+*** DONE Anticipation with figure 4.1 of app/test/gen of discussion in patterns
+CLOSED: [2019-05-07 Tue 18:30]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 18:30] \\
+  Added paragraph.
 - State "TODO"       from              [2019-05-07 Tue 18:06]
 :END:
 *** DONE The authors: I discussed with my advisors

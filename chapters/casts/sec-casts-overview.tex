@@ -31,6 +31,11 @@ The possibly unguarded casts are cases where the application developer
 has some reason for believing the cast will succeed,
 but it is not immediately apparent in the source code.
 
+As with any expression, casts can appear in either application/library code, test code, or generated code.
+As expected, most casts appear in application or library code (\pPatternSrc{}\%).
+However, casts in test and generated code are not negligible
+(\pPatternTest{}\% and \pPatternGen{}\% respectively).
+
 As we describe in the next section,
 nearly all guarded casts fit into just a few patterns.
 Unguarded or possibly unguarded casts account for most of the patterns.

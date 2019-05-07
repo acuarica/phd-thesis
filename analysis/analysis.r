@@ -337,6 +337,10 @@ for (pname in levels(as.factor(df$pattern))) {
   }
 }
 
+casts.def["PatternSrc"] <- nrow(df[which(df$scope=='src'),])
+casts.def["PatternTest"] <- nrow(df[which(df$scope=='test'),])
+casts.def["PatternGen"] <- nrow(df[which(df$scope=='gen'),])
+
 df <- df[!(df$pattern %in% c('Primitive', 'ToRemove')), ]
 
 tb <- table(df$pattern)
