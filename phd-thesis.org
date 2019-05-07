@@ -333,7 +333,7 @@ CLOSED: [2019-05-06 Mon 00:17]
 - State "TODO"       from              [2019-05-01 Wed 22:57]
 :END:
 *** Each conclusion should bridge to the next chapter
-*** In Literature review: finish the chapter motivating the next 2 chapter
+*** In Literature review: finish the chapter motivating the next 2 chapters
 *** Conclusion in Literature Review
 *** /There is a hole, I'm going to fill it, it's important/
 ** DONE Chapter and Section capitalized
