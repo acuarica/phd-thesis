@@ -6,7 +6,7 @@ Several studies~\citep{kechagiaUndocumentedUncheckedExceptions2014,coelhoUnveili
 suggest that in \java{},
 the \code{ClassCastException} is in the top ten of exceptions being thrown when analysing stack traces.
 These studies have analysed the exceptions thrown in stack traces.
-The exceptions come from third-party libraries \api{}s and the Android \api{},
+The exceptions come from third-party libraries and the Android \api{},
 indicating a misuse of such \api{}s.
 \code{ClassCastException} is in the top 10 of exceptions thrown,
 thus it represents a problem for developers.
@@ -52,7 +52,7 @@ In the next example the developer made a mistake by choosing a wrong class for t
 The \code{CustomFileFilter} is an inner static class inside the \code{JCustomFileFilter} class.
 There is no subclass relationship between these two classes.
 The cast happens inside an \code{equals} method---where this idiom is well known---within the \code{CustomFileFilter} class.
-But the developer made a typo, using the outer class (\code{JCustomFileFilter}), instead of the inner class (\code{CustomFileFilter}).
+But the developer picked the wrong class, the outer class (\code{JCustomFileFilter}), instead of the inner class (\code{CustomFileFilter}).
 
 %https://github.com/GoldenGnu/jeveassets/commit/5f4750bc8cfa7eed8ad01efd8add2cd2cc9bd831
 \def\urlvar{http://bit.ly/GoldenGnu_jeveassets_2vsLbMr}
@@ -107,8 +107,9 @@ If the lookup is successful,
 the method casts the value found to type \code{T}.
 In the call, the given property
 \code{"peer.p2p.pingInterval"} is in the table and mapped to an \code{Integer}.
-However, \java{} uses the type of the \code{defaultValue} argument, in this
-case \code{Long}, to instantiate the type parameter \code{T}.
+However, \java{} uses the type of the \code{defaultValue} argument 
+to instantiate the type parameter \code{T}.
+In this case, \code{Long}---autoboxed from \code{5L} of type \code{long}---is used as the type parameter \code{T}.
 
 Note, however, that the cast inside \code{getProperty}, which in this context
 should cast from \code{Integer} to \code{Long}, \emph{does not fail}.

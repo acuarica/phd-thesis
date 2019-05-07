@@ -65,9 +65,8 @@ astore_2
 
 This run-time check can either \emph{succeed} or \emph{fail}.
 A \code{ClassCastException} is thrown when a downcast fails.
-This exception is an unchecked exception, \ie,
-the programmer is required neither to handle it
-nor to specify the exception in the method signature.
+This exception is an unchecked exception, \ie{},
+the programmer is neither required to handle nor to specify the exception in the method signature.
 Listing~\ref{lst:casts:catchcce} shows how to detect whether a cast failed by catching this exception.
 
 \begin{listing}
@@ -140,13 +139,13 @@ one primitive (non-reference) type, usually a numeric type, to another. These co
 in loss of precision of the numeric value, although they do not fail with a
 run-time exception.
 
-\emph{Boxing} and \emph{unboxing} occur when casting from a primitive type to
-a reference type or vice versa, \eg, \code{(Integer) 3} converts the primitive
-\code{int} 3 into a boxed \code{java.lang.Integer}.
-Like downcasts, unboxing casts can fail at
-run time if the source value cannot be converted to the target type.
-\java{} supports \emph{autoboxing} and \emph{autounboxing} between primitives and their corresponding
-boxed type in the \code{java.lang} package.
+\emph{Boxing} and \emph{unboxing} occur when casting from a primitive type to the corresponding reference type or vice versa,
+\eg{}, \code{(Integer) 3} converts the primitive \code{int} 3 into a boxed \code{java.lang.Integer}.
+Unlike downcasts, unboxing casts never \code{throw} a \code{ClassCastException}.
+However, an unboxing conversion throws a \code{NullPointerException} when 
+the cast operand is \code{null}, \eg{}, \code{(double) (Double) null}.%
+\urlnote{https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html\#jls-5.1.8}
+\java{} supports \emph{autoboxing} and \emph{autounboxing} between primitives and their corresponding boxed type in the \code{java.lang} package.
 
 Generics were introduced into \java{} to provide more static type safety.
 For instance, the type \code{List<T>} contains only elements of type \code{T}.
