@@ -38,9 +38,9 @@ The cast succeeds if the data structure is well-formed.
 This pattern is only seen in application code,
 since it is used when designing an extensible API.
 
-More precise typing of the links in the the data structure could 
+More precise typing of the links in the data structure could 
 eliminate the need for the casts. For example, in the above example,
-the sibling of a \code{TableSectionBox} might be declared to have type
+the sibling of a \code{TableSection\-Box} might be declared to have type
 \code{TableSectionBox}. However, this may require the programmer to override
 methods to refine return types covariantly.
 Language features available in other languages like generalized algebraic data types (GADTs)~\citep{gadts} or self types~\citep{bruceChallengingTypingIssues2003,scalaIndependentlyExtensible} could also be used to provide a more precise typing.

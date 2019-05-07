@@ -45,7 +45,7 @@ Phantom types are type parameters used solely for type checking and are not occu
 
 This pattern also occurs with empty collections.
 For instance, the \java{} standard library implementation of the method \code{Collections.<T>emptyList()} casts a private constant with raw type \code{List} to a \code{List<T>}.
-This is safe because the the list is empty and has no elements of type \code{T}.
+This is safe because the list is empty and has no elements of type \code{T}.
 
 \scala{} has an unoccupied \code{Nothing} type to handle this situation.
 For instance, an (immutable) empty list has \code{List[Nothing]},

@@ -66,7 +66,7 @@ X509CRL crl = (X509CRL)cf.generateCRL(new ByteArrayInputStream(directCRL));
 
 In our last example the cast instance (line 2) is applied to the result of \code{parse} method.
 The return type of \code{parse} is of type \code{Statement}, but,
-since the the statement is a \code{SELECT} statement,
+since the statement is a \code{SELECT} statement,
 the value returned by the \code{parse} method is known to be of type \code{Select}
 and the cast should succeed.
 %https://lgtm.com/projects/g/JSQLParser/JSqlParser/snapshot/dist-43250114-1524814812150/files/src/test/java/net/sf/jsqlparser/test/select/SelectTest.java?sort=name&dir=ASC&mode=heatmap#L437
