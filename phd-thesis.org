@@ -554,6 +554,24 @@ CLOSED: [2019-05-07 Tue 15:19]
 *** Casts discussion itemize columns
 *** Boxing: and viceversa.
 *** infeasible
-*** JEP 218: ameliorate in this respect
-*** Conclusions: devised->discover
-*** Conclusions: Remove last paragraph
+*** DONE JEP 218: ameliorate in this respect
+CLOSED: [2019-05-07 Tue 17:48]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 17:48] \\
+  [...] in this respect.
+- State "TODO"       from              [2019-05-07 Tue 17:48]
+:END:
+*** DONE Conclusions: devised->discover
+CLOSED: [2019-05-07 Tue 17:47]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 17:47] \\
+  Using discovered.
+- State "TODO"       from              [2019-05-07 Tue 17:47]
+:END:
+*** DONE Conclusions: Remove last paragraph
+CLOSED: [2019-05-07 Tue 17:45]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 17:45] \\
+  Removed
+- State "TODO"       from              [2019-05-07 Tue 17:45]
+:END:
