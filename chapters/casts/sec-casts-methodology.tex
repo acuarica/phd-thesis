@@ -1,14 +1,15 @@
 \section{Finding Cast Usage Patterns}
 \label{sec:casts:methodology}
 
-To answer our research questions,
+Since casts represent a problem for developers,
+we aim to provide an answer for our research questions,
 \ref{casts:rq1} (\emph{\crqA}),
 \ref{casts:rq2} (\emph{\crqB}) and
-\ref{casts:rq3} (\emph{\crqC})
-several elements are needed,
-we need a corpus of representative ``real world'' code and we need to perform
+\ref{casts:rq3} (\emph{\crqC}).
+To answer them several elements are needed.
+We need a corpus of representative ``real world'' code and we need to perform
 source code analysis to identify cast operations and to help classify these
-operations.
+operations into usage patterns.
 
 
 \subsection*{Corpus Analysis}
@@ -103,7 +104,7 @@ The last two columns---\col{link} and \col{value}---are the link to the source c
 The script to process the results of the manual inspection is available online as well.%
 \footnote{\url{https://gitlab.com/acuarica/phd-thesis/blob/master/analysis/analysis.r}}
 We had to sample more than \nSize{} casts.
-The CSV table contains \nSeen{} casts (rows).
+The CSV table mentioned above contains \nSeen{} casts (rows).
 This is because we found \nBrokenLink{} links that were not accessible during our analysis,
 making manual code inspection impossible.
 Inaccessible links can be found because some projects were removed from the \lgtm{} platform.

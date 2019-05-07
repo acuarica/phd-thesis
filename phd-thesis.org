@@ -459,8 +459,11 @@ CLOSED: [2019-05-03 Fri 20:58]
 :LOGBOOK:
 - State "TODO"       from              [2019-05-07 Tue 14:40]
 :END:
-** TODO Matthias's comments
+** DONE Matthias's comments
+CLOSED: [2019-05-07 Tue 19:57]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 19:57] \\
+  Addressed all TODOs.
 - State "TODO"       from              [2019-05-07 Tue 14:39]
 :END:
 *** DONE Be consistent with analyze
@@ -505,8 +508,11 @@ CLOSED: [2019-05-07 Tue 16:23]
   Fixed sentence
 - State "TODO"       from              [2019-05-07 Tue 16:23]
 :END:
-*** TODO 4.3 glue sentence
+*** DONE 4.3 glue sentence
+CLOSED: [2019-05-07 Tue 19:56]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 19:56] \\
+  Glue sentence between 4.2 and 4.3.
 - State "TODO"       from              [2019-05-07 Tue 18:06]
 :END:
 *** DONE 4.3 Manual detection of Cast pattern belong ~s~
