@@ -1,6 +1,5 @@
-\input{chapters/unsafe/stats}
-
-\chapter{The \java{} Unsafe \api{} in the Wild}\label{cha:unsafe}
+\chapter{Empirical Study on the \unsafe{} \api{}}
+\label{cha:unsafe}
 
 The \java{} Virtual Machine (\jvm{}) executes \java{} bytecode and
 provides other services for programs written in
@@ -63,6 +62,8 @@ but also confusing or difficult to use,
 then its use by third-party developers is particularly problematic.
 If there are specific \unsafe{} features or usage patterns that developers worry about,
 it would make sense to evolve \java{} or the \jvm{} to provide safer alternatives in that direction.
+
+\input{chapters/unsafe/stats}
 
 We studied a large repository of \java{} code, \mavencentral{},
 to answer these questions.

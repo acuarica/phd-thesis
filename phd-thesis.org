@@ -605,7 +605,12 @@ CLOSED: [2019-05-08 Wed 01:48]
 *** In Literature review: finish the chapter motivating the next 2 chapters
 *** Conclusion in Literature Review
 *** /There is a hole, I'm going to fill it, it's important/
-** TODO Unsafe and Casts chapter title renamed
+** DONE Unsafe and Casts chapter title renamed
+CLOSED: [2019-05-08 Wed 01:57]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 01:57] \\
+  Renamed.
+:END:
 *** Under the thesis introduction
 ** TODO Talk about reflection as a way to /escape/ the type system
 *** Then talk about casting as a subset of reflection
