@@ -459,7 +459,7 @@ CLOSED: [2019-05-03 Fri 20:58]
 :LOGBOOK:
 - State "TODO"       from              [2019-05-07 Tue 14:40]
 :END:
-** TODO Matthias comments
+** TODO Matthias's comments
 :LOGBOOK:
 - State "TODO"       from              [2019-05-07 Tue 14:39]
 :END:
@@ -506,8 +506,20 @@ CLOSED: [2019-05-07 Tue 16:23]
 - State "TODO"       from              [2019-05-07 Tue 16:23]
 :END:
 *** 4.3 glue sentence
-*** 4.3 Manual detection of Cast pattern belong ~s~
-*** 4.3 other ~s~ cast expression
+*** DONE 4.3 Manual detection of Cast pattern belong ~s~
+CLOSED: [2019-05-07 Tue 16:37]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 16:37] \\
+  Rephrase sentence.
+- State "TODO"       from              [2019-05-07 Tue 16:37]
+:END:
+*** DONE 4.3 other ~s~ cast expression
+CLOSED: [2019-05-07 Tue 16:37]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 16:37] \\
+  Fix typo
+- State "TODO"       from              [2019-05-07 Tue 16:37]
+:END:
 *** DONE 4.3 database not use, impossible->impractical
 CLOSED: [2019-05-07 Tue 16:29]
 :LOGBOOK:
@@ -522,7 +534,13 @@ CLOSED: [2019-05-07 Tue 16:27]
   Removed
 - State "TODO"       from              [2019-05-07 Tue 16:27]
 :END:
-*** the the typo
+*** DONE the the typo
+CLOSED: [2019-05-07 Tue 16:42]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 16:42] \\
+  Fixed typo in several places.
+- State "TODO"       from              [2019-05-07 Tue 16:42]
+:END:
 *** We have to sample more of 5000, table contains 5530 rows, explain why
 *** Demographics of app/test/gen in overview
 *** Anticipation with figure 4.1 of app/test/gen of discussion in patterns
