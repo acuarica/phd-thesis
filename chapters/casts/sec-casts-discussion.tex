@@ -1,10 +1,12 @@
 \section{Discussion}\label{sec:casts:discussion}
 
-\newcommand{\gh}[1]{\emph{\textbf{#1}}}
+\newcommand{\gc}[1]{\emph{\textbf{#1}}}
+\newcommand{\gh}[1]{\item\gc{#1}}
 There are common aspects shared by several patterns.
 Table~\ref{table:casts:categories} presents a summary of the patterns and their different aspects.
 The table consists of the following columns:
-The \gh{Pattern} column indicates the name of the pattern.
+\begin{itemize}
+\gh{Pattern} Indicates the name of the pattern.
 \gh{Guarded} The patterns here are guarded casts.
 A guarded cast is a cast such that before the cast is applied,
 some condition---the \emph{guard}---needs to be verified.
@@ -20,11 +22,12 @@ can be removed with little refactoring,
 or suggest a code smell in the source code.
 \gh{Generics} The casts in this category are related to generics or reified generics.
 \gh{Boxing} These casts are related with explicit boxing/unboxing operations, \ie{},
-explicit converting values of primitive types to boxed types back and forth.
+explicit converting values of primitive types to boxed types and vice versa.
 \gh{\ql{}}
-A bullet (\exis{}) in the \ql{} columns indicates that a pattern is partially detected in \ql{};
+A bullet (\exis{}) in this column indicates that a pattern is partially detected in \ql{};
 a check mark (\tick{}) indicates that we have provided a \ql{} query for automatic detection; and
 a cross mark (\xmark{}) indicates that is infeasible or impractical to detect this pattern in \ql{}.
+\end{itemize}
 
 \input{chapters/casts/table-casts-categories}
 
@@ -98,7 +101,7 @@ the \nameref{pat:SelectOverload} pattern uses boxing/unboxing to select the appr
 while the \nameref{pat:ReflectiveAccessibility} pattern
 uses unboxing when the field being accessed is of a primitive type.
 
-The \gh{\ql{}} column shows whether a pattern can be automatically detected using \ql{}.
+The \gc{\ql{}} column shows whether a pattern can be automatically detected using \ql{}.
 Currently we have \nCmarkCount{} patterns for which we can automatically detect them, and
 \nExisCount{} where at least we can partially detect them.
 Just \nXmarkCount{} patterns (out of \nPattern{} or \nXmarkPerc{}\%) are impractical to automatically detect.
