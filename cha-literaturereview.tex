@@ -44,12 +44,12 @@ in 2004.
 
 When conducting empirical studies about programs,
 multiple dimensions are involved.
-The first one is \emph{What to analyze?}
-Benchmarks and corpora are used as a source of programs to analyze.
+The first one is \emph{What to analyse?}
+Benchmarks and corpora are used as a source of programs to analyse.
 Another aspect is how to select good candidates projects from a large-base software repository.
 This is presented in Section~\ref{sec:literature-review:benchmarks}.
-After the selection of programs to analyze is set,
-comes the question \emph{how to analyze them?}
+After the selection of programs to analyse is set,
+comes the question \emph{how to analyse them?}
 An overview of what tools are available to extract information from software repositories is given in Section~\ref{sec:literature-review:mining}.
 With this infrastructure, \emph{what questions do researchers ask?}
 In Section~\ref{sec:literature-review:largescale},
@@ -94,10 +94,10 @@ real-world applications.
 Thus, while not curated corpora, these hosting services are
 commonly used to conduct empirical studies.
 
-Another dimension to consider when analyzing large codebases, is how relevant the repositories are.
+Another dimension to consider when analysing large codebases, is how relevant the repositories are.
 \cite{lopesDeJaVuMapCode2017} conducted a study to measure code duplication in \github{}.
 They found out that much of the code there is actually duplicated.
-This raises a flag when considering which projects to analyze when mining software repositories.
+This raises a flag when considering which projects to analyse when mining software repositories.
 
 \cite{baxterCloneDetectionUsing1998} propose a clone detection algorithm using Abstract Syntax Trees,
 while \cite{riegerVisualDetectionDuplicated} propose a visual detection for clones.
@@ -115,7 +115,7 @@ and number of commits.
 When talking about mining software repositories,
 we refer to extracting any kind of information from large-scale codebase repositories. 
 Usually doing so requires several engineering but challenging tasks.
-The most common being downloading, storing, parsing, analyzing and
+The most common being downloading, storing, parsing, analysing and
 properly extracting information from different kinds of artifacts.
 In this scenario, there are several tools that allows a researcher or developer to query information about software repositories.
 
@@ -160,7 +160,7 @@ On top of \boa{},~\cite{tiwariCandoiaPlatformBuilding2017} built \candoia{}%
 Although it is not a mining software repository \perse{},
 it eases the creation of mining applications. 
 
-Another tool to analyze large software repositories is presented in~\cite{brandauerSpencerInteractiveHeap2017}.
+Another tool to analyse large software repositories is presented in~\cite{brandauerSpencerInteractiveHeap2017}.
 In this case, the analysis is dynamic, based on program traces. 
 At the time of this writing, the service\footnote{\url{http://www.spencer-t.racing/datasets}} was unavailable for testing. 
 
@@ -178,7 +178,7 @@ Trying to unify analysis and transformation tools,
 \cite{vinjuHowMakeBridge2006} and~\cite{klintRASCALDomainSpecific2009} built \rascal{},
 a DSL that aims to bring them together by querying the AST of a program.
 Spoon is a \java{} library
-``to analyze, rewrite, transform, transpile \java{} source code''~\citep{pawlak:hal-01169705}.
+``to analyse, rewrite, transform, transpile \java{} source code''~\citep{pawlak:hal-01169705}.
 It supports symbol resolution natively and match code elements using Spoon patterns.
 Probably one of the most mature libraries to parse and manipulate \java{} source code is Eclipse \java{} Development Tools (JDT).%
 \urlnote{https://www.eclipse.org/jdt/}
@@ -199,7 +199,7 @@ javalang and a custom \javac{} plug-in,%
 \urlnote{https://gitlab.com/acuarica/java-cast-inspection}
 and JavaParser%
 \urlnote{https://gitlab.com/acuarica/java-cast-study}
-to parse and analyze \java{} source code.
+to parse and analyse \java{} source code.
 
 
 \section{Large-scale Codebase Empirical Studies}
@@ -212,10 +212,10 @@ used in practice.
 Analogously, \cite{richardsAnalysisDynamicBehavior2010,richardsEvalThatMen2011,weiEmpiricalStudyDynamic2016}
 conducted a similar study, but in this case targeting \javascript's dynamic
 behavior and in particular the \code{eval} function.
-Also, for \javascript{}, \cite{madsenStringAnalysisDynamic2014} analyzed
+Also, for \javascript{}, \cite{madsenStringAnalysisDynamic2014} analysed
 how fields are accessed via strings,
 while~\cite{jangEmpiricalStudyPrivacyviolating2010}
-analyzed privacy violations.
+analysed privacy violations.
 Similar empirical studies were done for
 \php{}~\citep{hillsEmpiricalStudyPHP2013,dahseExperienceReportEmpirical2015,doyleEmpiricalStudyEvolution2011}
 and \swift{}~\citep{reboucasEmpiricalStudyUsage2016}.
@@ -224,7 +224,7 @@ and \swift{}~\citep{reboucasEmpiricalStudyUsage2016}.
 Going one step forward, \cite{rayLargescaleStudyProgramming2017} studied the correlation between programming languages and defects. 
 One important note is that they choose relevant projects by popularity,
 measured by how many times was \emph{starred} in \github{}.
-We argue that it is more important to analyze projects that are \emph{representative}, not \emph{popular}.
+We argue that it is more important to analyse projects that are \emph{representative}, not \emph{popular}.
 
 \cite{gorlaCheckingAppBehavior2014} mined a large set of Android applications, clustering applications by their description topics and identifying outliers in each cluster with respect to their API usage.
 \cite{grechanikEmpiricalInvestigationLargescale2010} also mined large scale software repositories to obtain several statistics on how source code is actually written.
@@ -266,7 +266,7 @@ They conducted empirical studies on how programmers handle exceptions in \java{}
 The work done by~\cite{nakshatriAnalysisExceptionHandling2016} categorized them into patterns.
 \cite{coelhoUnveilingExceptionHandling2015} used a more dynamic approach by analysing stack traces and code issues in \github{}.
 
-\cite{kechagiaUndocumentedUncheckedExceptions2014} analyzed how undocumented and
+\cite{kechagiaUndocumentedUncheckedExceptions2014} analysed how undocumented and
 unchecked exceptions cause most of the exceptions in
 Android applications.
 
@@ -323,14 +323,15 @@ The survey consists of 7 questions%
 that help to understand what pieces of \smu{} should be mainstreamed.
 In our work~\citep{mastrangeloUseYourOwn2015} we extend Sandoz' work
 by performing a comprehensive study of the \mavencentral{}
-software repository to analyze how and when \smu{} is being used.
+software repository to analyse how and when \smu{} is being used.
 This study is summarized in Chapter~\ref{cha:unsafe}.
 
 \cite{tanSafeJavaNative2006} propose a safe variant of \jni{}.
 \cite{tanEmpiricalSecurityStudy2008} and~\cite{kondohFindingBugsJava2008}
 conducted an empirical security study to describe a taxonomy to classify bugs when using \jni{}.
 \cite{sunNativeGuardProtectingAndroid2014} develop a method to isolate native components in Android applications.
-\cite{liFindingBugsExceptional2009} analyze the discrepancy between how exceptions are handled in native code and \java{}.
+\cite{liFindingBugsExceptional2009} analyse the discrepancy between how exceptions are handled in native code and \java{}.
+
 
 \subsection{Casting}\label{sec:literature-review:casting}
 
@@ -367,7 +368,7 @@ Most of the patterns use casts.
 We plan to categorize all cast usages,
 not only where reflection is used.
 
-\cite{landmanChallengesStaticAnalysis2017} have analyzed the relevance of
+\cite{landmanChallengesStaticAnalysis2017} have analysed the relevance of
 static analysis tools with respect to reflection.
 They conducted an empirical study to check how often the reflection
 \api{} is used in real-world code.

@@ -16,7 +16,7 @@ We gathered cast usage data using the \ql{} query language,
 ``a declarative, object-oriented logic programming language for querying
 complex, potentially recursive data structures encoded in a relational data
 model''~\citep{avgustinovQLObjectorientedQueries2016}.
-\ql{} allows us to analyze programs at the source code level.
+\ql{} allows us to analyse programs at the source code level.
 \ql{} extracts the source code of a project into a Datalog model.
 Besides providing structural data for programs, \ie{}, ASTs,
 \ql{} has the ability to query static types and perform data-flow analysis.
@@ -69,15 +69,15 @@ Therefore, it is impossible to gather partial statistics using our queries.
 
 \subsection*{Methodology}
 
-To identify patterns of cast usage, we analyzed all \java{} projects in the \lgtm{} database, 7,559 projects
+To identify patterns of cast usage, we analysed all \java{} projects in the \lgtm{} database, 7,559 projects
 with a total 10,193,435 casts, at the time of writing.
 There are 215 projects in the database for which we could not retrieve the source code.
 In total, these 215 projects contain 1,162,583 casts.
 Moreover, there are also 516 projects that do not contain any cast.
-Therefore the total cast population to be analyzed consists of 9,030,852 casts in 6,840 projects.
+Therefore the total cast population to be analysed consists of 9,030,852 casts in 6,840 projects.
 
-Because the number of cast instances is large, it is not feasible to \emph{manually} analyze all of them.
-Therefore we have opted to perform random sampling to get a subset of cast instances to analyze.
+Because the number of cast instances is large, it is not feasible to \emph{manually} analyse all of them.
+Therefore we have opted to perform random sampling to get a subset of cast instances to analyse.
 To choose a sample size such that the
 the probability of missing the least frequent pattern is extremely low, we assume a
 hypergeometric distribution of the data.

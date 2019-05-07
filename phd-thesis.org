@@ -454,3 +454,40 @@ CLOSED: [2019-05-03 Fri 20:58]
 - State "TODO"       from              [2019-05-03 Fri 20:20]
 :END:
 *** When linking is not visible, annoying scroll needed
+
+** TODO Write to decanato & committee to re-confirm date
+:LOGBOOK:
+- State "TODO"       from              [2019-05-07 Tue 14:40]
+:END:
+** TODO Matthias comments
+:LOGBOOK:
+- State "TODO"       from              [2019-05-07 Tue 14:39]
+:END:
+*** DONE Be consistent with analyze
+CLOSED: [2019-05-07 Tue 15:15]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 15:15] \\
+  Using analyse
+- State "TODO"       from              [2019-05-07 Tue 15:15]
+:END:
+*** Page 44: The programmer is neither required to handle not to specify it
+*** Page 45: Downcast/unboxing sentence, be correct and more descriptive
+*** Page 68: Remove word API
+*** Page 69: Typo->pick wrong class name
+*** Page 70: Listing 4.8 small long to capital Long, uses the boxed version
+*** 4.3 glue sentence
+*** 4.3 Manual detection of Cast pattern belong ~s~
+*** 4.3 other ~s~ cast expression
+*** 4.3 database not use, impossible->impractical
+*** Remove best-effort sentence.
+*** the the typo
+*** We have to sample more of 5000, table contains 5530 rows, explain why
+*** Demographics of app/test/gen in overview
+*** Anticipation with figure 4.1 of app/test/gen of discussion in patterns
+*** The authors: I discussed with my advisors
+*** Casts discussion itemize columns
+*** Boxing: and viceversa.
+*** infeasible
+*** JEP 218: ameliorate in this respect
+*** Conclusions: devised->discover
+*** Conclusions: Remove last paragraph

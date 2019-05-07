@@ -67,7 +67,7 @@ instead of directly allocating a new \texttt{Method} object.
 \subsection*{Stack Map Generation}
 
 When encoding a \texttt{ClassFile} into a byte array, \jnif{} needs to generate stack maps.
-The necessary static analyses are implemented in the analyzer module.
+The necessary static analyses are implemented in the analyser module.
 This module uses data flow analysis and abstract interpretation to determine the types of operand stack slots and local variables.
 The analysis module first builds a control flow graph of the method.
 The data flow analysis associates to each basic block an input and output stack frame, 
@@ -111,28 +111,13 @@ then using \code{ClassLoader.loadClass()} to load class \code{X} would
 cause an infinite recursion.
 The above solution with \code{get\-ResourceAsStream()} also prevents this problem.
 
-\subsubsection*{Avoiding Premature ClassNotFoundException}
-If during the instrumentation of a class \texttt{X}
-\jnif{} needs to perform a least upper bound computation involving a type \texttt{Y},
-and if class \texttt{Y} cannot be found,
-then throwing a \texttt{ClassNotFoundException} at that time would be premature
-(because without instrumentation, such an exception would only be thrown later).
-We solve that problem by assuming a least upper bound of \verb=java.lang.Object= in that case.
 
+\subsubsection*{Avoiding Premature \code{ClassNotFoundException}}
 
-
-%\subsection{Features}
-%
-%The \jnif{} also provides a convenient way to output dot files from generated control flow graph in order to better understand and analyze complex methods.
-%
-%Architecture and design picture.?
-%
-%\subsection{Portability?}
-%
-%The library uses only C++11 and STL constructions, thus there are no dependencies with any third-party library. Currently the \jnif{} compiles and runs on Linux and MacOS.
-%
-%
-%\begin{lstlisting}[caption=Dots,label=usage-parse2]
-%> make dots
-%\end{lstlisting}
-%
+If during the instrumentation of a class \code{X}
+\jnif{} needs to perform a least upper bound computation involving a type \code{Y},
+and if class \code{Y} cannot be found,
+then throwing a \code{ClassNotFoundException} at that time would be premature
+(because without instrumentation,
+such an exception would only be thrown later).
+We solve that problem by assuming a least upper bound of \code{java.lang.Object} in that case.

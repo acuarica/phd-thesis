@@ -23,7 +23,7 @@ However, Artifacts are usually \emph{.jar} files,
 which archive compiled \java{} bytecode stored in \emph{.class} files.
 
 \textbf{Bytecode Analysis.}
-We examine these kinds of artifacts to analyze how they use \code{sun.misc.Unsafe}.
+We examine these kinds of artifacts to analyse how they use \code{sun.misc.Unsafe}.
 We use a bytecode analysis library to search for method call sites and field accesses of the \code{sun.misc.Unsafe} class~\citep{brunetonRecursiveDynamicSoftware2002,brunetonASMCodeManipulation2002,kuleshovUsingASMFramework2007}.
 
 However, our first attempt was to use \jnif{},
@@ -40,7 +40,7 @@ and thus the impact \code{sun.misc.Unsafe} has on real-world code overall.
 
 \textbf{Usage Pattern Detection.}
 After all call sites and field accesses are found,
-we analyze this information to discover usage patterns.
+we analyse this information to discover usage patterns.
 It is common that an artifact exhibits more than one pattern.
 Our list of patterns is not exhaustive.
 We have manually investigated the source code of the 100 highest-impact artifacts using \code{sun.misc.Unsafe} to understand why and how they are using it.
@@ -169,7 +169,7 @@ the most called method, \code{objectFieldOffset},
 is called 200 times in $50$ projects.
 This is two orders of magnitude lower than the count we found on \mavencentral{}.
 Although \boa{} enables the mining of source code in a convenient way, 
-the \code{} data it analyzes probably is not current enough to include the more recent \java{} code that uses \smu{} more heavily.
+the \code{} data it analyses probably is not current enough to include the more recent \java{} code that uses \smu{} more heavily.
 
 In recent versions~\citep{boa-github},
 \boa{} added support to conduct studies on open source projects from \github{} and Qualitas Corpus~\citep{temperoQualitasCorpusCurated2010}.

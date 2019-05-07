@@ -1,86 +1,74 @@
 \section{Validation}
 \label{sec:jnif-test}
 
-We used a multitude of testing strategies to ensure JNIF is working correctly.
+We used a multitude of testing strategies to ensure \jnif{} is working correctly.
 
-%The JNIF parser and writer makes no extra modification to the class file, 
-%thus it is an exact representation of the class file. 
-%This property makes the parser and writer returns the identical same byte stream which can be useful for testing purposes.
-%\todo{where to/shall we talk about "diff"/equality of class files?}
+The \jnif{} parser and writer makes no extra modification to the class file, 
+thus it is an exact representation of the class file. 
+This property makes the parser and writer returns the identical same byte stream which can be useful for testing purposes.
+
 
 \subsection*{Unit Tests}
 
-JNIF includes a unit test suite that tests individual features of its various modules.
+\jnif{} includes a unit test suite that tests individual features of its various modules.
 
 \subsection*{Integration Tests}
 
-Our integration test suite includes six different JNIF clients we run on over 40000 different classes.
-Each test reads, analyzes, and possibly modifies, prints, or writes classes from the Java runtime library (rt.jar),
-and all Dacapo benchmarks, Scala benchmarks, and the JRuby compiler.
+Our integration test suite includes six different \jnif{} clients we run on over 40000 different classes.
+Each test reads, analyses, and possibly modifies, prints, or writes classes from the \java{} runtime library (rt.jar),
+and all Dacapo benchmarks, \scala{} benchmarks, and the JRuby compiler.
 
 \begin{description}
-	\item[testPrinter.] This test parses and prints all classes. Its main goal is to cover the printing functionality. It has no explicit assertions. We consider it passed if it does not throw any exceptions.
-	\item[testSize.] This test covers the decoding and encoding modules. It asserts that the encoded byte array has the same length as the original byte array.
-	\item[testWriter.] This is similar to testSize, but it asserts that the contents of the encoded byte array is identical to the original bytes.
-	\item[testNopAdderInstrPrinter.] This also tests the instrumentation functionality, by injecting NOP instructions and dumping the result. It passes if it does not throw any exceptions.
-	\item[testNopAdderInstrSize.] This is similar to testSize, however it performs NOP injection. The resulting size must be identical to the original size plus the size of the injected NOP instructions.
-	\item[testNopAdderInstrWriter.] This is similar to testNopAdderInstrSize, but it asserts that the resulting array is identical except for the modified method bytecodes.
+\item[testPrinter.]
+This test parses and prints all classes.
+Its main goal is to cover the printing functionality.
+It has no explicit assertions.
+We consider it passed if it does not throw any exceptions.
+\item[testSize.]
+This test covers the decoding and encoding modules.
+It asserts that the encoded byte array has the same length as the original byte array.
+\item[testWriter.]
+This is similar to testSize,
+but it asserts that the contents of the encoded byte array is identical to the original bytes.
+\item[testNopAdderInstrPrinter.]
+This also tests the instrumentation functionality,
+by injecting NOP instructions and dumping the result.
+It passes if it does not throw any exceptions.
+\item[testNopAdderInstrSize.]
+This is similar to testSize, however it performs NOP injection.
+The resulting size must be identical to the original size plus the size of the injected NOP instructions.
+\item[testNopAdderInstrWriter.]
+This is similar to testNopAdderInstrSize,
+but it asserts that the resulting array is identical except for the modified method bytecodes.
 \end{description}
 
 The ``size'' and ``writer'' tests work thanks to the fact that 
-JNIF produces output identical to its input 
+\jnif{} produces output identical to its input 
 as long as classes are not modified and stack maps do not need to be re-generated.
-
-%To run the test coverage, the makefile task 
-%
-%\begin{lstlisting}[caption=Running testapp,label=usage-parse2]
-%> make runcoverage
-%\end{lstlisting}
-
 
 
 \subsection*{Live Tests}
 
-Our live tests use JNIF inside a JVMTI dynamic instrumentation agent
-to ensure that the output of JNIF can successfully be loaded, verified, and run by a JVM.
+Our live tests use \jnif{} inside a \jvmti{} dynamic instrumentation agent
+to ensure that the output of \jnif{} can successfully be loaded,
+verified, and run by a \jvm{}.
 In addition to the aspects covered by the unit and integration tests,
 the live tests also validate that stack map generation works correctly,
-essentially by using the JVM's verifier to check correctness.
-%
+essentially by using the \jvm{}'s verifier to check correctness.
 For the live tests, we run a set of microbenchmarks, 
-the Dacapo benchmarks, 
-the Scala Benchmarking Project\footnote{\url{http://www.benchmarks.scalabench.org/}},
+the Dacapo benchmarks, the Scala Benchmarking Project%
+\footnote{\url{http://www.benchmarks.scalabench.org/}},
 and a microbenchmark using the JRuby compiler,
 with the goal of including InvokeDynamic bytecode instructions generated by JRuby.
-
-%\todo{the complete Eclipse IDE}, 
-%Our microbenchmarks and \todo{real eclipse} and all -even tradesoap and tradebeans- dacapo benchmarks pass the verifier and run correctly with our stack map frame generation.
-
 
 
 \subsection*{Assertions and Checks}
 
-The JNIF code is sprinkled with calls to \texttt{Error::assert} 
+The \jnif{} code is sprinkled with calls to \code{Error::assert} 
 that check preconditions, postconditions, and invariants.
-To provide a developer experience similar to Java's,
+To provide a developer experience similar to \java{}'s,
 all assertion violations print out call stack traces in addition to understandable error messages.
 
-Moreover, JNIF checks its inputs (such as class files while parsing, or instrumented code while generating stack maps),
-and it calls \texttt{Error::check} to throw exceptions with stack traces and helpful messages
-when checks fail. 
-
-%The assertions are used to check for programmatic errors. These errors are preconditions, postconditions and invariants.
-%
-%To invoke an assertion you can use the method Error::assert
-%
-%Every method access in the jnif model is controlled by assert 
-%and the JnifException also provide a nice backtrace so if something wrong can happen the programmer can figure out what was wrong.
-%
-%\subsection{Checks}
-%
-%Checks are used to validate user input, 
-%like when parsing the class file or when the type verifier takes place. 
-%An exception is thrown in order to indicate the user that its input was not well formed.
-%
-%Check is implemented with the method Error::check.
-%
+Moreover, \jnif{} checks its inputs (such as class files while parsing, or instrumented code while generating stack maps),
+and it calls \code{Error::check} to throw exceptions with stack traces and helpful messages
+when checks fail.

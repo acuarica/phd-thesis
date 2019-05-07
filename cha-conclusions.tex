@@ -41,7 +41,7 @@ The main issue with manual inspection is that rely heavily on the personal exper
 Different authors could devise different set of patterns.
 
 In our casting study---whenever possible---we have used \ql{} to automatically detect some patterns.
-For some other patterns, it is unfeasible to perform automatic detection since \ql{}---and the \lgtm{} dataset---currently analyses a given project,
+For some other patterns, it is unfeasible to perform automatic detection since \ql{}---and the \lgtm{} dataset---currently analyse a given project,
 not its dependencies.
 Furthermore, some patterns require application-specific knownledge to be detected,
 which can not be expressed in \ql{}.
@@ -58,7 +58,7 @@ by running our queries at large-scale we can corroborate---or refute---the distr
 Conducting ultra-large scale studies, either on source code or compiled code, is not a trivial task.
 There are several factors to consider when doing these kind of studies,
 \eg{}, downloading, storing, parsing, compiling,
-and analyzing software repositories.
+and analysing software repositories.
 Services like \boa{} and \lgtm{} make conducting these kind of studies easier.
 In recent versions~\citep{boa-github},
 \boa{} added support to conduct studies on open source projects from \github{} and Qualitas Corpus~\citep{temperoQualitasCorpusCurated2010}.
@@ -66,7 +66,7 @@ However, at the time we conducted our study on \unsafe{},
 this support was not included yet.
 We could recast our \unsafe{} study to use \boa{} on the \github{} dataset,
 or \lgtm{} through \ql{} queries, although as mentioned above,
-we will not be able to analyze project dependencies.
+we will not be able to analyse project dependencies.
 The patterns we have already devised for the \unsafe{} study could be formalized using \ql{}~\citep{avgustinovQLObjectorientedQueries2016}.
 
 To conduct our studies we have used static analysis.

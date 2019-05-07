@@ -7,13 +7,13 @@ based on the input that they take.
 Static analysis tools carry out their task using as input only a program
 in a given representation, \eg{}, source code, abstract syntax tree,
 bytecode, or binary code.
-In contrast, dynamic analysis tools observe the program being analyzed 
+In contrast, dynamic analysis tools observe the program being analysed 
 by collecting runtime information.
 Many dynamic analysis tools rely on instrumentation to achieve their goals.
 
 In the context of the JVM, 
 static analysis and instrumentation for dynamic analysis often happens on the level of Java bytecode.
-Analysis tools thus need to decode and analyze---and in the case of instrumentation also edit and encode---\java{} bytecode.
+Analysis tools thus need to decode and analyse---and in the case of instrumentation also edit and encode---\java{} bytecode.
 Given the relative complexity of the Java class file format,
 a diverse set of libraries (see Section~\ref{sec:jnif-relatedwork}) has been created for this purpose.
 All those libraries are implemented in \java{}.
@@ -43,7 +43,7 @@ and it causes IPC traffic between the observed JVM and the instrumentation serve
 
 We created \jnif{} to overcome this problem. 
 To the best of our knowledge, \jnif{} is the first native Java bytecode rewriting library.
-\jnif{} is a C++ library for decoding, analyzing, editing, and encoding Java bytecode.
+\jnif{} is a C++ library for decoding, analysing, editing, and encoding Java bytecode.
 The main benefit of \jnif{} is that it can be plugged into a \jvmti{} agent 
 for instrumenting all classes in a JVM transparently, i.e., 
 without connecting to another \jvm{} and without perturbing the observed \jvm{}.
@@ -73,7 +73,7 @@ for classes generated dynamically on-the-fly.
 Overall, the main contributions of this paper are:
 
 \begin{itemize}
-	\item We present \jnif{}, a C++ library for decoding, analyzing, editing, and encoding Java class files.
+	\item We present \jnif{}, a C++ library for decoding, analysing, editing, and encoding Java class files.
 	\item \jnif{} includes a data-flow analysis for stack map generation, 
 	      a complication necessary for any library that provides editing and encoding support for modern \jvm{}s with split-time verification.
 	\item We evaluate \jnif{} by comparing its performance against the most prevalent Java bytecode rewriting library, ASM.
