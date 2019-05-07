@@ -553,7 +553,13 @@ CLOSED: [2019-05-07 Tue 15:19]
 :END:
 *** Casts discussion itemize columns
 *** Boxing: and viceversa.
-*** infeasible
+*** DONE infeasible
+CLOSED: [2019-05-07 Tue 17:52]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-07 Tue 17:52] \\
+  unfeasible->infeasible
+- State "TODO"       from              [2019-05-07 Tue 17:52]
+:END:
 *** DONE JEP 218: ameliorate in this respect
 CLOSED: [2019-05-07 Tue 17:48]
 :LOGBOOK:
