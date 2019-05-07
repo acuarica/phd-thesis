@@ -53,8 +53,9 @@ Thus, we resorted to manually inspect casts in order to devise cast usage patter
 
 Nevertheless, whenever possible,
 we provide a \ql{} query that \emph{approximates} the detection of some patterns.
-That is, the result of a \ql{} query---cast expressions in the AST in our case---for a pattern, most often belong to that pattern.
-Moreover, there could be others cast expressions not returned by the query,
+That is, cast expressions returned as the result of a \ql{} query for a pattern,
+most often belong to that pattern.
+However, there could be other cast expressions not returned by the query,
 which are instances of the pattern.
 
 Unfortunately, we do not possess the \lgtm{} database.
