@@ -85,6 +85,10 @@ Questions like
 \emph{How did they solve this problem before using \unsafe{}?},
 or \emph{Why this cast is redundant?}
 could be answered by analysing the project's history. 
+For instance,
+we found that \smu{} is heavily used in only 1\% of analysed artifacts
+($48,139$ call sites).
+By looking into the project's history would be possible to understand why this happened.
 Source code management tools, \eg{}, Git,
 maintain a detailed track of changes,
 which can point out the precise moment in time when an \unsafe{} operation or cast was introduced in a project.
