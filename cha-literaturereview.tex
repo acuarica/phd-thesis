@@ -305,8 +305,7 @@ They conducted a study on how inheritance is used in \java{} programs.
 
 This kind of studies give an insight of the adoption of lambdas and generics; which can drive future direction for language designers and tool builders, while providing developers with best practices.
 
-
-\subsection{Unsafe Intrinsics in \java}
+\subsection{Unsafe Intrinsics in \java{}}
 \label{sec:literature-review:unsafe}
 
 Oracle provides the \smu{} class for low-level programming,
@@ -323,46 +322,20 @@ and conducted a unscientific user survey to study how \unsafe{} is used~\citep{p
 The survey consists of 7 questions%
 \footnote{\url{http://www.infoq.com/news/2014/02/Unsafe-Survey}} 
 that help to understand what pieces of \smu{} should be mainstreamed.
-In our work~\citep{mastrangeloUseYourOwn2015} we extend Sandoz' work
-by performing a comprehensive study of the \mavencentral{}
-software repository to analyse how and when \smu{} is being used.
-This study is summarized in Chapter~\ref{cha:unsafe}.
 
-\cite{tanSafeJavaNative2006} propose a safe variant of the \java{} Native Interface (\jni{}).
+\cite{tanSafeJavaNative2006} propose a combination of static and dynamic checks to provide a safe variant of the \java{} Native Interface (\jni{}).
+They have identified several loopholes that may cause unsafe interoperation between \java{} and native code.
+The language extension provided by~\cite{Bubak00creatingjava}
+allows the developer to interleave \java{} and native code in the same compilation unit.
+However, the native code is not---statically nor dynamically---checked,
+causing a possible \jvm{} crash.
 \cite{tanEmpiricalSecurityStudy2008} and~\cite{kondohFindingBugsJava2008}
 conducted an empirical security study to describe a taxonomy to classify bugs when using \jni{}.
 \cite{sunNativeGuardProtectingAndroid2014} develop a method to isolate native components in Android applications.
 \cite{liFindingBugsExceptional2009} analyse the discrepancy between how exceptions are handled in native code and \java{}.
 
-\subsection{Casting}
+\subsection{Reflective Capabilities}
 \label{sec:literature-review:casting}
-
-Casting operations in \java{}%
-\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.16}}
-allows the developer to view a reference at a different type as it was declared.
-The related \code{instanceof} operator%
-\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.20.2}}---written \code{e instanceof T}---tests whether a reference \code{e} could be cast to a different type \code{T} without
-throwing \code{ClassCastException} at run-time.
-
-\cite{wintherGuardedTypePromotion2011} has implemented a
-path sensitive analysis that allows the developer to avoid casting
-once a guarded \code{instanceof} is provided.
-He proposes four cast categorizations according to their
-run-time type safety:
-\emph{Guarded Casts}, \emph{Semi-Guarded Casts},
-\emph{Unguarded Casts}, and \emph{Safe Casts}.
-We refined this categorization to answer
-our~\ref{casts:rq2} (\emph{\crqB}).
-This is described in Chapter~\ref{cha:casts}.
-
-\cite{tsantalisJDeodorantIdentificationRemoval2008} present an
-Eclipse plug-in that identifies type-checking bad smells,
-a "variation of an algorithm that should be executed,
-depending on the value of an attribute".
-They provide refactoring analysis to remove the detected smells
-by introducing inheritance and polymorphism.
-This refactoring will introduce casts to select
-the right type of the object.
 
 \cite{livshitsImprovingSoftwareSecurity2006,livshitsReflectionAnalysisJava2005} ``describes an approach to call graph construction for \java{} programs in the presence of reflection.''
 He has devised some common usage patterns for reflection.
@@ -379,6 +352,30 @@ which often involve the use of casts.
 Finally, they argue that controlled programming experiments on
 subjects need to be correlated with real-world use cases,
 \eg, \github{} or \mavencentral{}.
+
+Casting operations in \java{}%
+\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.16}}
+allows the developer to view a reference at a different type as it was declared.
+The related \code{instanceof} operator%
+\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.20.2}}---written \code{e instanceof T}---tests whether a reference \code{e} could be cast to a different type \code{T} without
+throwing \code{ClassCastException} at run-time.
+
+\cite{wintherGuardedTypePromotion2011} has implemented a
+path sensitive analysis that allows the developer to avoid casting
+once a guarded \code{instanceof} is provided.
+He proposes four cast categorizations according to their
+run-time type safety:
+\emph{Guarded Casts}, \emph{Semi-Guarded Casts},
+\emph{Unguarded Casts}, and \emph{Safe Casts}.
+
+\cite{tsantalisJDeodorantIdentificationRemoval2008} present an
+Eclipse plug-in that identifies type-checking bad smells,
+a "variation of an algorithm that should be executed,
+depending on the value of an attribute".
+They provide refactoring analysis to remove the detected smells
+by introducing inheritance and polymorphism.
+This refactoring will introduce casts to select
+the right type of the object.
 
 \textbf{Controlled Experiments on Subjects.}
 There is an extensive literature \perse{} in controlled experiments on subjects to understand several aspects in programming, and programming languages.
@@ -407,5 +404,11 @@ But \java{}'s unsafe intrinsics and reflection capabilities comprise more than \
 Unsafe operations can be performed by using the undocumented \smu{} class.
 The cast operator provides a lightweight form of reflection.
 However---to our knowledge---these features have never been studied before in the literature.
-Chapters~\ref{cha:unsafe} and \ref{cha:casts} provide the first empirical studies on the \unsafe{} \api{} and cast operator in \java{}. 
+This thesis provides the first empirical studies on the \unsafe{} \api{} and cast operator in \java{}.
+In our work~\citep{mastrangeloUseYourOwn2015} we extend Sandoz' work
+by performing a comprehensive study of the \mavencentral{}
+software repository to analyse how and when \smu{} is being used.
+This study is summarized in Chapter~\ref{cha:unsafe}.
+We refined the categorization performed by \cite{wintherGuardedTypePromotion2011} to answer our~\ref{casts:rq2} (\emph{\crqB}).
+This is described in Chapter~\ref{cha:casts}.
 We believe that understanding how and when developers use these features can provide informed decisions for the future of \java{} while providing a guide for developers with better or best practices.

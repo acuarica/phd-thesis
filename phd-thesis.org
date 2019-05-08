@@ -563,9 +563,6 @@ It reports discussions on Stack Overflow including their code snippets linked to
 You can see whether a given code snippet in SO has been reused in GitHub projects and
 this can give you some hints on why developers use the Unsafe API or some type cast patterns.
 
-** TODO Discuss aspects of type systems
-*** Static vs. Dynamic
-*** Staging-time/Compile-time/Link-time/Load-time/Run-time
 ** TODO Introduction
 :LOGBOOK:
 - State "TODO"       from              [2019-05-08 Wed 00:05]
@@ -574,6 +571,11 @@ this can give you some hints on why developers use the Unsafe API or some type c
 *** More on advantanges of static typing
 *** More on dangers of unsafe/casting
 *** Also reflection/native code
+*** TODO Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
+*** TODO Discuss aspects of type systems
+**** Static vs. Dynamic
+**** Staging-time/Compile-time/Link-time/Load-time/Run-time
+*** TODO Add discussion from <https://martinfowler.com/bliki/DynamicTyping.html>
 *** TODO Featherweight Java is sound unless you use cast
 :LOGBOOK:
 - State "TODO"       from              [2019-05-01 Wed 20:11]
@@ -626,7 +628,6 @@ CLOSED: [2019-05-08 Wed 01:57]
   Renamed.
 :END:
 *** Under the thesis introduction
-** TODO Add discussion from <https://martinfowler.com/bliki/DynamicTyping.html>
 ** CANCELED Relate ~null~ as theoretical point of view in the TAPL book
 CLOSED: [2019-05-08 Wed 00:22]
 :LOGBOOK:
@@ -642,8 +643,12 @@ CLOSED: [2019-05-08 Wed 00:47]
 :END:
 Sometimes they are not redundant.
 For one case, find out in the history why it is redundant.
-** TODO Literature Review: Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
-** TODO What conclusions did they draw on JNI usage?
+** DONE What conclusions did they draw on JNI usage?
+CLOSED: [2019-05-08 Wed 02:39]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 02:39] \\
+  Added papers remarks.
+:END:
 ** DONE Expand discussion on static vs. dynamic analyses for these kinds of studies
 CLOSED: [2019-05-08 Wed 02:01]
 :LOGBOOK:
