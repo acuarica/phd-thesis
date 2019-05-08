@@ -72,7 +72,6 @@
         }
     ],
     "latex-workshop.latex.recipe.default": "lastUsed",
-    "cSpell.allowCompoundWords": true,
     "cSpell.words": [
         "CPUs",
         "Intrinsics",
@@ -92,5 +91,6 @@
         "upcast",
         "upcasts",
         "xleftmargin"
-    ]
+    ],
+    "cSpell.diagnosticLevel": "Hint"
 }
