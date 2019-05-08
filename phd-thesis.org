@@ -658,15 +658,37 @@ CLOSED: [2019-05-08 Wed 16:58]
 *** Boa or QL
 *** JNIF/ASM
 *** /Lessons Learnt/ section in conclusions
-** TODO Qualitative/Quantitative Research
+** DONE Qualitative/Quantitative Research
+CLOSED: [2019-05-08 Wed 23:16]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 23:16]
 - State "TODO"       from              [2019-05-01 Wed 22:57]
 :END:
-*** What methodology did I use?
-*** Add this to the conclusion
-*** How am I going to answer the RQ?
-*** Small description after the RQ presentation
-*** Relate to repository mining in the introduction
+*** DONE What methodology did I use?
+CLOSED: [2019-05-08 Wed 23:16]
+:LOGBOOK:
+- State "DONE"       from              [2019-05-08 Wed 23:16]
+:END:
+*** DONE Add this to the conclusion
+CLOSED: [2019-05-08 Wed 23:16]
+:LOGBOOK:
+- State "DONE"       from              [2019-05-08 Wed 23:16]
+:END:
+*** DONE How am I going to answer the RQ?
+CLOSED: [2019-05-08 Wed 23:16]
+:LOGBOOK:
+- State "DONE"       from              [2019-05-08 Wed 23:16]
+:END:
+*** DONE Small description after the RQ presentation
+CLOSED: [2019-05-08 Wed 23:16]
+:LOGBOOK:
+- State "DONE"       from              [2019-05-08 Wed 23:16]
+:END:
+*** DONE Relate to repository mining in the introduction
+CLOSED: [2019-05-08 Wed 23:16]
+:LOGBOOK:
+- State "DONE"       from              [2019-05-08 Wed 23:16]
+:END:
 ** TODO When the answers to the RQs are good enough?
 :LOGBOOK:
 - State "TODO"       from              [2019-05-01 Wed 22:57]

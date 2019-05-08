@@ -130,9 +130,8 @@ by invoking an nonexisting method for a class,
 or when casting to a class that is \emph{not} a supertype of the object's \emph{runtime} class.
 They proved that on any well-typed program, the first two never happen,
 and the third one never happens on well-typed programs \emph{without downcasts}.
-From the theoretical point of view,
-(down)casts make typing rules unsound, \ie{},
-\emph{a well-typed program with (down)casts may get stuck}.
+From the theoretical point of view, casts make typing rules unsound, \ie{},
+\emph{a well-typed program with casts may get stuck}.
 
 \section{Research Question}
 
@@ -163,6 +162,15 @@ or the addition of \emph{Smart Casts} in \lang{Kotlin},\footnote{\url{https://ko
 
 To answer our question above,
 we empirically studied how the two aforementioned mechanisms---unsafe intrinsics and reflective capabilities---are used by developers.
+Since we seek to \emph{understand} how these mechanisms are used,
+our methodology is based on qualitative analysis.
+Our qualitative data to analyse is source code text
+(to study unsafe intrinsics we performed a preliminary analysis on intermediate code).
+In particular, in both studies we performed manual qualitative (static) analysis.
+It is static because we have analysed \emph{only} the \emph{source text}
+(\cf{} dynamic analysis).
+We performed repository mining to gather the source code text to analyse.
+
 Since any kind of language study must be language-specific,
 we focus on \java{} given its wide usage and relevance for both
 research and industry.%
