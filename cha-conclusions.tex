@@ -41,6 +41,11 @@ Both our \unsafe{} and casting studies rely on manual inspection to devise usage
 The main issue with manual inspection is that rely heavily on the personal experience of the authors.
 Different authors could devise different set of patterns.
 
+For our casting study,
+we do not claim that our list of patterns is exhaustive,
+although our methodology should ensure that any pattern that occurs more
+than 0.1\% of the time has a small probability of being excluded.
+
 In our casting study---whenever possible---we have used \ql{} to automatically detect some patterns.
 For some other patterns, it is infeasible to perform automatic detection since \ql{}---and the \lgtm{} dataset---currently analyse a given project,
 not its dependencies.
@@ -94,7 +99,3 @@ maintain a detailed track of changes,
 which can point out the precise moment in time when an \unsafe{} operation or cast was introduced in a project.
 
 % What insights did you gain, can you summarize to what degree you answered the RQs?
-
-% We are currently working to define static analyses to detect some of these patterns automatically.
-% With these analyses,
-% tools can be developed to identify instances of the pattern and to ensure that they are being implemented properly.
