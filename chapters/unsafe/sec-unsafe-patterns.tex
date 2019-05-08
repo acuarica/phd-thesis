@@ -330,7 +330,7 @@ of type erasure, a checked exception can be coerced unsafely into an unchecked e
 {The pattern is implemented using the \member{throw\-Exception} method.}
 {In testing and mocking frameworks, the pattern is used to circumvent declaring
   the exception to be thrown, which is often unknown.
-It is used in the Java Fork/Join framework to save the generic exception of a thread to be re-thrown later.}
+It is used in the \java{} Fork/Join framework to save the generic exception of a thread to be re-thrown later.}
 {This method can violate \java{}'s subtyping
   relation, because it is not expected
   for a method that does not declare an exception to actually throw it. At
