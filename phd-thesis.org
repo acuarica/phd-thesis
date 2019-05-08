@@ -53,12 +53,13 @@ CLOSED: [2019-05-06 Mon 18:15]
 :END:
 ** CANCELED Patterns discussion `Selection`: Implicits in Scala
 CLOSED: [2019-04-29 Mon 13:56]
-** CANCELED Pattern discussion `Pattern Matching`: Jurgen Vinju paper <http://homepages.cwi.nl/~storm/publications/visitor.pdf>
+** CANCELED Pattern discussion `Pattern Matching`: Jurgen Vinju paper
 CLOSED: [2019-05-06 Mon 18:15]
 :LOGBOOK:
 - State "CANCELED"   from "TODO"       [2019-05-06 Mon 18:15] \\
   Not related
 :END:
+*** <http://homepages.cwi.nl/~storm/publications/visitor.pdf>
 ** CANCELED Methodology should be reproducible by other people leading to the same results
 CLOSED: [2019-04-29 Mon 13:57]
 ** CANCELED Cast study coverage w/QL
@@ -474,14 +475,24 @@ CLOSED: [2019-05-07 Tue 17:45]
   Removed
 - State "TODO"       from              [2019-05-07 Tue 17:45]
 :END:
+** DONE Conclusions in each chapter (also in Literature Review)
+CLOSED: [2019-05-08 Wed 01:48]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 01:48] \\
+  Added conclusions.
+- State "TODO"       from              [2019-05-01 Wed 22:57]
+:END:
+*** Each conclusion should bridge to the next chapter
+*** In Literature review: finish the chapter motivating the next 2 chapters
+*** Conclusion in Literature Review
+*** /There is a hole, I'm going to fill it, it's important/
 ** TODO Write to decanato & committee to re-confirm date
 :LOGBOOK:
 - State "TODO"       from              [2019-05-07 Tue 14:40]
 :END:
-** TODO Address completely Antonio's & Gabriele's comments on the proposal
-** TODO Address Antonio's comment on casting is not circumventing the static type system
-*** Dynamically recovery information
 ** TODO Address internal committee comments on the proposal
+*** TODO Address Antonio's comment on casting is not circumventing the static type system
+**** Dynamically recovery information
 *** Antonio's
 **** My first and perhaps most important objections are on the premise of
 the main research questions, namely that casting and unsafe are
@@ -552,22 +563,24 @@ It reports discussions on Stack Overflow including their code snippets linked to
 You can see whether a given code snippet in SO has been reused in GitHub projects and
 this can give you some hints on why developers use the Unsafe API or some type cast patterns.
 
-** TODO Conclusions and Introduction need to be bigger
-:LOGBOOK:
-- State "TODO"       from              [2019-05-01 Wed 22:57]
-:END:
-*** My learning in these 5 years
-*** Take home for me as a PhD student, see it as a dissertation
-*** Boa or QL
-*** JNIF/ASM
-*** /Lessons Learnt/ section in conclusions
+** TODO Discuss aspects of type systems
+*** Static vs. Dynamic
+*** Staging-time/Compile-time/Link-time/Load-time/Run-time
 ** TODO Introduction
 :LOGBOOK:
 - State "TODO"       from              [2019-05-08 Wed 00:05]
 :END:
+*** Need to be bigger
 *** More on advantanges of static typing
 *** More on dangers of unsafe/casting
 *** Also reflection/native code
+*** TODO Featherweight Java is sound unless you use cast
+:LOGBOOK:
+- State "TODO"       from              [2019-05-01 Wed 20:11]
+:END:
+**** Use as a motivation
+**** Cast provides a bridge between compile-time and run-time checking
+*** TODO Include type system soundness discussion for thesis
 *** DONE Make subsection /Outline/ to introduce rest of thesis
 CLOSED: [2019-05-05 Sun 16:15]
 :LOGBOOK:
@@ -575,12 +588,24 @@ CLOSED: [2019-05-05 Sun 16:15]
   Added
 - State "TODO"       from              [2019-05-05 Sun 16:15]
 :END:
+*** TODO Talk about reflection as a way to /escape/ the type system
+**** Then talk about casting as a subset of reflection
 ** TODO Literature Review
 :LOGBOOK:
 - State "TODO"       from              [2019-05-01 Wed 22:57]
 :END:
 *** Add a table to help visualize the chapter
 *** Like an overview
+** TODO Conclusions
+:LOGBOOK:
+- State "TODO"       from              [2019-05-01 Wed 22:57]
+:END:
+*** Need to be bigger
+*** My learning in these 5 years
+*** Take home for me as a PhD student, see it as a dissertation
+*** Boa or QL
+*** JNIF/ASM
+*** /Lessons Learnt/ section in conclusions
 ** TODO Qualitative/Quantitative Research
 :LOGBOOK:
 - State "TODO"       from              [2019-05-01 Wed 22:57]
@@ -594,17 +619,6 @@ CLOSED: [2019-05-05 Sun 16:15]
 :LOGBOOK:
 - State "TODO"       from              [2019-05-01 Wed 22:57]
 :END:
-** DONE Conclusions in each chapter (also in Literature Review)
-CLOSED: [2019-05-08 Wed 01:48]
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2019-05-08 Wed 01:48] \\
-  Added conclusions.
-- State "TODO"       from              [2019-05-01 Wed 22:57]
-:END:
-*** Each conclusion should bridge to the next chapter
-*** In Literature review: finish the chapter motivating the next 2 chapters
-*** Conclusion in Literature Review
-*** /There is a hole, I'm going to fill it, it's important/
 ** DONE Unsafe and Casts chapter title renamed
 CLOSED: [2019-05-08 Wed 01:57]
 :LOGBOOK:
@@ -612,8 +626,6 @@ CLOSED: [2019-05-08 Wed 01:57]
   Renamed.
 :END:
 *** Under the thesis introduction
-** TODO Talk about reflection as a way to /escape/ the type system
-*** Then talk about casting as a subset of reflection
 ** TODO Add discussion from <https://martinfowler.com/bliki/DynamicTyping.html>
 ** CANCELED Relate ~null~ as theoretical point of view in the TAPL book
 CLOSED: [2019-05-08 Wed 00:22]
@@ -622,13 +634,6 @@ CLOSED: [2019-05-08 Wed 00:22]
   Only Option<T>
 - State "TODO"       from              [2019-05-01 Wed 20:11]
 :END:
-** TODO Featherweight Java is sound unless you use cast
-:LOGBOOK:
-- State "TODO"       from              [2019-05-01 Wed 20:11]
-:END:
-*** Use as a motivation
-*** Cast provides a bridge between compile-time and run-time checking
-** TODO Include type system soundness discussion for thesis
 ** DONE Cast to null (SelectionOverload)
 CLOSED: [2019-05-08 Wed 00:47]
 :LOGBOOK:
@@ -639,7 +644,8 @@ Sometimes they are not redundant.
 For one case, find out in the history why it is redundant.
 ** TODO Literature Review: Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
 ** TODO What conclusions did they draw on JNI usage?
-** TODO Expand discussion on static vs. dynamic analyses for these kinds of studies
-** TODO Discuss aspects of type systems
-*** Static vs. Dynamic
-*** Staging-time/Compile-time/Link-time/Load-time/Run-time
+** DONE Expand discussion on static vs. dynamic analyses for these kinds of studies
+CLOSED: [2019-05-08 Wed 02:01]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 02:01]
+:END:
