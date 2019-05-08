@@ -9,24 +9,32 @@ Thus, any program not satisfying the constraints stated within a type system is 
 
 Besides detecting early errors,
 a typechecker can also be an invaluable \emph{maintenance} tool.
-For instance, it can assist an IDE to perform refactor analysis, such as renaming a method or field.
+For instance, it can assist an IDE to perform refactor analysis,
+such as renaming a method or field.
 A static type system can be helpful to enforce disciplined programming.
-When composing large-scale software, 
-\emph{modular languages} are built-up of types, shown in the interfaces of modules.
-Along these lines, type systems can be useful for \emph{documenting} purposes.
+When composing large-scale software,
+\emph{modular languages} are built-up of types,
+shown in the interfaces of modules.
+Along these lines,
+type systems can be useful for \emph{documenting} purposes.
 Type annotations, \eg{}, in method and fields declarations,
 can provide useful hints to the developer.
 Since type annotations are meant to be checked every time the program is compiled,
-this information cannot be outdated, like comments in the source text.
+this information cannot be outdated, unlike comments in the source text.
+
 Static type systems can aid to generate more \emph{efficient} machine code, \eg{},
 choosing a different representation for integer or real values at run-time.
-Furthermore, in statically checked safe languages, \eg{}, \java{} or \rust{},
-many checks are performed at compile-time, instead of being performed otherwise at run-time.
-Compare this to dinamically checked safe languages,
+Furthermore, in statically checked languages, \eg{}, \java{} or \rust{},
+many checks are performed at compile-time,
+instead of being performed otherwise at run-time.
+Compare this to dinamically checked languages,
 where all checks need to be performed at runtime,
 degrading performance.
+Table~\ref{table:introduction:langs} shows where mainstream languages fit in the safe/unsafe and statically/dynamically checked spectrum.
 
-\input{chapters/casts/table-casts-langs}
+\input{table-introduction-langs}
+
+\section{Beyond Static Type Checking}
 
 Nevertheless, often the static approximation provided by a type system is not precise enough.
 Being static, the analysis done by the type-checker needs to be conservative:
@@ -42,11 +50,16 @@ at the expense of causing more errors at run-time.
 These mechanisms are essentially two:
 \emph{Unsafe Intrinsics} and \emph{Reflective Capabilities}.
 
-\textbf{Unsafe Intrinsics.}
-Unsafe intrinsics is the ability to perform certain operations \emph{without} being checked by the compiler.
+\subsection*{Unsafe Intrinsics}
+
+Some programming languages provide \emph{unsafe intrinsics},
+the ability to perform certain operations \emph{without} being checked by the compiler.
 They are \emph{unsafe} because any misuse made by the programmer can compromise the entire system, \eg{},
 corrupting data structures without notice, or
 crashing the run-time system.
+In other words,
+all guarantees provided by a static type system are undermined by the inclusion of unsafe intrinsics.
+
 Unsafe intrinsics can be seen in safe languages, \eg{},
 \lang{Java},
 \lang{C\#},
@@ -60,7 +73,13 @@ In addition to FFI, some safe languages offer so-called \emph{unsafe} blocks, \i
 and
 \lang{Rust}.%
 \urlnote{https://doc.rust-lang.org/book/second-edition/ch19-01-unsafe-rust.html}
-Other languages provide an API to perform unsafe operations, \eg{},
+For instance,
+when using \code{unsafe} blocks in \rust{},
+the developer can dereference a raw pointer,
+making the application crash.
+
+Other languages instead provide an \api{} to perform unsafe operations,
+\eg{},
 \lang{Haskell}\footnote{\url{http://hackage.haskell.org/package/base-4.11.1.0/docs/System-IO-Unsafe.html}}
 and
 \lang{Java}.
@@ -68,18 +87,37 @@ But in the case of \lang{Java}, the API to make unsafe operations,
 \code{sun.misc.Unsafe},
 is unsupported\urlnote{http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html}
 and undocumented.
+For instance,
+by invoking the \code{allocateInstance} on an instance of \smu{}
+the developer can allocate an object without calling any constructor,
+thus, violating \java{}'s type system guarantees.
 It was originally intended for internal use within the \jdk{},
 but as we shall see later on, it is used outside the \jdk{} as well.
 
-\textbf{Reflective Capabilities.}
-Programming languages with subtyping such as \java{} or \cpp{} provide a mechanism to \emph{view} an expression as a different type as it was defined.
-This mechanism is often called \emph{casting} and takes the form \code{(T) t}.
+\subsection*{Reflective Capabilities}
+
+Many programming languages provide some sort of \emph{reflective capabilities},
+\ie{}, it enables an executing program to examine or ``introspect'' upon itself.
+Much of the \java{} Reflection \api{} resides in the \code{java.lang.reflect} package,
+allowing the running program to obtain information about classes and objects.
+By using reflection, it is possible to dynamically create instances of a class at run-time as well, \eg{}, through the \code{Class} class.
+\csharp{} provides analogous classes, \eg{}, the \code{Type} class,
+to achieve the same functionality.
+When reflection is used,
+many checks that were done by the typechecker statically (at compile-time)
+now need to be performed dynamically (at run-time).
+
+Programming languages with subtyping such as \java{} or \cpp{} provide a mechanism to \emph{view} an expression as a different type as it was defined, a form of \emph{lightweight} reflection.
+This mechanism is often called \emph{casting} and usually takes the form \code{(T) t}.
 Casting can be in two directions: \emph{upcast} and \emph{downcast}.
 An upcast conversion happens when converting from a reference type $S$ to a reference type $T$, provided that $T$ is a \emph{supertype} of $S$.
 An upcast does not require any explicit casting operation nor compiler check.
 However, as we shall see later on, there are situations where an upcast requires an explicit casting operation.
 On the other hand, a downcast happens when converting from a reference type $S$ to a reference type $T$, provided that $T$ is a \emph{subtype} of $S$.
-Unlike upcasts, downcasts require a run-time check to verify that the conversion is indeed valid.
+Unlike upcasts,
+downcasts require a run-time check to verify that the conversion is indeed valid.
+For instance, \java{} provides the cast operator; while
+\cpp{} with run-time type information (RTTI) provides the \code{dynamic\_cast<>} operator.
 This implies that downcasts provide the means to bypass the static type system.
 By avoiding the type system, downcasts can pose potential threats, because it is like the developer saying to the compiler: \emph{``Trust me here, I know what I'm doing''}.
 Being a escape-hatch to the type system,

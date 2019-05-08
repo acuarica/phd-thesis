@@ -486,8 +486,11 @@ CLOSED: [2019-05-08 Wed 01:48]
 *** In Literature review: finish the chapter motivating the next 2 chapters
 *** Conclusion in Literature Review
 *** /There is a hole, I'm going to fill it, it's important/
-** TODO Write to decanato & committee to re-confirm date
+** DONE Write to decanato & committee to re-confirm date
+CLOSED: [2019-05-08 Wed 16:45]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 16:45] \\
+  June 13 at 14.30
 - State "TODO"       from              [2019-05-07 Tue 14:40]
 :END:
 ** ONHOLD Address internal committee comments on the proposal
@@ -572,7 +575,12 @@ this can give you some hints on why developers use the Unsafe API or some type c
 :LOGBOOK:
 - State "TODO"       from              [2019-05-08 Wed 00:05]
 :END:
-*** Need to be bigger
+*** DONE Need to be bigger
+CLOSED: [2019-05-08 Wed 16:59]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 16:59]
+- State "TODO"       from              [2019-05-08 Wed 16:58]
+:END:
 *** DONE More on advantanges of static typing
 CLOSED: [2019-05-08 Wed 12:24]
 :LOGBOOK:
@@ -580,13 +588,30 @@ CLOSED: [2019-05-08 Wed 12:24]
   Done
 - State "TODO"       from              [2019-05-08 Wed 12:24]
 :END:
-*** More on dangers of unsafe/casting
-*** Also reflection/native code
-*** TODO Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
-*** TODO Discuss aspects of type systems
+*** DONE More on dangers of unsafe/casting
+CLOSED: [2019-05-08 Wed 16:59]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 16:59]
+- State "TODO"       from              [2019-05-08 Wed 16:59]
+:END:
+*** DONE Also reflection/native code
+CLOSED: [2019-05-08 Wed 16:59]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 16:59]
+- State "TODO"       from              [2019-05-08 Wed 16:59]
+:END:
+*** DONE Discuss aspects of type systems
+CLOSED: [2019-05-08 Wed 16:59]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 16:59]
+:END:
 **** Static vs. Dynamic
 **** Staging-time/Compile-time/Link-time/Load-time/Run-time
-*** TODO Add discussion from <https://martinfowler.com/bliki/DynamicTyping.html>
+*** WONTDO Add discussion from <https://martinfowler.com/bliki/DynamicTyping.html>
+CLOSED: [2019-05-08 Wed 17:00]
+:LOGBOOK:
+- State "WONTDO"     from "TODO"       [2019-05-08 Wed 17:00]
+:END:
 *** TODO Featherweight Java is sound unless you use cast
 :LOGBOOK:
 - State "TODO"       from              [2019-05-01 Wed 20:11]
@@ -601,7 +626,12 @@ CLOSED: [2019-05-05 Sun 16:15]
   Added
 - State "TODO"       from              [2019-05-05 Sun 16:15]
 :END:
-*** TODO Talk about reflection as a way to /escape/ the type system
+*** DONE Talk about reflection as a way to /escape/ the type system
+CLOSED: [2019-05-08 Wed 16:58]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 16:58] \\
+  Done
+:END:
 **** Then talk about casting as a subset of reflection
 ** ONHOLD Literature Review
 :LOGBOOK:
@@ -633,6 +663,7 @@ CLOSED: [2019-05-05 Sun 16:15]
 :LOGBOOK:
 - State "TODO"       from              [2019-05-01 Wed 22:57]
 :END:
+** TODO Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
 ** DONE Unsafe and Casts chapter title renamed
 CLOSED: [2019-05-08 Wed 01:57]
 :LOGBOOK:
