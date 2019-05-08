@@ -64,6 +64,8 @@ Being a escape-hatch to the type system,
 a cast is often seen as a design flaw or code smell~\citep{tufanoWhenWhyYour2015} in an object-oriented system.
 
 
+\input{chapters/casts/table-casts-langs.tex}
+
 \section{Research Question}
 
 If static type systems aim to prevent certain kind of errors from happening at run-time,
@@ -98,10 +100,10 @@ we focus on \java{} given its wide usage and relevance for both
 research and industry.%
 \footnote{\url{https://www.tiobe.com/tiobe-index/}}
 Moreover, we focus on the \java{} Unsafe API to study unsafe intrinsics,
-given than the Java Native Interface already has been studied
+given that the \java{} Native Interface already has been studied
 in~\cite{tanSafeJavaNative2006,tanEmpiricalSecurityStudy2008,kondohFindingBugsJava2008,sunNativeGuardProtectingAndroid2014,liFindingBugsExceptional2009}.
 Similarly, although casting uses run-time type information like
-the \java's reflection \api{},
+the \java{}'s reflection \api{},
 the reflection \api{} has been studied in
 \cite{livshitsImprovingSoftwareSecurity2006,livshitsReflectionAnalysisJava2005,landmanChallengesStaticAnalysis2017}.
 
