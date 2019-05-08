@@ -573,7 +573,13 @@ this can give you some hints on why developers use the Unsafe API or some type c
 - State "TODO"       from              [2019-05-08 Wed 00:05]
 :END:
 *** Need to be bigger
-*** More on advantanges of static typing
+*** DONE More on advantanges of static typing
+CLOSED: [2019-05-08 Wed 12:24]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-08 Wed 12:24] \\
+  Done
+- State "TODO"       from              [2019-05-08 Wed 12:24]
+:END:
 *** More on dangers of unsafe/casting
 *** Also reflection/native code
 *** TODO Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"

@@ -7,6 +7,27 @@ As~\cite{pierceTypesProgrammingLanguages2002} states:
 These constraints are enforced by the \emph{type-checker} either when compiling or linking the program.
 Thus, any program not satisfying the constraints stated within a type system is simply rejected by the type-checker.
 
+Besides detecting early errors,
+a typechecker can also be an invaluable \emph{maintenance} tool.
+For instance, it can assist an IDE to perform refactor analysis, such as renaming a method or field.
+A static type system can be helpful to enforce disciplined programming.
+When composing large-scale software, 
+\emph{modular languages} are built-up of types, shown in the interfaces of modules.
+Along these lines, type systems can be useful for \emph{documenting} purposes.
+Type annotations, \eg{}, in method and fields declarations,
+can provide useful hints to the developer.
+Since type annotations are meant to be checked every time the program is compiled,
+this information cannot be outdated, like comments in the source text.
+Static type systems can aid to generate more \emph{efficient} machine code, \eg{},
+choosing a different representation for integer or real values at run-time.
+Furthermore, in statically checked safe languages, \eg{}, \java{} or \rust{},
+many checks are performed at compile-time, instead of being performed otherwise at run-time.
+Compare this to dinamically checked safe languages,
+where all checks need to be performed at runtime,
+degrading performance.
+
+\input{chapters/casts/table-casts-langs}
+
 Nevertheless, often the static approximation provided by a type system is not precise enough.
 Being static, the analysis done by the type-checker needs to be conservative:
 It is better to reject programs that are valid,
@@ -19,7 +40,7 @@ make the typing constraints less strict
 to permit more programs to be valid,
 at the expense of causing more errors at run-time.
 These mechanisms are essentially two:
-\emph{Unsafe Intrinsics} and \emph{Casting}.
+\emph{Unsafe Intrinsics} and \emph{Reflective Capabilities}.
 
 \textbf{Unsafe Intrinsics.}
 Unsafe intrinsics is the ability to perform certain operations \emph{without} being checked by the compiler.
@@ -45,11 +66,12 @@ and
 \lang{Java}.
 But in the case of \lang{Java}, the API to make unsafe operations,
 \code{sun.misc.Unsafe},
-is unsupported\footnote{\url{http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html}}
+is unsupported\urlnote{http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html}
 and undocumented.
-It was originally intended for internal use within the JDK, but as we shall see later on, it is used outside the JDK as well.
+It was originally intended for internal use within the \jdk{},
+but as we shall see later on, it is used outside the \jdk{} as well.
 
-\textbf{Casting.}
+\textbf{Reflective Capabilities.}
 Programming languages with subtyping such as \java{} or \cpp{} provide a mechanism to \emph{view} an expression as a different type as it was defined.
 This mechanism is often called \emph{casting} and takes the form \code{(T) t}.
 Casting can be in two directions: \emph{upcast} and \emph{downcast}.
@@ -62,9 +84,6 @@ This implies that downcasts provide the means to bypass the static type system.
 By avoiding the type system, downcasts can pose potential threats, because it is like the developer saying to the compiler: \emph{``Trust me here, I know what I'm doing''}.
 Being a escape-hatch to the type system,
 a cast is often seen as a design flaw or code smell~\citep{tufanoWhenWhyYour2015} in an object-oriented system.
-
-
-\input{chapters/casts/table-casts-langs.tex}
 
 \section{Research Question}
 
