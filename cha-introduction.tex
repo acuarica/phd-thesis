@@ -61,17 +61,16 @@ In other words,
 all guarantees provided by a static type system are undermined by the inclusion of unsafe intrinsics.
 
 Unsafe intrinsics can be seen in safe languages, \eg{},
-\lang{Java},
-\lang{C\#},
-\lang{Rust}, or
-\lang{Haskell}.
+\java{}, \csharp{}, \rust{}, or \haskell{}.
 Foreign Function Interface (\emph{FFI}), \ie{}, calling native code from within a safe environment is unsafe.
 It is so because the run-time system cannot guarantee anything about the native code.
-In addition to FFI, some safe languages offer so-called \emph{unsafe} blocks, \ie{}, making unsafe operations within the language itself, \eg{},
-\lang{C\#}%
+In addition to FFI,
+some safe languages offer so-called \emph{unsafe} blocks, \ie{},
+making unsafe operations within the language itself, \eg{},
+\csharp{}%
 \urlnote{https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/unsafe-code}
 and
-\lang{Rust}.%
+\rust{}.%
 \urlnote{https://doc.rust-lang.org/book/second-edition/ch19-01-unsafe-rust.html}
 For instance,
 when using \code{unsafe} blocks in \rust{},
@@ -79,13 +78,12 @@ the developer can dereference a raw pointer,
 making the application crash.
 
 Other languages instead provide an \api{} to perform unsafe operations,
-\eg{},
-\lang{Haskell}\footnote{\url{http://hackage.haskell.org/package/base-4.11.1.0/docs/System-IO-Unsafe.html}}
-and
-\lang{Java}.
-But in the case of \lang{Java}, the API to make unsafe operations,
-\code{sun.misc.Unsafe},
-is unsupported\urlnote{http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html}
+\eg{}, \haskell{}%
+\urlnote{http://hackage.haskell.org/package/base-4.11.1.0/docs/System-IO-Unsafe.html}
+and \java{}.
+But in the case of \java{}, the \api{} to make unsafe operations,
+\smu{}, is unsupported%
+\urlnote{http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html}
 and undocumented.
 For instance,
 by invoking the \code{allocateInstance} on an instance of \smu{}

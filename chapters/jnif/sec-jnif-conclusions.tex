@@ -4,9 +4,9 @@
 Until now,
 full-coverage dynamic instrumentation in production \jvm{}s required performing the code rewriting in a separate \jvm{}, 
 because of the lack of a native bytecode rewriting framework.
-This paper introduces \jnif{}, the first full-coverage in-process dynamic instrumentation framework for Java.
-It discusses the key issues of creating such a framework for Java---such as stack-map generation---and
+This paper introduces \jnif{}, the first full-coverage in-process dynamic instrumentation framework for \java{}.
+It discusses the key issues of creating such a framework for \java{}---such as stack-map generation---and
 it evaluates the performance of \jnif{} against the most prevalent \java{}-level framework: \asm{}.
 We find that \jnif{} is faster than using out-of-process \asm{} in most cases.
 We hope that thanks to \jnif{}, and this paper, a broader number of researchers and developers will
-be enabled to develop native \jvm{} agents that analyse and rewrite Java bytecode without limitations.
+be enabled to develop native \jvm{} agents that analyse and rewrite \java{} bytecode without limitations.

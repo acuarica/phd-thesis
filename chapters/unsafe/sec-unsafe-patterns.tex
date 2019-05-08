@@ -55,7 +55,7 @@ serialized objects.}
   Users of \member{allocate\-Instance} must take care to properly
   initialize the object before it is used by other code. This is often done in conjunction with other methods
   of \unsafe{}, for instance those in the \smugroup{Heap Put} group, or by using
-the Java reflection API.
+the \java{} reflection API.
 }
 
 \newcommand\foundinprobyte{44}
@@ -118,7 +118,7 @@ data structures, including \smugroup{Volatile Get/Put}, \smugroup{Ordered Put}, 
 }
 {Non-blocking algorithms often scale better than algorithms that use locking.}
 {Non-blocking algorithms can be difficult to implement correctly. Programmers
-must understand the Java memory model and how the \unsafe{} methods interact
+must understand the \java{} memory model and how the \unsafe{} methods interact
 with the memory model.}
 
 \newcommand\foundinfence{198}
@@ -130,7 +130,7 @@ the \smugroup{Get/Put Volatile} groups or \smugroup{Put Ordered} group}
 
 
 \patterntext{fence}%
-{Because of Java's weak memory
+{Because of \java{}'s weak memory
   model, when implementing concurrent code,
   it is often necessary to ensure that
   writes to a shared variable by one thread become visible to other threads,
@@ -138,11 +138,11 @@ the \smugroup{Get/Put Volatile} groups or \smugroup{Put Ordered} group}
   reordering of loads and stores.
   Volatile variables can be used for this purpose, but
   \smu{} can be used instead with better performance.
-  Additionally, because Java does not allow array elements to be declared volatile,
+  Additionally, because \java{} does not allow array elements to be declared volatile,
   there is no possibility other than to use \unsafe{} to ensure visibility of
   array stores. The methods of the \smugroup{Ordered Put} groups
   and the \smugroup{Volatile Get/Put} groups can be used for these purposes.
-  In addition, the \smugroup{Fence} methods were introduced in Java 8 expressly
+  In addition, the \smugroup{Fence} methods were introduced in \java{} 8 expressly
 to provide greater flexibility for this use case.}
 {Memory fence operations can be added to the standard library. The language
 can be changed to make volatile variables more flexible.}

@@ -671,8 +671,11 @@ CLOSED: [2019-05-08 Wed 16:58]
 :LOGBOOK:
 - State "TODO"       from              [2019-05-01 Wed 22:57]
 :END:
-** ONHOLD Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
+** CANCELED Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
+CLOSED: [2019-05-08 Wed 19:27]
 :LOGBOOK:
+- State "CANCELED"   from "ONHOLD"     [2019-05-08 Wed 19:27] \\
+  Paper wasn't published, evident results.
 - State "ONHOLD"     from "TODO"       [2019-05-08 Wed 17:56]
 :END:
 ** DONE Unsafe and Casts chapter title renamed
