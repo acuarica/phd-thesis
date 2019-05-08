@@ -1,11 +1,10 @@
-
 \begin{abstract}
 The main goal of a static type system is to prevent certain kind of errors from happening at run-time.
 A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
 Yet mainstream programming languages are endowed with type systems that
-provide the means to circumvent their constraints through the \emph{unsafe intrinsics} and \emph{casting} mechanisms.
+provide the means to loosen their static typing constraints through the \emph{unsafe intrinsics} and \emph{reflective capabilities} mechanisms.
 
-We want to understand how and when developers circumvent these constraints.
+We want to understand how and when developers give up these static constraints.
 This knowledge can be:
 \begin{inparaenum}[a)]
 \item a recommendation for current and future language designers
@@ -17,14 +16,15 @@ or to carry out controlled programming experiments, and
 \item a guide for developers for better practices.
 \end{inparaenum}
 
-We plan to empirically study how these two mechanisms---unsafe intrinsics and casting---are used by \java{} developers to circumvent the static type system.
-We have devised usage patterns for both a subset of unsafe intrinsics and casting.
+In this thesis we conducted two empirical studies to understand how these mechanisms---unsafe intrinsics and reflective capabilities---are used by \java{} developers when the static type system becomes too strict.
+We have devised usage patterns for both a subset of unsafe intrinsics and reflective capabilities.
 Usage patterns are recurrent programming idioms to solve a specific issue.
 We believe that having usage patterns can help us to better categorize use cases and
 thus understand how those features are used.
 
-% These patterns can provide an insight on how the language is being used by developers in real-world applications.
 \end{abstract}
+
+% These patterns can provide an insight on how the language is being used by developers in real-world applications.
 
 % item useful to make informed decisions for current \& future language designers, not only \java{},
 

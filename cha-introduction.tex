@@ -131,12 +131,13 @@ or when casting to a class that is \emph{not} a supertype of the object's \emph{
 They proved that on any well-typed program, the first two never happen,
 and the third one never happens on well-typed programs \emph{without downcasts}.
 From the theoretical point of view,
-(down)casts make typing rules unsound.
+(down)casts make typing rules unsound, \ie{},
+\emph{a well-typed program with (down)casts may get stuck}.
 
 \section{Research Question}
 
 If static type systems aim to prevent certain kind of errors from happening at run-time,
-yet they provide the means to circumvent their constraints,
+yet they provide the means to loosen their typing constraints,
 why exactly does one need to do so?
 Are these mechanisms actually used in real-world code?
 If yes, then how so?
@@ -146,7 +147,7 @@ This triggers our \textbf{main research question}:
 \rightline{\footnotesize \emph{MRQ}}
 
 \centering
-For what purpose do developers circumvent static type systems?
+For what purpose do developers give up static type checking?
 \end{mdframed}
 
 We have confidence that this knowledge can be:
@@ -161,7 +162,7 @@ or the addition of \emph{Smart Casts} in \lang{Kotlin},\footnote{\url{https://ko
 \end{inparaenum}
 
 To answer our question above,
-we empirically studied how the two aforementioned mechanisms---unsafe intrinsics and casting---are used by developers.
+we empirically studied how the two aforementioned mechanisms---unsafe intrinsics and reflective capabilities---are used by developers.
 Since any kind of language study must be language-specific,
 we focus on \java{} given its wide usage and relevance for both
 research and industry.%
