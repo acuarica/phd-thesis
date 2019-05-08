@@ -490,8 +490,14 @@ CLOSED: [2019-05-08 Wed 01:48]
 :LOGBOOK:
 - State "TODO"       from              [2019-05-07 Tue 14:40]
 :END:
-** TODO Address internal committee comments on the proposal
-*** TODO Address Antonio's comment on casting is not circumventing the static type system
+** ONHOLD Address internal committee comments on the proposal
+:LOGBOOK:
+- State "ONHOLD"     from "TODO"       [2019-05-08 Wed 02:58]
+:END:
+*** ONHOLD Address Antonio's comment on casting is not circumventing the static type system
+:LOGBOOK:
+- State "ONHOLD"     from "TODO"       [2019-05-08 Wed 02:58]
+:END:
 **** Dynamically recovery information
 *** Antonio's
 **** My first and perhaps most important objections are on the premise of
@@ -543,7 +549,7 @@ CLOSED: [2019-05-08 Wed 01:09]
 :END:
 but they use it a lot (48k usages). Why?
 **** Is the usage of the Unsafe API a form of technical debt?
-If yes, do you expect developers to refactor the code using the Usafe API?
+If yes, do you expect developers to refactor the code using the Unsafe API?
 **** DONE Comment on the limitation of the study in Chapter 3
 CLOSED: [2019-04-29 Mon 14:28]
 related to the selection of the subject systems (libraries only)
@@ -562,7 +568,6 @@ to only analyze bug-fixing commits related to ClassCastException
 It reports discussions on Stack Overflow including their code snippets linked to projects in GitHub.
 You can see whether a given code snippet in SO has been reused in GitHub projects and
 this can give you some hints on why developers use the Unsafe API or some type cast patterns.
-
 ** TODO Introduction
 :LOGBOOK:
 - State "TODO"       from              [2019-05-08 Wed 00:05]
@@ -592,8 +597,9 @@ CLOSED: [2019-05-05 Sun 16:15]
 :END:
 *** TODO Talk about reflection as a way to /escape/ the type system
 **** Then talk about casting as a subset of reflection
-** TODO Literature Review
+** ONHOLD Literature Review
 :LOGBOOK:
+- State "ONHOLD"     from "TODO"       [2019-05-08 Wed 02:57]
 - State "TODO"       from              [2019-05-01 Wed 22:57]
 :END:
 *** Add a table to help visualize the chapter
