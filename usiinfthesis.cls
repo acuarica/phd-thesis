@@ -340,14 +340,14 @@ date of the approved research program.\\[18mm]
 %%% use of \phantomsection is required for dealing with hyperref
 %%% package and depends on nohyper option
 
-% \renewcommand\tableofcontents{%
-% \ifthenelse{\boolean{@hypermode}}{\phantomsection}{}
-% \addcontentsline{toc}{chapter}{\contentsname}%
-%     \chapter*{\contentsname
-%         \@mkboth{\contentsname}{\contentsname}}%
-%     \@starttoc{toc}%
-% \cleardoublepage
-%     }
+\renewcommand\tableofcontents{%
+\ifthenelse{\boolean{@hypermode}}{\phantomsection}{}
+\addcontentsline{toc}{chapter}{\contentsname}%
+    \chapter*{\contentsname
+        \@mkboth{\contentsname}{\contentsname}}%
+    \@starttoc{toc}%
+\cleardoublepage
+    }
 
 \renewcommand\listoffigures{%
 \ifthenelse{\boolean{@hypermode}}{\phantomsection}{}
