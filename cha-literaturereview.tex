@@ -122,12 +122,13 @@ properly extracting information from different kinds of artifacts.
 In this scenario, there are several tools that allows a researcher or developer to query information about software repositories.
 
 \cite{urmaProgrammingLanguageEvolution2012} evaluated seven source code
-query languages\footnote{\url{https://wiki.openjdk.java.net/display/Compiler/Java+Corpus+Tools}}:
-\emph{Java Tools Language} \citep{cohenJTLJavaTools},
+query languages%
+\footnote{\url{https://wiki.openjdk.java.net/display/Compiler/Java+Corpus+Tools}}:
+\emph{Java Tools Language}~\citep{cohenJTLJavaTools},
+\emph{SOUL}~\citep{derooverSOULToolSuite2011},
 \emph{Browse-By-Query}\footnote{\url{http://browsebyquery.sourceforge.net/}},
-\emph{SOUL} \citep{derooverSOULToolSuite2011},
-\emph{JQuery} \citep{volderJqueryGenericCode2006},
-\emph{.QL} \citep{moorKeynoteAddressQL2007},
+\emph{JQuery}~\citep{volderJqueryGenericCode2006},
+\emph{.QL}~\citep{moorKeynoteAddressQL2007},
 \emph{Jackpot}\footnote{\url{http://wiki.netbeans.org/Jackpot}}, and
 \emph{PMD}\footnote{\url{https://pmd.github.io/}}.
 They have implemented---whenever possible---four use cases using the tools mentioned above.
@@ -171,10 +172,10 @@ Sourcegraph\footnote{\url{https://sourcegraph.com}} is a tool that allows regula
 It integrates with source repositories to ease navigate software projects.
 
 \cite{posnettTHEXMiningMetapatterns2010} have extended
-\asm{}~\citep{brunetonASMCodeManipulation2002,kuleshovUsingASMFramework2007}
-to detect meta-patterns, \ie,
-purely structural patterns of object-oriented interaction.
-\cite{huDynamicAnalysisDesign2008} used both dynamic and static analysis to discover design patterns, while \cite{arcelliDesignPatternDetection2008} used only dynamic.
+\asm{}~\citep{brunetonASMCodeManipulation2002}
+to detect meta-patterns, \ie{},
+structural patterns of object-oriented interaction.
+\cite{huDynamicAnalysisDesign2008} used both dynamic and static analysis to discover design patterns, while \cite{arcelliDesignPatternDetection2008} used only dynamic analysis.
 
 Trying to unify analysis and transformation tools,
 \cite{vinjuHowMakeBridge2006} and~\cite{klintRASCALDomainSpecific2009} built \rascal{},
@@ -267,7 +268,6 @@ input data makes more feasible to implement dynamic analysis.
 They conducted empirical studies on how programmers handle exceptions in \java{} code.
 The work done by~\cite{nakshatriAnalysisExceptionHandling2016} categorized them into patterns.
 \cite{coelhoUnveilingExceptionHandling2015} used a more dynamic approach by analysing stack traces and code issues in \github{}.
-
 \cite{kechagiaUndocumentedUncheckedExceptions2014} analysed how undocumented and
 unchecked exceptions cause most of the exceptions in
 Android applications.

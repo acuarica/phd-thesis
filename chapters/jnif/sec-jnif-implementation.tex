@@ -107,7 +107,7 @@ It can then parse the bytes of the class into its IR to determine that class' su
 \subsubsection*{Avoiding the Loading of the Class Being Instrumented}
 If during the instrumentation of a class \code{X} \jnif{} needs to
 perform a least upper bound computation involving type \code{X},
-then using \code{ClassLoader.loadClass()} to load class \code{X} would
+then using \code{ClassLoader.load\-Class} to load class \code{X} would
 cause an infinite recursion.
 The above solution with \code{get\-ResourceAsStream()} also prevents this problem.
 

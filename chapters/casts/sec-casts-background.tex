@@ -83,7 +83,8 @@ try {
 \label{lst:casts:catchcce}
 \end{listing}
 
-A \emph{guard} is a conditional expression on which a cast---usually a downcast--- is control-dependent and that ensures that the cast is evaluated only if it will succeed.
+A \emph{guard} is a conditional expression on which a cast,
+usually a downcast, is control-dependent and that ensures that the cast is evaluated only if it will succeed.
 Guards are often implemented using the \code{instanceof} operator, which tests
 if an expression is an instance of a given reference type.
 If an \code{instanceof} guard returns true, the guarded cast should not throw
@@ -100,7 +101,7 @@ if (x instanceof Foo) {
 \label{lst:casts:instanceoftest}
 \end{listing}
 
-In \java{}, an object's type can also be checked using reflection:
+An object's type can also be checked using reflection:
 the \code{getClass} method%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\#getClass--}}
 returns the run-time class of an object.

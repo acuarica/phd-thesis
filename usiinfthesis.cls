@@ -82,20 +82,21 @@
 
 %font settings
 \RequirePackage[T1]{fontenc}
-\RequirePackage[charter]{mathdesign}
-\RequirePackage[scaled]{beramono}
-\renewcommand{\sfdefault}{uop}
-\renewcommand{\scshape}{%
-\not@math@alphabet\scshape\relax
-\ifthenelse{\equal{\f@family}{uop}}%
-{\fontshape{sc}\selectfont}%
-{\fontshape{fsc}\selectfont}%
-}
+\RequirePackage[sc]{mathpazo}
+% \RequirePackage[charter]{mathdesign}
+% \RequirePackage[scaled]{beramono}
+% \renewcommand{\sfdefault}{uop}
+% \renewcommand{\scshape}{%
+% \not@math@alphabet\scshape\relax
+% \ifthenelse{\equal{\f@family}{uop}}%
+% {\fontshape{sc}\selectfont}%
+% {\fontshape{fsc}\selectfont}%
+% }
 
 
 %sans-serif titles
-\RequirePackage{sectsty}
-\allsectionsfont{\sffamily}
+% \RequirePackage{sectsty}
+% \allsectionsfont{\sffamily}
 
 %geometry
 \RequirePackage[a4paper]{geometry}

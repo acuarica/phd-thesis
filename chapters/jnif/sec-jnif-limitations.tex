@@ -10,12 +10,12 @@ The \code{jsr}/\code{ret} instructions make the control flow graph generation di
 but our initial tests with JRuby have been successful.
 Dacapo bach was released in 2009,
 before the creation of \java{} 7,
-which introduces the \code{invokedynamic} instruction.
-Thus it does not contain any benchmark with \code{invokedynamic}.
+which introduces the \code{invoke\-dynamic} instruction.
+Thus it does not contain any benchmark with \code{invoke\-dynamic}.
 Instead we use JRuby 1.7 in order to create a self-contained jar file. 
-This jar file does not contain any \code{invokedynamic} instruction, 
+This jar file does not contain any \code{invoke\-dynamic} instruction, 
 but it does contain the JRuby compiler, 
-that when specified via \code{-Djruby.compile.invokedynamic=true} it will generate class files with \code{invokedynamic}. 
+that when specified via \code{-Djruby.compile.invoke\-dynamic=true} it will generate class files with \code{invokedynamic}. 
 We tested our parser and writer with this settings with successful results.
 
 \textbf{Stack map generation with full coverage.}

@@ -30,7 +30,7 @@ samlTokenRenewer.setAllowRenewalAfterExpiry(true);
 \end{minted}
 
 The following listing shows an example of the \thisp{} pattern.
-The field \code{uncompressedDirectBuf} is being cast to the \code{java.nio.ByteBuffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
+The field \code{uncompressedDirectBuf} is being cast to the \code{java.nio.Byte\-Buffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
 Nevertheless, the field is assigned only once in the constructor (line $7$)
 with a value of type \code{java.nio.ByteBuffer}.
 The value assigned is returned by the method
@@ -40,7 +40,7 @@ Inspecting the enclosing class, there is no other assignment to the
 \code{uncompressedDirectBuf} field,
 thus making possible to declare it as \code{final}.
 Therefore, the cast pattern in line $13$ will always succeed.
-Any other similar use of the \code{uncompressedDirectBuf} field needs to be cast as well.
+Any other similar use of the \code{uncompressed\-DirectBuf} field needs to be cast as well.
 
 % https://lgtm.com/projects/g/facebookarchive/hadoop-20/snapshot/dist-1802091768-1524814812150/files/src/core/org/apache/hadoop/io/compress/snappy/SnappyCompressor.java?sort=name&dir=ASC&mode=heatmap#L134
 \def\urlvar{http://bit.ly/facebookarchive_hadoop_20_2FuDeO7}
@@ -93,7 +93,7 @@ In the next example,%
 the \code{ir} field is cast to \code{DirectoryReader} (line 11).
 The \code{ir} field is declared as \code{IndexReader} (superclass of \code{DirectoryReader}) in line 1.
 The cast to \code{ir} is performed using the value of the expression \code{readers.get(0)} (line 10).
-But \code{readers} is defined as \code{ArrayList<DirectoryReader>} (line 3),
+But \code{readers} is defined as \code{ArrayList<Directory\-Reader>} (line 3),
 making the cast superfluous if an extra variable of type \code{DirectoryReader} had been used.
 
 %https://lgtm.com/projects/g/tarzanek/luke/snapshot/dist-1794550833-1524814812150/files/src/org/getopt/luke/Luke.java?sort=name&dir=ASC&mode=heatmap#L970

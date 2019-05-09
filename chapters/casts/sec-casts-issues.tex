@@ -48,8 +48,8 @@ AbstractProject<?, ?> project = (AbstractProject<?, ?>) job;
 \end{listing}
 
 In the next example the developer made a mistake by choosing a wrong class for the cast target,
-\ie, \code{JCustomFileChooser} instead of \code{CustomFileFilter} (line 9).
-The \code{CustomFileFilter} is an inner static class inside the \code{JCustomFileFilter} class.
+\ie, \code{JCustomFileChooser} instead of \code{CustomFile\-Filter} (line 9).
+The \code{CustomFileFilter} is an inner static class inside the \code{JCustom\-FileFilter} class.
 There is no subclass relationship between these two classes.
 The cast happens inside an \code{equals} method---where this idiom is well known---within the \code{CustomFileFilter} class.
 But the developer picked the wrong class, the outer class (\code{JCustomFileFilter}), instead of the inner class (\code{CustomFileFilter}).

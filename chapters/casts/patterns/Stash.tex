@@ -22,8 +22,8 @@ The \variant{LookupById} is the most used variant.
 \plot{patterns/table-pattern-Stash-features}{fig:casts:stash}{\thisp{} Variant Occurrences}
 
 In the \variant{LookupById} variant example shown below,
-the \code{getAttribute} method returns \code{Object}.
-The variable \texttt{context} is of type \code{BasicHttpContext},
+the return type of the \code{getAttribute} method is \code{Object}.
+The variable \texttt{context} is of type \code{BasicHttp\-Context},
 which is implemented with \code{HashMap}.
 
 %https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1518514025554/files/library/src/main/java/com/loopj/android/http/AsyncHttpClient.java?sort=name&dir=ASC&mode=heatmap&excluded=false#L258
@@ -212,7 +212,8 @@ public final class MatchPanel extends JPanel implements Observer {
 \end{minted}
 
 \detection{}
-The implementation of the two variants---\variant{StaticResource} and \variant{Tag}---is application-specific.
+The implementation of the two variants,
+\variant{StaticResource} and \variant{Tag}, is application-specific.
 Thus, detecting them is often impractical.
 However, if the methods that perform the specified patterns are known,
 \eg{}, \code{findViewById}, then the automatic detection becomes trivial.

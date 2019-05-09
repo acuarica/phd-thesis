@@ -44,7 +44,7 @@ This pattern is related to the use of \emph{phantom types} in parametrically pol
 Phantom types are type parameters used solely for type checking and are not occupied by any value.
 
 This pattern also occurs with empty collections.
-For instance, the \java{} standard library implementation of the method \code{Collections.<T>emptyList()} casts a private constant with raw type \code{List} to a \code{List<T>}.
+For instance, the \java{} standard library implementation of the method \code{Collections.<T>empty\-List} casts a private constant with raw type \code{List} to a \code{List<T>}.
 This is safe because the list is empty and has no elements of type \code{T}.
 
 \scala{} has an unoccupied \code{Nothing} type to handle this situation.

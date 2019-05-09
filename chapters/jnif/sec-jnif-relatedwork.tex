@@ -38,8 +38,9 @@ The most limited way for dynamically rewriting \java{} classes at runtime
 is the use of a custom class loader.
 This requires modifications to the application,
 so that it uses that class loader.
-This can be problematic for applications---especially for large programs
-based on powerful frameworks---that already use their own class loaders.
+This can be problematic for applications,
+especially for large programs based on powerful frameworks,
+that already use their own class loaders.
 This limitation can be circumvented by using dynamic instrumentation
 hooks provided by the \jvm{}~\citep{lindholmJavaVirtualMachine}.
 Java provides two such hooks: \java{} agents and \jvmti{}.

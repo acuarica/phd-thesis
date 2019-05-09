@@ -11,9 +11,9 @@ Usually the arguments that determine the run-time type to be returned are known 
 \instances{}
 The following snippet
 shows an instance of the \thisp{} pattern.
-The cast is applied to the result of invoking \code{keyPair.getPrivate}
+The cast is applied to the result of invoking \code{keyPair.get\-Private}
 (line 6).
-The variable \code{keyPair} is assigned the result of \code{pairGen.generateKey\-Pair} (line 3).
+The variable \code{keyPair} is assigned the result of \code{pairGen.\-generateKeyPair} (line 3).
 At the same time, the \code{pairGen} variable is assigned the value returned by \code{KeyPairGenerator.getInstance("RSA")}.
 The argument \code{"RSA"} indicates the algorithm to use.
 The method%
@@ -35,7 +35,7 @@ RSAKey rsaJWK2 = new RSAKey.Builder((RSAPublicKey) keyPair.getPublic())
 \end{minted}
 
 Similar to the above snippet,
-the next example shows an instance of the \thisp{} pattern where a cast is performed on the result of the \code{openConnection} method%
+the next example shows an instance of this pattern where a cast is performed on the result of the \code{openConnection} method%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/net/URL.html\#openConnection--}}
 (line 2).
 The method is declared to return \code{URLConnection} but can return a more specific type based on the URL string.

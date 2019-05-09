@@ -1,21 +1,6 @@
 \chapter{Empirical Study on the Cast Operator}
 \label{cha:casts}
 
-The main goal of a \emph{static} type system
-is to prevent certain kinds of errors from happening at run time.
-A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
-Any program not satisfying the constraints specified by the type system is
-simply rejected by the compiler.
-
-Nevertheless, often a static type system is insufficiently precise.
-The type checker is necessarily conservative:
-it must not accept invalid programs,
-but it may reject programs that are valid but whose validity cannot be ensured at compile time.
-However, there are situations when the developer has more information
-about the program than can be encoded---or encoded easily---into the types.
-To that end, programming languages often provide mechanisms to make the typing constraints less strict,
-allowing more valid programs at the expense of more errors at run time.
-
 A common mechanism for relaxing the static typing constraints in object-oriented languages is \emph{casting}.
 In programming languages with subtyping---or \emph{subtype polymorphism}~\citep{cardelliUnderstandingTypesData1985}---such as \java{}, \csharp{} or \cpp{},
 casting allows an expression to be viewed at a different type than the one at which it was defined.
