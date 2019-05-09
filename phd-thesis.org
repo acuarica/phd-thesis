@@ -689,8 +689,10 @@ CLOSED: [2019-05-08 Wed 23:16]
 :LOGBOOK:
 - State "DONE"       from              [2019-05-08 Wed 23:16]
 :END:
-** TODO When the answers to the RQs are good enough?
+** DONE When the answers to the RQs are good enough?
+CLOSED: [2019-05-09 Thu 03:16]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-09 Thu 03:16]
 - State "TODO"       from              [2019-05-01 Wed 22:57]
 :END:
 ** CANCELED Article "Static Typing Where Possible, Dynamic Typing When Needed: The End of the Cold War Between Programming Languages"
