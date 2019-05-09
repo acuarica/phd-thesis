@@ -20,7 +20,7 @@ This section describes our methodology for identifying these patterns.
 
 Our first step is to visualize how an artifact uses \unsafe{}.
 To this end, we count the \unsafe{} call sites and field usages per class in each artifact.
-Figures~\ref{fig:appartfingerprint} and~\ref{fig:langartfingerprint} show two examples of call sites usages for \artexp{com.lmax}{disruptor} and \artexp{org.scala-lang}{scala-library} respectively.
+Figures~\ref{fig:appartfingerprint} and~\ref{fig:langartfingerprint} show two examples of call sites usages for \artexp{com.lmax}{\-disruptor} and \artexp{org.scala-lang}{scala-library} respectively.
 Each row shows a fully qualified class name and their usage of \smu{}.
 
 After determining the call sites and field usage per artifact, we tried to find a way to group artifacts by how they use \smu{}.
