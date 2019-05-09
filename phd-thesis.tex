@@ -48,39 +48,24 @@
 
 \begin{document}
 
-\ifdefined\UnsafeChapter
-  \input{cha-unsafe}
-\else
-  \ifdefined\CastsChapter
-    \input{cha-casts}
-    \appendix
-    \input{ap-ql}
-    \chapter{Placeholder}\label{ap:jnif}
-  \else
-    \ifdefined\ConclusionsChapter
-      \input{cha-conclusions}
-    \else
-      \maketitle
-      \frontmatter
-      \input{abstract}
-      \input{acks}
-      \tableofcontents 
-      \listoffigures
-      \listoftables
-      \listoflistings
-      \mainmatter
-      \input{cha-introduction}
-      \input{cha-literaturereview}
-      \input{cha-unsafe}
-      \input{cha-casts}
-      \input{cha-conclusions}
-      \appendix
-      \input{ap-ql}
-      \input{ap-jnif}
-      \backmatter
-    \fi
-  \fi
-\fi
+\maketitle
+\frontmatter
+\input{abstract}
+\input{acks}
+\tableofcontents 
+\listoffigures
+\listoftables
+\listoflistings
+\mainmatter
+\input{cha-introduction}
+\input{cha-literaturereview}
+\input{cha-unsafe}
+\input{cha-casts}
+\input{cha-conclusions}
+\appendix
+\input{ap-ql}
+\input{ap-jnif}
+\backmatter
 
 \bibliographystyle{plainnat}
 \bibliography{pubs-zotero,pubs-manual}
