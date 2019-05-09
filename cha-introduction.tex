@@ -4,11 +4,11 @@ In programming language design, the main goal of a \emph{static} type system is 
 A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
 As~\cite{pierceTypesProgrammingLanguages2002} states:
 ``A type system can be regarded as calculating a kind of \emph{static} approximation to the run-time behaviors of the terms in a program.''
-These constraints are enforced by the \emph{type-checker} either when compiling or linking the program.
-Thus, any program not satisfying the constraints stated within a type system is simply rejected by the type-checker.
+These constraints are enforced by the \emph{type checker} either when compiling or linking the program.
+Thus, any program not satisfying the constraints stated within a type system is simply rejected by the type checker.
 
 Besides detecting early errors,
-a typechecker can also be an invaluable \emph{maintenance} tool.
+a type checker can also be an invaluable \emph{maintenance} tool.
 For instance, it can assist an IDE to perform refactor analysis,
 such as renaming a method or field.
 A static type system can be helpful to enforce disciplined programming.
@@ -37,9 +37,9 @@ Table~\ref{table:introduction:langs} shows where mainstream languages fit in the
 \section{Beyond Static Type Checking}
 
 Nevertheless, often the static approximation provided by a type system is not precise enough.
-Being static, the analysis done by the type-checker needs to be conservative:
+Being static, the analysis done by the type checker needs to be conservative:
 It is better to reject programs that are valid,
-but whose validity cannot be ensured by the type-checker,
+but whose validity cannot be ensured by the type checker,
 rather than accept some invalid programs.
 However, there are situations when the developer has more information
 about the program that is too complex to explain in terms of typing constraints.
@@ -102,7 +102,7 @@ By using reflection, it is possible to dynamically create instances of a class a
 \csharp{} provides analogous classes, \eg{}, the \code{Type} class,
 to achieve the same functionality.
 When reflection is used,
-many checks that were done by the typechecker statically (at compile-time)
+many checks that were done by the type checker statically (at compile-time)
 now need to be performed dynamically (at run-time).
 
 Programming languages with subtyping such as \java{} or \cpp{} provide a mechanism to \emph{view} an expression as a different type as it was defined, a form of \emph{lightweight} reflection.
