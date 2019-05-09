@@ -146,7 +146,7 @@
     \null
     \vfill
 
-    \noindent {\LARGE {\bf \sffamily\@title}}\\[6mm]
+    \noindent {\LARGE {\bf \@title}}\\[6mm]
     \ifthenelse{\boolean{@subtitle}}{%
       \noindent{\large \bf \sffamily\@subtitle}\\
     }{}
@@ -161,7 +161,7 @@
      \ifthenelse{\boolean{@mscspec}}{\\[2mm] \@specialization\\[16mm]}{\\[32mm]}}
     {Doctor of Philosophy \\[32mm]}
     {presented by}\\[2mm]
-    {\Large {\bf\sffamily \@author}}
+    {\Large {\bf \@author}}
     \vfill
     \vfill
     
@@ -244,7 +244,7 @@ date of the approved research program.\\[18mm]
      \ifthenelse{\boolean{@mscthesis}}{}{%
     \begin{center}
     \vspace{1cm}
-    \noindent {\large {\bf \sffamily Dissertation Committee}}\\[2mm]
+    \noindent {\large {\bf Dissertation Committee}}\\[2mm]
     \vspace{12mm}
   %\begin{center}
       \@committee
