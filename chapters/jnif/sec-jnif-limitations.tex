@@ -6,7 +6,7 @@
 Class files requiring stack maps do not include \code{jsr}/\code{ret}.
 The \code{jsr}/\code{ret} instructions make the control flow graph generation difficult, because a \code{ret} instruction can jump to multiple targets instead of a predefined one.
 
-\textbf{invokedynamic.} \jnif{}'s support for \code{invokedynamic} is not yet fully tested, 
+\textbf{invokedynamic.} \jnif{}'s support for \code{invokedynamic} is not yet fully tested
 but our initial tests with JRuby have been successful.
 Dacapo bach was released in 2009,
 before the creation of \java{} 7,

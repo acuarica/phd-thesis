@@ -78,7 +78,7 @@ possibly, a manually written version would just combine the two classes.
 Another use of the pattern, not found in our sample however,
 is to upcast a value to access a field of a superclass which is shadowed by another field of the same name in the subclass.
 
-The \nameref{pat:ReflectiveAccessibility} pattern is also used to access private fields,
+The \nameref{pat:ReflectiveAccessibility} pattern is also used to access private or protected fields,
 albeit fields of unrelated classes that cannot be accessed simply by casting to another type.
 Like \nameref{pat:SoleSubclassImplementation},
 this pattern occurs when there is high cohesion between super and subclass.
