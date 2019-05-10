@@ -5,3 +5,4 @@ all:
 
 clean:
 	latexmk -C
+	-rm -r _minted-phd-thesis
