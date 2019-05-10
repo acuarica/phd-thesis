@@ -199,14 +199,13 @@ This is used in the \nameref{pat:VariableSupertype} pattern.
 \end{listing}
 
 The following predicate holds with expressions \code{e}, \code{f}, and \code{c} such that either
-
 \noindent%
-\begin{minipage}{0.205\textwidth}
+\begin{minipage}{0.19\textwidth}
 \begin{minted}[linenos=false]{java}
 if (e == f) c;
 \end{minted}
 \end{minipage} or
-\begin{minipage}{0.36\textwidth}
+\begin{minipage}{0.355\textwidth}
 \begin{minted}[linenos=false]{java}
 if (e != f) /*...*/ else c;
 \end{minted}
@@ -340,6 +339,7 @@ These classes represent either a \code{Method.invoke} or \code{Field.get} method
 It is used in the detection of the \nameref{pat:ReflectiveAccessibility} pattern.
 To implement this query, we made the \code{ReflectiveMethodAccess} class 
 \emph{abstract}.
+
 In \ql{}, abstract classes allows the developer 
 ``to think of a class as being the union of its subclasses''.%
 \urlnote{https://help.semmle.com/QL/learn-ql/ql/advanced/abstract-classes.html}
