@@ -1,4 +1,5 @@
-\chapter{Automatic Detection of Patterns using \ql{}}\label{ap:ql}
+\chapter{Automatic Detection of Patterns using \ql{}}
+\label{ap:ql}
 
 \ql{}~\citep{avgustinovQLObjectorientedQueries2016} is ``a declarative, object-oriented logic programming language for querying complex,
 potentially recursive data structures encoded in a relational data
@@ -84,7 +85,7 @@ select count(Method m | exists(Block b | m.getBody() = b))
 For example, the following query fetches all primitive cast expressions.
 A primitive cast is a cast where both the target type and the type of the operand are primitive types.
 This excludes any boxed type.
-The class predicate defined in line 2 is called the \emph{characteristic predicate}.
+The class predicate defined in line 2 is called the \emph{characteristic predicate} or \emph{character} of a class.
 It is the predicate that determines which values correspond to a given class.
 Thus, it is similar to filter out results using the \code{where} clause.
 
@@ -335,8 +336,21 @@ class NewDynamicInstanceAccess extends MethodAccess  { #\qlbox#
 \end{listing}
 
 
-These classes represent either a \code{Method.invoke} or \code{Field.get} method.
+These classes represent either a \code{Method.invoke} or \code{Field.get} method access.
 It is used in the detection of the \nameref{pat:ReflectiveAccessibility} pattern.
+To implement this query, we made the \code{ReflectiveMethodAccess} class 
+\emph{abstract}.
+In \ql{}, abstract classes allows the developer 
+``to think of a class as being the union of its subclasses''.%
+\urlnote{https://help.semmle.com/QL/learn-ql/ql/advanced/abstract-classes.html}
+The semantics of an abstract class is as follows:
+``an abstract class has one or more superclasses and a characteristic predicate.
+However, for a value to be in an abstract class,
+it must not only satisfy the character of the class itself,
+but it must also satisfy the character of a subclass.''
+Thus,
+for a value---here, a method access---to be in the \code{ReflectiveMethodAccess} class,
+it needs to be either a method access in the \code{MethodInvokeMethodAccess} or \code{FieldGetMethodAccess} classes.
 
 \begin{listing}
 \begin{minted}{\qllexer}
