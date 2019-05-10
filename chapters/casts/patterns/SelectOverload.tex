@@ -107,10 +107,11 @@ Casting the \code{null} constant seems rather artificial.
 This pattern shows either a lack of expressiveness in \java{} or a bad \api{} design.
 Passing \code{null} to a method might better be handled by using overloading with fewer parameters or by using default parameters.
 Several other languages support default parameters,
-\eg, \scala{}, \csharp{} and \cpp{}.
+\eg{}, \scala{}, \csharp{} and \cpp{}.
 Adding default parameters might be a partial solution.
 
-In addition, a pure object-oriented language would not distinguish between primitives and objects,
+In addition,
+a pure object-oriented language would not distinguish between primitives and objects,
 avoiding the need for autoboxing to be visible at the type level.
 
 \cite{oostvogelsStaticTypingComplex2018a} propose an extension to \typescript{} to express constraints between properties,
