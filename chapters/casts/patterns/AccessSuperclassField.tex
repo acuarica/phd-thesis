@@ -27,10 +27,9 @@ In this case, the field is declared as either \code{private} or \code{protected}
 On the other variant---not found in our manual sample---an upcast is performed to access a field declared in a superclass,
 when the subclass declares a field with the same name.
 
-
 \begin{listing}
-\begin{minted}{java}
-class AccessSuperclassFieldCast extends Cast {
+\begin{minted}{\qllexer}
+class AccessSuperclassFieldCast extends #\qlref{Cast}# { #\qlbox#
 	FieldAccess fa;
 	AccessSuperclassFieldCast() {
 		this instanceof Upcast and
