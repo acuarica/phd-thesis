@@ -155,7 +155,7 @@ The Query~\ref{lst:casts:detection:equals} detects three of them, \ie{},
 It is not difficult to extend this query to detect the other variants. 
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 class EqualsCast extends #\qlref{VarCast}# { #\qlbox#
 	EqualsCast() {
 		getVar() instanceof Parameter and

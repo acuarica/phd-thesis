@@ -32,7 +32,7 @@ The following query returns all casts such that the type---class or interface---
 The \emph{transitive closure} symbol \code{+} indicates that \code{getASubtype} may be followed one or more times.
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 class SoleSubclassImplementation extends #\qlref{Cast}# { #\qlbox#
 	SoleSubclassImplementation() {
 		count(RefType rt | 

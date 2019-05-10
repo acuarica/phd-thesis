@@ -39,7 +39,7 @@ The first one detects when a generic cast is applied to the array,
 \eg{}, \code{(E[]) new Object[length]}.
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 class OnArrayGenericArrayCast extends #\qlref{Cast}# { #\qlbox#
 	OnArrayGenericArrayCast() {
 		getTargetType().(Array).getComponentType() instanceof TypeVariable and
@@ -54,7 +54,7 @@ For instance, \code{(T) events[i]},
 where the \code{events} array is defined as \code{EventObject[]} and \code{T} is declared as \code{T extends EventObject}.
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 class TypeVariableGenericArrayCast extends #\qlref{Cast}# { #\qlbox#
 	TypeVariableGenericArrayCast() {
 		getExprOrDef() instanceof ArrayAccess and
@@ -70,7 +70,7 @@ For instance, a cast \code{(Any<T>) entries[i]} where \code{entries} is defined 
 In this example, \code{Any} is a generic type, but the array is using the raw type instead.
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 class OnElementGenericArrayCast extends #\qlref{Cast}# { #\qlbox#
 	OnElementGenericArrayCast() {
 		(

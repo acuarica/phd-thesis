@@ -21,7 +21,7 @@ The query checks that the type of the cast operand is a wildcard,
 or a parameterized type containing a wildcard.
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 predicate containsWildcard(Type t) { #\qlbox#
 	t instanceof Wildcard or
 	containsWildcard( t.(ParameterizedType).getATypeArgument() )

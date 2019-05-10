@@ -37,7 +37,7 @@ Moreover, it checks that \code{setAccessible(true)} has been invoked in \code{o}
 However, this query does not check that \code{setAccessible(true)} has been invoked \emph{before} the cast.
 
 \begin{listing}
-\begin{minted}{java}	
+\begin{minted}{\qllexer}
 class ReflectiveAccessibilityCast extends #\qlref{Cast}# { #\qlbox#
 	Variable fieldVariable;
     #\qlref{ReflectiveMethodAccess}# reflectiveMethodAccess;

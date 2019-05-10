@@ -366,7 +366,7 @@ Nevertheless, the Query~\ref{lst:casts:detect:switchtypetag} detect the special 
 The expression to be \code{switch}ed is another field in the same object.
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 class SwitchFieldTypeTagCast extends #\qlref{Cast}# { #\qlbox#
 	FieldAccess tagAccess;
 	FieldAccess castAccess;
@@ -389,7 +389,7 @@ This query detects \emph{only} the case when the variable to be cast and
 the \code{getClass} invocation are in the same method.
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 class ControlByIsArrayCast extends #\qlref{VarCast}# { #\qlbox#
 	ConditionBlock cb;
 	MethodAccess iama;
@@ -420,7 +420,7 @@ To detect such case would require an inter-procedural (global) data flow analysi
 Such analysis does not scale easily.
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 class GuardByClassLiteral extends #\qlref{VarCast}# { #\qlbox#
 	TypeLiteral tl;
 	GetClassMethodAccess gcma;

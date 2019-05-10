@@ -77,7 +77,7 @@ The Query~\ref{lst:ql:CovariantGenericCast} detects when a cast is used to selec
 This query \emph{does not} detect a cast belonging to this pattern when the raw type is used, \eg{}, last example shown above.
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 class CovariantGenericCast extends #\qlref{Cast}# { #\qlbox#
 	Argument arg;
 	Call call;

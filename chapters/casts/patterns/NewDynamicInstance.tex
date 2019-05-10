@@ -96,7 +96,7 @@ The Query~\ref{lst:ql:NewDynamicInstanceCast} detects the \thisp{} pattern.
 The \ql{} \code{NewDynamicInstanceAccess} class checks where the cast expression is the \code{newInstance} method on the aforementioned classes.
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 class NewDynamicInstanceCast extends #\qlref{Cast}# { #\qlbox#
 	NewDynamicInstanceCast() {
 		getExprOrDef() instanceof #\qlref{NewDynamicInstanceAccess}#

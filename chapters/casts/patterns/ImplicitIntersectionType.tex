@@ -39,7 +39,7 @@ Usually, in a downcast \code{(T) e}, the class or interface \code{T} is a subtyp
 This query essentially detects whether \code{T} has no subtyping relation with the type of \code{e}.
 
 \begin{listing}
-\begin{minted}{java}
+\begin{minted}{\qllexer}
 class ImplicitIntersectionTypeCast extends #\qlref{Cast}# { #\qlbox#
 	ImplicitIntersectionTypeCast() {
 		getTargetType() instanceof Interface and
