@@ -15,5 +15,6 @@
         }
     ],
     "editor.wordWrap": "on",
-    "cSpell.diagnosticLevel": "Hint"
+    "cSpell.diagnosticLevel": "Hint",
+    "python.pythonPath": "/usr/local/bin/python"
 }
