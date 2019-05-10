@@ -13,16 +13,6 @@
 \newcommand{\host}[1]{\textsl{#1}}
 \newcommand{\conf}[2]{\textsf{#1'#2}}
 
-\newcommand{\urlnote}[1]{\footnote{\url{#1}}}
-
-\newcommand\urlbox{\null\hfill\colorbox{lightgray}{\scriptsize\url{\urlvar}}}
-\newcommand\bcbox{\null\hfill\colorbox{light-orange}{\footnotesize Bytecode}}
-\newcommand\qlbox{\null\hfill\colorbox{light-orange}{\footnotesize\ql{}}}
-\newcommand\scalabox{\null\hfill\colorbox{light-orange}{\footnotesize\scala{}}}
-\newcommand\qlref[1]{\hyperref[lst:ql:#1]{#1}}
-
-\newcommand\qllexer{ql/QLLexer.py:QLLexer -x}
-
 \newcommand{\java}{\lang{Java}}
 \newcommand{\csharp}{\lang{C\#}}
 \newcommand{\cc}{\lang{C}}
@@ -101,11 +91,6 @@
 
 \definecolor{light-orange}{rgb}{1,0.6,0}
 
-\definecolor{diffstart}{named}{Grey}
-\definecolor{diffincl}{named}{Green}
-\definecolor{diffrem}{named}{OrangeRed}
-\definecolor{hl}{named}{OrangeRed}
-
 \setminted{
 	baselinestretch=1,
 	bgcolor=lightgray,
@@ -116,17 +101,26 @@
 	escapeinside=\#\#
 }
 
+\newcommand{\urlnote}[1]{\footnote{\url{#1}}}
+
+\newcommand{\urlbox}{\null\hfill\colorbox{lightgray}{\scriptsize\url{\urlvar}}}
+
+\newcommand{\scalabox}{\null\hfill\colorbox{light-orange}{\footnotesize\scala{}}}
+\newcommand{\cppbox}{\null\hfill\colorbox{light-orange}{\footnotesize\cpp{}}}
+\newcommand{\bcbox}{\null\hfill\colorbox{light-orange}{\footnotesize Bytecode}}
+\newcommand{\qlbox}{\null\hfill\colorbox{light-orange}{\footnotesize\ql{}}}
+
+\newcommand{\qlref}[1]{\hyperref[lst:ql:#1]{#1}}
+\newcommand{\qllexer}{ql/QLLexer.py:QLLexer -x}
+
 \newcommand{\urqA}{To what extent does the Unsafe API impact common application code?}
 \newcommand{\urqB}{How and when are Unsafe features used?}
-
 \newcommand{\urqAdesc}{We want to understand to what extent code actually uses Unsafe or depends on it.}
 \newcommand{\urqBdesc}{We want to investigate what functionality third-party libraries require from Unsafe. This could point out ways in which the \java{} language and/or the JVM can be evolved to provide the same functionality, but in a safer way.}
-
 
 \newcommand{\crqA}{How frequently is casting used in common application code?}
 \newcommand{\crqB}{How and when casts are used?}
 \newcommand{\crqC}{How recurrent are the patterns for which casts are used?}
-
 \newcommand{\crqAdesc}{To what extent does application code actually use casting operations?}
 \newcommand{\crqBdesc}{If casts are used in application code, how and when do developers use them?}
 \newcommand{\crqCdesc}{In addition to understand how and when casts are used, we want to measure how often developers need to resort to certain idioms to solve a particular problem.}

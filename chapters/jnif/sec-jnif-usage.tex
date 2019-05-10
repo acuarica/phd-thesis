@@ -16,7 +16,7 @@ Listing~\ref{usage-parse} shows how to parse it.
 
 \begin{listing}
 \begin{minted}{cpp}
-const char* data = ...;
+const char* data = ...; #\cppbox#
 int len = ...;
 
 jnif::ClassFile cf(data, len);
@@ -31,11 +31,13 @@ Besides providing access to all members of a class,
 via methods like \texttt{getUtf8()} and \texttt{addMethodRef()}.
 
 Once a class file is correctly parsed and loaded it can be manipulated using the methods and fields in \code{ClassFile}.
-For instance, in order to write back the parsed class file in a new buffer, the write method is used in conjunction with the computeSize method as shown in listing~\ref{usage-write}.
+For instance,
+in order to write back the parsed class file in a new buffer,
+the write method is used in conjunction with the computeSize method as shown in listing~\ref{usage-write}.
 
 \begin{listing}
 \begin{minted}{cpp}
-const char* data = ...;
+const char* data = ...; #\cppbox#
 int len = ...;
 jnif::ClassFile cf(data, len);
 int newlen = cf.computeSize();
@@ -56,7 +58,7 @@ Note that every jnif class overloads the \verb|operator<<| in order send it to a
 
 \begin{listing}
 \begin{minted}{cpp}
-const char* data = ...;
+const char* data = ...; #\cppbox#
 int len = ...;
 jnif::ClassFile cf(data, len);
 for (jnif::Method* m : cf.methods) {
@@ -77,8 +79,7 @@ Figure~\ref{usage-alloc} shows how to add instruction to the instruction list.
 
 \begin{listing}
 \begin{minted}{cpp}
-ConstIndex mid = cf.addMethodRef(classIndex, 
-  "alloc", "(Ljava/lang/Object;)V");
+ConstIndex mid = cf.addMethodRef(ci, "alloc", "(Ljava/lang/Object;)V"); #\cppbox#
 
 for (Method* method : cf.methods) {
 	if (method->isInit()) {
@@ -98,7 +99,7 @@ Another common use case is to instrument every method entry and exit. In order t
 
 \begin{listing}
 \begin{minted}{cpp}
-ConstIndex sid = cf.addMethodRef(proxyClass, "enterMethod",
+ConstIndex sid = cf.addMethodRef(proxyClass, "enterMethod", #\cppbox#
 				"(Ljava/lang/String;Ljava/lang/String;)V");
 ConstIndex eid = cf.addMethodRef(proxyClass, "exitMethod",
 				"(Ljava/lang/String;Ljava/lang/String;)V");
