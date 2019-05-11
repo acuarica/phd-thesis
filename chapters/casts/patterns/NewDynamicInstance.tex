@@ -132,14 +132,13 @@ String pf = c.newInstance();
 compile to the same bytecode below.
 
 \begin{listing}
-\begin{minted}[linenos=false,escapeinside=||]{gas}
-|\bcbox|
-ldc           #24    // String java.lang.String
-invokestatic  #26    // Method java/lang/Class.forName
+\begin{minted}[linenos=false]{jasmin}
+ldc           "java.lang.String" #\bcbox#
+invokestatic  java.lang.Class.forName()
 astore_1
 aload_1
-invokevirtual #32    // Method java/lang/Class.newInstance
-checkcast     #36    // class java/lang/String
+invokevirtual java.lang.Class.newInstance()
+checkcast     java.lang.String
 \end{minted}
 \end{listing}
 
