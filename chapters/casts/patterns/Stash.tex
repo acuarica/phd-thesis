@@ -130,25 +130,19 @@ private void createBindings() {
                     .getElementById( "user-password" );
     availableRepositories = (XulListbox) document
                     .getElementById( "available-repository-list" );
-    showAtStartup = (XulCheckbox) document
-                    .getElementById( "show-login-dialog-at-startup" );
-    okButton = (XulButton) document
-                    .getElementById( "repository-login-dialog_accept" );
-    cancelButton = (XulButton) document
-                    .getElementById( "repository-login-dialog_cancel" );
     // [...]
 } #\urlbox#
 \end{minted}
 
 In the following snippet of the \variant{Tag} variant,
-a cast is performed to a \code{get\-Serializable} invocation (lines 15 and 16).
+a cast is performed to a \code{get\-Serializable} invocation (lines 9 and 10).
 This method gets a \code{Serializable} value given the specified key, \code{TAG\_CUR\_DIR} in this case.
 To set a value with a specified key, the \code{putSerializable} method is used.
-The mentioned cast succeeds because a value of the appropriate type is set in line 28 using the \code{putSerializable} method.
+The mentioned cast succeeds because a value of the appropriate type is set in line 18 using the \code{putSerializable} method.
 
 %https://lgtm.com/projects/g/proninyaroslav/libretorrent/snapshot/dist-1506096326216-1524814812150/files/app/src/main/java/org/proninyaroslav/libretorrent/fragments/DetailTorrentFilesFragment.java?sort=name&dir=ASC&mode=heatmap#L166
 \def\urlvar{http://bit.ly/proninyaroslav_libretorrent_2TxpZCM}
-\begin{minted}[highlightlines=15-16]{java}
+\begin{minted}[highlightlines=9-10]{java}
 private TorrentContentFileTree curDir;
 
 @Override
@@ -157,12 +151,6 @@ public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     if (activity == null)
         activity = (AppCompatActivity) getActivity();
     if (savedInstanceState != null) {
-        files = (ArrayList<BencodeFileItem>) savedInstanceState
-                                .getSerializable(TAG_FILES);
-        priorities = (ArrayList<FilePriority>) savedInstanceState
-                                .getSerializable(TAG_PRIORITIES);
-        fileTree = (TorrentContentFileTree) savedInstanceState
-                                .getSerializable(TAG_FILE_TREE);
         curDir = (TorrentContentFileTree) savedInstanceState
                                 .getSerializable(TAG_CUR_DIR);
     } else {
@@ -172,9 +160,6 @@ public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
 @Override
 public void onSaveInstanceState(Bundle outState) {
-    outState.putSerializable(TAG_FILES, files);
-    outState.putSerializable(TAG_PRIORITIES, priorities);
-    outState.putSerializable(TAG_FILE_TREE, fileTree);
     outState.putSerializable(TAG_CUR_DIR, curDir);
 } #\urlbox#
 \end{minted}
@@ -217,32 +202,23 @@ The implementation of the two variants,
 Thus, detecting them is often impractical.
 However, if the methods that perform the specified patterns are known,
 \eg{}, \code{findViewById}, then the automatic detection becomes trivial.
-
 On the other hand, the following query detects the \variant{LookupById} variant.
 
 \begin{listing}
 \begin{minted}{\qllexer}
 class LookupByIdCast extends #\qlref{Cast}# { #\qlbox#
-	private MethodAccess methodAccess;
-	private Method getterMethod;
-	private FieldAccess constantField;
+	MethodAccess ma;
+	Method getterMethod;
+	FieldAccess constant;
 	LookupByIdCast() {
-		methodAccess = getExprOrDef() and
-		getterMethod = methodAccess.getMethod() and
-		not getterMethod.isStatic() and not getterMethod.isVarargs() and
-		getterMethod.isPublic() and
+		ma = getExprOrDef() and getterMethod = ma.getMethod() and
+		not getterMethod.isVarargs() and getterMethod.isPublic() and
 		getterMethod.getNumberOfParameters() = 1 and
 		getterMethod.getParameterType(0) instanceof TypeString and
 		getterMethod.getReturnType() instanceof TypeObject and
-		methodAccess.getArgument(0).getType() instanceof TypeString and
-		methodAccess.getArgument(0) = constantField and
-		constantField.getField().isFinal() and
-		constantField.getField().isStatic() and
-		constantField.getField().getType() instanceof TypeString
+		ma.getArgument(0) = constant and
+		constant.getField().isFinal() and constant.getField().isStatic()
 	}
-	MethodAccess getMethodAccess() { result = methodAccess}
-	Method getGetterMethod() { result = getterMethod }
-	FieldAccess getConstantField() { result = constantField }
 }
 \end{minted}
 \caption{Detection of the \variant{LookupById} variant}
