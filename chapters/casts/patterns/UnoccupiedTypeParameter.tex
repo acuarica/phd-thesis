@@ -1,6 +1,6 @@
 \begin{pattern}{UnoccupiedTypeParameter}
 This pattern occurs when a generic type changes its type parameter,
-but the new type parameter hold no values.
+but the new type parameter holds no values.
 
 \instances{}
 This instance is used to implement an \code{Either} type.
@@ -36,7 +36,7 @@ public interface Either<L, R> extends Value<R>, Serializable {
 
 \detection{}
 To detect this pattern, application-specific knownledge is required.
-The developers knows that no value of a type parameter is ever being created. 
+The developer knows that no value of a type parameter is ever being created. 
 Thus, automatic detection of this pattern seems infeasible.
 
 \issues{}

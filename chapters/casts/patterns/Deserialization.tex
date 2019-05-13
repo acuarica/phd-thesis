@@ -1,7 +1,7 @@
 \begin{pattern}{Deserialization}
 This pattern is used to deserialize an object at run-time.
 In its more common form,
-this pattern is characterized for a cast to the \code{readObject} method on a \code{ObjectInputStream} object.
+this pattern is characterized for a cast to the \code{readObject} method on an \code{ObjectInputStream} object.
 
 \instances{}
 The following example shows how the \thisp{} pattern is used to create objects from a file system (line 9).
@@ -40,7 +40,7 @@ class DeserializationCast extends #\qlref{Cast}# { #\qlbox#
 \issues{}
 The serialization API dates back to \java{} 1.1 in 1997.
 Since then, newer serialization APIs have been developed.
-For instance Apache Avro%
+For instance, Apache Avro%
 \footnote{\url{https://avro.apache.org/docs/current/}}
 uses generics and class literals to specify the expected type of an object read. 
 In some languages,

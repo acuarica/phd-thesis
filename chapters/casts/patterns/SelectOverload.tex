@@ -5,8 +5,8 @@ where two or more of its implementations differ \emph{only} in some argument typ
 
 A cast to \code{null} is often used to select against different versions of a method,
 \ie{}, to resolve method overloading ambiguity.
-Whenever a \code{null} value needs to be an argument of an a cast is
-needed to select the appropriate implementation.
+Whenever a \code{null} value needs to be an argument,
+a cast is needed to select the appropriate implementation.
 This is because the type of \code{null} has the special type \emph{null}%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html\#jls-4.1}}
 which can be treated as any reference type.
@@ -17,10 +17,10 @@ Another use case is to select the appropriate the right argument when calling a 
 
 \instances{}
 The following listing shows an example of the \thisp{} pattern.
-In this example, there are three versions of the \code{onSuccess} method,
+In this example, there are three versions of the \code{onSuccess} method.
 The cast \code{(String) null} is used to select the appropriate version
-(line 7), based on the third parameter.
-Overloaded methods that differ only in their argument type (the third one).
+(line 7), based on the third parameter,
+between overloaded methods that differ only in their argument type (the third one).
 
 % https://lgtm.com/projects/g/loopj/android-async-http/snapshot/dist-1879340034-1518514025554/files/library/src/main/java/com/loopj/android/http/JsonHttpResponseHandler.java?sort=name\&dir=ASC\&mode=heatmap\&excluded=false#L150
 \def\urlvar{http://bit.ly/loopj_android_async_http_2FENovD}
