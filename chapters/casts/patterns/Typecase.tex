@@ -184,7 +184,7 @@ and that \code{value} is an instance of \code{Closure} (line 9).
 The \code{args} parameter flows into two methods,
 \code{invokeMethod(String name, Object args)} and
 \code{call(Object... args)}.
-Thus, \code{args} is treated as an \code{Object} or \code{Object[]} depending on the type tag, resembling an union type.
+Thus, \code{args} is treated as an \code{Object} or \code{Object[]} depending on the type tag, resembling a union type.
 
 %https://lgtm.com/projects/g/groovy/groovy-core/snapshot/dist-45390050-1524814812150/files/src/main/groovy/util/Expando.java?sort=name&dir=ASC&mode=heatmap#L103
 \def\urlvar{http://bit.ly/groovy_groovy_core_2SGzK16}
@@ -331,7 +331,7 @@ Typically, this problem is avoided by using an effectively final local variable 
 
 The Query~\ref{lst:ql:GuardByInstanceOfCast} detects the \variant{GuardByInstanceOf} variant.
 It is decoupled in two \ql{} classes.
-The \code{ControlByInstanceOfCast} class checks that the cast---\emph{to a variable}---is control-dependant on a \code{instanceof} on the same variable.
+The \code{ControlByInstanceOfCast} class checks that the cast---\emph{to a variable}---is control-dependant on an \code{instanceof} on the same variable.
 Then, the \code{GuardByInstanceOfCast} class checks that the value tested by the \code{instanceof} is the same to be cast.
 That is, it checks that there is no assignment to the variable between the \code{instanceof} and the cast.
 
