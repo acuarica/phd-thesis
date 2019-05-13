@@ -113,18 +113,41 @@ Source code management tools, \eg{}, Git,
 maintain a detailed track of changes,
 which can point out the precise moment in time when an \unsafe{} operation or cast was introduced in a project.
 
-% \section{Lessons Learned}
+\section{Lessons Learnt}
 
-% Throughout my \phd{} studies I carried out several research projects,
-% most of them described in this thesis.
+Throughout my \phd{} studies I carried out several research projects,
+most of them described in this thesis.
+Here are a few lessons I learnt in each of them.
 
-% \textbf{\unsafe{} \api{}.}
-% A few 
+\textbf{\unsafe{} \api{}.}
+For our \unsafe{} study,
+we have engineered a mining software repository infrastructure from scratch.
+In particular,
+we learnt about the internals of the \mavencentral{} repository.
+This requires a considerable amount of time to be implemented properly,
+and for a research project can be of little value.
 
-% \textbf{Cast operator.}
-% The cast operator in static typed languages provides a bridge between compile-time and run-time checking.
-% Developers need to resort to the cast operator due to the inexpressiveness of \java{}'s type system. 
-% On the other hand, \ql{} is a powerful language.
+\textbf{Cast operator.}
+The cast operator in static typed languages provides a bridge between compile-time and run-time checking.
+Developers need to resort to the cast operator due to the inexpressiveness of \java{}'s type system. 
 
-% \textbf{\java{} bytecode instrumentation.}
-% Having 
+On the other hand, we have discovered \ql{},
+a powerful query language for static analysis.
+Researchers can use \ql{} in mining software repositories,
+while software engineers can use it to find vulnerabilities in their code.
+
+\textbf{\java{} bytecode instrumentation.}
+Data-flow analysis is complex.
+The bytecode verification through stack map frames introduced in \java{} 6 requires implementing a data-flow analysis at bytecode level.
+Making an industrial-strength implementation is not trivial,
+and requires a lot of careful design.
+
+\textbf{Supercompilation.}
+Although not mentioned in this thesis,
+I spent a considerable time working on Supercompilation~\citep{turchinConceptSupercompiler1986}.
+``Supercompilation is a [whole] program optimisation technique that is particularly effective at eliminating unnecessary overheads.''~\citep{mitchellRethinkingSupercompilation2010}.
+Our proof of concept of a \haskell{} Supercompiler can be found online.%
+\urlnote{https://gitlab.com/acuarica/hsc}
+
+Although there are several attempts to make Supercompilation mainstream~\citep{mitchellSupercompilerCoreHaskell2007,bolingbrokeSupercompilationEvaluation2010},
+still has some drawbacks that makes it impossible to include it in a compiler of industrial-strength.
