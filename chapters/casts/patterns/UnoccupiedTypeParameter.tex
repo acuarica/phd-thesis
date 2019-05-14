@@ -2,8 +2,8 @@
 This pattern occurs when a generic type changes its type parameter,
 but the new type parameter holds no values.
 
-\instances{}
-This instance is used to implement an \code{Either} type.
+\instancessrcone{}
+This cast is used to implement an \code{Either} type.
 A value of type \code{Either<L, R>} can be either a value of type \code{L} or of type \code{R}.
 In this instance, the receiver---of type \code{Either<L, R>}---is cast to \code{Either<U, R>} (line 9).
 There is no subtype relation between \code{L} and \code{U}.
