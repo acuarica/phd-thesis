@@ -796,3 +796,4 @@ CLOSED: [2019-05-14 Tue 15:08]
 *** Scala instanceof, C++ 4 kind of casts, C#
 *** In static checked languages
 *** Discuss casts in C++ that are not reference casts (slice objects)?
+** Abstract
