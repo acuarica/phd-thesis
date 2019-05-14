@@ -493,8 +493,10 @@ CLOSED: [2019-05-08 Wed 16:45]
   June 13 at 14.30
 - State "TODO"       from              [2019-05-07 Tue 14:40]
 :END:
-** ONHOLD Address internal committee comments on the proposal
+** DONE Address internal committee comments on the proposal
+CLOSED: [2019-05-14 Tue 15:06]
 :LOGBOOK:
+- State "DONE"       from "ONHOLD"     [2019-05-14 Tue 15:06]
 - State "ONHOLD"     from "TODO"       [2019-05-08 Wed 02:58]
 :END:
 *** ONHOLD Address Antonio's comment on casting is not circumventing the static type system
@@ -641,15 +643,19 @@ CLOSED: [2019-05-08 Wed 16:58]
   Done
 :END:
 **** Then talk about casting as a subset of reflection
-** ONHOLD Literature Review
+** WONTDO Literature Review
+CLOSED: [2019-05-14 Tue 15:06]
 :LOGBOOK:
+- State "WONTDO"     from "ONHOLD"     [2019-05-14 Tue 15:06]
 - State "ONHOLD"     from "TODO"       [2019-05-08 Wed 02:57]
 - State "TODO"       from              [2019-05-01 Wed 22:57]
 :END:
 *** Add a table to help visualize the chapter
 *** Like an overview
-** TODO Conclusions
+** DONE Conclusions
+CLOSED: [2019-05-14 Tue 15:06]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-14 Tue 15:06]
 - State "TODO"       from              [2019-05-01 Wed 22:57]
 :END:
 *** Need to be bigger
@@ -735,3 +741,55 @@ CLOSED: [2019-05-08 Wed 02:01]
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2019-05-08 Wed 02:01]
 :END:
+** TODO Literature Review
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 15:07]
+:END:
+*** Casting is indeed more important than reflection because everyone uses it
+** TODO Make a clear which subset of intrinsics and reflection
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 15:07]
+:END:
+*** Unsafe API and casting
+** TODO Not undercut result
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 15:07]
+:END:
+** TODO RQ:C1 not clearly responded
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 15:07]
+:END:
+*** Remove the question
+** DONE "fields declarations"
+CLOSED: [2019-05-14 Tue 15:08]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-14 Tue 15:08]
+- State "TODO"       from              [2019-05-14 Tue 15:08]
+:END:
+** DONE Colon replace with comma
+CLOSED: [2019-05-14 Tue 15:13]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-14 Tue 15:13]
+- State "TODO"       from              [2019-05-14 Tue 15:08]
+:END:
+** DONE Canonical papers in the introduction
+CLOSED: [2019-05-14 Tue 15:08]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-14 Tue 15:08] \\
+  Removed
+- State "TODO"       from              [2019-05-14 Tue 15:08]
+:END:
+** DONE Table 1.1 why cell is empty?
+CLOSED: [2019-05-14 Tue 15:08]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-14 Tue 15:08]
+- State "TODO"       from              [2019-05-14 Tue 15:08]
+:END:
+*** Explain briefly
+** TODO Explain casts in C++
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 15:08]
+:END:
+*** Show casts operators in other languages
+*** Scala instanceof, C++ 4 kind of casts, C#
+*** In static checked languages
