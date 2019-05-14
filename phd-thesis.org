@@ -754,10 +754,12 @@ CLOSED: [2019-05-08 Wed 02:01]
 :END:
 *** Unsafe API and casting
 *** Need to bring out more that casting is the focus
-** TODO Not undercut result
+** TODO Conclusions
 :LOGBOOK:
 - State "TODO"       from              [2019-05-14 Tue 15:07]
 :END:
+*** Not undercut result
+*** Limitations/Future Work split
 ** TODO RQ:C1 not clearly responded
 :LOGBOOK:
 - State "TODO"       from              [2019-05-14 Tue 15:07]
@@ -799,4 +801,18 @@ CLOSED: [2019-05-14 Tue 15:08]
 *** Python isinstance
 *** In static checked languages
 *** Discuss casts in C++ that are not reference casts (slice objects)?
-** Abstract
+** TODO Abstract
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 20:29]
+:END:
+*** Casting != reflection, type introspection
+*** First paragraph: Does not follow
+*** Seems like a bunch of sentences slapped together
+*** Does not flow logically
+** TODO run time|run-time|runtime
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 22:29]
+:END:
+*** run time: noun phrase (contrast with compile time)
+*** run-time: adjective
+*** runtime: noun (a language runtime system)
