@@ -98,11 +98,11 @@ making the cast superfluous if an extra variable of type \code{DirectoryReader} 
 
 %https://lgtm.com/projects/g/tarzanek/luke/snapshot/dist-1794550833-1524814812150/files/src/org/getopt/luke/Luke.java?sort=name&dir=ASC&mode=heatmap#L970
 \begin{minted}[highlightlines=11]{java}
-private IndexReader ir = null;  
+private IndexReader ir = null;
 // [...]
 ArrayList<DirectoryReader> readers = new ArrayList<DirectoryReader>();
 for (Directory dd : dirs) {
-    DirectoryReader reader;        
+    DirectoryReader reader;
     reader = DirectoryReader.open(dd);
     readers.add(reader);
 }
