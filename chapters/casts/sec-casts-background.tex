@@ -48,7 +48,7 @@ In type-safe object-oriented languages,
 downcasts require a run-time check to ensure that the source value is an instance of the target type.
 The above snippet is compiled into the \java{} bytecode shown in listing~\ref{lst:casts:bytecode}.
 The \code{aload\_1} instruction (line 3) pushes the local variable \code{o} into the operand stack.
-The \code{checkcast} instruction (line 4) then checks at run-time that the top of the stack has the specified type (\code{java.lang.String} in this example).
+The \code{checkcast} instruction (line 4) then checks at run time that the top of the stack has the specified type (\code{java.lang.String} in this example).
 
 \begin{listing}
 \begin{minted}[highlightlines=4]{jasmin}
@@ -95,7 +95,7 @@ if (x instanceof Foo) {
 	((Foo)x).doFoo();
 }
 \end{minted}
-\caption{Runtime type test using \code{instanceof} before applying a cast.}
+\caption{Run-time type test using \code{instanceof} before applying a cast.}
 \label{lst:casts:instanceoftest}
 \end{listing}
 
@@ -115,7 +115,7 @@ if (x.getClass() == Foo.class) {
 	((Foo)x).doFoo();
 }
 \end{minted}
-\caption{Runtime type test using \code{getClass} before applying a cast.}
+\caption{Run-time type test using \code{getClass} before applying a cast.}
 \label{lst:casts:getclasstest}
 \end{listing}
 

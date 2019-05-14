@@ -767,8 +767,10 @@ CLOSED: [2019-05-14 Tue 15:08]
 - State "TODO"       from              [2019-05-14 Tue 15:08]
 :END:
 *** Explain briefly
-** TODO run time|run-time|runtime
+** DONE run time|run-time|runtime
+CLOSED: [2019-05-14 Tue 22:44]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-14 Tue 22:44]
 - State "TODO"       from              [2019-05-14 Tue 22:29]
 :END:
 *** run time: noun phrase (contrast with compile time)

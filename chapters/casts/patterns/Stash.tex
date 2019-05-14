@@ -12,7 +12,7 @@ The actual run-time type returned from the lookup is determined by the value of 
 The \variant{StaticResource} variant is more specific.
 It is used to retrieve a value instantiated from a static resource file,
 \eg, an XML, HTML or a \java{} properties file.
-The file contents are (in theory) known at compile-time and the file is included in the binary distribution of the application.
+The file contents are (in theory) known at compile time and the file is included in the binary distribution of the application.
 These files are often built using tools such as GUI builders.
 
 \instances{}
@@ -242,7 +242,7 @@ uses annotations to avoid the ``manual'' casting.
 Instead, code is generated that casts the result of \code{findViewById} to the appropriate type.
 These casts could be solved by using code generation,
 or partial classes like in \csharp{}.
-Since the contents of the resource file are known at compile-time,
+Since the contents of the resource file are known at compile time,
 code generation could be used to generate the corresponding \java{} code.
 In our sample, however, this variant only appears in application code.
 

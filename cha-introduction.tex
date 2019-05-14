@@ -1,6 +1,6 @@
 \chapter{Introduction}
 
-In programming language design, the main goal of a \emph{static} type system is to prevent certain kinds of errors from happening at run-time.
+In programming language design, the main goal of a \emph{static} type system is to prevent certain kinds of errors from happening at run time.
 A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
 As~\cite{pierceTypesProgrammingLanguages2002} states:
 ``A type system can be regarded as calculating a kind of \emph{static} approximation to the run-time behaviors of the terms in a program.''
@@ -23,12 +23,12 @@ Since type annotations are meant to be checked every time the program is compile
 this information cannot be outdated, unlike comments in the source text.
 
 Static type systems can aid in generating more \emph{efficient} machine code, \eg{},
-choosing a different representation for integer or real values at run-time.
+choosing a different representation for integer or real values at run time.
 Furthermore, in statically checked languages, \eg{}, \java{} or \rust{},
-many checks are performed at compile-time,
-instead of being performed otherwise at run-time.
+many checks are performed at compile time,
+instead of being performed otherwise at run time.
 Compare this to dynamically checked languages,
-where all checks need to be performed at runtime,
+where all checks need to be performed at run time,
 degrading performance.
 Table~\ref{table:introduction:langs} shows where mainstream languages fit in the safe/unsafe and statically/dynamically checked spectrum.
 ``The emptiness of the bottom-right entry in the [..] table is explained by the fact that,
@@ -49,7 +49,7 @@ about the program that is too complex to explain in terms of typing constraints.
 To that end, programming languages often provide \emph{mechanisms} that 
 make the typing constraints less strict
 to permit more programs to be valid,
-at the expense of causing more errors at run-time.
+at the expense of causing more errors at run time.
 These mechanisms are essentially two:
 \emph{Unsafe Intrinsics} and \emph{Reflective Capabilities}.
 
@@ -130,7 +130,7 @@ object creation, field access, method invocation, method override, method recurs
 In their model, there are three ways a computation may get stuck.
 When accessing a field not declared for a class,
 by invoking a nonexistent method for a class,
-or when casting to a class that is \emph{not} a supertype of the object's \emph{runtime} class.
+or when casting to a class that is \emph{not} a supertype of the object's \emph{run-time} class.
 They proved that on any well-typed program, the first two never happen,
 and the third one never happens on well-typed programs \emph{without downcasts}.
 From the theoretical point of view, casts make typing rules unsound, \ie{},

@@ -5,7 +5,7 @@ The run-time type is tested against known subtypes of the operand type,
 with each test followed by a cast to that type.
 The guard may be implemented using one of three variants:
 an \code{instanceof} operator (\variant{GuardByInstanceOf}),
-a comparison of the runtime class against a class literal (\variant{GuardByClassLiteral}),
+a comparison of the run-time class against a class literal (\variant{GuardByClassLiteral}),
 or an application-specific type tag (\variant{GuardByTypeTag}).
 
 \instances{}
@@ -212,7 +212,7 @@ public Object invokeMethod(String name, Object args) {
 In the \variant{GuardByClassLiteral} variant, a cast uses an application-specific guard, but the guard depends on a class literal.
 In the following example,
 a cast is performed to the \code{field} variable (line 22),
-based whether the runtime class of the variable is actually \code{Short.class}.
+based whether the run-time class of the variable is actually \code{Short.class}.
 
 %https://lgtm.com/projects/g/elastic/elasticsearch/snapshot/dist-1916470085-1524814812150/files/server/src/main/java/org/elasticsearch/common/lucene/Lucene.java?sort=name&dir=ASC&mode=heatmap#L478
 \def\urlvar{http://bit.ly/elastic_elasticsearch_2SSgsFV}
@@ -453,7 +453,7 @@ Pattern matching can be seen in several other languages, \eg, \ml{}, \scala{}, \
 For instance, in \scala{} the pattern matching construct is achieved using the \code{match} keyword.
 In this example,%
 \footnote{Adapted from \url{https://docs.scala-lang.org/tour/pattern-matching.html}}
-a different action is taken according to the runtime type of the parameter \code{notification} (line 10).
+a different action is taken according to the run-time type of the parameter \code{notification} (line 10).
 
 \begin{minted}[highlightlines=10]{scala}
 abstract class Notification #\scalabox#

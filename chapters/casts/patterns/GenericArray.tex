@@ -87,11 +87,11 @@ class OnElementGenericArrayCast extends #\qlref{Cast}# { #\qlbox#
 
 
 \issues{}
-This pattern occurs because generic type parameters are not reified at runtime,
+This pattern occurs because generic type parameters are not reified at run time,
 but array types are reified.
 To create a generic \code{T[]}, for instance,
 since the parameter \code{T} is not known statically,
-the compiler cannot know the runtime representation of the array.
+the compiler cannot know the run-time representation of the array.
 The \java{} specification just forbids these problematic cases and therefore requires programmers to create arrays of raw types and to use casts.
 
 \end{pattern}
