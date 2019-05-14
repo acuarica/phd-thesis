@@ -108,17 +108,36 @@ When reflection is used,
 many checks that were done by the type checker statically (at compile time)
 now need to be performed dynamically (at run time).
 
-Programming languages with subtyping such as \java{} or \cpp{} provide a mechanism to \emph{view} an expression as a different type than it was defined, a form of \emph{lightweight} reflection.
-This mechanism is often called \emph{casting} and usually takes the form \code{(T) t}.
+Programming languages with subtyping such as \java{}, \scala{} or \cpp{} provide a mechanism to \emph{view} an expression as a different type than it was defined,
+a form of type introspection.
+This mechanism is often called \emph{casting}.
 Casting can be in two directions: \emph{upcast} and \emph{downcast}.
-An upcast conversion happens when converting from a reference type $S$ to a reference type $T$, provided that $T$ is a \emph{supertype} of $S$.
+An upcast conversion happens when converting from a type $S$ to a type $T$, provided that $T$ is a \emph{supertype} of $S$.
 An upcast does not require any explicit casting operation nor compiler check.
-However, as we shall see later on, there are situations where an upcast requires an explicit casting operation.
-On the other hand, a downcast happens when converting from a reference type $S$ to a reference type $T$, provided that $T$ is a \emph{subtype} of $S$.
+However, as we shall see later on,
+there are situations where an upcast requires an explicit casting operation.
+On the other hand,
+a downcast happens when converting from a type $S$ to a type $T$,
+provided that $T$ is a \emph{subtype} of $S$.
+
 Unlike upcasts,
-downcasts require a run-time check to verify that the conversion is indeed valid.
-For instance, \java{} provides the cast operator, while
-\cpp{} with run-time type information (RTTI) provides the \code{dynamic\_cast<>} operator.
+downcasts in a safe language require a run-time check to verify that the conversion is indeed valid.
+For instance, \java{} provides the cast operator, \eg{}, \code{(T) t},
+while \scala{} provides the \code{asInstanceOf} method,
+\eg{}, \code{t.asInstanceOf[T]}.
+Although \cpp{} is an unsafe language,
+when used with run-time type information (RTTI),
+it provides a safe cast operation%
+---the \code{dynamic\_cast<>} operator---%
+\eg{}, \code{dynamic\_cast<T>(t)}.
+However, being unsafe,
+\cpp{} provides more ways to perform a cast operation with different semantics, \ie{},
+\code{static\_cast<>},
+\code{reinterpret\_cast<>},
+\code{const\_cast<>}, and
+\cc{}-style casts.
+All mentioned cast operators in \cpp{} can perform object slicing when the type to cast to is neither a pointer nor a reference type.
+
 This implies that downcasts provide the means to bypass the static type system.
 By avoiding the type system, downcasts can pose potential threats, because it is like the developer saying to the compiler: \emph{``Trust me here, I know what I'm doing''}.
 Being an escape-hatch from the static type system,

@@ -800,8 +800,10 @@ CLOSED: [2019-05-14 Tue 22:44]
 - State "TODO"       from              [2019-05-14 Tue 15:07]
 :END:
 *** Remove the question
-** TODO Explain casts in C++
+** DONE Explain casts in C++
+CLOSED: [2019-05-15 Wed 00:27]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-15 Wed 00:27]
 - State "TODO"       from              [2019-05-14 Tue 15:08]
 :END:
 *** Show casts operators in other languages
