@@ -746,6 +746,8 @@ CLOSED: [2019-05-08 Wed 02:01]
 - State "TODO"       from              [2019-05-14 Tue 15:07]
 :END:
 *** Casting is indeed more important than reflection because everyone uses it
+*** And readily available, good motivational extra
+*** It is more common than the use of the Reflection API
 ** TODO Make a clear which subset of intrinsics and reflection
 :LOGBOOK:
 - State "TODO"       from              [2019-05-14 Tue 15:07]
@@ -793,3 +795,4 @@ CLOSED: [2019-05-14 Tue 15:08]
 *** Show casts operators in other languages
 *** Scala instanceof, C++ 4 kind of casts, C#
 *** In static checked languages
+*** Discuss casts in C++ that are not reference casts (slice objects)?
