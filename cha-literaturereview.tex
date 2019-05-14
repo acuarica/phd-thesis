@@ -9,34 +9,34 @@ directly related to our plan.
 Over the last decades,
 researchers always have been interested in understanding what
 kind of programs developers write.
-The motivation behind these studies is quite broad,
-and has been shifted to the needs of researchers,
-together with the evolution of computer science itself.
+% The motivation behind these studies is quite broad,
+% and has been shifted to the needs of researchers,
+% together with the evolution of computer science itself.
 
-For instance, to measure the advantages between compilation and interpretation in \basic{},
-\cite{hammondBASICEvaluationProcessing1977} studied a representative dataset of programs.
-\cite{knuthEmpiricalStudyFORTRAN1971} started to study \fortran{} programs.
-By knowing what kind of programs arise in practice,
-a compiler optimizer can focus in those cases,
-and therefore can be more effective.
-Adding to Knuth's work,%
-~\cite{shenEmpiricalStudyFortran1990} conducted an empirical study for
-parallelizing compilers.
-Similar works have been done for
-\cobol{}~\cite{salvadoriStaticProfileCOBOL1975,chevanceStaticProfileDynamic1978},
-\pascal{}~\cite{cookContextualAnalysisPascal1982},
-and \apl{}~\cite{saalPropertiesAPLPrograms1975,saalEmpiricalStudyAPL1977} programs.
-\cite{millerEmpiricalStudyReliability1990,millerFuzzRevisitedReexamination1995,forresterEmpiricalStudyRobustness2000}
-studied the reliability of programs using \emph{fuzz} testing.
-\cite{dieckmannStudyAllocationBehavior1999} studied the memory allocating
-behavior in the SPECjvm98 benchmarks.%
-\footnote{\url{https://www.spec.org/jvm98/}}
+% For instance, to measure the advantages between compilation and interpretation in \basic{},
+% \cite{hammondBASICEvaluationProcessing1977} studied a representative dataset of programs.
+% \cite{knuthEmpiricalStudyFORTRAN1971} started to study \fortran{} programs.
+% By knowing what kind of programs arise in practice,
+% a compiler optimizer can focus in those cases,
+% and therefore can be more effective.
+% Adding to Knuth's work,%
+% ~\cite{shenEmpiricalStudyFortran1990} conducted an empirical study for
+% parallelizing compilers.
+% Similar works have been done for
+% \cobol{}~\cite{salvadoriStaticProfileCOBOL1975,chevanceStaticProfileDynamic1978},
+% \pascal{}~\cite{cookContextualAnalysisPascal1982},
+% and \apl{}~\cite{saalPropertiesAPLPrograms1975,saalEmpiricalStudyAPL1977} programs.
+% \cite{millerEmpiricalStudyReliability1990,millerFuzzRevisitedReexamination1995,forresterEmpiricalStudyRobustness2000}
+% studied the reliability of programs using \emph{fuzz} testing.
+% \cite{dieckmannStudyAllocationBehavior1999} studied the memory allocating
+% behavior in the SPECjvm98 benchmarks.%
+% \footnote{\url{https://www.spec.org/jvm98/}}
 
-But there is more than empirical studies at the source code level.
-A machine instruction set is effectively another kind of language.
-Therefore, its design can be affected by how compilers generate machine code.
-Several studies targeted the \jvm{}~\cite{collbergEmpiricalStudyJava2007,odonoghueBigramAnalysisJava2002,antonioliAnalysisJavaClass1998};
-while~\cite{cookEmpiricalAnalysisLilith1989} did a similar study for \lilith{} in the past.
+% But there is more than empirical studies at the source code level.
+% A machine instruction set is effectively another kind of language.
+% Therefore, its design can be affected by how compilers generate machine code.
+% Several studies targeted the \jvm{}~\cite{collbergEmpiricalStudyJava2007,odonoghueBigramAnalysisJava2002,antonioliAnalysisJavaClass1998};
+% while~\cite{cookEmpiricalAnalysisLilith1989} did a similar study for \lilith{} in the past.
 
 The importance of conducting empirical studies of programs gave rise to the International Conference on Mining Software Repositories%
 \footnote{\url{http://www.msrconf.org/}}
@@ -48,7 +48,7 @@ When conducting empirical studies about programs,
 multiple dimensions are involved.
 The first one is \emph{What to analyse?}
 Benchmarks and corpora are used as a source of programs to analyse.
-Another aspect is how to select good candidates projects from a large-base software repository.
+Another aspect is how to select good candidate projects from a large-base software repository.
 This is presented in Section~\ref{sec:literature-review:benchmarks}.
 After the selection of programs to analyse is set,
 comes the question \emph{how to analyse them?}
@@ -304,7 +304,7 @@ Another study about how a programming language feature is used is done in
 \cite{temperoHowJavaPrograms2008}.
 They conducted a study on how inheritance is used in \java{} programs.
 
-This kind of studies give an insight of the adoption of lambdas and generics; which can drive future direction for language designers and tool builders, while providing developers with best practices.
+This kind of studies give an insight of the adoption of lambdas and generics, which can drive future direction for language designers and tool builders, while providing developers with best practices.
 
 \subsection{Unsafe Intrinsics in \java{}}
 \label{sec:literature-review:unsafe}

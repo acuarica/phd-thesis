@@ -1,6 +1,6 @@
 \chapter{Introduction}
 
-In programming language design, the main goal of a \emph{static} type system is to prevent certain kind of errors from happening at run-time.
+In programming language design, the main goal of a \emph{static} type system is to prevent certain kinds of errors from happening at run-time.
 A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
 As~\cite{pierceTypesProgrammingLanguages2002} states:
 ``A type system can be regarded as calculating a kind of \emph{static} approximation to the run-time behaviors of the terms in a program.''
@@ -9,7 +9,7 @@ Thus, any program not satisfying the constraints stated within a type system is 
 
 Besides detecting early errors,
 a type checker can also be an invaluable \emph{maintenance} tool.
-For instance, it can assist an IDE to perform refactor analysis,
+For instance, it can assist an IDE to perform refactoring analyses,
 such as renaming a method or field.
 A static type system can be helpful to enforce disciplined programming.
 When composing large-scale software,
@@ -17,7 +17,7 @@ When composing large-scale software,
 shown in the interfaces of modules.
 Along these lines,
 type systems can be useful for \emph{documenting} purposes.
-Type annotations, \eg{}, in method and fields declarations,
+Type annotations, \eg{}, in method and field declarations,
 can provide useful hints to the developer.
 Since type annotations are meant to be checked every time the program is compiled,
 this information cannot be outdated, unlike comments in the source text.
@@ -31,6 +31,9 @@ Compare this to dynamically checked languages,
 where all checks need to be performed at runtime,
 degrading performance.
 Table~\ref{table:introduction:langs} shows where mainstream languages fit in the safe/unsafe and statically/dynamically checked spectrum.
+``The emptiness of the bottom-right entry in the [..] table is explained by the fact that,
+once facilities are in place for enforcing the safety of most operations at run time,
+there is little additional cost to checking all operations.''~\citep{pierceTypesProgrammingLanguages2002}
 
 \input{table-introduction-langs}
 
@@ -63,7 +66,7 @@ all guarantees provided by a static type system are undermined by the inclusion 
 Unsafe intrinsics can be seen in safe languages, \eg{},
 \java{}, \csharp{}, \rust{}, or \haskell{}.
 Foreign Function Interface (\emph{FFI}), \ie{}, calling native code from within a safe environment is unsafe.
-It is so because the run-time system cannot guarantee anything about the native code.
+This is because the runtime system cannot guarantee anything about the native code.
 In addition to FFI,
 some safe languages offer so-called \emph{unsafe} blocks, \ie{},
 making unsafe operations within the language itself, \eg{},
@@ -95,7 +98,7 @@ but as we shall see later on, it is used outside the \jdk{} as well.
 \subsection*{Reflective Capabilities}
 
 Many programming languages provide some sort of \emph{reflective capabilities},
-\ie{}, it enables an executing program to examine or ``introspect'' upon itself.
+\ie{}, they enable an executing program to examine or ``introspect'' upon itself.
 Much of the \java{} Reflection \api{} resides in the \code{java.lang.reflect} package,
 allowing the running program to obtain information about classes and objects.
 By using reflection, it is possible to dynamically create instances of a class at run-time as well, \eg{}, through the \code{Class} class.
@@ -105,7 +108,7 @@ When reflection is used,
 many checks that were done by the type checker statically (at compile-time)
 now need to be performed dynamically (at run-time).
 
-Programming languages with subtyping such as \java{} or \cpp{} provide a mechanism to \emph{view} an expression as a different type as it was defined, a form of \emph{lightweight} reflection.
+Programming languages with subtyping such as \java{} or \cpp{} provide a mechanism to \emph{view} an expression as a different type than it was defined, a form of \emph{lightweight} reflection.
 This mechanism is often called \emph{casting} and usually takes the form \code{(T) t}.
 Casting can be in two directions: \emph{upcast} and \emph{downcast}.
 An upcast conversion happens when converting from a reference type $S$ to a reference type $T$, provided that $T$ is a \emph{supertype} of $S$.
@@ -114,7 +117,7 @@ However, as we shall see later on, there are situations where an upcast requires
 On the other hand, a downcast happens when converting from a reference type $S$ to a reference type $T$, provided that $T$ is a \emph{subtype} of $S$.
 Unlike upcasts,
 downcasts require a run-time check to verify that the conversion is indeed valid.
-For instance, \java{} provides the cast operator; while
+For instance, \java{} provides the cast operator, while
 \cpp{} with run-time type information (RTTI) provides the \code{dynamic\_cast<>} operator.
 This implies that downcasts provide the means to bypass the static type system.
 By avoiding the type system, downcasts can pose potential threats, because it is like the developer saying to the compiler: \emph{``Trust me here, I know what I'm doing''}.
@@ -135,7 +138,7 @@ From the theoretical point of view, casts make typing rules unsound, \ie{},
 
 \section{Research Question}
 
-If static type systems aim to prevent certain kind of errors from happening at run-time,
+If static type systems aim to prevent certain kinds of errors from happening at run time,
 yet they provide the means to loosen their typing constraints,
 why exactly does one need to do so?
 Are these mechanisms actually used in real-world code?
@@ -200,8 +203,7 @@ Overall these sub-questions will help us to answer our MRQ:
 \item {\bf \urqB} \urqBdesc{}
 \end{enumerate}
 
-These questions have been already answered in our previous published
-study on the Unsafe API in \java{}~\citep{mastrangeloUseYourOwn2015}.
+The main contributions of our \unsafe{} \api{} study have been published in \conf{OOPSLA}{15}~\citep{mastrangeloUseYourOwn2015}.
 
 \subsection*{Casting}
 
@@ -216,10 +218,10 @@ The results of this study have been submitted for publication to \conf{OOPSLA}{1
 
 \section{Thesis Outline}
 
-The rest of this thesis is as follows.
-In Chapter~\ref{cha:literature-review} we give a review of the literature in empirical studies of programming languages features.
+The rest of this thesis is structured as follows.
+In Chapter~\ref{cha:literature-review} we give a review of the literature in empirical studies of programming language features.
 In particular, Sections~\ref{sec:literature-review:unsafe} and~\ref{sec:literature-review:casting} review the \emph{state-of-the-art} of the different aspects related to the two proposed studies.
-Chapter~\ref{cha:unsafe} presents a summary of our \unsafe{} study;
+Chapter~\ref{cha:unsafe} presents a summary of our \unsafe{} study,
 while in Chapter \ref{cha:casts} we present our \emph{casting} study.
 Finally, Chapter~\ref{cha:conclusions} presents the conclusions for the thesis.
 

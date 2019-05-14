@@ -38,7 +38,7 @@ Listing~\ref{lst:casts:simple} shows how to use the cast operator (line 2) to tr
 
 \begin{listing}
 \begin{minted}{java}
-Object o = "foo"; 
+Object o = "foo";
 String s = (String)o;
 \end{minted}
 \caption{Variable \code{o} (defined as \code{Object}) cast to \code{String}.}
@@ -73,9 +73,9 @@ Listing~\ref{lst:casts:catchcce} shows how to detect whether a cast failed by ca
 \begin{minted}{java}	
 try {
 	Object x = new Integer(0);
-	System.out.println((String)x); 
+	System.out.println((String)x);
 } catch (ClassCastException e) { 
-	System.out.println(""); 
+	System.out.println("");
 }
 \end{minted}
 \caption{Catch \code{ClassCastException} when a cast fails.}
@@ -113,7 +113,7 @@ Listing~\ref{lst:casts:getclasstest} shows how to use the \code{getClass} method
 \begin{listing}
 \begin{minted}{java}
 if (x.getClass() == Foo.class) {
-	((Foo)x).doFoo(); 
+	((Foo)x).doFoo();
 }
 \end{minted}
 \caption{Runtime type test using \code{getClass} before applying a cast.}
