@@ -2,16 +2,15 @@
 \label{sec:casts:background}
 
 While casts should be familiar to most developers of object-oriented languages,
-because casts have different semantics in different programming languages,
+because they have different semantics in different programming languages,
 we briefly summarize the meaning of casts in \java{} and the terminology used in the rest of this chapter.
 
-One common extension of type systems is \emph{subtyping},
-usually seen in \emph{object-oriented} programming languages like \java{}.
-The subtype mechanism allows the interoperability of two different but related types.
+In object-oriented programming languages like \java{},
+the subtype mechanism allows the interoperability of two different but related types.
 As~\cite{pierceTypesProgrammingLanguages2002} states,
-"[\ldots] $S$ is a subtype of $T$, written $S <: T$,
+``[\ldots] $S$ is a subtype of $T$, written $S <: T$,
 to mean that any term of type $S$ can safely be used in a context where a term of type $T$ is expected.
-This view of subtyping is often called the \emph{principle of safe substitution}."
+This view of subtyping is often called the \emph{principle of safe substitution}''~\citep{liskovBehavioralNotionSubtyping1994}.
 Conversely, if $S$ is a subtype of $T$, we say that $T$ is a supertype of $S$.
 
 A cast operation, written \code{(T) e} in \java{}
@@ -105,9 +104,9 @@ the \code{getClass} method%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\#getClass--}}
 returns the run-time class of an object.
 This \code{Class} object can be then compared against a class literal, \eg,
-\code{x.getClass()}~\code{==}~\code{C.class}.
-This test is more precise than an \code{x}~\code{instanceof}~\code{C} test since it succeeds only when the operand's class is exactly \code{C},
-rather than any subclass of \code{C}.
+\code{x.getClass()}~\code{==}~\code{Foo.class}.
+This test is more precise than an \code{x}~\code{instanceof}~\code{Foo} test since it succeeds only when the operand's class is exactly \code{Foo},
+rather than any subclass of \code{Foo}.
 Listing~\ref{lst:casts:getclasstest} shows how to use the \code{getClass} method to test for an object's type.
 
 \begin{listing}
@@ -147,6 +146,11 @@ However, an unboxing conversion throws a \code{NullPointerException} when
 the cast operand is \code{null}, \eg{}, \code{(double) (Double) null}.%
 \urlnote{https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html\#jls-5.1.8}
 \java{} supports \emph{autoboxing} and \emph{autounboxing} between primitives and their corresponding boxed type in the \code{java.lang} package.
+The cast to \code{x} in
+\code{Object x = new Integer(1); (double) x}
+fails because it is technically a downcast from \code{Object} to \code{Double}, followed by an unboxing cast to \code{double}.
+Since \code{Integer} cannot be cast to \code{Double},
+the downcast throws a \code{ClassCastException}.
 
 Generics were introduced into \java{} to provide more static type safety.
 For instance, the type \code{List<T>} contains only elements of type \code{T}.

@@ -4,7 +4,7 @@ Methods of raw types typically return \code{Object} rather than a more specific 
 
 \instances{}
 For example, in the following code,
-the collection \code{c} and iterator \c{it} are declared to be of the raw types \code{Collection} and \code{Iterator} rather than as parameterized types.
+the collection \code{c} and iterator \code{it} are declared to be of the raw types \code{Collection} and \code{Iterator} rather than as parameterized types.
 The call to \code{next} on line 4 must be cast to a more specific type because static type information was lost by the use of raw types.
 
 %https://lgtm.com/projects/g/bcgit/bc-java/snapshot/dist-20740003-1524814812150/files/pkix/src/test/java/org/bouncycastle/cms/test/Rfc4134Test.java?sort=name&dir=ASC&mode=heatmap#L268

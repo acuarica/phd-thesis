@@ -74,12 +74,12 @@ SPECjbb2000\footnote{\url{https://www.spec.org/jbb2000/}}
 are another popular \java{} benchmark suite.
 
 Another suite has been developed by~\cite{temperoQualitasCorpusCurated2010}.
-They provide a corpus of curated open source systems to facilitate empirical studies on source code.
-On top of Qualitas Corpus,~\cite{dietrichXCorpusExecutableCorpus2017} provide an executable corpus of \java{} programs.
+They provide the Qualitas Corpus, a corpus of curated open source systems to facilitate empirical studies on source code.
+On top of the Qualitas Corpus,~\cite{dietrichXCorpusExecutableCorpus2017} provide an executable corpus of \java{} programs.
 This allows any researcher to experiment with both static and dynamic analysis.
 
 For any benchmark or corpus to be useful and reliable,
-it must faithfully represent real world code.
+it must faithfully represent real-world code.
 For instance,
 DaCapo applications were selected to be diverse real applications and
 ease of use, but they ``excluded GUI applications since they are difficult
@@ -227,8 +227,8 @@ and \swift{}~\citep{reboucasEmpiricalStudyUsage2016}.
 
 Going one step forward, \cite{rayLargescaleStudyProgramming2017} studied the correlation between programming languages and defects. 
 One important note is that they choose relevant projects by popularity,
-measured by how many times was \emph{starred} in \github{}.
-We argue that it is more important to analyse projects that are \emph{representative}, not \emph{popular}.
+measured by how many times the project was \emph{starred} in \github{}.
+% We argue that it is more important to analyse projects that are \emph{representative}, not \emph{popular}.
 
 \cite{gorlaCheckingAppBehavior2014} mined a large set of Android applications, clustering applications by their description topics and identifying outliers in each cluster with respect to their API usage.
 \cite{grechanikEmpiricalInvestigationLargescale2010} also mined large scale software repositories to obtain several statistics on how source code is actually written.
@@ -256,22 +256,12 @@ Given the dynamic nature of \javascript, most of the studies mentioned
 above for \javascript{} perform dynamic analysis.
 However, \cite{callauHowWhyDevelopers2013} uses static analysis to study
 a dynamically checked language.
-For \java, most empirical studies use static analysis.
-This is due the fact of the availability of input data.
+For \java{}, most empirical studies use static analysis.
+This is due to the availability of input data.
 Finding valid input data for test cases is not a trivial task,
-even less to make it scale.
-For \javascript, having a big corpus of web-sites generating valid
+even less to make any analysis scale.
+For \javascript{}, having a big corpus of web-sites generating valid
 input data makes more feasible to implement dynamic analysis.
-
-\subsection*{Exceptions}
-
-\cite{keryExaminingProgrammerPractices2016,asaduzzamanHowDevelopersUse2016} focus on exceptions.
-They conducted empirical studies on how programmers handle exceptions in \java{} code.
-The work done by~\cite{nakshatriAnalysisExceptionHandling2016} categorized them into patterns.
-\cite{coelhoUnveilingExceptionHandling2015} used a more dynamic approach by analysing stack traces and code issues in \github{}.
-\cite{kechagiaUndocumentedUncheckedExceptions2014} analysed how undocumented and
-unchecked exceptions cause most of the exceptions in
-Android applications.
 
 \subsection*{Programming Language Features}
 
@@ -290,6 +280,14 @@ providing compile-time type safety''
 \citep{Gosling:2013:JLS:2462622}.
 However, it was later shown~\citep{aminJavaScalaType2016} that 
 compile-time type safety was not fully achieved.
+
+\cite{keryExaminingProgrammerPractices2016,asaduzzamanHowDevelopersUse2016} focus on exceptions.
+They conducted empirical studies on how programmers handle exceptions in \java{} code.
+The work done by~\cite{nakshatriAnalysisExceptionHandling2016} categorized them into patterns.
+\cite{coelhoUnveilingExceptionHandling2015} used a more dynamic approach by analysing stack traces and code issues in \github{}.
+\cite{kechagiaUndocumentedUncheckedExceptions2014} analysed how undocumented and
+unchecked exceptions cause most of the exceptions in
+Android applications.
 
 \cite{mazinanianUnderstandingUseLambda2017} and \cite{uesbeckEmpiricalStudyImpact2016} studied how developers use lambdas in \java{} and \cpp{} respectively.
 The inclusion of generics in \java{} is closely related to collections. 

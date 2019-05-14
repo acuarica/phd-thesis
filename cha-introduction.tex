@@ -10,19 +10,19 @@ Thus, any program not satisfying the constraints stated within a type system is 
 Besides detecting early errors,
 a type checker can also be an invaluable \emph{maintenance} tool.
 For instance, it can assist an IDE to perform refactoring analyses,
-such as renaming a method or field.
+such as renaming a method or a field.
 A static type system can be helpful to enforce disciplined programming.
 When composing large-scale software,
 \emph{modular languages} are built-up of types,
 shown in the interfaces of modules.
 Along these lines,
-type systems can be useful for \emph{documenting} purposes.
+type systems can be useful for \emph{documentation} purposes.
 Type annotations, \eg{}, in method and field declarations,
 can provide useful hints to the developer.
 Since type annotations are meant to be checked every time the program is compiled,
 this information cannot be outdated, unlike comments in the source text.
 
-Static type systems can aid to generate more \emph{efficient} machine code, \eg{},
+Static type systems can aid in generating more \emph{efficient} machine code, \eg{},
 choosing a different representation for integer or real values at run-time.
 Furthermore, in statically checked languages, \eg{}, \java{} or \rust{},
 many checks are performed at compile-time,
@@ -59,7 +59,7 @@ Some programming languages provide \emph{unsafe intrinsics},
 the ability to perform certain operations \emph{without} being checked by the compiler.
 They are \emph{unsafe} because any misuse made by the programmer can compromise the entire system, \eg{},
 corrupting data structures without notice, or
-crashing the run-time system.
+crashing the runtime system.
 In other words,
 all guarantees provided by a static type system are undermined by the inclusion of unsafe intrinsics.
 
@@ -92,7 +92,7 @@ For instance,
 by invoking the \code{allocateInstance} on an instance of \smu{}
 the developer can allocate an object without calling any constructor,
 thus, violating \java{}'s type system guarantees.
-It was originally intended for internal use within the \jdk{},
+\smu{} was originally intended for internal use within the \jdk{},
 but as we shall see later on, it is used outside the \jdk{} as well.
 
 \subsection*{Reflective Capabilities}
@@ -101,12 +101,12 @@ Many programming languages provide some sort of \emph{reflective capabilities},
 \ie{}, they enable an executing program to examine or ``introspect'' upon itself.
 Much of the \java{} Reflection \api{} resides in the \code{java.lang.reflect} package,
 allowing the running program to obtain information about classes and objects.
-By using reflection, it is possible to dynamically create instances of a class at run-time as well, \eg{}, through the \code{Class} class.
+By using reflection, it is possible to dynamically create instances of a class at run time as well, \eg{}, through the \code{Class} class.
 \csharp{} provides analogous classes, \eg{}, the \code{Type} class,
 to achieve the same functionality.
 When reflection is used,
-many checks that were done by the type checker statically (at compile-time)
-now need to be performed dynamically (at run-time).
+many checks that were done by the type checker statically (at compile time)
+now need to be performed dynamically (at run time).
 
 Programming languages with subtyping such as \java{} or \cpp{} provide a mechanism to \emph{view} an expression as a different type than it was defined, a form of \emph{lightweight} reflection.
 This mechanism is often called \emph{casting} and usually takes the form \code{(T) t}.
@@ -121,7 +121,7 @@ For instance, \java{} provides the cast operator, while
 \cpp{} with run-time type information (RTTI) provides the \code{dynamic\_cast<>} operator.
 This implies that downcasts provide the means to bypass the static type system.
 By avoiding the type system, downcasts can pose potential threats, because it is like the developer saying to the compiler: \emph{``Trust me here, I know what I'm doing''}.
-Being an escape-hatch to the type system,
+Being an escape-hatch from the static type system,
 a cast is often seen as a design flaw or code smell~\citep{tufanoWhenWhyYour2015} in an object-oriented system.
 
 Featherweight \java{}~\citep{igarashiFeatherweightJavaMinimal2001} is a minimal core calculus for \java{}.
@@ -171,7 +171,7 @@ Our qualitative data to analyse is source code text
 (to study unsafe intrinsics we performed a preliminary analysis on intermediate code).
 In particular, in both studies we performed manual qualitative (static) analysis.
 It is static because we have analysed \emph{only} the \emph{source text}
-(\cf{} dynamic analysis).
+(contrast with dynamic analysis).
 We performed repository mining to gather the source code text to analyse.
 
 Since any kind of language study must be language-specific,
@@ -223,7 +223,7 @@ In Chapter~\ref{cha:literature-review} we give a review of the literature in emp
 In particular, Sections~\ref{sec:literature-review:unsafe} and~\ref{sec:literature-review:casting} review the \emph{state-of-the-art} of the different aspects related to the two proposed studies.
 Chapter~\ref{cha:unsafe} presents a summary of our \unsafe{} study,
 while in Chapter \ref{cha:casts} we present our \emph{casting} study.
-Finally, Chapter~\ref{cha:conclusions} presents the conclusions for the thesis.
+Finally, Chapter~\ref{cha:conclusions} presents the conclusions of the thesis.
 
 The Appendix~\ref{ap:ql} contains an introduction to \ql{}%
 ---the language we used to approximate automatic detection of patterns---%

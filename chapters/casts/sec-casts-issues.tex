@@ -113,7 +113,7 @@ In this case, \code{Long}---autoboxed from \code{5L} of type \code{long}---is us
 
 Note, however, that the cast inside \code{getProperty}, which in this context
 should cast from \code{Integer} to \code{Long}, \emph{does not fail}.
-This is because the \java{} compiler erases the type
+This is because the \java{} compiler erases type
 parameters like \code{T} and so dynamic type tests are not performed on them.
 Instead, the compiler inserts a cast where the return value
 of \code{getProperty} is used later with type \code{Long}.

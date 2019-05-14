@@ -114,7 +114,8 @@ In several instances, to manually determine when a cast belongs to this pattern,
 we had to look-up the method implementation in external source code repositories.
 
 \issues{}
-In some situations, the use of this pattern can be seen as breaking the contract \api{} between the caller and the callee.
+In some situations,
+the use of this pattern can be seen as breaking the contract between the caller and the callee.
 This happens because the caller needs to know how the method is implemented in order to determine the run-time return type.
 In \thisp{}, there is a known type hierarchy 
 below the return type and the caller casts to a known subtype

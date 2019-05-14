@@ -74,7 +74,8 @@ There are cases when the cast is not directly applied to the result of the \code
 The following snippet shows such a case.
 The cast is used to convert from \code{Class<?>} to \code{Class<ConfigFactory>} (line 4).
 The invocation to the \code{newInstance} method then does not need a direct cast (line 8) given the definition of the \code{clazz} variable (line 2).
-Nevertheless, the cast is unchecked, and a \code{checkcast} instruction is going to be emitted anyway for the result of the \code{newInstance} invocation.
+Nevertheless, the cast is unchecked,
+and a \code{checkcast} instruction will be emitted anyway for the result of the \code{newInstance} invocation.
 
 %https://lgtm.com/projects/g/pac4j/pac4j/snapshot/dist-4840350-1524814812150/files/pac4j-core/src/main/java/org/pac4j/core/config/ConfigBuilder.java?sort=name&dir=ASC&mode=heatmap#L25
 \def\urlvar{http://bit.ly/pac4j_pac4j_2HJtXUn}
