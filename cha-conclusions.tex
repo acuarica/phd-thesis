@@ -146,8 +146,44 @@ and requires a lot of careful design.
 Although not mentioned in this thesis,
 I spent a considerable time working on Supercompilation~\citep{turchinConceptSupercompiler1986}.
 ``Supercompilation is a program optimisation technique that is particularly effective at eliminating unnecessary overheads.''~\citep{mitchellRethinkingSupercompilation2010}.
-Our proof of concept of a \haskell{} Supercompiler can be found online.%
-\urlnote{https://gitlab.com/acuarica/hsc}
 
 Although there are several attempts to make Supercompilation mainstream~\citep{mitchellSupercompilerCoreHaskell2007,bolingbrokeSupercompilationEvaluation2010},
 still has some drawbacks that makes it impossible to include it in a compiler of industrial-strength.
+
+
+\section{Artifacts}
+\newcommand{\urlartifact}[2]{\item{\footnotesize\url{#1}}: #2}
+
+In each of these research projects,
+I have produced several artifacts.
+Here are the artifacts mentioned throughout this thesis.
+
+\textbf{\unsafe{} \api{}.}
+\begin{itemize}
+\urlartifact{https://gitlab.com/acuarica/java-unsafe-analysis}{The complete scripts and results used for this study.}
+\urlartifact{http://dx.doi.org/10.1145/2814270.2814313}{Companion artifact that aims to reproduce the results found in this study.
+The companion artifact can be found in the \emph{Source Materials} tab in the ACM Digital Library.}
+\end{itemize}
+
+\textbf{Cast operator.}
+\begin{itemize}
+\urlartifact{https://gitlab.com/acuarica/phd-thesis/blob/master/analysis/casts.csv}{Comma-separated values (CSV) table.
+Each row represents a cast instance.
+This table contains 6 columns.
+The last two columns---\col{link} and \col{value}---are the link to the source code file in \lgtm{} and the result of the manual inspection.}
+\urlartifact{https://gitlab.com/acuarica/phd-thesis/blob/master/analysis/analysis.r}{The script to process the results of the manual inspection.}
+\urlartifact{https://gitlab.com/acuarica/java-cast-queries}{\ql{} detection queries.}
+\urlartifact{https://gitlab.com/acuarica/java-cast-inspection}{Early prototype of our cast study using javalang and a custom \javac{} plug-in.}
+\urlartifact{https://gitlab.com/acuarica/java-cast-study}{Early prototype of our cast study using JavaParser.}
+\end{itemize}
+
+\textbf{Java bytecode instrumentation.}
+\begin{itemize}
+\urlartifact{https://gitlab.com/acuarica/jnif}{JNIF source code.}
+\urlartifact{http://acuarica.gitlab.io/jnif}{JNIF user documentation.}
+\end{itemize}
+
+\textbf{Supercompilation.}
+\begin{itemize}
+\urlartifact{https://gitlab.com/acuarica/hsc}{Our proof of concept of a \haskell{} Supercompiler.}
+\end{itemize}
