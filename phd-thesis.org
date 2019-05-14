@@ -741,30 +741,6 @@ CLOSED: [2019-05-08 Wed 02:01]
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2019-05-08 Wed 02:01]
 :END:
-** TODO Literature Review
-:LOGBOOK:
-- State "TODO"       from              [2019-05-14 Tue 15:07]
-:END:
-*** Casting is indeed more important than reflection because everyone uses it
-*** And readily available, good motivational extra
-*** It is more common than the use of the Reflection API
-** TODO Make a clear which subset of intrinsics and reflection
-:LOGBOOK:
-- State "TODO"       from              [2019-05-14 Tue 15:07]
-:END:
-*** Unsafe API and casting
-*** Need to bring out more that casting is the focus
-** TODO Conclusions
-:LOGBOOK:
-- State "TODO"       from              [2019-05-14 Tue 15:07]
-:END:
-*** Not undercut result
-*** Limitations/Future Work split
-** TODO RQ:C1 not clearly responded
-:LOGBOOK:
-- State "TODO"       from              [2019-05-14 Tue 15:07]
-:END:
-*** Remove the question
 ** DONE "fields declarations"
 CLOSED: [2019-05-14 Tue 15:08]
 :LOGBOOK:
@@ -791,6 +767,37 @@ CLOSED: [2019-05-14 Tue 15:08]
 - State "TODO"       from              [2019-05-14 Tue 15:08]
 :END:
 *** Explain briefly
+** TODO run time|run-time|runtime
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 22:29]
+:END:
+*** run time: noun phrase (contrast with compile time)
+*** run-time: adjective
+*** runtime: noun (a language runtime system)
+** TODO Literature Review
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 15:07]
+:END:
+*** Casting is indeed more important than reflection because everyone uses it
+*** And readily available, good motivational extra
+*** It is more common than the use of the Reflection API
+** TODO Make a clear which subset of intrinsics and reflection
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 15:07]
+:END:
+*** Unsafe API and casting
+*** Need to bring out more that casting is the focus
+** TODO Conclusions
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 15:07]
+:END:
+*** Not undercut result
+*** Limitations/Future Work split
+** TODO RQ:C1 not clearly responded
+:LOGBOOK:
+- State "TODO"       from              [2019-05-14 Tue 15:07]
+:END:
+*** Remove the question
 ** TODO Explain casts in C++
 :LOGBOOK:
 - State "TODO"       from              [2019-05-14 Tue 15:08]
@@ -809,10 +816,3 @@ CLOSED: [2019-05-14 Tue 15:08]
 *** First paragraph: Does not follow
 *** Seems like a bunch of sentences slapped together
 *** Does not flow logically
-** TODO run time|run-time|runtime
-:LOGBOOK:
-- State "TODO"       from              [2019-05-14 Tue 22:29]
-:END:
-*** run time: noun phrase (contrast with compile time)
-*** run-time: adjective
-*** runtime: noun (a language runtime system)
