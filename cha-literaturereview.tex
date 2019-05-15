@@ -400,8 +400,11 @@ and several analyses have been devised to check whether their usage is correct.
 
 But \java{}'s unsafe intrinsics and reflection capabilities comprise more than \jni{} and reflection \api{}.
 Unsafe operations can be performed by using the undocumented \smu{} class.
-The cast operator provides a lightweight form of reflection.
+The cast operator provides a lightweight form of type introspection.
 However---to our knowledge---these features have never been studied before in the literature.
+Moreover,
+given that the cast operator is part of the \java{} language itself,
+we believe its use is more widespread than the reflection \api{}.
 This thesis provides the first empirical studies on the \unsafe{} \api{} and cast operator in \java{}.
 In our work~\citep{mastrangeloUseYourOwn2015} we extend Sandoz' work
 by performing a comprehensive study of the \mavencentral{}
