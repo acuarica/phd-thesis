@@ -785,8 +785,10 @@ CLOSED: [2019-05-15 Wed 14:22]
 *** Casting is indeed more important than reflection because everyone uses it
 *** And readily available, good motivational extra
 *** It is more common than the use of the Reflection API
-** TODO Make a clear which subset of intrinsics and reflection
+** DONE Make a clear which subset of intrinsics and reflection
+CLOSED: [2019-05-15 Wed 14:54]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-15 Wed 14:54]
 - State "TODO"       from              [2019-05-14 Tue 15:07]
 :END:
 *** Unsafe API and casting
@@ -819,8 +821,10 @@ CLOSED: [2019-05-15 Wed 00:27]
 *** Python isinstance
 *** In static checked languages
 *** Discuss casts in C++ that are not reference casts (slice objects)?
-** TODO Abstract
+** DONE Abstract
+CLOSED: [2019-05-15 Wed 14:54]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-15 Wed 14:54]
 - State "TODO"       from              [2019-05-14 Tue 20:29]
 :END:
 *** Casting != reflection, type introspection

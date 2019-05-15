@@ -1,7 +1,6 @@
 \begin{abstract}
 The main goal of a static type system is to prevent certain kinds of errors from happening at run time.
 A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
-
 Nevertheless, often the static approximation provided by a type system is not precise enough.
 Being static, the analysis done by the type checker needs to be conservative.
 
@@ -26,7 +25,7 @@ or to carry out controlled programming experiments, and
 \item a guide for developers for better practices.
 \end{inparaenum}
 
-In this dissertation we focus on the \unsafe{} \api{} and cast operator---subset of unsafe intrinsics and reflective capabilities respectively---in \java{}.
+In this dissertation we focus on the \unsafe{} \api{} and cast operator---a subset of unsafe intrinsics and reflective capabilities respectively---in \java{}.
 We report two empirical studies to understand how these mechanisms---\unsafe{} \api{} and cast operator---are used by \java{} developers when the static type system becomes too strict.
 We have devised usage patterns for both the \unsafe{} \api{} and cast operator.
 Usage patterns are recurrent programming idioms to solve a specific issue.
