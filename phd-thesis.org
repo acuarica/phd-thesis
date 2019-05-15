@@ -789,14 +789,19 @@ CLOSED: [2019-05-14 Tue 22:44]
 :END:
 *** Unsafe API and casting
 *** Need to bring out more that casting is the focus
-** TODO Conclusions
+** DONE Conclusions
+CLOSED: [2019-05-15 Wed 13:41]
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-15 Wed 13:41]
 - State "TODO"       from              [2019-05-14 Tue 15:07]
 :END:
 *** Not undercut result
 *** Limitations/Future Work split
-** TODO RQ:C1 not clearly responded
+** CANCELED RQ:C1 not clearly responded
+CLOSED: [2019-05-15 Wed 13:41]
 :LOGBOOK:
+- State "CANCELED"   from "TODO"       [2019-05-15 Wed 13:41] \\
+  We have an estimation.
 - State "TODO"       from              [2019-05-14 Tue 15:07]
 :END:
 *** Remove the question
