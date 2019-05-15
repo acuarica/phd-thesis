@@ -2,6 +2,18 @@
 The main goal of a static type system is to prevent certain kinds of errors from happening at run time.
 A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
 
+Nevertheless, often the static approximation provided by a type system is not precise enough.
+Being static, the analysis done by the type checker needs to be conservative.
+
+However, there are situations when the developer has more information
+about the program that is too complex to explain in terms of typing constraints.
+To that end, programming languages often provide \emph{mechanisms} that 
+make the typing constraints less strict
+to permit more programs to be valid,
+at the expense of causing more errors at run time.
+These mechanisms are essentially two:
+\emph{Unsafe Intrinsics} and \emph{Reflective Capabilities}.
+
 We want to understand how and when developers give up these static constraints.
 This knowledge can be:
 \begin{inparaenum}[a)]
@@ -14,29 +26,10 @@ or to carry out controlled programming experiments, and
 \item a guide for developers for better practices.
 \end{inparaenum}
 
-In this dissertation we report two empirical studies to understand how these mechanisms---unsafe intrinsics and reflective capabilities---are used by \java{} developers when the static type system becomes too strict.
-We have devised usage patterns for both a subset of unsafe intrinsics and reflective capabilities.
+In this dissertation we focus on the \unsafe{} \api{} and cast operator---subset of unsafe intrinsics and reflective capabilities respectively---in \java{}.
+We report two empirical studies to understand how these mechanisms---\unsafe{} \api{} and cast operator---are used by \java{} developers when the static type system becomes too strict.
+We have devised usage patterns for both the \unsafe{} \api{} and cast operator.
 Usage patterns are recurrent programming idioms to solve a specific issue.
-We believe that having usage patterns can help us to better categorize use cases and
-thus understand how those features are used.
+We believe that having usage patterns can help us to better categorize use cases and thus understand how those features are used.
 
 \end{abstract}
-
-% These patterns can provide an insight on how the language is being used by developers in real-world applications.
-
-% item useful to make informed decisions for current \& future language designers, not only \java{},
-
-% Programming languages offer a wide range of features that aim to improve programmers productivity.
-% However, to better drive the future evolution of any programming language,
-% we believe it is AVOID:paramount to have a thorough understanding of how these features are actually being used in real codebases.
-
-% Understanding how developers make use of language features can be helpful to a AVOID:broad audience besides language designers.
-% It can aid tool builders to make more realistic assumptions;
-% researchers to improve the state-of-the-art;
-% and developers to implement more efficient and effective solutions by providing them best practices.
-
-% In this proposal, we target two specific features, namely, casting and the unsafe API.
-% \java{} features, namely, \emph{casting}, \emph{reflection}, \emph{exception handling} and the \emph{unsafe} \api{}.
-% We give the rationale behind our decision on why we chose these features.
-% We plan to devise language and API usage patterns at large-scale to properly assess this broad audience.
-% We hope that having a better understanding on how these features are used, we can make informed decisions for these driving forces.
