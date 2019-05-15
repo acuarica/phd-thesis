@@ -14,22 +14,38 @@ On the other hand, we complement our Unsafe \api{} study with
 our casting study.
 We have submitted this study for publication to the \conf{OOPSLA}{19} conference.
 We have discovered common usage patterns that involve the cast operator.
-Having a taxonomy of usage patterns---for both the \unsafe{} \api{} and casting---can shed light on how \java{} developers give up static type checking.
 
-For our \unsafe{} study,
-in response to~\ref{unsafe:rq1} (\urqA{}),
-we found that \smu{} is used heavily either directly or indirectly.
-In response to~\ref{unsafe:rq2} (\urqB{}),
-the results could change if we choose another dataset, \eg{},
-\github{}.
+\section{Research Questions}
 
-For our casting study, in response to~\ref{casts:rq2} (\crqB{}),
-we do not claim that our list of patterns is exhaustive.
-Although our methodology should ensure that any pattern that occurs more
-than 0.1\% of the time has a small probability of being excluded.
-In response to~\ref{casts:rq1} (\crqA{}) and~\ref{casts:rq3} (\crqC{})
-we assume that casts are uniformly distributed,
-otherwise our pattern distribution would not reflect reality.
+Throughout this dissertation we have proposed a set of research questions,
+and give an answer to them.
+Here is a summary of our research questions and their answers.
+
+\subsection*{Unsafe API}
+
+\begin{enumerate}[label=\ref{unsafe:rq\arabic*},leftmargin=3.4\parindent]
+\item {\bf \urqA} 
+We found that \smu{} is heavily used directly in only 1\% of artifacts.
+However, 47\% of artifacts directly or indirectly depend on \smu{}.
+\item {\bf \urqB} 
+We have identified which features---methods---of \smu{} are most often used.
+We have discovered \unsafe{} usage patterns.
+\smu{} is mostly used to improve performance.
+\end{enumerate}
+
+\subsection*{Casting}
+
+\begin{enumerate}[label=\ref{casts:rq\arabic*},leftmargin=3.4\parindent]
+\item {\bf \crqA} 
+The cast operator is used in 93\% of projects in the \lgtm{} database.
+\item {\bf \crqB}
+We have devised cast usage patterns.
+Some patterns are due to the inexpressiveness of \java{}'s type system,
+while others are because developers abuse \java{}'s type system.
+\item {\bf \crqC} 
+We give an estimation of how often each pattern is used.
+\end{enumerate}
+
 
 \section{\java{}'s Evolution}
 
@@ -54,17 +70,29 @@ JEP 169 Value Objects~\citep{jep169}, and
 JEP 300 Augment Use-Site Variance with Declaration-Site Defaults~\citep{jep300}
 are still in draft status.
 
-\section{Limitations and Future Work}
+
+\section{Limitations}
 
 Both our \unsafe{} and casting studies rely on manual inspection to devise usage patterns.
 The main issue with manual inspection is that rely heavily on the personal experience of the authors.
 Different authors could devise different set of patterns.
 
-In our casting study---whenever possible---we have used \ql{} to automatically detect some patterns.
+For our casting study,
+we do not claim that our list of patterns is exhaustive.
+Although our methodology should ensure that any pattern that occurs more
+than 0.1\% of the time has a small probability of being excluded.
+Moreover, we assume that casts are uniformly distributed,
+otherwise our pattern distribution would not reflect reality.
+
+Whenever possible,
+we have used \ql{} to automatically detect some patterns in our casting study.
 For some other patterns, it is infeasible to perform automatic detection since \ql{}---and the \lgtm{} dataset---currently analyse a given project,
 not its dependencies.
 Furthermore, some patterns require application-specific knownledge to be detected,
 which cannot be expressed in \ql{}.
+
+
+\section{Future Work}
 
 A possible future work could be to run our detection queries on the entire \lgtm{} database.
 This can open up the possibility to devise new usage patterns,
@@ -115,7 +143,15 @@ which can point out the precise moment in time when an \unsafe{} operation or ca
 
 \section{Lessons Learnt}
 
-Throughout my \phd{} studies I carried out several research projects,
+In this dissertation we have discovered a set of usage patterns for both the \unsafe{} \api{} and casting.
+We believe having a taxonomy of usage patterns can shed light on how \java{} developers give up static type checking.
+We hope the results in these studies can aid developers to avoid certain language abuse,
+while can assist language designers to make informed decisions about programming languages.
+Furthermore,
+Our patterns can serve as a starting point for new analyses to improve code quality.
+
+In particular,
+throughout my \phd{} studies I carried out several research projects,
 most of them described in this thesis.
 Here are a few lessons I learnt in each of them.
 
@@ -148,7 +184,7 @@ I spent a considerable time working on Supercompilation~\citep{turchinConceptSup
 ``Supercompilation is a program optimisation technique that is particularly effective at eliminating unnecessary overheads.''~\citep{mitchellRethinkingSupercompilation2010}.
 
 Although there are several attempts to make Supercompilation mainstream~\citep{mitchellSupercompilerCoreHaskell2007,bolingbrokeSupercompilationEvaluation2010},
-still has some drawbacks that makes it impossible to include it in a compiler of industrial-strength.
+still has some drawbacks that makes it infeasible to include it in a compiler of industrial-strength.
 
 
 \section{Artifacts}
@@ -156,7 +192,7 @@ still has some drawbacks that makes it impossible to include it in a compiler of
 
 In each of these research projects,
 I have produced several artifacts.
-Here are the artifacts mentioned throughout this thesis.
+Here are the artifacts mentioned throughout this dissertation.
 
 \textbf{\unsafe{} \api{}.}
 \begin{itemize}
