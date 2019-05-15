@@ -122,16 +122,15 @@ provided that $T$ is a \emph{subtype} of $S$.
 
 Unlike upcasts,
 downcasts in a safe language require a run-time check to verify that the conversion is indeed valid.
-For instance, \java{} provides the cast operator, \eg{}, \code{(T) t},
+For instance, \java{} provides the cast operator, written \code{(T) t},
 while \scala{} provides the \code{asInstanceOf} method,
-\eg{}, \code{t.asInstanceOf[T]}.
+written \code{t.asInstanceOf[T]}.
 Although \cpp{} is an unsafe language,
 when used with run-time type information (RTTI),
-it provides a safe cast operation%
----the \code{dynamic\_cast<>} operator---%
-\eg{}, \code{dynamic\_cast<T>(t)}.
-However, being unsafe,
-\cpp{} provides more ways to perform a cast operation with different semantics, \ie{},
+it provides a safe cast operation, the \code{dynamic\_cast<>} operator,
+written \code{dynamic\_cast<T>(t)}.
+However,
+\cpp{} provides more ways to perform a cast operation with different semantics that are \emph{unsafe}, \ie{},
 \code{static\_cast<>},
 \code{reinterpret\_cast<>},
 \code{const\_cast<>}, and
