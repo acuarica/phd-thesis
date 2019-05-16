@@ -170,6 +170,12 @@
     {{\large {\@advisor}}\\}
     \vfill
     {\@month\ \@year}\\
+    \vfill
+
+    \hfill \begin{minipage}{3cm}
+      {\scriptsize Git Commit \input|"echo `git rev-parse --short HEAD`"}
+    \end{minipage}
+
   \end{center}
   \end{titlepage}%
   \setcounter{footnote}{0}%
