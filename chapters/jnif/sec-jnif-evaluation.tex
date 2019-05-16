@@ -64,29 +64,11 @@ on ASM as well as \jnif{}.
 Moreover, it shows that except for dacapo-eclipse, dacapo-jython, and scala-scalatest,
 \jnif{} is faster even than just the \asm{} Server time.
 
-% \ignore{
-% \begin{figure*}[htb]
-% \centering
-% \vspace{-1cm}
-% \includegraphics[width=\textwidth]{../eval-dacapo-chart-instr}
-
-% \vspace{-5mm}
-% \includegraphics[width=\textwidth]{../eval-scala-chart-instr}
-
-% \vspace{-5mm}
-% \caption{Instrumentation time on DaCapo and Scala benchmarks}
-% \label{fig:instr-time}
-% \end{figure*}
-% }
-
 \begin{figure}[t]
 \includegraphics[width=\textwidth]{chapters/jnif/eval-all-chart-instr}
 \caption{Instrumentation time on DaCapo and Scala benchmarks}
 \label{fig:instr-time}
 \end{figure}
-
-%\chart{eval-dacapo-chart-instr}{Instrumentation time on DaCapo}{fig:instr-time-dacapo}
-%\chart{eval-scala-chart-instr}{Instrumentation time on Scala and JRuby}{fig:instr-time-scala}
 
 \subsection*{Reproducibility}
 
@@ -140,20 +122,3 @@ This task needs R with the package ggplot2.
 \caption{Plots}
 \label{usage-parse6}
 \end{listing}
-
-%1. Stand-alone test-unit:
-%In this stage we only test basic functionality of the API such as get the
-%right size and the ability to parse and write without correctly without
-%any modification and with them. The use of this kind of tests rely on the
-%property of the API that if no modification is done to the model the 
-%writer is able to recover the original bytes of the class files (except with
-%the non-unique property of the stack map tables).
-%
-%2. Minimal native agent:
-%At this stage we prepared several kind of transformations (instrumentation)
-%including the identity transformation to test if model/parser/analysis/writer
-%can be executed correctly inside a JVM.
-%
-%3. Dacapo benchmarks:
-%As the final tests we run those instrumentations on the Dacapo benchmarks 
-%to stress the API. Moreover we use this stage to perform our evaluation.

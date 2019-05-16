@@ -67,7 +67,6 @@ We now discuss dynamic analysis frameworks that are built on top of the previous
 and use the above instrumentation hooks.
 These frameworks do not allow arbitrary code transformations 
 and they shield the developer from the necessary instrumentation effort.
-%
 Sofya\footnote{\url{http://sofya.unl.edu}}~\citep{kinneerSofyaSupportingRapid2007} 
 is a dynamic analysis framework that runs the analysis in a separate JVM from the observed application.
 It provides analysis developers with a set of observable events, to which the analyses can subscribe.
@@ -122,14 +121,3 @@ but implements (a limited form of) class file instrumentation as native code ins
 The high-level frameworks described above all abstract away from the underlying instrumentation approach.
 Thus, they could make use of JNIF to provide their users with full-coverage 
 while eliminating the need for a separate instrumentation server.
-
-%Low overhead agent. 
-%Modular parser, you pay what you need. 
-%Full power of templates for better performance.
-
-%\textbf{Supporting Class File Verification.}
-%Java byte code verification~\cite{Leroy:2003:JBV:872715.872719}, 
-%its abstract: "Bytecode verification is a crucial security component for Java applets, 
-%on the Web and on embedded devices such as smart cards. 
-%This paper reviews the various bytecode verification algorithms that have been proposed, 
-%recasts them in a common framework of dataflow analysis, and surveys the use of proof assistants to specify bytecode verification and prove its correctness."

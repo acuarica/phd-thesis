@@ -21,16 +21,12 @@
 \expandafter\label{sec:#1}
 
 \noindent \textbf{\em Description.} \expandafter\csname desc#1\endcsname
-%\smallskip
 
 \noindent \textbf{\em Rationale.} \expandafter\csname rationale#1\endcsname
-%\smallskip
 
 \noindent \textbf{\em Implementation.} \expandafter\csname impl#1\endcsname
-%\smallskip
 
 \noindent \textbf{\em Issues.} \expandafter\csname issues#1\endcsname
-%\smallskip
 
 }
 
@@ -99,9 +95,6 @@ or the \smugroup{Fetch \& Add} group.
   non-blocking concurrent data structures and synchronization primitives.
   Hardware-specific atomic operations
   provided by \smu{} are used.
-%Some of them include following classes developed by Cliff Click, author of
-  %the HotSpot Server Compiler: \javaclass{ConcurrentAutoTable}, \javaclass{NonBlockingHashMap}.
-%\javaclass{org.vmmagic}~\cite{Frampton:2009:DMH:1508293.1508305}.
 }
 {The Java standard library provides classes for some concurrent data structures.
 The library also provides classes
@@ -253,11 +246,6 @@ performance and is inflexible.
 It is possible to implement serialization using the reflection API. This is
 also expensive in terms of performance. Therefore, fast serialization frameworks
 often use \unsafe{} to get and set fields of objects.
-% Project \project{jon} however invoke the \member{allocate\-Instance} method.
-% These projects use one of the following classes:
-% \javaclass{com.lts.xmlser.SerializationUtils},
-% \javaclass{Sun14ReflectionProvider}, or
-% \javaclass{JSX.magic.MagicClass14}, which are third-party classes that implement fast serialization.
 Some of these projects use reflection to check if \smu{} is available, falling
 back on a slower implementation if not.}
 {Reflection can be used for accessing fields, more safely although less
@@ -288,13 +276,6 @@ hash code than the original serialized object.}
 \patterntext{marshalling}%
 {In this pattern \smu{} is used to share data between Java code and code
   written in another language, usually C or C++.
-% The \project{osfree} and \project{snarej} projects are peculiar because they use only \smugroup{Get} and \smugroup{Put} methods without calling \smugroup{Offset}.
-% This is explained by the fact that these kinds of projects are implementing
-% operating systems on top of the JVM.
-% They obtain the memory address for the \smugroup{Get} and \smugroup{Put} methods using JNI.
-% The \project{janux} project implements a native loader that needs to load class files from native memory.
-% The \project{javapayload} project is about running exploits in pure \java{}, it has the ability to load a native library and execute an exploit.
-% Stdlib: bytebuffer, datainputstream
 }
 {\javaclass{java.nio.Byte\-Buffer} and related classes can be used for marshaling data instead of \unsafe{}.}
 {The methods of the \smugroup{Off-Heap} group are used to access memory off
@@ -454,52 +435,19 @@ We present each pattern using the following template.
 
 \noindent \textbf{\em Description.}
 {What is the purpose of the pattern? What does it do?}
-%\smallskip
 
 \noindent \textbf{\em Rationale.}
 {What problem is the pattern trying to solve? In what contexts is it used?}
-%\smallskip
-
-% \noindent \textbf{\em Unsafe members.}
-% {Methods and fields of \smu{} used in the pattern.
-% In some cases, there are multiple alternatives to implementing the pattern.
-% These are explained when necessary in turn for each pattern. }
-% %\smallskip
 
 \noindent \textbf{\em Implementation.}
 {How is the pattern implemented using \smu{}?}
-%\smallskip
-
-% \noindent \textbf{\em Found in.}
-% {Number of artifacts in \mavencentral{} that contain the pattern.}
-% %\smallskip
-
-% \noindent \textbf{\em Used by.}
-% {Number of artifacts that transitively depend on the artifacts with the
-% pattern.}
-% %\smallskip
-
-% \noindent \textbf{\em Most used artifacts.}
-% {The three most used artifacts containing the pattern, that is, the
-% artifact with the most other artifacts that transitively depend upon it.
-% Artifacts are shown using their Maven identifier, \ie{}
-% \artexp{$\langle$groupId$\rangle$}{$\langle$artifactId$\rangle$}.
-% %\smallskip
 
 \noindent \textbf{\em Issues.}
 {Issues to consider when using the pattern.
 In addition, we present the problems discussed in the
 \stackoverflow{} question/answer database based on our previous work~\citep{mastrangeloUseYourOwn2015}.}
-%\smallskip
-
-% \noindent \textbf{\em Alternatives.}
-% {Potential alternatives to using the \unsafe{} for solving the same
-% problem.}
-
 
 }
-
-
 
 \patternsection{alloc}
 \patternsection{probyte}

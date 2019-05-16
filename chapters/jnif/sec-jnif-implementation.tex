@@ -7,22 +7,16 @@ in an object-oriented style similar to \java{}-based class rewriting \api{}s.
 \subsection*{Design}
 
 \jnif{} consists of five main modules: model, parser, writer, printer, and analysis.
-%
 \emph{Model} implements \jnif{}'s intermediate representation.
 It is centered around its \code{ClassFile} class. 
 It is possible to create and manipulate class files from scratch.
-%
 \emph{Parser} implements the parsing of class files from a given byte array.
 The parser parses a byte array and translates it to the model's IR.
 Once a \texttt{ClassFile} is created by the parser,
 it can be manipulated with the methods available in the model.
-%
 \emph{Writer} and \emph{printer} represent two back-ends for the model.
-%
 \emph{Writer} serializes the entire \texttt{ClassFile} into a byte array ready to be loaded inside a JVM.
-%
 \emph{Printer} instead serializes the \texttt{ClassFile} into a textual format useful for debugging.
-%
 Finally, \emph{analysis} implements the static analyses necessary for computing stack maps.
 
 
@@ -87,10 +81,6 @@ when rewriting a single class, they may require access to many other classes in 
 Different \texttt{IClassPath} implementations can provide different ways for getting access to classes.
 For example, a static instrumentation tool may use a user-defined class path to find classes,
 while a dynamic instrumentation tool may use JNI to request the bytes of a class given that class' name.
-
-%\todo{Problem of finding common super class. 
-%How this issue is broken in ASM, 
-%because it will cause a lot of class loading and hence static initializer to be run in an order that was not the one assumed by the programmer.}
 
 \subsection*{Running \jnif{} Inside a \jvmti{} Agent}
 When using \jnif{} inside a \jvmti{} agent, 
