@@ -18,9 +18,11 @@ List<?>[][] partialResults = new List[th][tw];
 for (...) {
     partialResults[ty][tx] = build(tx, ty, order, cCompatibility);
     layers.addAll((List<byte[]>) partialResults[y][x]);
-} #\urlbox#
+}
+
+List<byte[]> build(int tx, int ty, ByteOrder order, boolean cCompatibility);
+#\urlbox#
 \end{minted}
-% protected abstract List<byte[]> build(int tx, int ty, ByteOrder order, boolean cCompatibility);
 
 Instead of casting individual elements,
 the following example shows a cast applied directly when the array is created. 
