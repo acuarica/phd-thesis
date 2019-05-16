@@ -9,34 +9,6 @@ directly related to our plan.
 Over the last decades,
 researchers always have been interested in understanding what
 kind of programs developers write.
-% The motivation behind these studies is quite broad,
-% and has been shifted to the needs of researchers,
-% together with the evolution of computer science itself.
-
-% For instance, to measure the advantages between compilation and interpretation in \basic{},
-% \cite{hammondBASICEvaluationProcessing1977} studied a representative dataset of programs.
-% \cite{knuthEmpiricalStudyFORTRAN1971} started to study \fortran{} programs.
-% By knowing what kind of programs arise in practice,
-% a compiler optimizer can focus in those cases,
-% and therefore can be more effective.
-% Adding to Knuth's work,%
-% ~\cite{shenEmpiricalStudyFortran1990} conducted an empirical study for
-% parallelizing compilers.
-% Similar works have been done for
-% \cobol{}~\cite{salvadoriStaticProfileCOBOL1975,chevanceStaticProfileDynamic1978},
-% \pascal{}~\cite{cookContextualAnalysisPascal1982},
-% and \apl{}~\cite{saalPropertiesAPLPrograms1975,saalEmpiricalStudyAPL1977} programs.
-% \cite{millerEmpiricalStudyReliability1990,millerFuzzRevisitedReexamination1995,forresterEmpiricalStudyRobustness2000}
-% studied the reliability of programs using \emph{fuzz} testing.
-% \cite{dieckmannStudyAllocationBehavior1999} studied the memory allocating
-% behavior in the SPECjvm98 benchmarks.%
-% \footnote{\url{https://www.spec.org/jvm98/}}
-
-% But there is more than empirical studies at the source code level.
-% A machine instruction set is effectively another kind of language.
-% Therefore, its design can be affected by how compilers generate machine code.
-% Several studies targeted the \jvm{}~\cite{collbergEmpiricalStudyJava2007,odonoghueBigramAnalysisJava2002,antonioliAnalysisJavaClass1998};
-% while~\cite{cookEmpiricalAnalysisLilith1989} did a similar study for \lilith{} in the past.
 
 The importance of conducting empirical studies of programs gave rise to the International Conference on Mining Software Repositories%
 \footnote{\url{http://www.msrconf.org/}}
@@ -121,7 +93,6 @@ The most common being downloading, storing, parsing, analysing and
 properly extracting information from different kinds of artifacts.
 In this scenario, there are several tools that allows a researcher or developer to query information about software repositories.
 
-%\urlnote{https://wiki.openjdk.java.net/display/Compiler/Java+Corpus+Tools}
 \cite{urmaProgrammingLanguageEvolution2012} evaluated seven source code
 query languages:
 \emph{Java Tools Language}~\citep{cohenJTLJavaTools},
@@ -228,7 +199,6 @@ and \swift{}~\citep{reboucasEmpiricalStudyUsage2016}.
 Going one step forward, \cite{rayLargescaleStudyProgramming2017} studied the correlation between programming languages and defects. 
 One important note is that they choose relevant projects by popularity,
 measured by how many times the project was \emph{starred} in \github{}.
-% We argue that it is more important to analyse projects that are \emph{representative}, not \emph{popular}.
 
 \cite{gorlaCheckingAppBehavior2014} mined a large set of Android applications, clustering applications by their description topics and identifying outliers in each cluster with respect to their API usage.
 \cite{grechanikEmpiricalInvestigationLargescale2010} also mined large scale software repositories to obtain several statistics on how source code is actually written.
