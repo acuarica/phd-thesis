@@ -142,17 +142,6 @@ By avoiding the type system, downcasts can pose potential threats, because it is
 Being an escape-hatch from the static type system,
 a cast is often seen as a design flaw or code smell~\citep{tufanoWhenWhyYour2015} in an object-oriented system.
 
-Featherweight \java{}~\citep{igarashiFeatherweightJavaMinimal2001} is a minimal core calculus for \java{}.
-The language features it models are ``mutually recursive class definitions,
-object creation, field access, method invocation, method override, method recursion through \code{this}, subtyping, and casting.''
-In their model, there are three ways a computation may get stuck.
-When accessing a field not declared for a class,
-by invoking a nonexistent method for a class,
-or when casting to a class that is \emph{not} a supertype of the object's \emph{run-time} class.
-They proved that on any well-typed program, the first two never happen,
-and the third one never happens on well-typed programs \emph{without downcasts}.
-From the theoretical point of view, casts make typing rules unsound, \ie{},
-\emph{a well-typed program with casts may get stuck}.
 
 \section{Research Question}
 
