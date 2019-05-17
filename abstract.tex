@@ -1,9 +1,12 @@
 \begin{abstract}
 The main goal of a static type system is to prevent certain kinds of errors from happening at run time.
+Besides detecting these kinds of errors,
+a static type system can be an invaluable maintenance tool,
+can be useful for documentation purposes, and
+can aid in generating efficient machine code.
+
 A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
 Nevertheless, often the static approximation provided by a type system is not precise enough.
-Being static, the analysis done by the type checker needs to be conservative.
-
 However, there are situations when the developer has more information
 about the program that is too complex to explain in terms of typing constraints.
 To that end, programming languages often provide \emph{mechanisms} that 
