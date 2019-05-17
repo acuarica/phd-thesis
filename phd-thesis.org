@@ -831,3 +831,61 @@ CLOSED: [2019-05-15 Wed 14:54]
 *** First paragraph: Does not follow
 *** Seems like a bunch of sentences slapped together
 *** Does not flow logically
+** TODO Nate's comments
+:LOGBOOK:
+- State "TODO"       from              [2019-05-17 Fri 14:37]
+:END:
+*** The first paragraph of the abstract still does not flow logically
+You need to say what the advantages of static typing are.
+*** DONE There's a paragraph about Featherweight Java in the introduction that doesn't belong
+CLOSED: [2019-05-17 Fri 14:41]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-17 Fri 14:41]
+- State "TODO"       from              [2019-05-17 Fri 14:41]
+:END:
+I don't see the point of it in that context.
+*** DONE In the conclusions
+CLOSED: [2019-05-17 Fri 14:39]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-17 Fri 14:39]
+- State "TODO"       from              [2019-05-17 Fri 14:39]
+:END:
+I'd remove reference to the artifacts that have nothing to do with the thesis.
+*** DONE Learned is American English, learnt British.
+CLOSED: [2019-05-17 Fri 14:38]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-17 Fri 14:38]
+- State "TODO"       from              [2019-05-17 Fri 14:38]
+:END:
+** DONE Matthias's comments
+CLOSED: [2019-05-17 Fri 14:55]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-17 Fri 14:55]
+- State "TODO"       from              [2019-05-17 Fri 14:55]
+:END:
+*** DONE In the thesis outline: "The Appendix A" -> "Appendix A"
+CLOSED: [2019-05-17 Fri 14:43]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-17 Fri 14:43]
+- State "TODO"       from              [2019-05-17 Fri 14:43]
+:END:
+*** Title of Section 2.3 "Large-scale Codebase Empirical Studies" -> either "Empirical Studies of Large Codebases" or "Large Scale Empirical Studies"
+*** 5.3 "main issue ... is that rely" -> "is that it relies"
+*** 5.3 "Whenever possible" -- probably better "Whenever practical", but I leave that up to you
+*** 5.3 "since QL" -> "because QL"
+*** 5.4 "could be >to< complement"
+*** 5.4 "why this cast is" -> "why is this cast"
+*** 5.4 "by looking ... >it< would be possible"
+*** 5.5 "while can" -> "while it can"
+*** 5.5 "Furthermore, Our"
+*** 5.5 "a mining software repository infrastructure" -> "a software repository mining infrastructure"
+*** 5.5 "in static typed" -> "in statically typed"
+*** DONE Also, I probably wouldn't mention supercompilation.
+CLOSED: [2019-05-17 Fri 14:42]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2019-05-17 Fri 14:42]
+- State "TODO"       from              [2019-05-17 Fri 14:42]
+:END:
+But if you do want, fix this typo: "I spent a considerable >amount of< time", and ">it< still has some drawbacks", and
+"of industrial-strength" -> "of industrial strength".
+

@@ -1,6 +1,7 @@
 \chapter{Conclusions}
 \label{cha:conclusions}
 
+
 In this thesis I have presented the research I carried out together with my advisors to fullfil the requirements for the \phd{} degree.
 We empirically studied how two mechanisms---\unsafe{} \api{} and casting---are used by \java{} developers.
 We performed qualitative analyses on source code text.
@@ -74,7 +75,7 @@ are still in draft status.
 \section{Limitations}
 
 Both our \unsafe{} and casting studies rely on manual inspection to devise usage patterns.
-The main issue with manual inspection is that rely heavily on the personal experience of the authors.
+The main issue with manual inspection is that it relies heavily on the personal experience of the authors.
 Different authors could devise different set of patterns.
 
 For our casting study,
@@ -84,11 +85,11 @@ than 0.1\% of the time has a small probability of being excluded.
 Moreover, we assume that casts are uniformly distributed,
 otherwise our pattern distribution would not reflect reality.
 
-Whenever possible,
+Whenever practical,
 we have used \ql{} to automatically detect some patterns in our casting study.
-For some other patterns, it is infeasible to perform automatic detection since \ql{}---and the \lgtm{} dataset---currently analyse a given project,
+For some other patterns, it is infeasible to perform automatic detection because \ql{}---and the \lgtm{} dataset---currently analyse a given project,
 not its dependencies.
-Furthermore, some patterns require application-specific knownledge to be detected,
+Furthermore, some patterns require application-specific knowledge to be detected,
 which cannot be expressed in \ql{}.
 
 
@@ -117,7 +118,7 @@ The patterns we have already devised for the \unsafe{} study could be formalized
 
 To conduct our studies, we have used static analysis.
 Static analyses are always more conservative than dynamic analyses.
-Another possible future direction could be complement the static analyses with dynamic ones.
+Another possible future direction could be to complement the static analyses with dynamic ones.
 For the \unsafe{} study,
 we found that it is used in 1\% of the \mavencentral{} artifacts.
 Using project dependencies, 25\% of artifacts depend on \smu{}.
@@ -136,35 +137,34 @@ could be answered by analysing the project's history.
 For instance,
 we found that \smu{} is heavily used in only 1\% of analysed artifacts
 ($48,139$ call sites).
-By looking into the project's history would be possible to understand why this happened.
+By looking into the project's history it would be possible to understand why this happened.
 Source code management tools, \eg{}, Git,
 maintain a detailed track of changes,
 which can point out the precise moment in time when an \unsafe{} operation or cast was introduced in a project.
 
-\section{Lessons Learnt}
+\section{Lessons Learned}
 
 In this dissertation we have discovered a set of usage patterns for both the \unsafe{} \api{} and casting.
 We believe having a taxonomy of usage patterns can shed light on how \java{} developers give up static type checking.
 We hope the results in these studies can aid developers to avoid certain language abuse,
-while can assist language designers to make informed decisions about programming languages.
+while it can assist language designers to make informed decisions about programming languages.
 Furthermore,
-Our patterns can serve as a starting point for new analyses to improve code quality.
+our patterns can serve as a starting point for new analyses to improve code quality.
 
 In particular,
-throughout my \phd{} studies I carried out several research projects,
-most of them described in this thesis.
-Here are a few lessons I learnt in each of them.
+throughout my \phd{} studies I carried out several research projects.
+Here are a few lessons I learned in each of them.
 
 \textbf{\unsafe{} \api{}.}
 For our \unsafe{} study,
-we have engineered a mining software repository infrastructure from scratch.
+we have engineered a software repository mining infrastructure from scratch.
 In particular,
-we learnt about the internals of the \mavencentral{} repository.
+we learned about the internals of the \mavencentral{} repository.
 This requires a considerable amount of time to be implemented properly,
 and for a research project can be of little value.
 
 \textbf{Cast operator.}
-The cast operator in static typed languages provides a bridge between compile time and run time checking.
+The cast operator in statically typed languages provides a bridge between compile time and run time checking.
 Developers need to resort to the cast operator due to the inexpressiveness of \java{}'s type system. 
 
 On the other hand, we have discovered \ql{},
@@ -177,14 +177,6 @@ Data-flow analysis is complex.
 The bytecode verification through stack map frames introduced in \java{} 6 requires implementing a data-flow analysis at bytecode level.
 Making an industrial-strength implementation is not trivial
 and requires a lot of careful design.
-
-\textbf{Supercompilation.}
-Although not mentioned in this thesis,
-I spent a considerable time working on Supercompilation~\citep{turchinConceptSupercompiler1986}.
-``Supercompilation is a program optimisation technique that is particularly effective at eliminating unnecessary overheads.''~\citep{mitchellRethinkingSupercompilation2010}.
-
-Although there are several attempts to make Supercompilation mainstream~\citep{mitchellSupercompilerCoreHaskell2007,bolingbrokeSupercompilationEvaluation2010},
-still has some drawbacks that makes it infeasible to include it in a compiler of industrial-strength.
 
 
 \section{Artifacts}
@@ -217,9 +209,4 @@ The last two columns---\col{link} and \col{value}---are the link to the source c
 \begin{itemize}
 \urlartifact{https://gitlab.com/acuarica/jnif}{JNIF source code.}
 \urlartifact{http://acuarica.gitlab.io/jnif}{JNIF user documentation.}
-\end{itemize}
-
-\textbf{Supercompilation.}
-\begin{itemize}
-\urlartifact{https://gitlab.com/acuarica/hsc}{Our proof of concept of a \haskell{} Supercompiler.}
 \end{itemize}
