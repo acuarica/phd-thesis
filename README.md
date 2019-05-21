@@ -1,7 +1,33 @@
 
 # Ph.D. Thesis
 
-Projects using JNIF, Elephant Tracks
+## Title: When and How Java Developers Give Up Static Type Safety
+
+## Abstract
+
+The main goal of a static type system is to prevent certain kinds of errors from happening at run time.
+A type system is formulated as a set of constraints that gives any expression or term in a program a well-defined type.
+Besides detecting these kinds of errors, a static type system can be an invaluable maintenance tool, can be useful for documentation purposes, and
+can aid in generating more efficient machine code.
+However, there are situations when the developer has more information about the program that is too complex to explain in terms of typing constraints.
+To that end, programming languages often provide mechanisms that make the typing constraints less strict to permit more programs to be valid, at the expense of causing more errors at run time.
+These mechanisms are essentially two:
+Unsafe Intrinsics and Reflective Capabilities.
+
+We want to understand how and when developers give up these static constraints.
+This knowledge can be useful as:
+a) a recommendation for current and future language designers to make informed decisions,
+b) a reference for tool builders, e.g., by providing more precise or new refactoring analyses,
+c) a guide for researchers to test new language features, or to carry out controlled programming experiments, and
+d) a guide for developers for better practices.
+
+In this dissertation, we focus on the Unsafe API and cast operator---a subset of unsafe intrinsics and reflective capabilities respectively---in Java.
+We report two empirical studies to understand how these mechanisms---Unsafe API and cast operator---are used by Java developers when the static type system becomes too strict.
+We have devised usage patterns for both the Unsafe API and cast operator.
+Usage patterns are recurrent programming idioms to solve a specific issue.
+We believe that having usage patterns can help us to better categorize use cases and thus understand how those features are used.
+
+## Projects using JNIF, Elephant Tracks
 
 * https://github.com/ElephantTracksProject/jnif
 
@@ -9,6 +35,6 @@ Cited by 1
 
 - https://link.springer.com/chapter/10.1007/978-3-319-57288-8_8
 
-Java Unsafe, cited by ~36
+## Java Unsafe, cited by ~36
 
 * https://scholar.google.ch/scholar?cites=17039563676618874272
