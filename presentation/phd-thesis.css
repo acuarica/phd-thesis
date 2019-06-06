@@ -1,24 +1,16 @@
-/*
-    So you like the style of impress.js demo?
-    Or maybe you are just curious how it was done?
 
-    You couldn't find a better place to find out!
+#impress .step .substep {
+    opacity: 0;
+}
 
-    Welcome to the stylesheet impress.js demo presentation.
+#impress .step .substep.substep-visible {
+    opacity: 1;
+    transition: opacity 1s;
+}
 
-    Please remember that it is not meant to be a part of impress.js and is
-    not required by impress.js.
-    I expect that anyone creating a presentation for impress.js would create
-    their own set of styles.
-
-    But feel free to read through it and learn how to get the most of what
-    impress.js provides.
-
-    And let me be your guide.
-
-    Shall we begin?
-*/
-
+.notes {
+    display: none;
+}
 
 /*
     We start with a good ol' reset.
@@ -250,9 +242,9 @@ a:focus {
     3D positioning along Z axis.
 */
 
-#title {
-    padding: 0;
-}
+/* #title { */
+    /* padding: 0; */
+/* } */
 
 #title .try {
     font-size: 64px;
@@ -268,7 +260,7 @@ a:focus {
 }
 
 #title h1 {
-    font-size: 180px;
+    /* font-size: 180px; */
 
     -webkit-transform: translateZ(50px);
     -moz-transform:    translateZ(50px);
@@ -727,8 +719,3 @@ body.impress-mouse-timeout {
     But it was fun to learn about it, wasn't it?
 */
 
-/*
-    That's all I have for you in this file.
-    Thanks for reading. I hope you enjoyed it at least as much as I enjoyed writing it
-    for you.
-*/
