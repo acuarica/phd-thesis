@@ -1,0 +1,3 @@
+[submodule "analysis"]
+	path = analysis
+	url = git@gitlab.com:acuarica/java-cast-oopsla-19-aec.git
