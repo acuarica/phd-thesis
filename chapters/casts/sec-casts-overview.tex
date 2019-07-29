@@ -1,5 +1,7 @@
 \section{Overview of the Sampled Casts}\label{sec:casts:overview}
 
+\input{analysis/table-casts-overview}
+
 The casts we sampled are summarized in Table~\ref{table:casts:guarded}.
 Our sample of casts spans \nUniqueProjects{} different projects
 (19\%, out of 6,840 projects).
@@ -8,7 +10,6 @@ we found \nPrimitivePattern{} (\pPrimitivePattern\%) primitive conversions.
 The remaining \nReference{} (\pReference\%) casts are either reference upcasts,
 downcasts, boxing casts, or unboxing casts.
 
-\input{analysis/table-casts-overview}
 
 Casts can be classified as either \emph{guarded} or \emph{unguarded} casts.
 A guard is a conditional expression on which the cast is control dependent,
