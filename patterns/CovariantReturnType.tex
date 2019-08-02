@@ -28,15 +28,13 @@ A cast is used on the call to the superclass method to change the type of the re
 
 %https://lgtm.com/projects/g/aws-amplify/aws-sdk-android/snapshot/dist-2970378-1524814812150/files/aws-android-sdk-autoscaling/src/main/java/com/amazonaws/services/autoscaling/model/transform/ResourceContentionExceptionUnmarshaller.java?sort=name&dir=ASC&mode=heatmap#L39
 \def\urlvar{http://bit.ly/aws_amplify_aws_sdk_android_2FVWl13}
-\begin{minted}[highlightlines=13]{java}
+\begin{minted}[highlightlines=11]{java}
 public class ResourceContentionExceptionUnmarshaller
                     extends StandardErrorUnmarshaller {
     public ResourceContentionExceptionUnmarshaller() {
         super(ResourceContentionException.class);
     }
     public AmazonServiceException unmarshall(Node node) throws Exception {
-        // Bail out if this isn't the right error code that this
-        // marshaller understands.
         String errorCode = parseErrorCode(node);
         if (errorCode == null || !errorCode.equals("ResourceContention"))
             return null;

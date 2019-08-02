@@ -36,7 +36,7 @@ For instance,
 \kotlin{}'s smart casts couple together the \code{instanceof} operator and cast operation on value, 
 providing direct support for the \nameref{pat:Typecase} and \nameref{pat:Equals} patterns.
 More generally, ML-style pattern matching subsumes this pattern.
-Smart casts do not apply directly to the \nameref{pat:OperandStack} pattern,
+Smart casts do not apply directly to the \nameref{pat:ParserStack} pattern,
 since it is dispatched depending on some application-specific control state.
 
 Other language features that might at least partially obviate the need for some of the patterns are
@@ -133,7 +133,7 @@ Although a pattern like \nameref{pat:Deserialization} depends on a well-known me
 Some other patterns are inherently complex to detect, \eg{},
 \nameref{pat:Stash},
 \nameref{pat:Family},
-\nameref{pat:OperandStack}, and
+\nameref{pat:ParserStack}, and
 \nameref{pat:Composite}.
 Recognition of these patterns would require to take into account many different variants,
 which makes automatic detection impractical.
