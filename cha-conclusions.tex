@@ -92,6 +92,19 @@ not its dependencies.
 Furthermore, some patterns require application-specific knowledge to be detected,
 which cannot be expressed in \ql{}.
 
+To detect the libraries used by a project,
+we have used the project dependencies as declared in the Maven project
+files (POM).
+However, the use of the Maven dependencies is only an approximation of
+the real dependencies of a project.
+It could happen that a declared dependency in Maven is actually not
+used in the project.
+Analogously, a project might use a library that is not declared in the POM file.
+A finer-grained dependency detection is by using the static call graph.
+Although it is more precise that using Maven dependencies,
+dependencies using static call graph are still not entirely precise
+due to the presence of reflection and dynamic binding.
+
 
 \section{Future Work}
 
@@ -195,7 +208,8 @@ The companion artifact can be found in the \emph{Source Materials} tab in the AC
 
 \textbf{Cast operator.}
 \begin{itemize}
-\urlartifact{https://gitlab.com/acuarica/java-cast-oopsla-19-aec}{Companion artifact for the cast operator study.}
+\urlartifact{https://gitlab.com/acuarica/java-cast-oopsla-19-aec}{Git repository of the companion artifact for the cast operator study.}
+\urlartifact{https://zenodo.org/record/3369397}{Archive of the companion artifact for the cast operator study}
 \urlartifact{https://gitlab.com/acuarica/phd-thesis/blob/master/analysis/casts.csv}{Comma-separated values (CSV) table.
 Each row represents a cast instance.
 This table contains 6 columns.
