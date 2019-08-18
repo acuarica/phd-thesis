@@ -241,7 +241,9 @@ lambdas in \java{} 8\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/
 \cpp{}11\footnote{\url{http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1968.pdf}} and
 \csharp{} 3.0\footnote{\url{https://msdn.microsoft.com/en-us/library/bb308966.aspx\#csharp3.0overview\_topic7}};
 or parametric polymorphism, \ie{}, generics, in \java{} 5.%
-\footnote{\url{https://docs.oracle.com/javase/1.5.0/docs/guide/language/generics.html}}\(^{,}\)\footnote{\url{http://www.oracle.com/technetwork/java/javase/generics-tutorial-159168.pdf}}
+\urlnote{https://docs.oracle.com/javase/1.5.0/docs/guide/language/generics.html}%
+\(^{,}\)%
+\urlnote{http://www.oracle.com/technetwork/java/javase/generics-tutorial-159168.pdf}
 For instance, \java{} generics were designed to extend
 \java's type system to allow
 ``a type or method to operate on objects of various types while
@@ -287,9 +289,28 @@ outside the JDK, compromising the safety of the \java{} ecosystem.
 Oracle's software engineer Paul Sandoz performed an informal analysis of
 \mavencentral{} artifacts and usages in Grepcode~\citep{sandoz-personal-communication}
 and conducted a unscientific user survey to study how the \unsafe{} \api{} is used~\citep{psandoz14}.
-The survey consists of 7 questions%
-\footnote{\url{http://www.infoq.com/news/2014/02/Unsafe-Survey}} 
+The survey consists of 7 questions,%
+\urlnote{http://www.infoq.com/news/2014/02/Unsafe-Survey}%
+\(^{,}\)%
+\urlnote{http://cr.openjdk.java.net/~psandoz/dv14-uk-paul-sandoz-unsafe-the-situation.pdf}
 that help to understand what pieces of \smu{} should be mainstreamed.
+In his survey,
+he found out that most developers that use \smu{} \emph{do not} have a fallback when \smu{} is not presence,
+thus undermining portability.
+Similarly, most developers are willing to replace Unsafe with safer alternatives---new API or language changes---in the case there is one.
+Figure~\ref{fig:lr:unsafe4} shows the answers to the question:
+\emph{``What reasons did you use Unsafe for?''}
+These reasons are somewhat related to our Unsafe usage patterns.
+We complement his survey to identify more use cases of Unsafe in a large codebase.
+When studying a larger codebase some results might change.
+For instance, he concluded that the \code{monitorEnter/monitorExit/tryMonitorEnter} methods are not used,
+whereas in our study we found out (see Section \ref{sec:unsafe:overview:features})that only \code{tryMonitorEnter} is never used.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{Unsafe-Survey-4}
+\caption{Categorization of Unsafe usages from Sandoz' survey} \label{fig:lr:unsafe4}
+\end{figure}
 
 \cite{tanSafeJavaNative2006} propose a combination of static and dynamic checks to provide a safe variant of the \java{} Native Interface (\jni{}).
 They have identified several loopholes that may cause unsafe interoperation between \java{} and native code.
