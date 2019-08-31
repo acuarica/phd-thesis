@@ -329,10 +329,13 @@ conducted an empirical security study to describe a taxonomy to classify bugs wh
 \cite{livshitsImprovingSoftwareSecurity2006,livshitsReflectionAnalysisJava2005} ``describes an approach to call graph construction for \java{} programs in the presence of reflection.''
 He has devised some common usage patterns for reflection.
 More precisely, he identified 7 reflection usage patterns.
-
-Most of the patterns use casts.
-We plan to categorize all cast usages,
-not only where reflection is used.
+Most of the patterns need a cast operation to actually be able to use some value obtained by reflection.
+For instance,
+the ``Specifying Application Extensions'' pattern is used to implement a plugin system,
+\ie, where classes are dynamically loaded from a configuration file to extend the functionality of a base application.
+Usually the class being dynamically loaded needs to implement or extend a specific interface or class respectively to be used by the plugin system.
+Thus, a cast is needed to \emph{dynamically} assert that indeed this is the case.
+In out study, we plan to categorize all cast usages, not only where reflection is used.
 
 \cite{landmanChallengesStaticAnalysis2017} have analysed the relevance of
 static analysis tools with respect to reflection.
