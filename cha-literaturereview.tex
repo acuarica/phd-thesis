@@ -114,10 +114,26 @@ how new \java{} features, \eg,
 \emph{Enhanced-For Loop},
 \emph{Extends Wildcard},
 were adopted by developers over time~\citep{dyerMiningBillionsAST2014}.
-This study is based \sourceforge{} data.
-The current problem with \sourceforge{} is that is outdated.
+This study is based \sourceforge{} data,
+which nowadays can be considered outdated,
+since the proliferation of hosting services like
+GitHub, GitLab, and BitBucket.
+Nevertheless, 
+the current \boa{} dataset is from GitHub.
+Moreover,
+recent work on \boa{} have removed some of the expressiveness limitations it had in the past.
+For instance,
+\cite{collective2018,Ramu:2018:HTE:3183440.3195033}
+have added the capability to run static analysis,
+such as the Control-flow Graph analyses,
+over the Boa datasets.
+\cite{ReliableQA2018} and \cite{maddox18}
+use the aforementioned \boa{} capability to study programming language features at a large scale.
+\cite{ReliableQA2018} conduct an empirical study on the prevalence and severity of API misuse on Stack Overflow,
+while \cite{maddox18} conducts a large scale study in order to compare the
+side-effects---\eg{}, reading/writing from/to files, throwing exceptions, or acquiring locks---of the methods of subclasses and superclasses in practice.
 
-To this end, \cite{gousiosGHTorentDatasetTool2013} provides an offline mirror of \github{} that allows researchers to query any kind of that data.
+\cite{gousiosGHTorentDatasetTool2013} provides an offline mirror of \github{} that allows researchers to query any kind of that data.
 Later on, \cite{gousiosLeanGHTorrentGitHub2014} published the dataset construction process of \github{}.
 
 Similar to \boa{}, \lgtm{}\footnote{\url{https://lgtm.com/}} is a platform to query software projects properties.

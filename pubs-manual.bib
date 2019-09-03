@@ -313,3 +313,115 @@ doi = {10.1016/B978-0-12-411519-4.00020-3}
     year = {2000},
     pages = {283--294}
 }
+
+@inproceedings{collective2018,
+  author = {Ganesha Upadhyaya and Hridesh Rajan},
+  title = {Collective Program Analysis},
+  booktitle = {ICSE'18: The 40th International Conference on Software Engineering},
+  location = {Gothenberg, Sweden},
+  month = {May 27-June 3, 2018},
+  year = {2018},
+  entrysubtype = {conference},
+  abstract = {
+    Popularity of data-driven software engineering has led to an increasing demand
+    on the infrastructures to support efficient execution of tasks that require
+    deeper source code analysis. While task optimization and parallelization are the
+    adopted solutions, other research directions are less explored.
+    We present collective program analysis (CPA), a technique for
+    scaling large scale source code analysis by leveraging analysis specific similarity.
+    Analysis specific similarity is about, whether two or more programs can be
+    considered similar for a given analysis.
+    The key idea of collective program analysis is to cluster programs based on
+    analysis specific similarity, such that running the analysis on one candidate
+    in each cluster is sufficient to produce the result for others.
+    For determining the analysis specific similarity and for clustering
+    analysis-equivalent programs, we use a sparse representation and a
+    canonical labeling scheme.
+    A sparse representation contains only the parts that are relevant for the
+    analysis and the canonical labeling helps with finding isomorphic sparse representations.
+    In a nutshell, two or more programs with same sparse representation must behave
+    similarly for the given analysis.
+    Our evaluation shows that for a variety of source code analysis tasks when run
+    on a large dataset of programs, our technique is able to achieve substantial
+    reduction in the analysis times; on average 69% when compared to baseline and
+    on average 36% when compared to a prior technique.
+    We also show that there exists a large amount of analysis-equivalent programs in
+    large datasets for variety of analysis.
+  }
+}
+
+@inproceedings{Ramu:2018:HTE:3183440.3195033,
+ author = {Ramu, Ramanathan and Upadhyaya, Ganesha and Nguyen, Hoan A and Rajan, Hridesh},
+ title = {Hybrid Traversal: Efficient Source Code Analysis at Scale},
+ booktitle = {Proceedings of the 40th International Conference on Software Engineering: Companion Proceeedings},
+ series = {ICSE '18},
+ year = {2018},
+ isbn = {978-1-4503-5663-3},
+ location = {Gothenburg, Sweden},
+ pages = {412--413},
+ numpages = {2},
+ url = {http://doi.acm.org/10.1145/3183440.3195033},
+ doi = {10.1145/3183440.3195033},
+ acmid = {3195033},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+}
+
+@inproceedings{ReliableQA2018,
+  author = {Tianyi Zhang and Ganesha Upadhyaya and Anastasia Reinhardt and Hridesh Rajan and Miryung Kim},
+  title = {Are Code Examples on an Online Q\&A Forum Reliable? A Study of API Misuse on Stack Overflow},
+  booktitle = {ICSE'18: The 40th International Conference on Software Engineering},
+  location = {Gothenberg, Sweden},
+  month = {May 27-June 3, 2018},
+  year = {2018},
+  entrysubtype = {conference},
+  abstract = {
+   Programmers often consult an online Q\&A forum such as Stack Overflow to learn new APIs. 
+   This paper presents an empirical study on the prevalence and severity of API misuse on Stack Overflow. 
+   To reduce manual assessment effort, we design Maple, an API usage mining approach 
+   that extracts patterns from over 380K Java repositories on GitHub and subsequently 
+   reports potential API usage violations in Stack Overflow posts.
+   We analyze 217,818 Stack Overflow posts using Maple and find that around 31% of them 
+   have potential API usage violations that may produce the symptoms such as program 
+   crashes and resource leaks. Such API misuse is caused by three main 
+   reasons---missing control constructs, missing or incorrect order of API calls, and 
+   incorrect guard conditions. Even the posts that are accepted as correct answers or 
+   upvoted by other programmers are not necessarily more reliable than other posts in 
+   terms of API misuse. This study result calls for a new human-in-the-loop approach 
+   to augment Stack Overflow code snippets and help the user consider better or 
+   alternative API usage.
+  }
+}
+
+@inproceedings{maddox18,
+  author = {Maddox, Jackson and Long, Yuheng and Rajan, Hridesh},
+  title = {Large-scale Study of Substitutability in the Presence of Effects},
+  booktitle = {ESEC/FSE'18: The ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering (ESEC/FSE)},
+  series = {ESEC/FSE 2018},
+  month = {November},
+  year = {2018},
+  entrysubtype = {conference},
+  abstract = {
+    A majority of modern software is constructed using languages that
+    compute by producing side-effects such as reading/writing from/to
+    files, throwing exceptions, acquiring locks, etc. To understand a
+    piece of software, e.g. a class, it is important for a developer to
+    understand its side-effects. Similarly, to replace a class with another,
+    it is important to understand whether the replacement is a safe
+    substitution for the former in terms of its behavior, a property
+    known as substitutability, because mismatch may lead to bugs. The
+    problem is especially severe for superclass-subclass pairs since
+    at runtime an instance of the subclass may be used in the client
+    code where a superclass is mentioned. Despite the importance of
+    this property, we do not yet know whether substitutability w.r.t.
+    effects between subclass and superclass is preserved in the wild,
+    and if not what sorts of substitutability violations are common and
+    what is the impact of such violations. This paper conducts a large
+    scale study on over 20 million Java classes, in order to compare the
+    effects of the methods of subclasses and superclasses in practice.
+    Our comprehensive study considers the exception, synchronization,
+    I/O, and method call effects. It reveals several interesting findings
+    and provides useful guidance for bug detection, testing, and code
+    smell detection tool design.
+  }
+}
