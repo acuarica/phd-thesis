@@ -108,7 +108,16 @@ due to the presence of reflection and dynamic binding.
 
 \section{Future Work}
 
-A possible future work could be to run our detection queries on the entire \lgtm{} database.
+As we mentioned at the beginning of Chapter~\ref{cha:unsafe} and in Section~\ref{sec:casts:issues} the wrong use of both the Unsafe API and the cast operator can lead to bugs in the application.
+For instance, a developer applying the wrong cast target or a deserialization method with Unsafe using the wrong field name or type
+can lead to a runtime exception (only when executed).
+Having usage patterns can be useful for language designers to understand what kind of idioms developers write.
+With these patterns, a language designer can decide what features to include in a given language and what they impact will be.
+In line with language designers, tool builders can for instance provide refactoring analysis according to some patterns.
+For developers, these patterns can be used as a guideline when solving recurrent problems, c.f. \emph{Design Patterns}.
+Moreover, they can provide a reference for the developer to know when she is not abusing both the Unsafe API and the cast operator.
+
+Another possible future work could be to run our detection queries on the entire \lgtm{} database.
 This can open up the possibility to devise new usage patterns,
 or to refine existing ones.
 Moreover,
