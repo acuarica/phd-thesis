@@ -1,0 +1,30 @@
+\begin{pattern}{SelectTypeArgument}
+This pattern is used to prevent the compiler
+from inferring a collection element type that is too precise.
+It guides the type checker to provide the right return type of a generic method.
+
+
+\instances{}
+In the following snippet, an upcast is performed to ensure that the
+inferred type of the call to \code{singletonList} (line 3)
+is \code{List<Framedata>} rather than \code{List<FrameBuilder>}.
+Because \code{List<FrameBuilder>} is not a subtype of \code{List<Framedata>},
+a compilation error would occur if the cast were omitted.
+
+%https://lgtm.com/projects/g/arpruss/raspberryjammod/snapshot/dist-1796220064-1524814812150/files/build/sources/java/org/java_websocket/drafts/Draft_10.java?sort=name&dir=ASC&mode=heatmap#L157
+\def\urlvar{http://bit.ly/arpruss_raspberryjammod_2USL7Ai}
+\begin{minted}[highlightlines=3]{java}
+public List<Framedata> createFrames( String text, boolean mask ) {
+    FrameBuilder curframe = new FramedataImpl1();
+    return Collections.singletonList( (Framedata) curframe );
+}
+public interface FrameBuilder extends Framedata { } #\urlbox#
+\end{minted}
+
+
+\issues{}
+In some cases, instead of casting, this pattern could be avoided using explicit type arguments,
+\eg{}, \code{Collections.<Framedata>singletonList(curframe)}.
+With \java{} 8 this cast became unnecessary due to better type inference.%
+\urlnote{https://docs.oracle.com/javase/specs/jls/se8/html/jls-18.html\#jls-18.5}
+\end{pattern}
