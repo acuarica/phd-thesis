@@ -48,7 +48,7 @@ uninteresting projects, \eg{}, student projects.
 
 \begin{figure}[ht!]
   \includegraphics[width=\columnwidth]{analysis/stats-methodwcastXproject.pdf}
-  \caption{Projects, by fraction of their methods containing casts.}
+  \caption{Projects, by fraction of their methods containing casts. Bulk of data summarized by box plot, outliers shown as individual data points.}
   \label{fig:stats}
 \end{figure}
 
@@ -61,15 +61,16 @@ we were unable to analyze the exact same set of projects from which we had drawn
 The box plot in Figure~\ref{fig:stats} shows, for each project,
 the fraction of non-native non-abstract methods containing at least one cast.
 The x-axis represents the fraction (1 means 100\% of methods contain casts).
-The y-axis has no meaning and is just used to randomly spread the data points for outliers.
+The y-axis has no meaning and is just used to randomly spread the data
+points for outliers.
 For outliers, each dot represents a project,
 and its size is given by the number of compilation units (C.U.) in the project.
-The figure shows that there are projects
-where none of the methods contain a cast (at $x=0$),
+There are projects where none of the methods contain a cast (at $x=0$),
 but there are also four small projects
 where all methods contain a cast (at $x=1$;
 e.g., an SSL\,Ping tool implemented in a single method).
-The plot shows that for most projects, fewer than a quarter of their methods contain casts.
+The plot shows that for most projects, fewer than a quarter of their
+methods contain casts.
 Overall, of the \nmethod{} non-abstract non-native methods in the database,
 \nmethodwithcast{} (8.7\%) contained at least one cast.
 The following sections analyze why there are cast instances (\ref{casts:rq2})
