@@ -263,7 +263,7 @@ date of the approved research program.\\[18mm]
     \begin{tabular}{cc}
      \rule{0.45\textwidth}{0.2mm} & \rule{0.45\textwidth}{0.2mm}\\
      \if@coadvisor
-      Research Advisor & Co-Advisor\\\addlinespace
+      Research Advisor & Research Advisor\\\addlinespace
       \bf \@advisor & \bf \@coadvisor\\\addlinespace
       & \\\addlinespace
       & \\\addlinespace
