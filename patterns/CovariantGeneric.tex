@@ -1,66 +1,14 @@
 \begin{pattern}{CovariantGeneric}
-The \thisp{} pattern occurs when a cast is used to use an invariant generic type as if it were covariant.
+The \thisp{} pattern occurs when a cast is used
+to use an invariant generic type as if it were covariant.
+It can be implemented by
+casting a generic type like \code{List<S>} to a raw type (\code{List}),
+which can then be assigned to a variable of \code{List<T>},
+where \code{S} is a subtype of \code{T}.
+
 
 \instances{}
-In the following snippet,
-an upcast is performed to ensure that the inferred type of the call to \code{singletonList} is a supertype of the type that would be otherwise inferred.
-The \code{singletonList} method has the signature \code{<T> List<T> singletonList(T o)}.%
-\footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html}}
-If \code{curframe} were passed in without the cast,
-the type of the list would be inferred to be \code{List<FrameBuilder>},
-which is not a subtype of the method return type \code{List<Framedata>},
-causing a compilation error.
-With the cast, the list type is inferred to be the same as the return type.
-
-%https://lgtm.com/projects/g/arpruss/raspberryjammod/snapshot/dist-1796220064-1524814812150/files/build/sources/java/org/java_websocket/drafts/Draft_10.java?sort=name&dir=ASC&mode=heatmap#L157
-\def\urlvar{http://bit.ly/arpruss_raspberryjammod_2USL7Ai}
-\begin{minted}[highlightlines=5]{java}
-@Override
-public List<Framedata> createFrames(String text, boolean mask) {
-    FrameBuilder curframe = new FramedataImpl1();
-    /* [...] */
-    return Collections.singletonList( (Framedata) curframe );
-}
-public interface FrameBuilder extends Framedata { /* [...] */ }
-public class Collections {
-    public static <T> List<T> singletonList(T o) { /* [...] */ }
-} #\urlbox#
-\end{minted}
-
-Similar to the previous example, in the following case,
-an upcast is performed to change the return type of the
-\code{Matcher<T> equalTo(T)} method.
-
-%https://lgtm.com/projects/g/jfaster/mango/snapshot/dist-1793930711-1524814812150/files/src/test/java/org/jfaster/mango/operator/UpdateOperatorTest.java?sort=name&dir=ASC&mode=heatmap#L125
-\def\urlvar{http://bit.ly/jfaster_mango_2EhXzUW}
-\begin{minted}[highlightlines=5]{java}
-@Test
-public void testUpdateReturnBoolean() throws Exception {
-    /* [...] */
-    List<Object> args = boundSql.getArgs();
-    assertThat(args.get(0), equalTo((Object) "ash"));
-}
-public static <T> Matcher<T> equalTo(T operand) {
-    // [...]
-} #\urlbox#
-\end{minted}
-
-Instead of an upcast, in this example,
-a cast to \code{null} is performed to change the return type.
-This use case resembles the \nameref{pat:SelectOverload} pattern.
-
-%https://lgtm.com/projects/g/EngineHub/WorldGuard/snapshot/dist-1795351250-1524814812150/files/worldguard-legacy/src/test/java/com/sk89q/worldguard/protection/FlagValueCalculatorTest.java?sort=name&dir=ASC&mode=heatmap#L1024
-\def\urlvar{http://bit.ly/EngineHub_WorldGuard_2IVUOx1}
-\begin{minted}[highlightlines=1]{java}
-assertThat(result.queryValue(memberOne, DefaultFlag.BUILD), is((State) null));
-public static <T> Matcher<T> is(T value) {
-    // [...]
-} #\urlbox#
-\end{minted}
-
-Another common version of this pattern for type \code{S} a subtype of \code{T},
-is to cast a generic type like \code{List<S>} to a raw type (\code{List}),
-which can then be assigned to a variable of \code{List<T>}.
+In the following snippet we show an instance of this pattern.
 %https://lgtm.com/projects/g/spockframework/spock/snapshot/dist-7950040-1524814812150/files/spock-core/src/main/java/org/spockframework/compiler/WhereBlockRewriter.java?sort=name&dir=ASC&mode=heatmap#L360
 \def\urlvar{http://bit.ly/spockframework_spock_2UYEsF5}
 \begin{minted}[highlightlines=2]{java}
@@ -72,41 +20,13 @@ public class ArrayExpression extends Expression {
 \end{minted}
 
 
-\detection{}
-The Query~\ref{lst:ql:CovariantGenericCast} detects when a cast is used to select the return type of a generic method.
-This query \emph{does not} detect a cast belonging to this pattern when the raw type is used, \eg{}, last example shown above.
-
-\begin{listing}
-\begin{minted}{\qllexer}
-class CovariantGenericCast extends #\qlref{Cast}# { #\qlbox#
-	Argument arg;
-	Call call;
-	Callable m;
-	CovariantGenericCast() {
-		this = arg and
-		call = arg.getCall() and
-		arg.getCall().getCallee() = m and
-		(
-			m.getReturnType().(ParameterizedType).getATypeArgument() =
-					m.getParameterType(arg.getPosition()).(TypeVariable) or
-			m.getReturnType().(TypeVariable) =
-					m.getParameterType(arg.getPosition()).(TypeVariable)
-		)
-	}
-}
-\end{minted}
-\caption{Query to detect the \thisp{} pattern.}
-\label{lst:ql:CovariantGenericCast}
-\end{listing}
-
-
 \issues{}
-In some cases, this pattern could be avoided using explicit type parameter,
-\eg{}, \code{Collections.<Framedata>singletonList(curframe)}.
-From \java{} 8 this cast is unnecessary due to better type inference.%
-\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-18.html\#jls-18.5}}
-
-\cite{altidorTamingWildcardsCombining2011} define a type system that infers definition-site variance to \java{}.
-This can reduce the need for this pattern.
+\citet{altidorTamingWildcardsCombining2011} define a type system that adds
+definition-site variance to \java{}.
+This could reduce the need for this pattern,
+although not in the instance above since \code{List} is invariant.
+Scala addresses this issue by taking advantage of definition-site variance in
+the collections library, for instance by providing a covariant immutable list type.
+  % Kotlin addresses this problem by using mixed-site variance.
 
 \end{pattern}
