@@ -121,16 +121,16 @@ GitHub, GitLab, and BitBucket.
 Nevertheless, 
 the current \boa{} dataset is from GitHub.
 Moreover,
-recent work on \boa{} have removed some of the expressiveness limitations it had in the past.
+recent work on \boa{} removed some of the expressiveness limitations it had in the past.
 For instance,
 \cite{collective2018,Ramu:2018:HTE:3183440.3195033}
-have added the capability to run static analysis,
-such as the Control-flow Graph analyses,
+have added the capability to run static analyses,
+such as control-flow graph analyses,
 over the Boa datasets.
 \cite{ReliableQA2018} and \cite{maddox18}
 use the aforementioned \boa{} capability to study programming language features at a large scale.
 \cite{ReliableQA2018} conduct an empirical study on the prevalence and severity of API misuse on Stack Overflow,
-while \cite{maddox18} conducts a large scale study in order to compare the
+while \cite{maddox18} conduct a large scale study in order to compare the
 side-effects---\eg{}, reading/writing from/to files, throwing exceptions, or acquiring locks---of the methods of subclasses and superclasses in practice.
 
 \cite{gousiosGHTorentDatasetTool2013} provides an offline mirror of \github{} that allows researchers to query any kind of that data.
@@ -304,14 +304,14 @@ outside the JDK, compromising the safety of the \java{} ecosystem.
 
 Oracle's software engineer Paul Sandoz performed an informal analysis of
 \mavencentral{} artifacts and usages in Grepcode~\citep{sandoz-personal-communication}
-and conducted a unscientific user survey to study how the \unsafe{} \api{} is used~\citep{psandoz14}.
+and conducted a user survey to study how the \unsafe{} \api{} is used~\citep{psandoz14}.
 The survey consists of 7 questions,%
 \urlnote{http://www.infoq.com/news/2014/02/Unsafe-Survey}%
 \(^{,}\)%
 \urlnote{http://cr.openjdk.java.net/~psandoz/dv14-uk-paul-sandoz-unsafe-the-situation.pdf}
 that help to understand what pieces of \smu{} should be mainstreamed.
 In his survey,
-he found out that most developers that use \smu{} \emph{do not} have a fallback when \smu{} is not presence,
+he found out that most developers who use \smu{} \emph{do not} have a fallback when \smu{} is not present,
 thus undermining portability.
 Similarly, most developers are willing to replace Unsafe with safer alternatives---new API or language changes---in the case there is one.
 Figure~\ref{fig:lr:unsafe4} shows the answers to the question:
@@ -320,7 +320,8 @@ These reasons are somewhat related to our Unsafe usage patterns.
 We complement his survey to identify more use cases of Unsafe in a large codebase.
 When studying a larger codebase some results might change.
 For instance, he concluded that the \code{monitorEnter/monitorExit/tryMonitorEnter} methods are not used,
-whereas in our study we found out (see Section \ref{sec:unsafe:overview:features})that only \code{tryMonitorEnter} is never used.
+whereas in our study we found out (see Section \ref{sec:unsafe:overview:features})
+that only \code{tryMonitorEnter} is never used.
 
 \begin{figure}[ht!]
 \centering
@@ -332,7 +333,7 @@ whereas in our study we found out (see Section \ref{sec:unsafe:overview:features
 They have identified several loopholes that may cause unsafe interoperation between \java{} and native code.
 The language extension provided by~\cite{Bubak00creatingjava}
 allows the developer to interleave \java{} and native code in the same compilation unit.
-However, the native code is not---statically nor dynamically---checked,
+However, the native code is not---neither statically nor dynamically---checked,
 causing a possible \jvm{} crash.
 \cite{tanEmpiricalSecurityStudy2008} and~\cite{kondohFindingBugsJava2008}
 conducted an empirical security study to describe a taxonomy to classify bugs when using \jni{}.
@@ -351,7 +352,7 @@ the ``Specifying Application Extensions'' pattern is used to implement a plugin 
 \ie, where classes are dynamically loaded from a configuration file to extend the functionality of a base application.
 Usually the class being dynamically loaded needs to implement or extend a specific interface or class respectively to be used by the plugin system.
 Thus, a cast is needed to \emph{dynamically} assert that indeed this is the case.
-In out study, we plan to categorize all cast usages, not only where reflection is used.
+In our study, we plan to categorize all cast usages, not only where reflection is used.
 
 \cite{landmanChallengesStaticAnalysis2017} have analysed the relevance of
 static analysis tools with respect to reflection.

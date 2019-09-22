@@ -13,7 +13,7 @@ We discussed several current and future alternatives to improve the
 This work has been published in~\citep{mastrangeloUseYourOwn2015}.
 On the other hand, we complement our Unsafe \api{} study with 
 our casting study.
-We have submitted this study for publication to the \conf{OOPSLA}{19} conference.
+This study was accepted for publication to the \conf{OOPSLA}{19} conference.
 We have discovered common usage patterns that involve the cast operator.
 
 \section{Research Questions}
@@ -76,7 +76,7 @@ are still in draft status.
 
 Both our \unsafe{} and casting studies rely on manual inspection to devise usage patterns.
 The main issue with manual inspection is that it relies heavily on the personal experience of the authors.
-Different authors could devise different set of patterns.
+Different authors could devise different sets of patterns.
 
 For our casting study,
 we do not claim that our list of patterns is exhaustive.
@@ -101,7 +101,7 @@ It could happen that a declared dependency in Maven is actually not
 used in the project.
 Analogously, a project might use a library that is not declared in the POM file.
 A finer-grained dependency detection is by using the static call graph.
-Although it is more precise that using Maven dependencies,
+Although it is more precise than using Maven dependencies,
 dependencies using static call graph are still not entirely precise
 due to the presence of reflection and dynamic binding.
 
@@ -154,7 +154,7 @@ The two studies we conducted in this thesis analyse a single snapshot of a proje
 Some patterns could be better understood in terms of their history.
 Questions like
 \emph{How did they solve this problem before using \unsafe{}?},
-or \emph{Why this cast is redundant?}
+or \emph{Why is this cast redundant?}
 could be answered by analysing the project's history. 
 For instance,
 we found that \smu{} is heavily used in only 1\% of analysed artifacts
