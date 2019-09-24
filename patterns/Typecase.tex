@@ -2,7 +2,7 @@
 The \thisp{} pattern consists of dispatching to different cases
 depending on the run-time type of the source value.
 The run-time type is tested against known subtypes of the operand type,
-with each test followed by a cast to that type.
+with each test followed by a cast of that type.
 The guard may be implemented using one of three variants:
 an \code{instanceof} operator (\variant{GuardByInstanceOf}),
 a comparison of the run-time class against a class literal (\variant{GuardByClassLiteral}),
@@ -36,7 +36,7 @@ if (object instanceof Item) {
 } else return ""; #\urlbox#
 \end{minted}
 
-In the next case a type test is performed---through a method call---before actually applying the cast to the variable \code{props} (line 3).
+In the next case a type test is performed---through a method call---before actually applying the cast of the variable \code{props} (line 3).
 Note that the type test is internally using the \code{instanceof} operator (line 8).
 
 %https://lgtm.com/projects/g/apache/poi/snapshot/dist-1790760597-1524814812150/files/src/ooxml/java/org/apache/poi/xslf/usermodel/XSLFPropertiesDelegate.java?sort=name&dir=ASC&mode=heatmap#L1367
@@ -58,7 +58,7 @@ The cast instance is applied to a variable of type \code{Throwable}
 (line 13).
 Nevertheless, the enclosing method is only allowed to throw \code{NamingException} by the \code{throws} declaration (line 3).
 Since an exception of type \code{Throwable} is checked,
-a cast to \code{VirtualMachineError} (subclass of \code{Error}) is needed.
+a cast of \code{VirtualMachineError} (subclass of \code{Error}) is needed.
 
 %https://lgtm.com/projects/g/codefollower/Tomcat-Research/snapshot/dist-13734061-1524814812150/files/java/org/apache/naming/factory/DataSourceLinkFactory.java?sort=name&dir=ASC&mode=heatmap#L85
 \def\urlvar{http://bit.ly/codefollower_Tomcat_Research_2SGDUG5}
@@ -178,7 +178,7 @@ for (final IEnrolment enrolment : dismissal.getSourceIEnrolments()) {
 \end{minted}
 
 In the next example,
-the parameter \code{args} is cast to \code{Object[]} (line 13).
+the parameter \code{args} is cast of \code{Object[]} (line 13).
 The ``type tag'' is given by the fact that the cast is executed in a \code{catch} block,
 and that \code{value} is an instance of \code{Closure} (line 9).
 The \code{args} parameter flows into two methods,
@@ -488,7 +488,7 @@ This enhancement aims to ease the transition to a \code{switch} expression that 
 The \variant{GuardByClassLiteral} variant may be used instead of the \code{instanceof} operator when the developer wants to match exactly the runtime class of an object.
 The \code{instanceof} operator%
 \footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html\#jls-15.20.2}}
-returns \code{true} if the expression could be cast to the specified type,
+returns \code{true} if the expression could be cast of the specified type,
 whereas using a class literal comparison returns \code{true} if the expression is exactly the runtime class.
 
 In some cases, the \variant{GuardByTypeTag} variant can be replaced by \variant{GuardByInstanceOf}.

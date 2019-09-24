@@ -40,7 +40,7 @@ Listing~\ref{lst:casts:simple} shows how to use the cast operator (line 2) to tr
 Object o = "foo";
 String s = (String)o;
 \end{minted}
-\caption{Variable \code{o} (defined as \code{Object}) cast to \code{String}.}
+\caption{Variable \code{o} (defined as \code{Object}) cast of \code{String}.}
 \label{lst:casts:simple}
 \end{listing}
 
@@ -146,10 +146,10 @@ However, an unboxing conversion throws a \code{NullPointerException} when
 the cast operand is \code{null}, \eg{}, \code{(double) (Double) null}.%
 \urlnote{https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html\#jls-5.1.8}
 \java{} supports \emph{autoboxing} and \emph{autounboxing} between primitives and their corresponding boxed type in the \code{java.lang} package.
-The cast to \code{x} in
+The cast of \code{x} in
 \code{Object x = new Integer(1); (double) x}
-fails because it is technically a downcast from \code{Object} to \code{Double}, followed by an unboxing cast to \code{double}.
-Since \code{Integer} cannot be cast to \code{Double},
+fails because it is technically a downcast from \code{Object} to \code{Double}, followed by an unboxing cast of \code{double}.
+Since \code{Integer} cannot be cast of \code{Double},
 the downcast throws a \code{ClassCastException}.
 
 Generics were introduced into \java{} to provide more static type safety.

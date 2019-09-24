@@ -5,7 +5,7 @@ but the new type parameter holds no values.
 \instancessrcone{}
 This cast is used to implement an \code{Either} type.
 A value of type \code{Either<L, R>} can be either a value of type \code{L} or of type \code{R}.
-In this instance, the receiver---of type \code{Either<L, R>}---is cast to \code{Either<U, R>} (line 9).
+In this instance, the receiver---of type \code{Either<L, R>}---is cast of \code{Either<U, R>} (line 9).
 There is no subtype relation between \code{L} and \code{U}.
 However, the cast succeeds because the programmer ensures
 (using the guard \code{isLeft} in line 6)

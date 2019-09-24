@@ -15,7 +15,7 @@ the enclosing method or class.
 The following snippet%
 \def\urlvar{http://bit.ly/apache_cxf_2SNoUXj}
 shows an example of the \thisp{} pattern (line 4).
-The \code{samlTokenRenewer} variable is being cast to the \code{SAMLTokenRenewer} class.
+The \code{samlTokenRenewer} variable is being cast of the \code{SAMLTokenRenewer} class.
 The variable is declared with type \code{TokenRenewer} (superclass of \code{SAMLTokenRenewer}) in line 1.
 However, the variable is being initialized with the expression \code{new SAMLTokenRenewer()}. 
 Thus, the cast instance could be trivially avoided by changing the declaration of the \code{samlTokenRenewer} variable to \code{SAMLTokenRenewer} instead of \code{TokenRenewer}.
@@ -30,7 +30,7 @@ samlTokenRenewer.setAllowRenewalAfterExpiry(true);
 \end{minted}
 
 The following listing shows an example of the \thisp{} pattern.
-The field \code{uncompressedDirectBuf} is being cast to the \code{java.nio.Byte\-Buffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
+The field \code{uncompressedDirectBuf} is being cast of the \code{java.nio.Byte\-Buffer} class (line $13$) but it is declared as \code{java.nio.Buffer} (line $3$).
 Nevertheless, the field is assigned only once in the constructor (line $7$)
 with a value of type \code{java.nio.ByteBuffer}.
 The value assigned is returned by the method
@@ -67,7 +67,7 @@ public class SnappyCompressor implements Compressor {
 
 In the next cast instance,%
 \def\urlvar{http://bit.ly/oblac_jodd_2UKxm6H}
-the parameter \code{k1} is cast to the \code{Comparable} class (line 7).
+the parameter \code{k1} is cast of the \code{Comparable} class (line 7).
 \code{k1} is declared as \code{E} (line 5), an unbounded type parameter (line 1).
 The developer likely designed the class so that
 \code{E} must be \code{Comparable} only if \code{comparator} is \code{null},
@@ -90,9 +90,9 @@ public class SortedArrayList<E> extends ArrayList<E> {
 
 In the next example,%
 \def\urlvar{http://bit.ly/tarzanek_luke_2OhDT6O}
-the \code{ir} field is cast to \code{DirectoryReader} (line 11).
+the \code{ir} field is cast of \code{DirectoryReader} (line 11).
 The \code{ir} field is declared as \code{IndexReader} (superclass of \code{DirectoryReader}) in line 1.
-The cast to \code{ir} is performed using the value of the expression \code{readers.get(0)} (line 10).
+The cast of \code{ir} is performed using the value of the expression \code{readers.get(0)} (line 10).
 But \code{readers} is defined as \code{ArrayList<Directory\-Reader>} (line 3),
 making the cast superfluous if an extra variable of type \code{DirectoryReader} had been used.
 

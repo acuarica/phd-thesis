@@ -1,12 +1,12 @@
 \begin{pattern}{FluentAPI}
 A fluent \api{} is an \api{} that allows the developer to operate on the same
 object using method chaining.
-This pattern is exhibited when the receiver (\code{this} reference) is cast to a type parameter which is itself bounded by the self type.
+This pattern is exhibited when the receiver (\code{this} reference) is cast of a type parameter which is itself bounded by the self type.
 
 
 \instances{}
 In the following snippet,
-the receiver (\code{this}) is cast to a type parameter (\code{B}) (line 5).
+the receiver (\code{this}) is cast of a type parameter (\code{B}) (line 5).
 This allows subclasses to reuse the methods in the base class without overriding them just to change the return type.
 
 %https://lgtm.com/projects/g/HanSolo/Medusa/snapshot/dist-1798710811-1524814812150/files/src/main/java/eu/hansolo/medusa/ClockBuilder.java?sort=name&dir=ASC&mode=heatmap#L293
@@ -24,7 +24,7 @@ public class ClockBuilder <B extends ClockBuilder<B>> {
 The following example implements \thisp{} by directly casting the receiver
 (\code{this}) in line 3.
 Similarly to the \code{addAllThrown} method,
-the rest of methods in the enclosing class perform a cast to \code{this}.
+the rest of methods in the enclosing class perform a cast of \code{this}.
 Although there is a lot of boilerplate code,
 this instance happens in generated code.
 The cast succeeds because there is a guard (line 8) in the constructor that 

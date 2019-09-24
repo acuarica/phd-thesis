@@ -34,7 +34,7 @@ AuthState authState = (AuthState) context.getAttribute(
 #\urlbox#
 \end{minted}
 
-The next snippet shows a call site to the \code{getComponent} method cast to the \code{ActiveListManager} class (line 14).
+The next snippet shows a call site to the \code{getComponent} method cast of the \code{ActiveListManager} class (line 14).
 The \code{getComponent} method in this cast instance uses as argument the \code{PROP\_ACTIVE\_LIST\_MANAGER} constant.
 Looking at the definition of this constant (line 3),
 we can see there is a companion attribute (\code{@S4Component}) whose argument is the \code{ActiveListManager} class, the target of the cast instance.
@@ -110,7 +110,7 @@ protected void onCreate(Bundle savedInstanceState) {
 \end{minted}
 
 The next listing,
-shows a cast to a GUI component (\code{XulListbox}) using the \code{getElementById} method (lines 12 and 13).
+shows a cast of a GUI component (\code{XulListbox}) using the \code{getElementById} method (lines 12 and 13).
 In this case the developer is using the XUL language.%
 \footnote{\url{https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XUL}}
 

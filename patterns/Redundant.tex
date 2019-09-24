@@ -3,7 +3,7 @@ A redundant cast is a cast that is not necessary for compilation.
 The cast could be removed from source code without affecting the application.
 
 To detect the \thisp{} pattern, 
-the expression being cast needs to be of the same type as the type being cast to.
+the expression being cast needs to be of the same type as the type being cast of.
 
 \instances{}
 The following listing exhibits an instance of the \thisp{} pattern.
@@ -87,7 +87,7 @@ public class ImplicitKeyTreap<T> implements IList<T> {
 \end{minted}
 
 There are cases when code generators insert superfluous casts to \code{null}.
-The following cast instance could be removed since in this case the cast to \code{null} is not needed.
+The following cast instance could be removed since in this case the cast of \code{null} is not needed.
 
 %https://lgtm.com/projects/g/togglz/togglz/snapshot/dist-44910020-1524814812150/files/slack/target/generated-sources/groovy-stubs/test/org/togglz/slack/sender/AsyncNotifierSpecIT.java?sort=name&dir=ASC&mode=heatmap#L17
 \def\urlvar{http://bit.ly/togglz_togglz_2SGncXB}

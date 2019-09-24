@@ -1,10 +1,10 @@
 \begin{pattern}{Factory}
 Creates an object based on some arguments to a method call.
-Since the arguments are known at compile time, cast to the specific type.
+Since the arguments are known at compile time, cast of the specific type.
 In this pattern, the arguments resemble a ``type tag'' descriptor (cf.
 \nameref{pat:Typecase}).
 
-This pattern is characterized by a cast to a method call passing one or more arguments.
+This pattern is characterized by a cast of a method call passing one or more arguments.
 The method call needs to create an object based on those arguments.
 Usually the arguments that determine the run-time type to be returned are known at compile time.
 
@@ -42,7 +42,7 @@ The method is declared to return \code{URLConnection} but can return a more spec
 The \code{openConnection} method is applied to the \code{url} variable,
 which is assigned in line 1 using the \code{URL} constructor.
 The argument to the constructor is an \code{http} URL,
-thus the result is cast to \code{HttpURLConnection}.
+thus the result is cast of \code{HttpURLConnection}.
 %https://lgtm.com/projects/g/apache/hadoop/snapshot/dist-956730001-1524814812150/files/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-resourcemanager/src/test/java/org/apache/hadoop/yarn/server/resourcemanager/webapp/TestRMWebServicesHttpStaticUserPermissions.java?sort=name&dir=ASC&mode=heatmap#L138
 \def\urlvar{http://bit.ly/apache_hadoop_2E6KY6T}
 \begin{minted}[highlightlines=2]{java}
