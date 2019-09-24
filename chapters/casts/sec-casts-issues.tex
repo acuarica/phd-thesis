@@ -47,7 +47,7 @@ AbstractProject<?, ?> project = (AbstractProject<?, ?>) job;
 \caption{Cast throws \code{ClassCastException} because of a forgotten guard.}
 \end{listing}
 
-In the next example the developer made a mistake by choosing a wrong class for the cast target,
+In the next example the developer made a mistake by choosing the wrong class for the cast target,
 \ie, \code{JCustomFileChooser} instead of \code{CustomFile\-Filter} (line 9).
 The \code{CustomFileFilter} is an inner static class inside the \code{JCustom\-FileFilter} class.
 There is no subclass relationship between these two classes.

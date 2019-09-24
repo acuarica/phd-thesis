@@ -7,7 +7,7 @@ A cast expression is guarded by either an
 in an \code{equals}%
 \footnote{\url{https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html\#equals-java.lang.Object-}}
 method implementation.
-This is done to check if the argument has same type as the receiver
+This is done to check if the argument has the same type as the receiver
 (\code{this} argument).
 Notice that a cast in an \code{equals} method is needed because it
 receives an \code{Object} as a parameter.
@@ -121,7 +121,7 @@ abstract class $AutoValue_ListsItem extends ListsItem {
 The following snippet shows a non-trivial implementation of \code{equals}.
 The enclosing class of the \code{equals} method is \code{CapReq} (line 1).
 However, the cast instance (line 13) is not against the enclosing class,
-it is against to the \code{Requirement} class (\variant{InstanceOfSwitch} variant).
+it is against to the \code{Requirement} interface (\variant{InstanceOfSwitch} variant).
 Note that the cast using the enclosing class as target type is in line 9.
 
 %https://lgtm.com/projects/g/bndtools/bnd/snapshot/dist-930051-1524814812150/files/biz.aQute.bndlib/src/aQute/bnd/osgi/resource/CapReq.java?sort=name&dir=ASC&mode=heatmap#L73

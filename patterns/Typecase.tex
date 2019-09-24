@@ -212,7 +212,7 @@ public Object invokeMethod(String name, Object args) {
 In the \variant{GuardByClassLiteral} variant, a cast uses an application-specific guard, but the guard depends on a class literal.
 In the following example,
 a cast is performed to the \code{field} variable (line 22),
-based whether the run-time class of the variable is actually \code{Short.class}.
+based on whether the run-time class of the variable is actually \code{Short.class}.
 
 %https://lgtm.com/projects/g/elastic/elasticsearch/snapshot/dist-1916470085-1524814812150/files/server/src/main/java/org/elasticsearch/common/lucene/Lucene.java?sort=name&dir=ASC&mode=heatmap#L478
 \def\urlvar{http://bit.ly/elastic_elasticsearch_2SSgsFV}
@@ -494,6 +494,6 @@ whereas using a class literal comparison returns \code{true} if the expression i
 In some cases, the \variant{GuardByTypeTag} variant can be replaced by \variant{GuardByInstanceOf}.
 However, if the application-specific tag is a numeric value,
 the \variant{GuardByTypeTag} could perform better than the \variant{GuardByInstanceOf} using \code{instanceof}.
-Moreover, there are situation where the \code{instanceof} operator cannot be avoid since the types to be cast are the same.
+Moreover, there are situations where the \code{instanceof} operator cannot be avoid since the types to be cast are the same.
 
 \end{pattern}

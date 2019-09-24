@@ -119,7 +119,7 @@ These methods are implemented using processor-specific instructions.
 These methods were introduced only recently in \java{} 8, which explains their limited use in our data set.
 We expect that their use will increase over time and that other operations, such as those in the \smugroup{Ordered Put}, or \smugroup{Volatile Put} groups will decrease as programmers use the lower-level fence operations.
 
-\item The \smugroup{Fetch \& Add} group, like the \smugroup{CAS} group, allows the programmer to atomically update a \java{} variable. This group of methods was also added recently in \java{} 8. We expect their use to increase as programmers replace some calls to methods in the \smugroup{CAS} group with the new functionality.
+\item The \smugroup{Fetch \& Add} group, like the \smugroup{CAS} group, allows the programmer to atomically update a \java{} variable. This group of methods was also recently added in \java{} 8. We expect their use to increase as programmers replace some calls to methods in the \smugroup{CAS} group with the new functionality.
 
 \item The \smugroup{Heap} group methods are used to directly access memory in the \java{} heap. The \smugroup{Heap Get} and \smugroup{Heap Put} groups allow the developer to load and store a Java variable. These groups are among the most frequently used ones in \unsafe{}.
 

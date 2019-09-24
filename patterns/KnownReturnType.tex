@@ -49,7 +49,7 @@ protected IDebugTarget createDebugTarget(/* [...] */) throws CoreException {
 
 In some situations,
 an \api{} method is designed to return an abstract class or interface.
-This \api{} allows the developer to then choose which implementation use at run time.
+This \api{} allows the developer to then choose which implementation to use at run time.
 The following example shows this situation.
 The cast is applied to the \code{getLogger} method---with return type \code{org.slf4j.Logger}---in line 4.
 But the developer set up the application to use \code{ch.qos.logback.classic.Logger} instead.

@@ -99,7 +99,7 @@ public groovy.lang.MetaClass getMetaClass() {
 
 
 \detection{}
-The following query returns casts where the static type of the cast expression is the exactly the same as the target type.
+The following query returns casts where the static type of the cast expression is exactly the same as the target type.
 That is, casts \code{(T) e} where e is declared as \code{T}.
 The query also detects a redundant upcast, \ie{},
 an upcast that is not used for neither the \nameref{pat:SelectOverload} nor the \nameref{pat:CovariantGeneric} patterns.
