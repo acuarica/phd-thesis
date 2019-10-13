@@ -1,6 +1,10 @@
 
 # Ph.D. Thesis
 
+## Archive Link
+
+https://doc.rero.ch/record/327253?ln=en
+
 ## Title: When and How Java Developers Give Up Static Type Safety
 
 ## Abstract
